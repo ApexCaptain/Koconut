@@ -1,0 +1,29 @@
+{
+  "name": "koconut",
+  "version": "1.0.0",
+  "description": "Promise-Friendly Kotlin style collection lib for nodejs.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "node ./etc/ClearTask.js && tsc",
+    "test": "npm run build && mocha --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ApexCaptain/Koconut.git"
+  },
+  "author": {
+    "name": "SangHun Lee",
+    "email": "ayteneve93@gmail.com"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ApexCaptain/Koconut/issues"
+  },
+  "homepage": "https://github.com/ApexCaptain/Koconut#readme",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^7.2.0",
+    "typescript": "^3.9.3"
+  }
+}
