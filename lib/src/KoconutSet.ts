@@ -1,5 +1,7 @@
-import { KoconutPrimitive } from "./KoconutPrimitive"
 import { SetterUnlocker } from "./Interface"
+import { KoconutPair } from "./KoconutPair"
+import { KoconutMap } from "./KoconutMap"
+import { KoconutPrimitive } from "./KoconutPrimitive"
 export class KoconutSet<DataType> extends KoconutPrimitive<Set<DataType>> {
     all(predicate : (element : DataType, index : number, sourceSet : Set<DataType>) => boolean | Promise<boolean>, thisArg : any = null) : KoconutPrimitive<boolean> {
         predicate = predicate.bind(thisArg)
@@ -44,4 +46,19 @@ export class KoconutSet<DataType> extends KoconutPrimitive<Set<DataType>> {
         })
         return koconutToReturn
     }
+
+    asIterable() : KoconutPrimitive<Iterable<DataType>> {
+        const koconutToReturn = new KoconutPrimitive<Iterable<DataType>>();
+        (koconutToReturn as any as SetterUnlocker<Iterable<DataType>>).setPrevYieldable(this);
+        (koconutToReturn as any as SetterUnlocker<Iterable<DataType>>).setProcessor(async () => {
+            const processedArray = new Array<DataType>()
+            if(this.data != null) return this.data
+            else return processedArray
+        })
+        return koconutToReturn
+    }
+
+
+
+
 }
