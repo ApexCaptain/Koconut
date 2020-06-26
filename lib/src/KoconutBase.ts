@@ -12,8 +12,8 @@ export interface KoconutOpener<DataType> {
 export class KoconutPrimitive<DataType> implements KoconutYieldable<DataType> {
     
     data : DataType | null
-    protected prevYieldable? : KoconutYieldable<any>
-    protected processor? : () => Promise<DataType>
+    prevYieldable? : KoconutYieldable<any>
+    processor? : () => Promise<DataType>
 
     protected setPrevYieldable(prevYieldable : KoconutYieldable<any>) : KoconutOpener<DataType> {
         this.prevYieldable = prevYieldable
@@ -58,7 +58,7 @@ export class KoconutPrimitive<DataType> implements KoconutYieldable<DataType> {
 
 }
 
-class Pair<FirstType, SecondType> {
+export class Pair<FirstType, SecondType> {
     private firstElement : FirstType
     private secondElement : SecondType
     constructor(firstElement : FirstType, secondElement : SecondType) {
@@ -72,12 +72,13 @@ class Pair<FirstType, SecondType> {
     toEntry() : Entry<FirstType, SecondType> { return new Entry(this.first, this.second)}
 }
 export class KoconutPair<FirstType, SecondType> extends KoconutPrimitive<Pair<FirstType, SecondType>> {
-    constructor(frist : FirstType, second : SecondType) {
-        super(new Pair(frist, second))
+    constructor(frist : FirstType | null = null, second : SecondType | null = null) {
+        if(frist != null && second != null) super(new Pair(frist, second))
+        else super()
     }
 }
 
-class Entry<KeyType, ValueType> {
+export class Entry<KeyType, ValueType> {
     protected keyElement : KeyType
     protected valueElement : ValueType
     constructor(keyElement : KeyType, valueElement : ValueType) {
@@ -94,7 +95,7 @@ export class KoconutEntry<KeyType, ValueType> extends KoconutPrimitive<Entry<Key
 
 }
 
-class MutableEntry<KeyType, ValueType> extends Entry<KeyType, ValueType> {
+export class MutableEntry<KeyType, ValueType> extends Entry<KeyType, ValueType> {
     set key(key : KeyType) { this.keyElement = key }
     set value(value : ValueType) { this.valueElement = value}
 }
