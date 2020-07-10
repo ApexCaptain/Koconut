@@ -1,3 +1,5 @@
+'use strict'
+
 import { KoconutArray } from "./collection/KoconutArray"
 
 export interface KoconutYieldable<DataType> {

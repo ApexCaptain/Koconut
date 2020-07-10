@@ -1,12 +1,14 @@
 
 import { Koconut } from "../index"
+import { KoconutPair } from "../src/KoconutBase";
 
 
 export async function runTsExample() {
 
-    await Koconut.Array([1,2,3,4,5,6,7])
-                            .zip(['a','b','c','d','e'], (origin, other) => {
-                                return `${origin}${other}`
+    var rst = await Koconut.Array([1,2,3,3,3,2])
+                            .union(new Set([2,2,2,3]))
+                            .let(it => {
+                                console.log(it)
                             })
-                            .let(e => console.log(e))
+                                
 }

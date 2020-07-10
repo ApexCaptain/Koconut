@@ -1,6 +1,7 @@
+'use strict'
+
 import { KoconutPrimitive, KoconutOpener, KoconutPair, Pair } from "../KoconutBase"
 import { KoconutMap } from "../map/KoconutMap"
-
 
 
 export class KoconutCollection<DataType, WrapperType extends Array<DataType> | Set<DataType>> extends KoconutPrimitive<WrapperType> {
@@ -604,34 +605,20 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
 
 
     flatMap<ResultDataType>(
-        transform : (element : DataType, index : number, source : WrapperType) => Array<ResultDataType> | Promise<Array<ResultDataType>>) : KoconutCollection<ResultDataType, Array<ResultDataType>>;
-    flatMap<ResultDataType>(
         transform : (element : DataType, index : number, source : WrapperType) => Array<ResultDataType> | Promise<Array<ResultDataType>>,
-        thisArg : any) : KoconutCollection<ResultDataType, Array<ResultDataType>>;
-    flatMap<ResultDataType>(
-        transform : (element : DataType, index : number, source : WrapperType) => Set<ResultDataType> | Promise<Set<ResultDataType>>,) : KoconutCollection<ResultDataType, Set<ResultDataType>>;
-    flatMap<ResultDataType>(
-        transform : (element : DataType, index : number, source : WrapperType) => Set<ResultDataType> | Promise<Set<ResultDataType>>,
-        thisArg : any) : KoconutCollection<ResultDataType, Set<ResultDataType>>;
-    flatMap<ResultDataType> (
-        transform : (element : DataType, index : number, source : WrapperType) => Array<ResultDataType> | Set<ResultDataType> | Promise<Array<ResultDataType>> | Promise<Set<ResultDataType>>,
-        thisArg : any = null) : KoconutCollection<ResultDataType, Array<ResultDataType> | Set<ResultDataType>>{
+        thisArg : any = null) : KoconutCollection<ResultDataType, Array<ResultDataType>> {
 
         transform = transform.bind(thisArg)
-        const koconutToReturn = new KoconutCollection<ResultDataType, Array<ResultDataType> | Set<ResultDataType>>();
-        (koconutToReturn as any as KoconutOpener<Array<ResultDataType> | Set<ResultDataType>>).setPrevYieldable(this).setProcessor(async () => {
+        const koconutToReturn = new KoconutCollection<ResultDataType, Array<ResultDataType>>();
+        (koconutToReturn as any as KoconutOpener<Array<ResultDataType>>).setPrevYieldable(this).setProcessor(async () => {
             const processedArray = new Array<ResultDataType>();
-            let isSet = false
             if(this.data != null) {
                 for(const [index, element] of this.data.entries()) {
-                    const subElements = await transform(element, index as number, this.data)
-                    if(subElements instanceof Set) isSet = true
-                    for(let eachSubData of subElements)
-                        processedArray.push(eachSubData)
+                    const eachSubElements = await transform(element, index as number, this.data)
+                    for(let eachSubElement of eachSubElements) processedArray.push(eachSubElement)
                 }
             }
-            if(isSet) return new Set(processedArray)
-            else return processedArray
+            return processedArray;
         })
         return koconutToReturn
 
@@ -810,9 +797,8 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
 
     }
 
-
     intersect(
-        other : Array<DataType> | Set<DataType>) : KoconutCollection<DataType, WrapperType> {
+        other : Iterable<DataType>) : KoconutCollection<DataType, WrapperType> {
 
         const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
         (koconutToReturn as any as KoconutOpener<WrapperType>).setPrevYieldable(this).setProcessor(async () => {

@@ -1,3 +1,5 @@
+'use strict'
+
 import { KoconutCollection } from "./KoconutCollection"
 import { KoconutPrimitive, KoconutOpener } from "../KoconutBase"
 

@@ -1,3 +1,5 @@
+'use strict'
+
 import { KoconutArray } from "./src/collection/KoconutArray"
 import { KoconutPair } from "./src/KoconutBase"
 import { KoconutSet } from "./src/collection/KoconutSet"
