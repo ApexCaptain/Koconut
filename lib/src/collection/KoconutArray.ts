@@ -7,16 +7,18 @@ import { KoconutSet } from "./KoconutSet";
 
 export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<DataType>> {
 
-    // KoconutArray
+    
+    // Koconut Array
     static fromCollection<DataType>(
         collection : KoconutCollection<DataType, Array<DataType>>) : KoconutArray<DataType> {
 
         const koconutToReturn = new KoconutArray<DataType>(collection.data);
         koconutToReturn.processor = collection.processor;
+        koconutToReturn.prevYieldable = collection.prevYieldable
         return koconutToReturn;
 
     }
-
+    
 
     associateByTo<KeyType, ValueType = DataType> (
         destination : Map<KeyType, ValueType>,
@@ -218,11 +220,10 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
 
     }
 
-
+    
     map<ResultDataType>(
         transform : (element : DataType, index : number, source : Array<DataType>) => ResultDataType | Promise<ResultDataType>,
         thisArg : any = null) : KoconutArray<ResultDataType> {
-
         return KoconutArray.fromCollection(super.map(transform, thisArg))
 
     }
@@ -464,6 +465,7 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
         else return KoconutArray.fromCollection(super.zipWithNext(transform, thisArg))
 
     }
+    
 
 
 

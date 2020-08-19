@@ -12,6 +12,7 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
 
         const koconutToReturn = new KoconutSet<DataType>(collection.data)
         koconutToReturn.processor = collection.processor
+        koconutToReturn.prevYieldable = collection.prevYieldable
         return koconutToReturn
 
     }
