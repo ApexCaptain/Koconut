@@ -51,7 +51,7 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
 
     }
 
-    
+
     chunked(
         size : number) : KoconutArray<Array<DataType>>;
     chunked<ReturnType>(
@@ -66,9 +66,29 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
         transform : ((elements : Array<DataType>, index : number, source : Array<Array<DataType>>) => ReturnType | Promise<ReturnType>) | null = null,
         thisArg : any = null) : KoconutArray<Array<DataType> | ReturnType> {
 
-        if(transform) return KoconutArray.fromCollection(super.chunked(size, transform, thisArg))
-        else return KoconutArray.fromCollection(super.chunked(size))
-        
+        if(transform) transform = transform.bind(thisArg)
+        const koconutToReturn = new KoconutArray<Array<DataType> | ReturnType>()
+        koconutToReturn.setPrevYieldable(this).setProcessor(async () => {
+            const processedArray = Array<Array<DataType>>()
+            if(this.data != null) {
+                let currentIndex = 0
+                let dataArray = Array.from(this.data)
+                while(currentIndex < dataArray.length) {
+                    const eachChunkedData = dataArray.slice(currentIndex, currentIndex + size)
+                    currentIndex += size
+                    processedArray.push(eachChunkedData)
+                }
+            }
+            if(transform) {
+                const transformedArray = new Array<ReturnType>()
+                for(let eachProcessedIndex in processedArray)
+                    transformedArray.push(await transform(processedArray[eachProcessedIndex], parseInt(eachProcessedIndex), processedArray))
+                return transformedArray
+            }
+            return processedArray
+        })
+        return koconutToReturn
+
     }
 
 

@@ -6,8 +6,14 @@ import { KoconutMap } from "../map/KoconutMap"
 
 export class KoconutCollection<DataType, WrapperType extends Array<DataType> | Set<DataType>> extends KoconutPrimitive<WrapperType> {
 
-    /* Collection */
 
+    /*
+    [Symbol.iterator]() : Iterator<DataType> {
+        return (this.data as WrapperType)[Symbol.iterator]()
+    }
+    */
+
+    /* Collection */
     all(predicate : (element : DataType, index : number, source : WrapperType) => boolean | Promise<boolean>, 
         thisArg : any = null) : KoconutPrimitive<boolean> {
 
@@ -182,46 +188,6 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
 
     }
     
-
-    chunked(
-        size : number) : KoconutCollection<WrapperType, Array<WrapperType>>;
-    chunked<ReturnType>(
-        size : number,
-        transform : (elements : WrapperType, index : number, source : Array<WrapperType>) => ReturnType | Promise<ReturnType>) : KoconutCollection<ReturnType, Array<ReturnType>>;
-    chunked<ReturnType>(
-        size : number,
-        transform : (elements : WrapperType, index : number, source : Array<WrapperType>) => ReturnType | Promise<ReturnType>,
-        thisArg : any) : KoconutCollection<ReturnType, Array<ReturnType>>;
-    chunked<ReturnType>(
-        size : number, 
-        transform : ((elements : WrapperType, index : number, source : Array<WrapperType>) => ReturnType | Promise<ReturnType>) | null = null, 
-        thisArg : any = null) : KoconutCollection<WrapperType | ReturnType, Array<WrapperType> | Array<ReturnType>> {
-        
-        if(transform) transform = transform.bind(thisArg)
-        const koconutToReturn = new KoconutCollection<WrapperType | ReturnType, Array<WrapperType> | Array<ReturnType>>();
-        (koconutToReturn as any as KoconutOpener<Array<WrapperType> | Array<ReturnType>>).setPrevYieldable(this).setProcessor(async () => {
-            const processedArray = Array<WrapperType>()
-            if(this.data != null) {
-                let currentIndex = 0
-                let dataArray = Array.from(this.data)
-                while(currentIndex < dataArray.length) {
-                    const eachChunkedData = dataArray.slice(currentIndex, currentIndex + size)
-                    currentIndex += size
-                    processedArray.push(eachChunkedData as WrapperType)
-                }
-            }
-            if(transform) {
-                const transformedArray = new Array<ReturnType>()
-                for(let eachProcessedIndex in processedArray)
-                    transformedArray.push(await transform(processedArray[eachProcessedIndex], parseInt(eachProcessedIndex), processedArray))
-                return transformedArray
-            }
-            return processedArray
-        })
-        return koconutToReturn
-
-    }
-
 
     contains(
         element : DataType) : KoconutPrimitive<boolean> {
