@@ -4,7 +4,7 @@ import { KoconutPair } from "../src/KoconutBase";
 
 
 export async function runTsExample() {
-
+    
     const arr = [
         {name : "SangHun", age : 25},
         {name : "SangHun", age : 26}
