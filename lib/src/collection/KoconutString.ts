@@ -12,6 +12,7 @@ export class KoconutString extends KoconutCollection<string, Array<string>> {
 
         const koconutToReturn = new KoconutString(collection.data)
         koconutToReturn.processor = collection.processor
+        koconutToReturn.prevYieldable = collection.prevYieldable
         return koconutToReturn
 
     }

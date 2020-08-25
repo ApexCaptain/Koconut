@@ -1,11 +1,11 @@
 'use strict'
 
 import { KoconutCollection } from "./KoconutCollection"
-import { KoconutString } from "./KoconutString"
-import { KoconutPair, Pair } from "../KoconutBase"
+import { KoconutPair } from "../KoconutBase"
 
 export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataType>> {
 
+    // Koconut Set
     static fromCollection<DataType>(
         collection : KoconutCollection<DataType, Set<DataType>>) : KoconutSet<DataType> {
 

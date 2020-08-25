@@ -6,13 +6,6 @@ import { KoconutMap } from "../map/KoconutMap"
 
 export class KoconutCollection<DataType, WrapperType extends Array<DataType> | Set<DataType>> extends KoconutPrimitive<WrapperType> {
 
-
-    /*
-    [Symbol.iterator]() : Iterator<DataType> {
-        return (this.data as WrapperType)[Symbol.iterator]()
-    }
-    */
-
     /* Collection */
     all(predicate : (element : DataType, index : number, source : WrapperType) => boolean | Promise<boolean>, 
         thisArg : any = null) : KoconutPrimitive<boolean> {

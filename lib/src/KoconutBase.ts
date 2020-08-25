@@ -1,7 +1,5 @@
 'use strict'
 
-import { KoconutArray } from "./collection/KoconutArray"
-
 export interface KoconutYieldable<DataType> {
     yield() : Promise<DataType | null>
 }
@@ -73,6 +71,7 @@ export class Pair<FirstType, SecondType> {
     toArray() : Array<FirstType | SecondType> { return [this.first, this.second] }
     toEntry() : Entry<FirstType, SecondType> { return new Entry(this.first, this.second)}
 }
+
 export class KoconutPair<FirstType, SecondType> extends KoconutPrimitive<Pair<FirstType, SecondType>> {
     constructor(frist : FirstType | null = null, second : SecondType | null = null) {
         if(frist != null && second != null) super(new Pair(frist, second))
@@ -93,6 +92,7 @@ export class Entry<KeyType, ValueType> {
     toArray() : Array<KeyType | ValueType> { return this.toPair().toArray() }
     toPair() : Pair<KeyType, ValueType> { return new Pair(this.key, this.value) }
 }
+
 export class KoconutEntry<KeyType, ValueType> extends KoconutPrimitive<Entry<KeyType, ValueType>> {
 
 }
@@ -101,6 +101,7 @@ export class MutableEntry<KeyType, ValueType> extends Entry<KeyType, ValueType> 
     set key(key : KeyType) { this.keyElement = key }
     set value(value : ValueType) { this.valueElement = value}
 }
+
 export class KoconutMutableEntry<KeyType, ValueType> extends KoconutPrimitive<MutableEntry<KeyType, ValueType>> {
 
 }
