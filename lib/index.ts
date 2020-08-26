@@ -1,13 +1,14 @@
 'use strict'
 
-import { KoconutArray } from "./src/collection/KoconutArray"
+import { KoconutArray, KoconutString, KoconutSet } from "./src/collection/KoconutCollection" 
 import { KoconutPair } from "./src/KoconutBase"
-import { KoconutSet } from "./src/collection/KoconutSet"
-import { KoconutString } from "./src/collection/KoconutString"
+
 
 export const Koconut = {
-    Array : function<DataType>(array : Array<DataType>) : KoconutArray<DataType> { return new KoconutArray(array) },
+    Array : function<DataType>(elements : Iterable<DataType>) : KoconutArray<DataType> { return new KoconutArray(Array.from(elements))},
+    String : function(str : string) : KoconutString { return new KoconutString(str.split(''))},
+    Set : function<DataType>(elements : Iterable<DataType>) : KoconutSet<DataType> { return new KoconutSet(new Set(elements))},
     Pair : function<FirstType, SecondType>(first : FirstType, second : SecondType) : KoconutPair<FirstType, SecondType> { return new KoconutPair(first, second) },
-    Set : function<DataType>(set : Set<DataType>) : KoconutSet<DataType> { return new KoconutSet(set) },
-    String : function(str : string) : KoconutString { return new KoconutString(str.split('')) }
+    //Set : function<DataType>(set : Set<DataType>) : KoconutSet<DataType> { return new KoconutSet(set) },
+    //String : function(str : string) : KoconutString { return new KoconutString(str.split('')) }
 }
