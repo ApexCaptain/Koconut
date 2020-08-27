@@ -106,6 +106,15 @@ export class KoconutMutableEntry<KeyType, ValueType> extends KoconutPrimitive<Mu
 
 }
 
+// 이 부분 나중에 추가로 처리해야함...
+export const TypeChecker = {
+    checkIsComparable : function(target : any) : target is IComparable {
+        if(target && target.compareTo && typeof(target.compareTo) === 'function') return true
+        else return false
+    }
+} 
+
 export interface IComparable {
     compareTo(other : IComparable) : number
 }
+

@@ -1,6 +1,6 @@
 'use strict'
 
-import { KoconutPrimitive, KoconutOpener, KoconutPair, IComparable } from "../KoconutBase"
+import { KoconutPrimitive, KoconutOpener, KoconutPair, TypeChecker, IComparable } from "../KoconutBase"
 import { KoconutMap } from "../map/KoconutMap";
 import { KoconutInvalidArgumentException, KoconutIndexOutOfBoundsException } from "../KoconutException";
 
@@ -1000,7 +1000,7 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
         (koconutToReturn as any as KoconutOpener<DataType>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
-                if(this.data == null || Array.from(this.data).length == 0) throw new KoconutIndexOutOfBoundsException(`Source data is null or empty`)
+                if(this.data == null || Array.from(this.data).length == 0) throw new KoconutIndexOutOfBoundsException(`Source data is null or empty`) 
                 const dataArray = Array.from(this.data)
                 if(predicate) {
                     for(let eachIndex = dataArray.length - 1 ; eachIndex >= 0 ; eachIndex--)
@@ -1160,10 +1160,115 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
     }
 
 
-    maxByOrNull(){
-        
+    maxByOrNull(
+        selector : (element : DataType, index : number, source : WrapperType) => number | string | IComparable | Promise<number | string | IComparable>,
+        thisArg : any = null
+    ) : KoconutPrimitive<DataType | null> {
+
+        selector = selector.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<DataType | null>();
+        (koconutToReturn as any as KoconutOpener<DataType | null>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data == null || Array.from(this.data).length == 0) return null
+                let dataToReturn : DataType | null = null
+                let lastComparableDatum : number | string | IComparable | null = null
+                for(const [index, element] of this.data.entries()) {
+                    const eachComparableDatum = await selector(element, index as number, this.data)
+                    if(lastComparableDatum == null
+                        || TypeChecker.checkIsComparable(eachComparableDatum) && (eachComparableDatum as any as IComparable).compareTo(lastComparableDatum as any as IComparable) > 0
+                        || !TypeChecker.checkIsComparable(eachComparableDatum) && lastComparableDatum < eachComparableDatum) {
+                            dataToReturn = element
+                            lastComparableDatum = eachComparableDatum
+                        }
+                }
+                return dataToReturn
+            })
+        return koconutToReturn
+
     }
 
+
+    maxOf(
+        selector : (element : DataType, index : number, source : WrapperType) => number | Promise<number>
+    ) : KoconutPrimitive<number>;
+    maxOf(
+        selector : (element : DataType, index : number, source : WrapperType) => number | Promise<number>,
+        thisArg : any
+    ) : KoconutPrimitive<number>;
+    maxOf(
+        selector : (element : DataType, index : number, source : WrapperType) => string | Promise<string>
+    ) : KoconutPrimitive<string>
+    maxOf(
+        selector : (element : DataType, index : number, source : WrapperType) => string | Promise<string>,
+        thisArg : any
+    ) : KoconutPrimitive<string>;
+    maxOf<ComparableType extends IComparable>(
+        selector : (element : DataType, index : number, source : WrapperType) => ComparableType | Promise<ComparableType>
+    ) : KoconutPrimitive<ComparableType>;
+    maxOf<ComparableType extends IComparable>(
+        selector : (element : DataType, index : number, source : WrapperType) =>  ComparableType | Promise<ComparableType>,
+        thisArg : any
+    ) : KoconutPrimitive<ComparableType>;
+    maxOf<ComparableType extends IComparable>(
+        selector : (element : DataType, index : number, source : WrapperType) => number | string | ComparableType | Promise<number | string | ComparableType>,
+        thisArg : any = null
+    ) : KoconutPrimitive<number | string | ComparableType> {
+
+        selector = selector.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<number | string | ComparableType>();
+        (koconutToReturn as any as KoconutOpener<number | string | ComparableType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data == null || Array.from(this.data).length == 0) throw new KoconutIndexOutOfBoundsException(`Source data is null or empty`) 
+                let lastComparableDatumToReturn : number | string | ComparableType | null = null
+                for(const [index, element] of this.data.entries()) {
+                    const eachComparableDatum = await selector(element, index as number, this.data)
+                    if(lastComparableDatumToReturn == null
+                        || TypeChecker.checkIsComparable(eachComparableDatum) && (eachComparableDatum as any as IComparable).compareTo(lastComparableDatumToReturn as any as IComparable) > 0
+                        || !TypeChecker.checkIsComparable(eachComparableDatum) && lastComparableDatumToReturn < eachComparableDatum) {
+                            lastComparableDatumToReturn = eachComparableDatum
+                        }
+                }
+                return lastComparableDatumToReturn!
+            })
+        return koconutToReturn
+
+    }
+
+
+    // ToDo :: maxOfOrNull 메소드 만들어야 함
+    /*
+    maxWith(
+        comparator : (front : DataType, rear : DataType, frontIndex : number, rearIndex : number, source : WrapperType) => number | Promise<number>,
+        thisArg : any = null
+    ) : KoconutPrimitive<DataType | null> {
+
+
+
+    }
+    */
+
+    /*    
+    maxWith(
+        comparator : (front : DataType, rear : DataType, frontIndex : number, rearIndex : number, source : WrapperType) => number | Promise<number>,
+        thisArg : any = null) : KoconutPrimitive<DataType | null> {
+
+        comparator = comparator.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<DataType | null>();
+        (koconutToReturn as any as KoconutOpener<DataType | null>).setPrevYieldable(this).setProcessor(async () =>{
+            if(this.data == null || Array.from(this.data).length == 0) return null
+            let dataToReturn : DataType | null = null
+            for(const [index, element] of this.data.entries()) {
+                if(dataToReturn == null || await comparator(dataToReturn, element, index as number - 1, index as number, this.data) < 0)
+                    dataToReturn = element
+            }
+            return dataToReturn
+        })
+        return koconutToReturn
+
+    }
+    */
 
 }
 export namespace KoconutCollection {

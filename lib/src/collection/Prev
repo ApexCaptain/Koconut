@@ -7,25 +7,7 @@ import { KoconutMap } from "../map/KoconutMap"
 export class KoconutCollection<DataType, WrapperType extends Array<DataType> | Set<DataType>> extends KoconutPrimitive<WrapperType> {
 
     /* Collection */
-    
-    maxWith(
-        comparator : (front : DataType, rear : DataType, frontIndex : number, rearIndex : number, source : WrapperType) => number | Promise<number>,
-        thisArg : any = null) : KoconutPrimitive<DataType | null> {
 
-        comparator = comparator.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<DataType | null>();
-        (koconutToReturn as any as KoconutOpener<DataType | null>).setPrevYieldable(this).setProcessor(async () =>{
-            if(this.data == null || Array.from(this.data).length == 0) return null
-            let dataToReturn : DataType | null = null
-            for(const [index, element] of this.data.entries()) {
-                if(dataToReturn == null || await comparator(dataToReturn, element, index as number - 1, index as number, this.data) < 0)
-                    dataToReturn = element
-            }
-            return dataToReturn
-        })
-        return koconutToReturn
-
-    }
 
 
     minBy<ComparableType>(
