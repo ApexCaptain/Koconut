@@ -105,3 +105,7 @@ export class MutableEntry<KeyType, ValueType> extends Entry<KeyType, ValueType> 
 export class KoconutMutableEntry<KeyType, ValueType> extends KoconutPrimitive<MutableEntry<KeyType, ValueType>> {
 
 }
+
+export interface IComparable {
+    compareTo(other : IComparable) : number
+}

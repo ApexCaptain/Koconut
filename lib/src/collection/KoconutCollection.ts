@@ -1,16 +1,15 @@
 'use strict'
 
-import { KoconutPrimitive, KoconutOpener, KoconutPair } from "../KoconutBase"
+import { KoconutPrimitive, KoconutOpener, KoconutPair, IComparable } from "../KoconutBase"
 import { KoconutMap } from "../map/KoconutMap";
+import { KoconutInvalidArgumentException, KoconutIndexOutOfBoundsException } from "../KoconutException";
 
-
-export class KoconutCollection<DataType, WrapperType extends Iterable<DataType>> extends KoconutPrimitive<WrapperType> implements Iterable<DataType> {
+export class KoconutCollection<DataType, WrapperType extends Array<DataType> | Set<DataType>> extends KoconutPrimitive<WrapperType> implements Iterable<DataType> {
 
     /* Iterable */
     [Symbol.iterator]() : Iterator<DataType> {
         return (this.data as Iterable<DataType>)[Symbol.iterator]()
     }
-
 
     /* Collection */
     all(
@@ -24,7 +23,7 @@ export class KoconutCollection<DataType, WrapperType extends Iterable<DataType>>
             .setPrevYieldable(this)
             .setProcessor(async () => {
                 if(this.data == null) return false
-                for(const [index, element] of Array.from(this.data).entries())
+                for(const [index, element] of this.data.entries())
                     if(!await predicate(element, index as number, this.data)) return false
                 return true
             })
@@ -44,7 +43,7 @@ export class KoconutCollection<DataType, WrapperType extends Iterable<DataType>>
             .setPrevYieldable(this)
             .setProcessor(async () => {
                 if(this.data == null) return false
-                for(const [index, element] of Array.from(this.data).entries())
+                for(const [index, element] of this.data.entries())
                     if(await predicate(element, index as number, this.data)) return true
                 return false
             })
@@ -76,7 +75,7 @@ export class KoconutCollection<DataType, WrapperType extends Iterable<DataType>>
             .setProcessor(async () => {
                 const processedMap = new Map<KeyType, ValueType>()
                 if(this.data != null) {
-                    for(const [index, element] of Array.from(this.data).entries()) {
+                    for(const [index, element] of this.data.entries()) {
                         const eachPair = await(await transform(element, index as number, this.data)).yield()
                         if(eachPair != null) processedMap.set(eachPair.first, eachPair.second)
                     }
@@ -103,7 +102,7 @@ export class KoconutCollection<DataType, WrapperType extends Iterable<DataType>>
             .setProcessor(async () => {
                 const processedMap = new Map<KeyType, ValueType>()
                 if(this.data != null) {
-                    for(const [index, element] of Array.from(this.data).entries()) {
+                    for(const [index, element] of this.data.entries()) {
                         const eachKey = await keySelector(element, index as number, this.data)
                         const eachValue = valueTransform ? await valueTransform(element, index as number, this.data) : element
                         processedMap.set(eachKey, eachValue as ValueType)
@@ -131,7 +130,7 @@ export class KoconutCollection<DataType, WrapperType extends Iterable<DataType>>
             .setPrevYieldable(this)
             .setProcessor(async () => {
                 if(this.data != null) {
-                    for(const [index, element] of Array.from(this.data).entries()) {
+                    for(const [index, element] of this.data.entries()) {
                         const eachKey = await keySelector(element, index as number, this.data)
                         const eachValue = valueTransform ? await valueTransform(element, index as number, this.data) : element
                         destination.set(eachKey, eachValue as ValueType)
@@ -156,7 +155,7 @@ export class KoconutCollection<DataType, WrapperType extends Iterable<DataType>>
             .setPrevYieldable(this)
             .setProcessor(async () => {
                 if(this.data != null) {
-                    for(const [index, element] of Array.from(this.data).entries()) {
+                    for(const [index, element] of this.data.entries()) {
                         const eachPair = await(await transform(element, index as number ,this.data)).yield()
                         if(eachPair != null) destination.set(eachPair.first, eachPair.second)
                     }
@@ -180,7 +179,7 @@ export class KoconutCollection<DataType, WrapperType extends Iterable<DataType>>
             .setProcessor(async () => {
                 const processedMap = new Map<number, ValueType>()
                 if(this.data != null) {
-                    for(const [index, element] of Array.from(this.data).entries()) {
+                    for(const [index, element] of this.data.entries()) {
                         const eachValue = await valueSelector(element, index as number, this.data)
                         processedMap.set(index as number, eachValue)
                     }
@@ -204,7 +203,7 @@ export class KoconutCollection<DataType, WrapperType extends Iterable<DataType>>
             .setPrevYieldable(this)
             .setProcessor(async () => {
                 if(this.data != null) {
-                    for(const [index, element] of Array.from(this.data).entries()) {
+                    for(const [index, element] of this.data.entries()) {
                         const eachValue = await valueSelector(element, index as number, this.data)
                         destination.set(index as number, eachValue)
                     }
@@ -214,27 +213,956 @@ export class KoconutCollection<DataType, WrapperType extends Iterable<DataType>>
         return koconutToReturn
 
     }
-    /*
-        associateWithTo<ValueType>(
-        destinaion : Map<number, ValueType>,
-        valueSelector : (element : DataType, index : number, source : WrapperType) => ValueType | Promise<ValueType>,
-        thisArg : any = null) : KoconutCollection<DataType, WrapperType> {
 
-        valueSelector = valueSelector.bind(thisArg)
-        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
-        (koconutToReturn as any as KoconutOpener<WrapperType>).setPrevYieldable(this).setProcessor(async () => {
-            if(this.data != null) {
-                for(const [index, element] of this.data.entries()) {
-                    const eachValue = await valueSelector(element, index as number, this.data)
-                    destinaion.set(index as number, eachValue)
-                }
-            }
-            return this.data!
-        })
+
+    contains(
+        element : DataType
+    ) : KoconutPrimitive<boolean> {
+
+        const koconutToReturn = new KoconutPrimitive<boolean>();
+        (koconutToReturn as any as KoconutOpener<boolean>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data == null) return false
+                for(let eachDatum of Array.from(this.data)) if(element == eachDatum) return true
+                return false
+            })
         return koconutToReturn
 
     }
-   */
+
+
+    containsAll(
+        elements : Iterable<DataType>
+    ) : KoconutPrimitive<boolean> {
+
+        const koconutToReturn = new KoconutPrimitive<boolean>();
+        (koconutToReturn as any as KoconutOpener<boolean>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data == null) return false
+                const elementsArray = Array.from(elements)
+                for(let eachDatum of Array.from(this.data)) if(elementsArray.includes(eachDatum)) return true
+                return true
+            })
+        return koconutToReturn
+
+    }
+    
+
+    count(
+        predicate : ((element : DataType, index : number, source : WrapperType) => boolean | Promise<boolean>) | null = null,
+        thisArg : any = null
+    ) : KoconutPrimitive<number> {
+
+        if(predicate) predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<number>();
+        (koconutToReturn as any as KoconutOpener<number>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data == null) return 0
+                const dataArray = Array.from(this.data)
+                if(!predicate) return dataArray.length
+                let count = 0
+                for(const [index, element] of dataArray.entries())
+                    if(await predicate(element, index as number, this.data)) count++
+                return count
+            })
+        return koconutToReturn
+
+    }
+
+
+    distinct() : KoconutCollection<DataType, WrapperType> {
+
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedSet = new Set(this.data)
+                if(this.data instanceof Array) return Array.from(processedSet) as WrapperType
+                else return processedSet as WrapperType
+            })
+        return koconutToReturn
+
+    }
+
+
+    distinctBy<KeyType>(
+        selector : (element : DataType, index : number, source : WrapperType) => KeyType | Promise<KeyType>,
+        thisArg : any = null
+    ) : KoconutCollection<DataType, WrapperType> {
+
+        selector = selector.bind(thisArg)
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedArray = new Array<DataType>();
+                if(this.data != null) {
+                    const keyArray = new Array<KeyType>()
+                    for(const [index, element] of this.data.entries()) {
+                        const eachKey = await selector(element, index as number, this.data)
+                        if(!keyArray.includes(eachKey)) {
+                            keyArray.push(eachKey)
+                            processedArray.push(element)
+                        }
+                    }
+                }
+                if(this.distinct instanceof Array) return processedArray as WrapperType
+                else return new Set(processedArray) as WrapperType
+            })
+        return koconutToReturn
+
+    }
+
+
+    // https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/drop.html
+    drop(
+        n : number
+    ) : KoconutCollection<DataType, WrapperType> {
+        if(n < 0) throw new KoconutInvalidArgumentException(`Given argument ${n} is invalid, 'n' must be larger than 0.`)
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                let processedArray = new Array<DataType>()
+                if(this.data != null) processedArray = Array.from(this.data).slice(n)
+                if(this.data instanceof Array) return processedArray as WrapperType
+                else return new Set(processedArray) as WrapperType
+            })
+        return koconutToReturn
+
+    }
+
+
+    dropLast(
+        n : number
+    ) : KoconutCollection<DataType, WrapperType> {
+
+        if(n < 0) throw new KoconutInvalidArgumentException(`Given argument ${n} is invalid, 'n' must be larger than 0.`)
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                let processedArray = new Array<DataType>()
+                if(this.data != null) processedArray = Array.from(this.data).slice(0, -n)
+                if(this.data instanceof Array) return processedArray as WrapperType
+                else return new Set(processedArray) as WrapperType
+            })
+        return koconutToReturn
+
+    }
+
+
+    // 추후 문제 발생 가능성 있음
+    dropLastWhile(
+        predicate : (element : DataType, index : number, source : WrapperType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutCollection<DataType, WrapperType> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                let processedArray = new Array<DataType>()
+                if(this.data != null) {
+                    const dataArray = Array.from(this.data)
+                    let indexNumber = 0
+                    for(let eachIndex = dataArray.length - 1 ; eachIndex >= 0 ; eachIndex--) {
+                        if(!await predicate(dataArray[eachIndex], eachIndex, this.data)) {
+                            indexNumber = eachIndex
+                            break
+                        }
+                    }
+                    processedArray = dataArray.slice(0, indexNumber + 1)
+                }
+                if(this.data instanceof Array) return processedArray as WrapperType
+                else return new Set(this.data) as WrapperType
+            })
+        return koconutToReturn
+
+    }
+
+
+    dropWhile(
+        predicate : (element : DataType, index : number, source : WrapperType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutCollection<DataType, WrapperType> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                let processedArray = new Array<DataType>()
+                if(this.data != null) {
+                    const dataArray = Array.from(this.data)
+                    let indexNumber = dataArray.length
+                    for(let eachIndex in dataArray) {
+                        if(!await predicate(dataArray[eachIndex], parseInt(eachIndex), this.data)) {
+                            indexNumber = parseInt(eachIndex)
+                            break
+                        }
+                    }
+                    processedArray = dataArray.slice(indexNumber)
+                }
+                if(this.data instanceof Array) return processedArray as WrapperType
+                else return new Set(processedArray) as WrapperType
+            })
+        return koconutToReturn
+
+    }
+
+
+    elementAt(
+        index : number
+    ) : KoconutPrimitive<DataType> {
+
+        const koconutToReturn = new KoconutPrimitive<DataType>();
+        (koconutToReturn as any as KoconutOpener<DataType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const foundData = Array.from(this.data!)[index]
+                if(foundData == undefined) throw new KoconutIndexOutOfBoundsException(`Cannot search for data at index of ${index}`)
+                return foundData
+            })
+        return koconutToReturn
+
+    }
+
+
+    elementAtOrElse(
+        index : number,
+        defaultValue : DataType
+    ) : KoconutPrimitive<DataType> {
+
+        const koconutToReturn = new KoconutPrimitive<DataType>();
+        (koconutToReturn as any as KoconutOpener<DataType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data == null) return defaultValue
+                const foundData = Array.from(this.data)[index]
+                return foundData ? foundData : defaultValue
+            })
+        return koconutToReturn
+
+    }
+    
+
+    elementAtOrNull(
+        index : number
+    ) : KoconutPrimitive<DataType | null> {
+
+        const koconutToReturn = new KoconutPrimitive<DataType | null>();
+        (koconutToReturn as any as KoconutOpener<DataType | null>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data == null) return null
+                const foundData = Array.from(this.data)[index]
+                return foundData ? foundData : null
+            })
+        return koconutToReturn
+
+    }
+
+
+    filter(
+        predicate : (element : DataType, index : number, source : WrapperType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutCollection<DataType, WrapperType> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedArray = new Array<DataType>();
+                if(this.data != null) {
+                    for(const [index, element] of this.data.entries())
+                        if(await predicate(element, index as number, this.data)) processedArray.push(element)
+                }
+                if(this.data instanceof Array) return processedArray as WrapperType
+                else return new Set(processedArray) as WrapperType
+            })
+        return koconutToReturn
+
+    }
+
+
+    // filterIsInstance
+    // filterIsIsntanceTo
+    filterNot(
+        predicate : (element : DataType, index : number, source : WrapperType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutCollection<DataType, WrapperType> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedArray = new Array<DataType>();
+                if(this.data != null) {
+                    for(const [index, element] of this.data.entries())
+                        if(!await predicate(element, index as number, this.data)) processedArray.push(element)
+                }
+                if(this.data instanceof Array) return processedArray as WrapperType
+                else return new Set(processedArray) as WrapperType
+            })
+        return koconutToReturn
+
+    }
+
+
+    filterNotNull() : KoconutCollection<DataType, WrapperType> {
+
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedArray = new Array<DataType>();
+                if(this.data != null) {
+                    for(const eachDatum of this.data)
+                        if(eachDatum != null) processedArray.push(eachDatum)
+                }
+                if(this.data instanceof Array) return processedArray as WrapperType
+                else return new Set(processedArray) as WrapperType
+            })
+        return koconutToReturn
+
+    }
+
+
+    filterNotNullTo(
+        destination : Array<DataType> | Set<DataType>
+    ) : KoconutCollection<DataType, WrapperType> {
+
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data != null) {
+                    for(let eachDatum of this.data)
+                        if(destination instanceof Array) destination.push(eachDatum)
+                        else destination.add(eachDatum)
+                }
+                return this.data!
+            })
+        return koconutToReturn
+
+    }
+
+
+    filterNotTo(
+        destination : Array<DataType> | Set<DataType>,
+        predicate : (element : DataType, index : number, source : WrapperType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutCollection<DataType, WrapperType> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data != null) {
+                    for(const [index, element] of this.data.entries())
+                        if(!await predicate(element, index as number, this.data))
+                            if(destination instanceof Array) destination.push(element)
+                            else destination.add(element)
+                }
+                return this.data!
+            })
+        return koconutToReturn
+
+    }
+
+
+    filterTo(
+        destination : Array<DataType> | Set<DataType>,
+        predicate : (element : DataType, index : number, source : WrapperType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutCollection<DataType, WrapperType> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data != null) {
+                    for(const [index, element] of this.data.entries())
+                        if(await predicate(element, index as number, this.data))
+                            if(destination instanceof Array) destination.push(element)
+                            else destination.add(element)
+                }
+                return this.data!
+            })
+        return koconutToReturn
+
+    }
+
+
+    find(
+        predicate : (element : DataType, index : number, source : WrapperType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutPrimitive<DataType | null> {
+        
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<DataType | null>();
+        (koconutToReturn as any as KoconutOpener<DataType | null>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data == null) return null
+                for(const [index, element] of this.data.entries())
+                    if(await predicate(element, index as number, this.data)) return element
+                return null
+            })
+        return koconutToReturn
+
+    }
+
+
+    findLast(
+        predicate : (element : DataType, index : number, source : WrapperType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutPrimitive<DataType | null> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<DataType | null>();
+        (koconutToReturn as any as KoconutOpener<DataType | null>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data == null) return null
+                const dataArray = Array.from(this.data)
+                for(let eachIndex = dataArray.length - 1 ; eachIndex >= 0 ; eachIndex--)
+                    if(await predicate(dataArray[eachIndex], eachIndex, this.data)) return dataArray[eachIndex]
+                return null
+            })
+        return koconutToReturn
+
+    }
+
+
+    first(
+        predicate : ((element : DataType, index : number, source : WrapperType) => boolean | Promise<boolean>) | null = null,
+        thisArg : any = null
+    ) : KoconutPrimitive<DataType> {
+
+        if(predicate) predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<DataType>();
+        (koconutToReturn as any as KoconutOpener<DataType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data == null || Array.from(this.data).length == 0) throw new KoconutIndexOutOfBoundsException(`Source data is null or empty`)
+                if(predicate) {
+                    for(const [index, element] of this.data.entries())
+                        if(await predicate(element, index as number, this.data)) return element
+                }
+                return Array.from(this.data)[0]
+            })
+        return koconutToReturn
+
+    }
+
+
+    firstOrNull(
+        predicate : ((element : DataType, index : number, source : WrapperType) => boolean | Promise<boolean>) | null = null,
+        thisArg : any = null
+    ) : KoconutPrimitive<DataType | null> {
+
+        if(predicate) predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<DataType | null>();
+        (koconutToReturn as any as KoconutOpener<DataType | null>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data == null || Array.from(this.data).length == 0) return null
+                if(predicate) {
+                    for(const [index, element] of this.data.entries())
+                        if(await predicate(element, index as number, this.data)) return element
+                }
+                return Array.from(this.data)[0]
+            })
+        return koconutToReturn
+
+    }
+
+
+    flatMap<ResultDataType>(
+        transform : (element : DataType, index : number, source : WrapperType) => Iterable<ResultDataType> | Promise<Iterable<ResultDataType>>,
+        thisArg : any = null
+    ) : KoconutArray<ResultDataType> {
+
+        transform = transform.bind(thisArg)
+        const koconutToReturn = new KoconutArray<ResultDataType>();
+        (koconutToReturn as any as KoconutOpener<Array<ResultDataType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedArray = new Array<ResultDataType>()
+                if(this.data != null) {
+                    for(const [index, element] of this.data.entries()) {
+                        const eachSubElements = await transform(element, index as number, this.data)
+                        for(let eachSubElement of eachSubElements) processedArray.push(eachSubElement)
+                    }
+                }
+                return processedArray
+            })
+        return koconutToReturn
+
+    }
+
+
+    flatMapTo<ResultDataType>(
+        destination : Array<ResultDataType> | Set<ResultDataType>,
+        transform : (element : DataType, index : number, source : WrapperType) => Iterable<ResultDataType> | Promise<Iterable<ResultDataType>>,
+        thisArg : any = null
+    ) : KoconutCollection<DataType, WrapperType> {
+
+        if(transform) transform = transform.bind(thisArg)
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data != null) {
+                    for(const [index, element] of this.data.entries()) {
+                        const eachSubelements = await transform(element, index as number, this.data)
+                        for(let eachSubElement of eachSubelements)
+                            if(destination instanceof Array) destination.push(eachSubElement)
+                            else destination.add(eachSubElement)
+                    }
+                }
+                return this.data!
+            })
+        return koconutToReturn
+
+    }
+
+
+    // flatten
+    fold<ResultDataType>(
+        initial : ResultDataType,
+        operation : (acc : ResultDataType, element : DataType, index : number, source : WrapperType) => ResultDataType | Promise<ResultDataType>,
+        thisArg : any = null
+    ) : KoconutPrimitive<ResultDataType> {
+
+        operation = operation.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<ResultDataType>();
+        (koconutToReturn as any as KoconutOpener<ResultDataType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                let dataToReturn = initial
+                if(this.data != null) {
+                    for(const [index, element] of this.data.entries())
+                        dataToReturn = await operation(dataToReturn, element, index as number, this.data)
+                }
+                return dataToReturn
+            })
+        return koconutToReturn
+
+    }
+
+
+    forEach(
+        action : (element : DataType, index : number, source : WrapperType) => KoconutCollection.LOOP_SIGNAL | void | Promise<KoconutCollection.LOOP_SIGNAL | void>,
+        thisArg : any = null
+    ) : KoconutCollection<DataType, WrapperType> {
+
+        action = action.bind(thisArg)
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data != null) {
+                    for(const [index, element] of this.data.entries()) {
+                        const signal = await action(element, index as number, this.data)
+                        if(signal == KoconutCollection.LOOP_SIGNAL.BREAK) break
+                    }
+                }
+                return this.data!
+            })
+        return koconutToReturn
+
+    }
+    // forEachIndexed
+
+
+    groupBy<KeyType, ValueType = DataType>(
+        keySelector : (element : DataType, index : number, source : WrapperType) => KeyType | Promise<KeyType>,
+        valueTransform : ((element : DataType, index : number, source : WrapperType) => ValueType | Promise<ValueType>) | null = null,
+        keySelectorThisArg : any = null,
+        valueTransformThisArg : any = null
+    ) : KoconutMap<KeyType, Array<ValueType>> {
+
+        keySelector = keySelector.bind(keySelectorThisArg)
+        if(valueTransform) valueTransform = valueTransform.bind(valueTransformThisArg)
+        const koconutToReturn = new KoconutMap<KeyType, Array<ValueType>>();
+        (koconutToReturn as any as KoconutOpener<Map<KeyType, Array<ValueType>>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedMap = new Map<KeyType, Array<ValueType>>()
+                if(this.data != null) {
+                    for(const [index, element] of this.data.entries()) {
+                        const eachKey = await keySelector(element, index as number, this.data)
+                        const eachValue = valueTransform ? await valueTransform(element, index as number, this.data) : element
+                        if(!processedMap.has(eachKey)) processedMap.set(eachKey, new Array())
+                        processedMap.get(eachKey)?.push(eachValue as ValueType)
+                    }
+                }
+                return processedMap
+            })
+        return koconutToReturn
+
+    }
+
+
+    groupByTo<KeyType, ValueType = DataType>(
+        destination : Map<KeyType, Array<ValueType>>,
+        keySelector : (element : DataType, index : number, source : WrapperType) => KeyType | Promise<KeyType>,
+        valueTransform : ((element : DataType, index : number, source : WrapperType) => ValueType | Promise<ValueType>) | null = null,
+        keySelectorThisArg : any = null,
+        valueTransformThisArg : any = null
+    ) : KoconutCollection<DataType, WrapperType> {
+
+        keySelector = keySelector.bind(keySelectorThisArg)
+        if(valueTransform) valueTransform = valueTransform.bind(valueTransformThisArg)
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data != null) {
+                    for(const [index, element] of this.data.entries()) {
+                        const eachKey = await keySelector(element, index as number, this.data)
+                        const eachValue = valueTransform ? await valueTransform(element, index as number, this.data) : element
+                        if(!destination.has(eachKey)) destination.set(eachKey, new Array())
+                        destination.get(eachKey)?.push(eachValue as ValueType)
+                    }
+                }
+                return this.data!
+            })
+        return koconutToReturn
+
+    }
+
+
+    indexOf(
+        elementToFind : DataType
+    ) : KoconutPrimitive<number> {
+
+        const koconutToReturn = new KoconutPrimitive<number>();
+        (koconutToReturn as any as KoconutOpener<number>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data != null) {
+                    for(const [index, element] of this.data.entries())
+                        if(elementToFind == element) return index as number
+                }
+                return -1
+            })
+        return koconutToReturn
+
+    }
+
+    
+    indexOfFirst(
+        predicate : (element : DataType, index : number, source : WrapperType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutPrimitive<number> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<number>();
+        (koconutToReturn as any as KoconutOpener<number>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data != null) {
+                    for(const [index, element] of this.data.entries()) 
+                        if(await predicate(element, index as number, this.data)) return index as number
+                }
+                return -1
+            })
+        return koconutToReturn
+
+    }
+
+
+    indexOfLast(
+        predicate : (element : DataType, index : number, source : WrapperType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutPrimitive<number> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<number>();
+        (koconutToReturn as any as KoconutOpener<number>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data != null) {
+                    const dataArray = Array.from(this.data)
+                    for(let eachIndex = dataArray.length - 1 ; eachIndex >= 0 ; eachIndex--)
+                        if(await predicate(dataArray[eachIndex], eachIndex, this.data)) return eachIndex
+                }
+                return -1
+            })
+        return koconutToReturn
+
+    }
+
+
+    intersect(
+        other : Iterable<DataType>
+    ) : KoconutSet<DataType> {
+
+        const koconutToReturn = new KoconutSet<DataType>();
+        (koconutToReturn as any as KoconutOpener<Set<DataType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedSet = new Set<DataType>()
+                if(this.data) {
+                    const otherArray = Array.from(other)
+                    for(const eachDatum of this.data) {
+                        if(otherArray.includes(eachDatum))
+                            processedSet.add(eachDatum)
+                    }
+                }
+                return processedSet
+            })
+        return koconutToReturn
+
+    }
+
+    
+    isNotEmpty() : KoconutPrimitive<boolean> {
+
+        const koconutToReturn = new KoconutPrimitive<boolean>();
+        (koconutToReturn as any as KoconutOpener<boolean>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => Array.from(this.data!).length != 0)
+        return koconutToReturn
+
+    }
+
+
+    isNullOrEmpty() : KoconutPrimitive<boolean> {
+
+        const koconutToReturn = new KoconutPrimitive<boolean>();
+        (koconutToReturn as any as KoconutOpener<boolean>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => this.data == null || Array.from(this.data).length == 0)
+        return koconutToReturn
+
+    }
+
+
+    // joinTo
+    // joinToString
+    join(
+        separator : string = ", ",
+        prefix : string = "",
+        postfix : string = "",
+        limit : number = -1,
+        truncated : string = "...",
+        transform : ((element : DataType, index : number, source : WrapperType) => any | Promise<any>) | null = null,
+        thisArg : any = null
+    ) : KoconutPrimitive<string> {
+
+        if(transform) transform = transform.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<string>();
+        (koconutToReturn as any as KoconutOpener<string>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                let resultString = prefix
+                if(this.data != null) {
+                    let currentCount = 0
+                    const length = Array.from(this.data).length
+                    for(const [index, element] of this.data.entries()) {
+                        if(currentCount == limit) {
+                            resultString += truncated
+                            break
+                        }
+                        resultString += transform ? await transform(element, index as number, this.data) : element
+                        currentCount++
+                        if(currentCount != length && currentCount != limit) resultString += separator
+                    }
+                }
+                resultString += postfix
+                return resultString
+            })
+        return koconutToReturn
+
+    }
+
+
+    last(
+        predicate : ((element : DataType, index : number, source : WrapperType) => boolean | Promise<boolean>) | null = null,
+        thisArg : any = null
+    ) : KoconutPrimitive<DataType> {
+
+        if(predicate) predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<DataType>();
+        (koconutToReturn as any as KoconutOpener<DataType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data == null || Array.from(this.data).length == 0) throw new KoconutIndexOutOfBoundsException(`Source data is null or empty`)
+                const dataArray = Array.from(this.data)
+                if(predicate) {
+                    for(let eachIndex = dataArray.length - 1 ; eachIndex >= 0 ; eachIndex--)
+                        if(await predicate(dataArray[eachIndex], eachIndex, this.data)) return dataArray[eachIndex]
+                    throw new KoconutIndexOutOfBoundsException("No element exists matching the given predicate")
+                } else return dataArray[dataArray.length - 1]
+            })
+        return koconutToReturn
+
+    }
+
+
+    lastIndexOf(
+        element : DataType
+    ) : KoconutPrimitive<number> {
+
+        const koconutToReturn = new KoconutPrimitive<number>();
+        (koconutToReturn as any as KoconutOpener<number>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data != null) {
+                    const dataArray = Array.from(this.data)
+                    for(let eachIndex = dataArray.length - 1 ; eachIndex >=0 ; eachIndex--)
+                        if(dataArray[eachIndex] == element) return eachIndex
+                }
+                return -1
+            })
+        return koconutToReturn
+
+    }
+
+
+    lastOrNull(
+        predicate : ((element : DataType, index : number, source : WrapperType) => boolean | Promise<boolean>) | null = null,
+        thisArg : any = null
+    ) : KoconutPrimitive<DataType | null> {
+
+        if(predicate) predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<DataType | null>();
+        (koconutToReturn as any as KoconutOpener<DataType | null>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data != null) {
+                    const dataArray = Array.from(this.data)
+                    const length = dataArray.length
+                    if(length == 0) return null
+                    if(predicate) {
+                        for(let eachIndex = length - 1 ; eachIndex >= 0 ; eachIndex--)
+                            if(await predicate(dataArray[eachIndex], eachIndex, this.data))
+                                return dataArray[eachIndex] != undefined ? dataArray[eachIndex] : null
+                    } else return dataArray[length - 1] != undefined ? dataArray[length - 1] : null
+                }
+                return null
+            })
+        return koconutToReturn
+
+    }
+
+
+    map<ResultDataType>(
+        transform : (element : DataType, index : number, source : WrapperType) => ResultDataType | Promise<ResultDataType>,
+        thisArg : any = null
+    ) : KoconutArray<ResultDataType> {
+
+        transform = transform.bind(thisArg)
+        const koconutToReturn = new KoconutArray<ResultDataType>();
+        (koconutToReturn as any as KoconutOpener<Array<ResultDataType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedArray = new Array<ResultDataType>()
+                if(this.data != null) {
+                    for(const [index, element] of this.data.entries())
+                        processedArray.push(await transform(element, index as number, this.data))
+                }
+                return processedArray
+            })
+        return koconutToReturn
+
+    }
+    // mapIndexed
+    // mapIndexedNotNull
+    // mapIndexedNotNullTo
+    // mapIndexedTo
+
+
+    mapNotNull<ResultDataType>(
+        transform : (element : DataType, index : number, source : WrapperType) => ResultDataType | null | Promise<ResultDataType | null>,
+        thisArg : any = null
+    ) : KoconutArray<ResultDataType> {
+
+        transform = transform.bind(thisArg)
+        const koconutToReturn = new KoconutArray<ResultDataType>();
+        (koconutToReturn as any as KoconutOpener<Array<ResultDataType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedArray = new Array<ResultDataType>()
+                if(this.data != null) {
+                    for(const [index, element] of this.data.entries()) {
+                        const dataToAdd = await transform(element, index as number, this.data)
+                        if(dataToAdd != null && dataToAdd != undefined) processedArray.push(dataToAdd)
+                    }
+                }
+                return processedArray
+            })
+        return koconutToReturn
+
+    }
+
+
+    mapNotNullTo<ResultDataType>(
+        destination : Array<ResultDataType> | Set<ResultDataType>,
+        transform : (element : DataType, index : number, source : WrapperType) => ResultDataType | Promise<ResultDataType>,
+        thisArg : any = null
+    ) : KoconutCollection<DataType, WrapperType> {
+
+        transform = transform.bind(thisArg)
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data != null) {
+                    for(const [index, element] of this.data.entries()) {
+                        const dataToAdd = await transform(element, index as number, this.data)
+                        if(dataToAdd != null && dataToAdd != undefined) {
+                            if(destination instanceof Array) destination.push(dataToAdd)
+                            else destination.add(dataToAdd)
+                        }
+                    }
+                }
+                return this.data!
+            })
+        return koconutToReturn
+
+    }
+
+
+    mapTo<ResultDataType>(
+        destination : Array<ResultDataType> | Set<ResultDataType>,
+        transform : (element : DataType, index : number, source : WrapperType) => ResultDataType | Promise<ResultDataType>,
+        thisArg : any = null
+    ) : KoconutCollection<DataType, WrapperType> {
+
+        transform = transform.bind(thisArg)
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data != null) {
+                    for(const [index, element] of this.data.entries())
+                        if(destination instanceof Array) destination.push(await transform(element, index as number, this.data))
+                        else destination.add(await transform(element, index as number, this.data))
+                }
+                return this.data!
+            })
+        return koconutToReturn
+
+    }
+
+
+    maxByOrNull(){
+        
+    }
 
 
 }
@@ -249,16 +1177,10 @@ export namespace KoconutCollection {
 
 
 export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<DataType>> {
-    
-}
-// Array
-/*
-export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<DataType>> {
 
-    
-    // Koconut Array
-    static fromCollection<DataType>(
-        collection : KoconutCollection<DataType, Array<DataType>>) : KoconutArray<DataType> {
+    private static fromCollection<DataType>(
+        collection : KoconutCollection<DataType, Array<DataType>>
+    ) : KoconutArray<DataType> {
 
         const koconutToReturn = new KoconutArray<DataType>(collection.data);
         koconutToReturn.processor = collection.processor;
@@ -266,16 +1188,16 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
         return koconutToReturn;
 
     }
-    
 
-    associateByTo<KeyType, ValueType = DataType> (
+    associateByTo<KeyType, ValueType = DataType>(
         destination : Map<KeyType, ValueType>,
         keySelector : (element : DataType, index : number, source : Array<DataType>) => KeyType | Promise<KeyType>,
         valueTransform : ((element : DataType, index : number, source : Array<DataType>) => ValueType | Promise<ValueType>) | null = null,
         keySelectorThisArg : any = null,
-        valueTransformThisArg : any = null) : KoconutArray<DataType> {
+        valueTransformThisArg : any = null
+    ) : KoconutArray<DataType> {
 
-        return KoconutArray.fromCollection(super.associateByTo(destination, keySelector, valueTransform, keySelectorThisArg, valueTransformThisArg));
+        return KoconutArray.fromCollection(super.associateByTo(destination, keySelector, valueTransform, keySelectorThisArg, valueTransformThisArg))
         
     }
 
@@ -283,60 +1205,22 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
     associateTo<KeyType, ValueType>(
         destination : Map<KeyType, ValueType>,
         transform : (element : DataType, index : number, source : Array<DataType>) => KoconutPair<KeyType, ValueType> | Promise<KoconutPair<KeyType, ValueType>>,
-        thisArg : any = null) : KoconutArray<DataType> {
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
 
         return KoconutArray.fromCollection(super.associateTo(destination, transform, thisArg))
-    
+
     }
 
 
     associateWithTo<ValueType>(
         destination : Map<number, ValueType>,
         valueSelector : (element : DataType, index : number, source : Array<DataType>) => ValueType | Promise<ValueType>,
-        thisArg : any = null) : KoconutArray<DataType>{
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
 
         return KoconutArray.fromCollection(super.associateWithTo(destination, valueSelector, thisArg))
-
-    }
-
-
-    chunked(
-        size : number) : KoconutArray<Array<DataType>>;
-    chunked<ReturnType>(
-        size : number,
-        transform : (elements : Array<DataType>, index : number, source : Array<Array<DataType>>) => ReturnType | Promise<ReturnType>) : KoconutArray<ReturnType>;
-    chunked<ReturnType>(
-        size : number,
-        transform : (elements : Array<DataType>, index : number, source : Array<Array<DataType>>) => ReturnType | Promise<ReturnType>,
-        thisArg : any) : KoconutArray<ReturnType>;
-    chunked<ReturnType>(
-        size : number,
-        transform : ((elements : Array<DataType>, index : number, source : Array<Array<DataType>>) => ReturnType | Promise<ReturnType>) | null = null,
-        thisArg : any = null) : KoconutArray<Array<DataType> | ReturnType> {
-
-        if(transform) transform = transform.bind(thisArg)
-        const koconutToReturn = new KoconutArray<Array<DataType> | ReturnType>()
-        koconutToReturn.setPrevYieldable(this).setProcessor(async () => {
-            const processedArray = Array<Array<DataType>>()
-            if(this.data != null) {
-                let currentIndex = 0
-                let dataArray = Array.from(this.data)
-                while(currentIndex < dataArray.length) {
-                    const eachChunkedData = dataArray.slice(currentIndex, currentIndex + size)
-                    currentIndex += size
-                    processedArray.push(eachChunkedData)
-                }
-            }
-            if(transform) {
-                const transformedArray = new Array<ReturnType>()
-                for(let eachProcessedIndex in processedArray)
-                    transformedArray.push(await transform(processedArray[eachProcessedIndex], parseInt(eachProcessedIndex), processedArray))
-                return transformedArray
-            }
-            return processedArray
-        })
-        return koconutToReturn
-
+        
     }
 
 
@@ -349,7 +1233,8 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
 
     distinctBy<KeyType>(
         selector : (element : DataType, index : number, source : Array<DataType>) => KeyType | Promise<KeyType>,
-        thisArg : any = null) : KoconutArray<DataType> {
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
 
         return KoconutArray.fromCollection(super.distinctBy(selector, thisArg))
 
@@ -357,16 +1242,37 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
 
 
     drop(
-        n : number) : KoconutArray<DataType> {
+        n : number
+    ) : KoconutArray<DataType> {
 
         return KoconutArray.fromCollection(super.drop(n))
+        
+    }
+
+
+    dropLast(
+        n : number
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.dropLast(n))
+        
+    }
+
+
+    dropLastWhile(
+        predicate : (element : DataType, index : number, source : Array<DataType>) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.dropLastWhile(predicate, thisArg))
 
     }
 
 
     dropWhile(
         predicate : (element : DataType, index : number, source : Array<DataType>) => boolean | Promise<boolean>,
-        thisArg : any = null) : KoconutArray<DataType> {
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
 
         return KoconutArray.fromCollection(super.dropWhile(predicate, thisArg))
 
@@ -375,7 +1281,8 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
 
     filter(
         predicate : (element : DataType, index : number, source : Array<DataType>) => boolean | Promise<boolean>,
-        thisArg : any = null) : KoconutArray<DataType> {
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
 
         return KoconutArray.fromCollection(super.filter(predicate, thisArg))
 
@@ -383,10 +1290,11 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
 
 
     filterNot(
-        predicate : (element : DataType, index : number, source : Array<DataType>) => boolean | Promise<boolean>,
-        thisArg : any = null) : KoconutArray<DataType> {
+        prediacte : (element : DataType, index : number, source : Array<DataType>) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
 
-        return KoconutArray.fromCollection(super.filterNot(predicate, thisArg))
+        return KoconutArray.fromCollection(super.filterNot(prediacte, thisArg))
 
     }
 
@@ -398,56 +1306,51 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
     }
 
 
-    filterNotNullTo<DestinationType extends Array<DataType> | Set<DataType>>(
-        destination : DestinationType) : KoconutArray<DataType> {
+    filterNotNullTo(
+        destination : Array<DataType> | Set<DataType>
+    ) : KoconutArray<DataType> {
 
         return KoconutArray.fromCollection(super.filterNotNullTo(destination))
 
     }
 
 
-    filterNotTo<DestinationType extends Array<DataType> | Set<DataType>>(
-        destincation : DestinationType,
+    filterNotTo(
+        destination : Array<DataType> | Set<DataType>,
         predicate : (element : DataType, index : number, source : Array<DataType>) => boolean | Promise<boolean>,
-        thisArg : any = null) : KoconutArray<DataType> {
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
 
-        return KoconutArray.fromCollection(super.filterNotTo(destincation, predicate, thisArg))
+        return KoconutArray.fromCollection(super.filterNotTo(destination, predicate, thisArg))
 
     }
 
 
-    filterTo<DestinationType extends Array<DataType> | Set<DataType>>(
-        destination : DestinationType,
+    filterTo(
+        destination : Array<DataType> | Set<DataType>,
         predicate : (element : DataType, index : number, source : Array<DataType>) => boolean | Promise<boolean>,
-        thisArg : any = null) : KoconutArray<DataType> {
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
 
         return KoconutArray.fromCollection(super.filterTo(destination, predicate, thisArg))
 
     }
 
 
-    flatMap<ResultDataType>(
-        transform : (element : DataType, index : number, source : Array<DataType>) => Array<ResultDataType> | Promise<Array<ResultDataType>>,
-        thisArg : any = null) : KoconutArray<ResultDataType> {
-
-        return KoconutArray.fromCollection(super.flatMap(transform, thisArg))
-
-    }
-
-
     flatMapTo<ResultDataType>(
-        destination : Array<ResultDataType>,
-        transform : (element : DataType, index : number, source : Array<DataType>) => Array<ResultDataType> | Promise<Array<ResultDataType>>,
-        thisArg : any = null) : KoconutArray<DataType> {
+        destination : Array<ResultDataType> | Set<ResultDataType>,
+        transform : (element : DataType, index : number, source : Array<DataType>) => Iterable<ResultDataType> | Promise<Iterable<ResultDataType>>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
 
         return KoconutArray.fromCollection(super.flatMapTo(destination, transform, thisArg))
-
     }
-    
+
 
     forEach(
         action : (element : DataType, index : number, source : Array<DataType>) => KoconutCollection.LOOP_SIGNAL | void | Promise<KoconutCollection.LOOP_SIGNAL | void>,
-        thisArg : any = null) : KoconutArray<DataType> {
+        thisArg : any
+    ) : KoconutArray<DataType> {
 
         return KoconutArray.fromCollection(super.forEach(action, thisArg))
 
@@ -459,57 +1362,19 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
         keySelector : (element : DataType, index : number, source : Array<DataType>) => KeyType | Promise<KeyType>,
         valueTransform : ((element : DataType, index : number, source : Array<DataType>) => ValueType | Promise<ValueType>) | null = null,
         keySelectorThisArg : any = null,
-        valueTransformThisArg : any = null) : KoconutArray<DataType> {
+        valueTransformThisArg : any = null  
+    ) : KoconutArray<DataType> {
 
         return KoconutArray.fromCollection(super.groupByTo(destination, keySelector, valueTransform, keySelectorThisArg, valueTransformThisArg))
 
     }
 
 
-    intersect(
-        other : Iterable<DataType>) : KoconutArray<DataType> {
-
-        return KoconutArray.fromCollection(super.intersect(other))
-
-    }
-
-
-    join(
-        separator : string = ", ",
-        prefix :string = "",
-        postfix : string = "",
-        limit : number = -1,
-        truncated : string = "...",
-        transform : ((element : DataType, index : number, source : Array<DataType>) => string | Promise<string>) | null = null,
-        thisArg : any = null
-    ) : KoconutString {
-    
-        return KoconutString.fromCollection(super.join(separator, prefix, postfix, limit, truncated, transform, thisArg))
-
-    }
-
-    
-    map<ResultDataType>(
-        transform : (element : DataType, index : number, source : Array<DataType>) => ResultDataType | Promise<ResultDataType>,
-        thisArg : any = null) : KoconutArray<ResultDataType> {
-        return KoconutArray.fromCollection(super.map(transform, thisArg))
-
-    }
-
-
-    mapNotNull<ResultDataType>(
-        transform : (element : DataType, index : number, source : Array<DataType>) => ResultDataType | null | Promise<ResultDataType | null>,
-        thisArg : any = null) : KoconutArray<ResultDataType> {
-
-        return KoconutArray.fromCollection(super.mapNotNull(transform, thisArg))
-
-    }
-    
-
     mapNotNullTo<ResultDataType>(
-        destination : Array<ResultDataType>,
+        destination : Array<ResultDataType> | Set<ResultDataType>,
         transform : (element : DataType, index : number, source : Array<DataType>) => ResultDataType | Promise<ResultDataType>,
-        thisArg : any = null) : KoconutArray<DataType> {
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
 
         return KoconutArray.fromCollection(super.mapNotNullTo(destination, transform, thisArg))
 
@@ -517,286 +1382,39 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
 
 
     mapTo<ResultDataType>(
-        destination : Array<ResultDataType>,
+        destination : Array<ResultDataType> | Set<ResultDataType>,
         transform : (element : DataType, index : number, source : Array<DataType>) => ResultDataType | Promise<ResultDataType>,
-        thisArg : any = null) : KoconutArray<DataType> {
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
 
         return KoconutArray.fromCollection(super.mapTo(destination, transform, thisArg))
 
     }
 
-
-    minus(
-        element : DataType) : KoconutArray<DataType>;
-    minus(
-        elements : Iterable<DataType>) : KoconutArray<DataType>;
-    minus(
-        elements : DataType | Iterable<DataType>) : KoconutArray<DataType> {
-
-        if(typeof (elements as any)[Symbol.iterator] === 'function') return KoconutArray.fromCollection(super.minus(elements as Iterable<DataType>))
-        else return KoconutArray.fromCollection(super.minus(elements as DataType))
-
-    }
-
-
-    minusElement(
-        element : DataType) : KoconutArray<DataType> {
-     
-        return KoconutArray.fromCollection(super.minusElement(element))
-            
-    }
-
-
-    onEach(
-        action : (element : DataType, index : number, source : Array<DataType>) => void | Promise<void>,
-        thisArg : any = null) : KoconutArray<DataType> {
-
-        return KoconutArray.fromCollection(super.onEach(action, thisArg))
-
-    }
-
-
-    plus(
-        element : DataType) : KoconutArray<DataType>;
-    plus(
-        elements : Iterable<DataType>) : KoconutArray<DataType>;
-    plus(
-        elements : DataType | Iterable<DataType>) : KoconutArray<DataType> {
-
-        if(typeof (elements as any)[Symbol.iterator] === 'function') return KoconutArray.fromCollection(super.plus(elements as Iterable<DataType>))
-        else return KoconutArray.fromCollection(super.plus(elements as DataType))
-
-    }
-
-
-    plusElement(
-        element : DataType) : KoconutArray<DataType> {
-
-        return KoconutArray.fromCollection(super.plusElement(element))
-
-    }
-
-
-    requireNoNulls() : KoconutArray<DataType> {
-
-        return KoconutArray.fromCollection(super.requireNoNulls())
-
-    }
-
-
-    reversed() : KoconutArray<DataType> {
-
-        return KoconutArray.fromCollection(super.reversed())
-
-    }
-
-
-    scan<ResultDataType>(
-        initial : ResultDataType,
-        operation : (acc : ResultDataType, element : DataType, index : number, source : Array<DataType>) => ResultDataType | Promise<ResultDataType>,
-        thisArg : any = null) : KoconutArray<ResultDataType> {
-
-        return KoconutArray.fromCollection(super.scan(initial, operation, thisArg))
-
-    }
-
-
-    shuffled() : KoconutArray<DataType> {
-
-        return KoconutArray.fromCollection(super.shuffled())
-
-    }
-
-
-    sortedBy<ComparableType>(
-        selector : (element : DataType, index : number, source : Array<DataType>) => ComparableType | Promise<ComparableType>,
-        thisArg : any = null) : KoconutArray<DataType> {
-
-        return KoconutArray.fromCollection(super.sortedBy(selector, thisArg))
-
-    }
-
-
-    sortedByDescending<ComparableType>(
-        selector : (element : DataType, index : number, source : Array<DataType>) => ComparableType | Promise<ComparableType>,
-        thisArg : any = null) : KoconutArray<DataType> {
-
-        return KoconutArray.fromCollection(super.sortedByDescending(selector, thisArg))
-
-    }
-
-
-    sortedWith(
-        comparator : (front : DataType, rear : DataType, frontIndex : number, rearIndex : number, source : Array<DataType>) => number | Promise<number>,
-        thisArg : any = null) : KoconutArray<DataType> {
-
-        return KoconutArray.fromCollection(super.sortedWith(comparator, thisArg))
-            
-    }
-
-
-    substract(
-        other : Iterable<DataType>) : KoconutSet<DataType> {
-
-        return KoconutSet.fromCollection(super.substract(other))
-
-    }
-
-
-    taken(
-        n : number) : KoconutArray<DataType> {
-
-        return KoconutArray.fromCollection(super.taken(n))
-
-    }
-
-
-    toSet() : KoconutSet<DataType> {
-
-        return KoconutSet.fromCollection(super.toSet())
-
-    }
-
-
-    union(
-        other : Iterable<DataType>) : KoconutSet<DataType> {
-
-        return KoconutSet.fromCollection(super.union(other))
-
-    }
-
-
-    windowed(
-        size : number) : KoconutArray<Array<DataType>>;
-    windowed(
-        size : number,
-        step : number) : KoconutArray<Array<DataType>>;
-    windowed(
-        size : number,
-        step : number,
-        partialWindows : boolean) : KoconutArray<Array<DataType>>;
-    windowed<ReturnType>(
-        size : number,
-        step : number,
-        partialWindows : boolean,
-        transform : (elements : Array<DataType>, index : number, source : Array<Array<DataType>>) => ReturnType | Promise<ReturnType>) : KoconutArray<ReturnType>;
-    windowed<ReturnType>(
-        size : number,
-        step : number,
-        partialWindows : boolean,
-        transform : (elements : Array<DataType>, index : number, source : Array<Array<DataType>>) => ReturnType | Promise<ReturnType>,
-        thisArg : any) : KoconutArray<ReturnType>;
-    windowed<ReturnType>(
-        size : number,
-        step : number = 1,
-        partialWindows : boolean = false,
-        transform : ((elements : Array<DataType>, index : number, source : Array<Array<DataType>>) => ReturnType | Promise<ReturnType>) | null = null,
-        thisArg : any = null) : KoconutArray<Array<DataType> | ReturnType> {
-
-        if(transform == null) return KoconutArray.fromCollection(super.windowed(size, step, partialWindows))
-        else return KoconutArray.fromCollection(super.windowed(size, step, partialWindows, transform, thisArg))
-
-    }
-
-
-    zip<OtherDataType>(
-        other : Iterable<OtherDataType>) : KoconutArray<Pair<DataType, OtherDataType>>;
-    zip<OtherDataType, ResultDataType>(
-        other : Iterable<OtherDataType>,
-        transform : (originalData : DataType, otherData : OtherDataType) => ResultDataType | Promise<ResultDataType>) : KoconutArray<ResultDataType>;
-    zip<OtherDataType, ResultDataType>(
-        other : Iterable<OtherDataType>,
-        transform : (originalData : DataType, otherData : OtherDataType) => ResultDataType | Promise<ResultDataType>,
-        thisArg : any) : KoconutArray<ResultDataType>;
-    zip<OtherDataType, ResultDataType>(
-        other : Iterable<OtherDataType>,
-        transform : ((originalData : DataType, otherData : OtherDataType) => ResultDataType | Promise<ResultDataType>) | null = null,
-        thisArg : any = null) : KoconutArray<Pair<DataType, OtherDataType> | ResultDataType> {
-
-        if(transform == null) return KoconutArray.fromCollection(super.zip(other))
-        else return KoconutArray.fromCollection(super.zip(other, transform, thisArg))
-
-    }
-
-
-    zipWithNext() : KoconutArray<Pair<DataType, DataType>>;
-    zipWithNext<ResultDataType>(
-        transform : (firstData : DataType, secondData : DataType) => ResultDataType | Promise<ResultDataType>) : KoconutArray<ResultDataType>;
-    zipWithNext<ResultDataType>(
-        transform : (firstData : DataType, secondData : DataType) => ResultDataType | Promise<ResultDataType>,
-        thisArg : any) : KoconutArray<ResultDataType>;
-    zipWithNext<ResultDataType>(
-        transform : ((firstData : DataType, secondData : DataType) => ResultDataType | Promise<ResultDataType>) | null = null,
-        thisArg : any = null) : KoconutArray<Pair<DataType, DataType> | ResultDataType> {
-
-        if(transform == null) return KoconutArray.fromCollection(super.zipWithNext())
-        else return KoconutArray.fromCollection(super.zipWithNext(transform, thisArg))
-
-    }
-    
-
-
-
 }
-*/
 
-export class KoconutString extends KoconutArray<string> {
-
-}
-// String
-/*
-export class KoconutString extends KoconutCollection<string, Array<string>> {
-
-    // String
-    static fromCollection(
-        collection : KoconutCollection<string, Array<string>>
-    ) : KoconutString {
-
-        const koconutToReturn = new KoconutString(collection.data)
-        koconutToReturn.processor = collection.processor
-        koconutToReturn.prevYieldable = collection.prevYieldable
-        return koconutToReturn
-
-    }
-
-    toString() : KoconutPrimitive<string> {
-
-        const koconutToReturn = new KoconutPrimitive<string>();
-        (koconutToReturn as any as KoconutOpener<string>).setPrevYieldable(this).setProcessor(async () => {
-            return this.data!.join('')
-        })
-        return koconutToReturn
-
-    }
-
-}
-*/
 
 export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataType>> {
 
-}
-// Set
-/*
-export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataType>> {
-
-    // Koconut Set
-    static fromCollection<DataType>(
-        collection : KoconutCollection<DataType, Set<DataType>>) : KoconutSet<DataType> {
+    private static fromCollection<DataType>(
+        collection : KoconutCollection<DataType, Set<DataType>>
+    ) : KoconutSet<DataType> {
 
         const koconutToReturn = new KoconutSet<DataType>(collection.data)
-        koconutToReturn.processor = collection.processor
         koconutToReturn.prevYieldable = collection.prevYieldable
+        koconutToReturn.processor = collection.processor
         return koconutToReturn
 
     }
 
 
-    associateByTo<KeyType, ValueType = DataType> (
+    associateByTo<KeyType, ValueType = DataType>(
         destination : Map<KeyType, ValueType>,
         keySelector : (element : DataType, index : number, source : Set<DataType>) => KeyType | Promise<KeyType>,
         valueTransform : ((element : DataType, index : number, source : Set<DataType>) => ValueType | Promise<ValueType>) | null = null,
         keySelectorThisArg : any = null,
-        valueTransformThisArg : any = null ) : KoconutSet<DataType> {
+        valueTransformThisArg : any = null
+    ) : KoconutSet<DataType> {
 
         return KoconutSet.fromCollection(super.associateByTo(destination, keySelector, valueTransform, keySelectorThisArg, valueTransformThisArg))
 
@@ -806,60 +1424,21 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
     associateTo<KeyType, ValueType>(
         destination : Map<KeyType, ValueType>,
         transform : (element : DataType, index : number, source : Set<DataType>) => KoconutPair<KeyType, ValueType> | Promise<KoconutPair<KeyType, ValueType>>,
-        thisArg : any = null) : KoconutSet<DataType> {
-     
+        thisArg : any = null
+    ) : KoconutSet<DataType> {
+
         return KoconutSet.fromCollection(super.associateTo(destination, transform, thisArg))
-            
+
     }
 
 
     associateWithTo<ValueType>(
         destination : Map<number, ValueType>,
         valueSelector : (element : DataType, index : number, source : Set<DataType>) => ValueType | Promise<ValueType>,
-        thisArg : any = null) : KoconutSet<DataType> {
+        thisArg : any = null
+    ) : KoconutSet<DataType> {
 
         return KoconutSet.fromCollection(super.associateWithTo(destination, valueSelector, thisArg))
-
-    }
-
-
-    chunked(
-        size : number) : KoconutSet<Set<DataType>>;
-    chunked<ReturnType>(
-        size : number,
-        transform : (elements : Set<DataType>, index : number, source : Set<Set<DataType>>) => ReturnType | Promise<ReturnType>) : KoconutSet<ReturnType>;
-    chunked<ReturnType>(
-        size : number,
-        transform : (elements : Set<DataType>, index : number, source : Set<Set<DataType>>) => ReturnType | Promise<ReturnType>,
-        thisArg : any) : KoconutSet<ReturnType>;
-    chunked<ReturnType>(
-        size : number,
-        transform : ((elements : Set<DataType>, index : number, source : Set<Set<DataType>>) => ReturnType | Promise<ReturnType>) | null = null,
-        thisArg : any = null) : KoconutSet<Set<DataType> | ReturnType> {
-
-        if(transform) transform = transform.bind(thisArg)
-        const koconutToReturn = new KoconutSet<Set<DataType> | ReturnType>()
-        koconutToReturn.setPrevYieldable(this).setProcessor(async () => {
-            const processedArray = new Array<Set<DataType>>()
-            if(this.data != null) {
-                let currentIndex = 0
-                let dataArray = Array.from(this.data)
-                while(currentIndex < dataArray.length) {
-                    const eachChunkedData = dataArray.slice(currentIndex, currentIndex + size)
-                    currentIndex += size
-                    processedArray.push(new Set(eachChunkedData))
-                }
-            }
-            const processedSet = new Set(processedArray)
-            if(transform) {
-                const transformedArray = new Array()
-                for(let eachProcessedIndex in processedArray)
-                    transformedArray.push(await processedArray[eachProcessedIndex], parseInt(eachProcessedIndex), processedSet)
-                return new Set(transformedArray)
-            }
-            return processedSet
-        })
-        return koconutToReturn
 
     }
 
@@ -873,24 +1452,46 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
 
     distinctBy<KeyType>(
         selector : (element : DataType, index : number, source : Set<DataType>) => KeyType | Promise<KeyType>,
-        thisArg : any = null) : KoconutSet<DataType> {
-     
+        thisArg : any = null
+    ) : KoconutSet<DataType> {
+
         return KoconutSet.fromCollection(super.distinctBy(selector, thisArg))
-            
+
     }
 
 
     drop(
-        n : number) : KoconutSet<DataType> {
+        n : number
+    ) : KoconutSet<DataType> {
 
         return KoconutSet.fromCollection(super.drop(n))
 
     }
 
 
+    dropLast(
+        n : number
+    ) : KoconutSet<DataType> {
+
+        return KoconutSet.fromCollection(super.dropLast(n))
+
+    }
+
+
+    dropLastWhile(
+        predicate : (element : DataType, index : number, source : Set<DataType>) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutSet<DataType> {
+
+        return KoconutSet.fromCollection(super.dropLastWhile(predicate, thisArg))
+
+    }
+
+
     dropWhile(
         predicate : (element : DataType, index : number, source : Set<DataType>) => boolean | Promise<boolean>,
-        thisArg : any = null) : KoconutSet<DataType> {
+        thisArg : any = null
+    ) : KoconutSet<DataType> {
 
         return KoconutSet.fromCollection(super.dropWhile(predicate, thisArg))
 
@@ -899,16 +1500,18 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
 
     filter(
         predicate : (element : DataType, index : number, source : Set<DataType>) => boolean | Promise<boolean>,
-        thisArg : any = null) : KoconutSet<DataType> {
+        thisArg : any = null
+    ) : KoconutSet<DataType> {
 
         return KoconutSet.fromCollection(super.filter(predicate, thisArg))
 
     }
-    
+
 
     filterNot(
         predicate : (element : DataType, index : number, source : Set<DataType>) => boolean | Promise<boolean>,
-        thisArg : any = null) : KoconutSet<DataType> {
+        thisArg : any = null
+    ) : KoconutSet<DataType> {
 
         return KoconutSet.fromCollection(super.filterNot(predicate, thisArg))
 
@@ -922,32 +1525,89 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
     }
 
 
-    filterNotNullTo<DestinationType extends Array<DataType> | Set<DataType>>(
-        destination : DestinationType) : KoconutSet<DataType> {
+    filterNotNullTo(
+        destination : Array<DataType> | Set<DataType>
+    ) : KoconutSet<DataType> {
 
         return KoconutSet.fromCollection(super.filterNotNullTo(destination))
 
     }
 
 
-    filterNotTo<DestinationType extends Array<DataType> | Set<DataType>>(
-        destination : DestinationType,
+    filterNotTo(
+        destination : Array<DataType> | Set<DataType>,
         predicate : (element : DataType, index : number, source : Set<DataType>) => boolean | Promise<boolean>,
-        thisArg : any = null) : KoconutSet<DataType> {
+        thisArg : any = null
+    ) : KoconutSet<DataType> {
 
         return KoconutSet.fromCollection(super.filterNotTo(destination, predicate, thisArg))
 
     }
 
 
-    filterTo<DestinationType extends Array<DataType> | Set<DataType>>(
-        destination : DestinationType,
+    filterTo(
+        destination : Array<DataType> | Set<DataType>,
         predicate : (element : DataType, index : number, source : Set<DataType>) => boolean | Promise<boolean>,
-        thisArg : any = null) : KoconutSet<DataType> {
+        thisArg : any = null
+    ) : KoconutSet<DataType> {
 
         return KoconutSet.fromCollection(super.filterTo(destination, predicate, thisArg))
 
     }
 
+
+    flatMapTo<ResultDataType>(
+        destination : Array<ResultDataType> | Set<ResultDataType>,
+        transform : (element : DataType, index : number, source : Set<DataType>) => Iterable<ResultDataType> | Promise<Iterable<ResultDataType>>,
+        thisArg : any = null
+    ) : KoconutSet<DataType> {
+
+        return KoconutSet.fromCollection(super.flatMapTo(destination, transform, thisArg))
+
+    }
+
+
+    forEach(
+        action : (element : DataType, index : number, source : Set<DataType>) => KoconutCollection.LOOP_SIGNAL | void | Promise<KoconutCollection.LOOP_SIGNAL | void>,
+        thisArg : any = null
+    ) : KoconutSet<DataType> {
+
+        return KoconutSet.fromCollection(super.forEach(action, thisArg))
+
+    }
+
+
+    groupByTo<KeyType, ValueType = DataType>(
+        destination : Map<KeyType, Array<ValueType>>,
+        keySelector : (element : DataType, index : number, source : Set<DataType>) => KeyType | Promise<KeyType>,
+        valueTransform : ((element : DataType, index : number, source : Set<DataType>) => ValueType | Promise<ValueType>) | null = null,
+        keySelectorThisArg : any = null,
+        valueTransformThisArg : any = null
+    ) : KoconutSet<DataType> {
+
+        return KoconutSet.fromCollection(super.groupByTo(destination, keySelector, valueTransform, keySelectorThisArg, valueTransformThisArg))
+
+    }
+
+
+    mapNotNullTo<ResultDataType>(
+        destination : Array<ResultDataType> | Set<ResultDataType>,
+        transform : (element : DataType, index : number, source : Set<DataType>) => ResultDataType | Promise<ResultDataType>,
+        thisArg : any = null
+    ) : KoconutSet<DataType> {
+
+        return KoconutSet.fromCollection(super.mapNotNullTo(destination, transform, thisArg))
+
+    }
+
+
+    mapTo<ResultDataType>(
+        destiantion : Array<ResultDataType> | Set<ResultDataType>,
+        transform : (element : DataType, index : number, source : Set<DataType>) => ResultDataType | Promise<ResultDataType>,
+        thisArg : any = null
+    ) : KoconutSet<DataType> {
+
+        return KoconutSet.fromCollection(super.mapTo(destiantion, transform, thisArg))
+
+    }
 }
-*/
