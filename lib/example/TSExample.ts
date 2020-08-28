@@ -1,5 +1,6 @@
 
 import { Koconut, KoconutInterfaces } from "../index"
+import { KoconutArray } from "../src/collection/KoconutCollection"
 
 class TestComparable implements KoconutInterfaces.Comparable {
     name : string
@@ -17,12 +18,12 @@ export async function runTsExample() {
     try {
         const rst = await Koconut.Array(
                         [
-                            new TestComparable("A", 100),
+                            new TestComparable("C", 100),
                             new TestComparable("B", 120),
                             new TestComparable("Q", 50)
                         ]
                     )
-                    .maxOf(e => e)
+                    .chunked(2, e => e[0].age)
                     .yield()
         console.log(rst)
     } catch(error) {

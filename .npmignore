@@ -1,0 +1,8 @@
+dist/example/
+docs/
+etc/
+lib/
+node_modules/
+ReadMeRes/
+test/
+tsconfig.json
