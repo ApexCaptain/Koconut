@@ -1,8 +1,7 @@
 'use strict'
 
-import { KoconutPrimitive, KoconutOpener, Pair, KoconutPair, TypeChecker, IComparable, Entry } from "../KoconutBase"
-import { KoconutMap } from "../map/KoconutMap";
-import { KoconutInvalidArgumentException, KoconutIndexOutOfBoundsException } from "../KoconutException";
+import { KoconutPrimitive, KoconutOpener, Pair, KoconutPair, TypeChecker, IComparable, Entry } from "./KoconutBase"
+import { KoconutInvalidArgumentException, KoconutIndexOutOfBoundsException } from "./KoconutException";
 
 export class KoconutCollection<DataType, WrapperType extends Array<DataType> | Set<DataType>> extends KoconutPrimitive<WrapperType> implements Iterable<DataType> {
 
@@ -2474,15 +2473,12 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
 
 
 }
+
 export namespace KoconutCollection {
     export enum LOOP_SIGNAL {
         BREAK, CONTINUE
     }
 }
-
-
-
-
 
 export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<DataType>> {
 
@@ -2838,7 +2834,6 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
     }
 }
 
-
 export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataType>> {
 
     private static fromCollection<DataType>(
@@ -3037,12 +3032,12 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
 
 
     mapTo<ResultDataType>(
-        destiantion : Array<ResultDataType> | Set<ResultDataType>,
+        destination : Array<ResultDataType> | Set<ResultDataType>,
         transform : (element : DataType, index : number, source : Set<DataType>) => ResultDataType | Promise<ResultDataType>,
         thisArg : any = null
     ) : KoconutSet<DataType> {
 
-        return KoconutSet.fromCollection(super.mapTo(destiantion, transform, thisArg))
+        return KoconutSet.fromCollection(super.mapTo(destination, transform, thisArg))
 
     }
 
@@ -3194,4 +3189,345 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
 
     }
 
+}
+
+export class KoconutMap<KeyType, ValueType> extends KoconutPrimitive<Map<KeyType, ValueType>> implements Iterable<Entry<KeyType, ValueType>>{
+    
+
+    /* Iterable */
+    [Symbol.iterator]() : Iterator<Entry<KeyType, ValueType>> {
+        return this.entries[Symbol.iterator]()
+    }
+
+
+    /* Map */
+    keys = new Set<KeyType>()
+    entries = new Set<Entry<KeyType, ValueType>>()
+    values = new Array<ValueType>() 
+    size = 0
+    constructor(data : Map<KeyType, ValueType> | null = null) { 
+        super(data)
+        if(data != null) {
+            for(const [key, value] of data.entries()) {
+                this.keys.add(key)
+                this.entries.add(new Entry(key, value))
+                this.values.push(value)
+            }
+            this.size = data.size
+        }
+    }
+
+
+    all(
+        predicate : (entry : Entry<KeyType, ValueType>, source : Map<KeyType, ValueType>) => boolean | Promise<boolean>,
+        thisArg : any
+    ) : KoconutPrimitive<boolean> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<boolean>();
+        (koconutToReturn as any as KoconutOpener<boolean>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data != null) {
+                    for(const eachEntry of this.entries)
+                        if(!await predicate(eachEntry, this.data)) return false
+                    return true
+                }
+                return false
+            })
+        return koconutToReturn
+
+    }
+
+
+    any(
+        predicate : (entry : Entry<KeyType, ValueType>, source : Map<KeyType, ValueType>) => boolean | Promise<boolean>,
+        thisArg : any
+    ) : KoconutPrimitive<boolean> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<boolean>();
+        (koconutToReturn as any as KoconutOpener<boolean>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data != null) {
+                    for(const eachEntry of this.entries) {
+                        if(await predicate(eachEntry, this.data)) return true
+                    }
+                }
+                return false
+            })
+        return koconutToReturn
+
+    }
+
+
+    asIterable() : KoconutPrimitive<Iterable<Entry<KeyType, ValueType>>> {
+
+        const koconutToReturn = new KoconutPrimitive<Iterable<Entry<KeyType, ValueType>>>();
+        (koconutToReturn as any as KoconutOpener<Iterable<Entry<KeyType, ValueType>>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                return this.entries[Symbol.iterator]()
+            })
+        return koconutToReturn
+
+    }
+
+
+    // asSequence
+    asArray() : KoconutArray<Entry<KeyType, ValueType>> {
+
+        const koconutToReturn = new KoconutArray<Entry<KeyType, ValueType>>();
+        (koconutToReturn as any as KoconutOpener<Array<Entry<KeyType, ValueType>>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                return Array.from(this.entries)
+            })
+        return koconutToReturn
+
+    }
+
+
+    contains(
+        key : KeyType
+    ) : KoconutPrimitive<boolean> {
+
+        const koconutToReturn = new KoconutPrimitive<boolean>();
+        (koconutToReturn as any as KoconutOpener<boolean>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => this.keys.has(key))
+        return koconutToReturn
+
+    }
+
+
+    containsKey(
+        key : KeyType
+    ) : KoconutPrimitive<boolean> {
+
+        const koconutToReturn = new KoconutPrimitive<boolean>();
+        (koconutToReturn as any as KoconutOpener<boolean>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => this.keys.has(key))
+        return koconutToReturn
+
+    }
+
+
+    containsValue(
+        value : ValueType
+    ) : KoconutPrimitive<boolean> {
+
+        const koconutToReturn = new KoconutPrimitive<boolean>();
+        (koconutToReturn as any as KoconutOpener<boolean>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => this.values.includes(value))
+        return koconutToReturn
+
+    }
+
+
+    count(
+        predicate : ((entry : Entry<KeyType, ValueType>) => boolean | Promise<boolean>) | null = null,
+        thisArg : any = null
+    ) : KoconutPrimitive<number> {
+
+        if(predicate) predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<number>();
+        (koconutToReturn as any as KoconutOpener<number>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(predicate) {
+                    let count = 0
+                    for(const eachEntry of this.entries)
+                        if(await predicate(eachEntry)) count++
+                    return count
+                } else return this.values.length
+            })
+        return koconutToReturn
+
+    }
+
+
+    filter(
+        predicate : (entry : Entry<KeyType, ValueType>) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutMap<KeyType, ValueType> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutMap<KeyType, ValueType>();
+        (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedMap = new Map<KeyType, ValueType>()
+                if(this.data != null) {
+                    for(const eachEntry of this.entries)
+                        if(await predicate(eachEntry))
+                            processedMap.set(eachEntry.key, eachEntry.value)
+                }
+                return processedMap
+            })
+        return koconutToReturn
+
+    }
+    
+
+    filterKeys(
+        predicate : (key : KeyType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutMap<KeyType, ValueType> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutMap<KeyType, ValueType>();
+        (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedMap = new Map<KeyType, ValueType>();
+                if(this.data != null) {
+                    for(const eachEntry of this.entries)
+                        if(await predicate(eachEntry.key))
+                            processedMap.set(eachEntry.key, eachEntry.value)
+                } 
+                return processedMap
+            })
+        return koconutToReturn
+
+    }
+
+
+    filterNot(
+        predicate : (entry : Entry<KeyType, ValueType>) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutMap<KeyType, ValueType> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutMap<KeyType, ValueType>();
+        (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedMap = new Map<KeyType, ValueType>()
+                if(this.data != null) {
+                    for(const eachEntry of this.entries)
+                        if(!await predicate(eachEntry))
+                            processedMap.set(eachEntry.key, eachEntry.value)
+                }
+                return processedMap
+            })
+        return koconutToReturn
+
+    }
+
+
+    filterNotTo(
+        destination : Map<KeyType, ValueType>,
+        predicate : (entry : Entry<KeyType, ValueType>) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutMap<KeyType, ValueType> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutMap<KeyType, ValueType>();
+        (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data != null) {
+                    for(const eachEntry of this.entries)
+                        if(!await predicate(eachEntry))
+                            destination.set(eachEntry.key, eachEntry.value)
+                }
+                return this.data!
+            })
+        return koconutToReturn
+
+    }
+
+
+    filterTo(
+        destination : Map<KeyType, ValueType>,
+        predicate : (entry : Entry<KeyType, ValueType>) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutMap<KeyType, ValueType> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutMap<KeyType, ValueType>();
+        (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data != null) {
+                    for(const eachEntry of this.entries)
+                        if(await predicate(eachEntry))
+                            destination.set(eachEntry.key, eachEntry.value)
+                }
+                return this.data!
+            })
+        return koconutToReturn
+
+    }
+
+
+    filterValues(
+        predicate : (value : ValueType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutMap<KeyType, ValueType> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutMap<KeyType, ValueType>();
+        (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedMap = new Map<KeyType, ValueType>()
+                if(this.data != null) {
+                    for(const eachEntry of this.entries)
+                        if(await predicate(eachEntry.value))
+                            processedMap.set(eachEntry.key, eachEntry.value)
+                }
+                return processedMap
+            })
+        return koconutToReturn
+
+    }
+
+
+    get(
+        key : KeyType
+    ) : KoconutPrimitive<ValueType | null> {
+
+        const koconutToReturn = new KoconutPrimitive<ValueType | null>();
+        (koconutToReturn as any as KoconutOpener<ValueType | null>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data == null || !this.data.has(key)) return null
+                else return this.data.get(key)!
+            })
+        return koconutToReturn
+
+    }
+
+
+    getOrDefault(
+        key : KeyType,
+        defaultValue : ValueType
+    ) : KoconutPrimitive<ValueType> {
+
+        const koconutToReturn = new KoconutPrimitive<ValueType>();
+        (koconutToReturn as any as KoconutOpener<ValueType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data == null || !this.data.has(key)) return defaultValue
+                else return this.data.get(key)!
+            })
+        return koconutToReturn
+
+    }
+
+
+    isEmpty() : KoconutPrimitive<boolean> {
+
+        const koconutToReturn = new KoconutPrimitive<boolean>();
+        (koconutToReturn as any as KoconutOpener<boolean>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => this.size == 0)
+        return koconutToReturn
+
+    }
 }

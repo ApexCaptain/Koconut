@@ -1,6 +1,5 @@
 
 import { Koconut, KoconutInterfaces } from "../index"
-import { KoconutArray } from "../src/collection/KoconutCollection"
 
 class TestComparable implements KoconutInterfaces.Comparable {
     name : string
@@ -16,15 +15,12 @@ class TestComparable implements KoconutInterfaces.Comparable {
 
 export async function runTsExample() {
     try {
-        const rst = await Koconut.Array(
-                        [
-                            new TestComparable("C", 100),
-                            new TestComparable("B", 120),
-                            new TestComparable("Q", 50)
-                        ]
-                    )
-                    .chunked(2, e => e[0].age)
-                    .yield()
+        const myMap = new Map<number, string>()
+        myMap.set(10, "10")
+        myMap.set(20, "20")
+        const rst = await Koconut.Map(myMap)
+                                .asArray()
+                                .yield()
         console.log(rst)
     } catch(error) {
         console.log(error)
