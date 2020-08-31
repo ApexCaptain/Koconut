@@ -1,7 +1,7 @@
 'use strict'
 
 import { KoconutArray, KoconutSet, KoconutMap } from "./src/KoconutDataStructure" 
-import { KoconutPair, IComparable, Entry } from "./src/KoconutBase"
+import { KoconutPair, Comparable as T_Comparable, Entry as T_Entry, Pair as T_Pair } from "./src/KoconutBase"
 
 
 export const Koconut = {
@@ -12,5 +12,11 @@ export const Koconut = {
 }
 
 export namespace KoconutInterfaces {
-    export interface Comparable extends IComparable {}
+    export type Comparable = T_Comparable
+    
+}
+
+export namespace KoconutBases {
+    export type Pair<FirstType, SecondType> = T_Pair<FirstType, SecondType>
+    export type Entry<KeyType, ValueType> = T_Entry<KeyType, ValueType>
 }

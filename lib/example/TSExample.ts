@@ -1,5 +1,5 @@
 
-import { Koconut, KoconutInterfaces } from "../index"
+import { Koconut, KoconutInterfaces, KoconutBases} from "../index"
 
 class TestComparable implements KoconutInterfaces.Comparable {
     name : string
@@ -15,13 +15,9 @@ class TestComparable implements KoconutInterfaces.Comparable {
 
 export async function runTsExample() {
     try {
-        const myMap = new Map<number, string>()
-        myMap.set(10, "10")
-        myMap.set(20, "20")
-        const rst = await Koconut.Map(myMap)
-                                .asArray()
-                                .yield()
-        console.log(rst)
+        Koconut.Array([1,2,3,4,5])
+            .onEach(e => {
+            }).process()
     } catch(error) {
         console.log(error)
     }
