@@ -1,8 +1,10 @@
-dist/example/
+/dist/*.spec*
 docs/
 etc/
 lib/
 node_modules/
 ReadMeRes/
-test/
 tsconfig.json
+
+
+Desktop.zip
