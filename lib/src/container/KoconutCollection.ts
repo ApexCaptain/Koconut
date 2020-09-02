@@ -2,7 +2,8 @@
 
 import {
     KoconutPrimitive, KoconutOpener, KoconutPair, Pair,
-    KoconutArray, KoconutSet, KoconutMap
+    KoconutArray, KoconutSet, KoconutMap,
+    KoconutInvalidArgumentException
 } from "../../internal"
 
 export class KoconutCollection<DataType, WrapperType extends Array<DataType> | Set<DataType>> extends KoconutPrimitive<WrapperType> implements Iterable<DataType>{
@@ -378,5 +379,53 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
         return koconutToReturn
 
     }
+
+
+    distinctBy<KeyType>(
+        selector : (element : DataType) => KeyType | Promise<KeyType>,
+        thisArg : any = null
+    ) : KoconutCollection<DataType, WrapperType> {
+
+        selector = selector.bind(thisArg)
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedArray = new Array<DataType>();
+                if(this.data != null) {
+                    const keyArray = new Array<KeyType>()
+                    for(const [index, element] of this.data.entries()) {
+                        const eachKey = await selector(element)
+                        if(!keyArray.includes(eachKey)) {
+                            keyArray.push(eachKey)
+                            processedArray.push(element)
+                        }
+                    }
+                }
+                if(this.data instanceof Array) return processedArray as WrapperType
+                else return new Set(processedArray) as WrapperType
+            })
+        return koconutToReturn
+
+    }
+
+
+    drop(
+        n : number
+    ) : KoconutCollection<DataType, WrapperType> {
+        if(n < 0) throw new KoconutInvalidArgumentException(`Given argument ${n} is invalid, 'n' must be larger than 0.`)
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                let processedArray = new Array<DataType>()
+                if(this.data != null) processedArray = Array.from(this.data).slice(n)
+                if(this.data instanceof Array) return processedArray as WrapperType
+                else return new Set(processedArray) as WrapperType
+            })
+        return koconutToReturn
+
+    }
+
 
 }

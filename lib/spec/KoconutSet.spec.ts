@@ -402,4 +402,30 @@ describe(`${KoconutSet.name}`, () => {
 
     })
 
+    it(KoconutSet.prototype.distinct.name, async () => {
+
+        const koconutSet = KoconutSet.from('aAbBcCaA')
+
+        const yieldable =
+                        koconutSet
+                        .distinct()
+        expect(yieldable).to.be.instanceOf(KoconutSet)
+        const result = await yieldable.yield()
+        expect(Array.from(result!).join("")).equals("aAbBcC")
+
+    })
+
+    it(KoconutSet.prototype.distinctBy.name, async () => {
+
+        const koconutArray = KoconutSet.from("aAbBcCaA")
+
+        const yieldable =
+                        koconutArray
+                        .distinctBy(element => element.toUpperCase())
+        expect(yieldable).to.be.instanceOf(KoconutSet)
+        const result = await yieldable.yield()
+        expect(Array.from(result!).join("")).equals("abc")
+
+    })
+
 })

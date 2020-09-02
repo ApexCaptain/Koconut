@@ -70,4 +70,13 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
     }
 
 
+    distinctBy<KeyType>(
+        selector : (element : DataType) => KeyType | Promise<KeyType>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.distinctBy(selector, thisArg))
+
+    }
+
 }

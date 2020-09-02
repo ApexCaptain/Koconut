@@ -69,5 +69,15 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
         return KoconutSet.fromCollection(super.distinct())
 
     }
+
+    
+    distinctBy<KeyType>(
+        selector : (element : DataType) => KeyType | Promise<KeyType>,
+        thisArg : any = null
+    ) : KoconutSet<DataType> {
+
+        return KoconutSet.fromCollection(super.distinctBy(selector, thisArg))
+
+    }
     
 }
