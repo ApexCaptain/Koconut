@@ -526,16 +526,16 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
 
     elementAtOrElse(
         index : number,
-        defaultValue : DataType
+        defaultValue : (index : number) => DataType
     ) : KoconutPrimitive<DataType> {
 
         const koconutToReturn = new KoconutPrimitive<DataType>();
         (koconutToReturn as any as KoconutOpener<DataType>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
-                if(this.data == null) return defaultValue
+                if(this.data == null) return defaultValue(index)
                 const foundData = Array.from(this.data)[index]
-                return foundData ? foundData : defaultValue
+                return foundData ? foundData : defaultValue(index)
             })
         return koconutToReturn
 

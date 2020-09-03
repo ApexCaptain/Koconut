@@ -1,23 +1,27 @@
 `use strict`
 
-
-export class KoconutInvalidArgumentException extends Error {
+class KoconutError extends Error {
     constructor(message : string) {
         super(message)
-        Object.setPrototypeOf(this, KoconutInvalidArgumentException.prototype)
+        this.name = this.constructor.name.split(/(?=[A-Z])/).join(" ")
+        Error.captureStackTrace(this, this.constructor);
     }
 }
 
-export class KoconutIndexOutOfBoundsException extends Error {
+export class KoconutInvalidArgumentException extends KoconutError {
     constructor(message : string) {
         super(message)
-        Object.setPrototypeOf(this, KoconutIndexOutOfBoundsException.prototype)
     }
 }
 
-export class KoconutNoSuchElementException extends Error {
+export class KoconutIndexOutOfBoundsException extends KoconutError {
     constructor(message : string) {
         super(message)
-        Object.setPrototypeOf(this, KoconutNoSuchElementException.prototype)
+    }
+}
+
+export class KoconutNoSuchElementException extends KoconutError {
+    constructor(message : string) {
+        super(message)
     }
 }

@@ -1,8 +1,14 @@
 `use strict`
 
 import {
+    /* Bases */
     Pair, KoconutPair,
-    KoconutCollection
+
+    /* Container */
+    KoconutCollection,
+
+    /* Interface */
+    KoconutEquatable
 } from "../../internal"
 
 export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<DataType>> {
@@ -70,13 +76,165 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
     }
 
 
-    distinctBy<KeyType>(
-        selector : (element : DataType) => KeyType | Promise<KeyType>,
+    distinctBy<KeyType, EquatableKeyType extends KoconutEquatable>(
+        selector : (element : DataType) => KeyType | EquatableKeyType | Promise<KeyType>,
         thisArg : any = null
     ) : KoconutArray<DataType> {
 
         return KoconutArray.fromCollection(super.distinctBy(selector, thisArg))
 
     }
+
+
+    drop(
+        n : number
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.drop(n))
+        
+    }
+
+
+    dropLast(
+        n : number
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.dropLast(n))
+        
+    }
+
+
+    dropLastWhile(
+        predicate : (element : DataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.dropLastWhile(predicate, thisArg))
+
+    }
+
+
+    dropWhile(
+        predicate : (element : DataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.dropWhile(predicate, thisArg))
+
+    }
+
+
+    filter(
+        predicate : (element : DataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.filter(predicate, thisArg))
+
+    }
+
+
+    filterIndexed(
+        predicate : (index : number, element : DataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.filterIndexed(predicate, thisArg))
+
+    }
+
+
+    filterIndexedTo(
+        destination : Array<DataType> | Set<DataType>,
+        predicate : (index : number, element : DataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.filterIndexedTo(destination, predicate, thisArg))
+
+    }
+
+
+    filterNot(
+        predicate : (element : DataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.filterNot(predicate, thisArg))
+
+    }
+
+
+    filterNotNull() : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.filterNotNull())
+
+    }
+
+
+    filterNotNullTo(
+        destination : Array<DataType> | Set<DataType>
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.filterNotNullTo(destination))
+
+    }
+
+
+    filterNotTo(
+        destination : Array<DataType> | Set<DataType>,
+        predicate : (element : DataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.filterNotTo(destination, predicate, thisArg))
+
+    }
+
+
+    filterTo(
+        destination : Array<DataType> | Set<DataType>,
+        predicate : (element : DataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.filterTo(destination, predicate, thisArg))
+
+    }
+
+
+    flatMapIndexedTo<ResultDataType>(
+        destination : Array<ResultDataType> | Set<ResultDataType>,
+        transform : (index : number, element : DataType) => Iterable<ResultDataType> | Promise<Iterable<ResultDataType>>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.flatMapIndexedTo(destination, transform, thisArg))
+
+    }
+
+
+    flatMapTo<ResultDataType>(
+        destination : Array<ResultDataType> | Set<ResultDataType>,
+        transform : (element : DataType) => Iterable<ResultDataType> | Promise<Iterable<ResultDataType>>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.flatMapTo(destination, transform, thisArg))
+    }
+
+
+    groupByTo<KeyType, ValueType = DataType>(
+        destination : Map<KeyType, Array<ValueType>>,
+        keySelector : (element : DataType) => KeyType | Promise<KeyType>,
+        valueTransform : ((element : DataType) => ValueType | Promise<ValueType>) | null = null,
+        keySelectorThisArg : any = null,
+        valueTransformThisArg : any = null  
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.groupByTo(destination, keySelector, valueTransform, keySelectorThisArg, valueTransformThisArg))
+
+    }
+
 
 }

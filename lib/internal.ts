@@ -14,6 +14,7 @@ export * from "./src/exception/KoconutExceptions"
 
 // Interface
 export * from "./src/interface/KoconutComparable"
+export * from "./src/interface/KoconutEquatable"
 
 // Container
 export * from "./src/container/KoconutCollection"
