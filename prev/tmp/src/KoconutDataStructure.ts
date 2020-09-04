@@ -1343,7 +1343,7 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
             .setProcessor(async () => {
                 const processedArray = new Array<ResultDataType>()
                 if(this.data != null) {
-                    for(const [eachIndex, eachDatum] of this.data.entries()) {
+                    for(const [eachIndex, eachDatum] of Array.from(this.data).entries()) {
                         const eachResultData = await transform(eachIndex as number, eachDatum)
                         if(eachResultData != null && eachResultData != undefined) processedArray.push(eachResultData)
                     }

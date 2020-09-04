@@ -8,7 +8,7 @@ import {
     KoconutCollection,
 
     /* Interface */
-    KoconutEquatable
+    KoconutEquatable, KoconutComparable
 } from "../../internal"
 
 export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<DataType>> {
@@ -26,9 +26,9 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
         collection : KoconutCollection<DataType, Array<DataType>>
     ) : KoconutArray<DataType> {
 
-        const koconutToReturn = new KoconutArray<DataType>(collection.data);
-        koconutToReturn.processor = collection.processor;
-        koconutToReturn.prevYieldable = collection.prevYieldable
+        const koconutToReturn = new KoconutArray<DataType>(collection['data']);
+        koconutToReturn.processor = collection['processor'];
+        koconutToReturn.prevYieldable = collection['prevYieldable']
         return koconutToReturn;
 
     }
@@ -236,5 +236,200 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
 
     }
 
+
+    mapIndexedNotNullTo<ResultDataType>(
+        destination : Array<ResultDataType> | Set<ResultDataType>,
+        transform : (index : number, element : DataType) => ResultDataType | void | null | undefined | Promise<ResultDataType | void | null | undefined>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.mapIndexedNotNullTo(destination, transform, thisArg))
+
+    }
+
+
+    mapIndexedTo<ResultDataType>(
+        destination : Array<ResultDataType> | Set<ResultDataType>,
+        transform : (index : number, element : DataType) => ResultDataType | Promise<ResultDataType>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.mapIndexedTo(destination, transform, thisArg))
+
+    }
+
+
+    mapNotNullTo<ResultDataType>(
+        destination : Array<ResultDataType> | Set<ResultDataType>,
+        transform : (element : DataType) => ResultDataType | Promise<ResultDataType>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.mapNotNullTo(destination, transform, thisArg))
+
+    }
+
+
+    mapTo<ResultDataType>(
+        destination : Array<ResultDataType> | Set<ResultDataType>,
+        transform : (element : DataType) => ResultDataType | Promise<ResultDataType>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.mapTo(destination, transform, thisArg))
+
+    }
+
+
+    minus(
+        element : DataType
+    ) : KoconutArray<DataType>;
+    minus(
+        elements : Iterable<DataType>
+    ) : KoconutArray<DataType>;
+    minus(
+        elements : DataType | Iterable<DataType>
+    ) : KoconutArray<DataType> {
+
+        if(typeof (elements as any)[Symbol.iterator] === 'function') return KoconutArray.fromCollection(super.minus(elements as Iterable<DataType>))
+        else return KoconutArray.fromCollection(super.minus(elements as DataType))
+
+    }
+
+
+    minusElement(
+        element : DataType
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.minusElement(element))
+
+    }
+
+
+    onEach(
+        action : (element : DataType) => boolean | void | Promise<boolean| void>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.onEach(action, thisArg))
+
+    }
+
+
+    onEachIndexed(
+        action : (index : number, element : DataType) => boolean | void | Promise<boolean | void>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.onEachIndexed(action, thisArg))
+
+    }
+
+
+    plus(
+        element : DataType
+    ) : KoconutArray<DataType>;
+    plus(
+        elements : Iterable<DataType>
+    ) : KoconutArray<DataType>;
+    plus(
+        elements : DataType | Iterable<DataType>
+    ) : KoconutArray<DataType> {
+
+        if(typeof (elements as any)[Symbol.iterator] === 'function') return KoconutArray.fromCollection(super.plus(elements as Iterable<DataType>))
+        else return KoconutArray.fromCollection(super.plus(elements as DataType))
+
+    }
+
+
+    plusElement(
+        element : DataType
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.plusElement(element))
+
+    }
+
+
+    reversed() : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.reversed())
+
+    }
+
+
+    shuffled() : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.shuffled())
+
+    }
+
+
+    sortedBy(
+        selector : (element : DataType) => number | string | KoconutComparable | Promise<number | string | KoconutComparable>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.sortedBy(selector, thisArg))
+
+    }
+
+
+    sortedByDescending(
+        selector : (element : DataType) => number | string | KoconutComparable | Promise<number | string | KoconutComparable>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.sortedByDescending(selector, thisArg))
+
+    }
+
+
+    sortedWith(
+        comparator : (front : DataType, rear : DataType) => number | Promise<number>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.sortedWith(comparator, thisArg))
+
+    }
+
+
+    take(
+        n : number
+    ) : KoconutArray<DataType>{
+
+        return KoconutArray.fromCollection(super.take(n))
+
+    }
+
+
+    takeLast(
+        n : number
+    ) : KoconutArray<DataType>{
+
+        return KoconutArray.fromCollection(super.takeLast(n))
+
+    }
+
+
+    takeLastWhile(
+        predicate : (element : DataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.takeLastWhile(predicate, thisArg))
+
+    }
+
+
+    takeWhile(
+        predicate : (element : DataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.takeWhile(predicate, thisArg))
+
+    }
 
 }

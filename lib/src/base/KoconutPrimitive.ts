@@ -4,9 +4,9 @@ import { KoconutYieldable, KoconutOpener } from "../../internal"
 
 export class KoconutPrimitive<DataType> implements KoconutYieldable<DataType> {
     
-    data : DataType | null
-    prevYieldable? : KoconutYieldable<any>
-    processor? : () => Promise<DataType>
+    protected data : DataType | null
+    protected prevYieldable? : KoconutYieldable<any>
+    protected processor? : () => Promise<DataType>
 
     protected setPrevYieldable(prevYieldable : KoconutYieldable<any>) : KoconutOpener<DataType> {
         this.prevYieldable = prevYieldable

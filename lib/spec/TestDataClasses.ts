@@ -1,7 +1,7 @@
 `use strict`
 
 import {
-    KoconutEquatable
+    KoconutEquatable, KoconutComparable
 } from "../internal"
 
 export class Person implements KoconutEquatable {
@@ -17,12 +17,9 @@ export class Person implements KoconutEquatable {
         return this.lastName == other.lastName
     }
     
-    toString() : string {
-        return "zzz"
-    }
 }
 
-export class ProductInfo implements KoconutEquatable {
+export class ProductInfo implements KoconutEquatable, KoconutComparable {
     id : string
     name : string
     price : number
@@ -35,6 +32,11 @@ export class ProductInfo implements KoconutEquatable {
     /* Override */
     equalsTo(other : ProductInfo) : boolean {
         return this.id == other.id
+    }
+
+    /* Override */
+    compareTo(other : ProductInfo) : number {
+        return this.price - other.price
     }
 }
 

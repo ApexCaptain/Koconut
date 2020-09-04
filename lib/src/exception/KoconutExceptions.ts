@@ -8,20 +8,10 @@ class KoconutError extends Error {
     }
 }
 
-export class KoconutInvalidArgumentException extends KoconutError {
-    constructor(message : string) {
-        super(message)
-    }
-}
+export class KoconutInvalidArgumentException extends KoconutError {}
 
-export class KoconutIndexOutOfBoundsException extends KoconutError {
-    constructor(message : string) {
-        super(message)
-    }
-}
+export class KoconutIndexOutOfBoundsException extends KoconutError {}
 
-export class KoconutNoSuchElementException extends KoconutError {
-    constructor(message : string) {
-        super(message)
-    }
-}
+export class KoconutNoSuchElementException extends KoconutError {}
+
+export class KoconutConflicException extends KoconutError {}
