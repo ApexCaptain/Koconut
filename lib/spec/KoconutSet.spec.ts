@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import {
     /* Bases */
-    KoconutPrimitive, Pair, KoconutPair,
+    KoconutPrimitive, Pair, KoconutPair, Entry,
 
     /* Containers*/
     KoconutArray, KoconutSet, KoconutMap,
@@ -2561,6 +2561,194 @@ describe(`${KoconutSet.name} -- Function`, () => {
         const result = await yieldable.yield()
         expect(result).eqls(new Set(['a','b','c','d','e']))
 
+    })
+
+    it(KoconutSet.prototype.toArray.name, async () => {
+
+        const koconut = KoconutSet.from([1,2,3,4,5])
+
+        const yieldable =
+                        koconut
+                        .toArray()
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        const result = await yieldable.yield()
+        expect(result).eqls([1,2,3,4,5])
+
+    })
+
+    it(KoconutSet.prototype.toSet.name, async() => {
+
+        const koconut = KoconutSet.from([1,1,2,2,3,3])
+
+        const yieldable =
+                        koconut
+                        .toSet()
+        expect(yieldable).to.be.instanceOf(KoconutSet)
+        const result = await yieldable.yield()
+        expect(result).eqls(new Set([1,2,3]))
+
+    })
+
+    it(KoconutSet.prototype.union.name, async () => {
+
+        /* Case 1 */
+        const koconutCase1 = KoconutSet.from([1,2,3,4,5])
+
+        const yieldableCase1 =
+                        koconutCase1
+                        .union([4,5,6,7,8])
+        expect(yieldableCase1).to.be.instanceOf(KoconutSet)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).eqls(new Set([1,2,3,4,5,6,7,8]))
+
+        /* Case 2 */
+        const koconutCase2 = KoconutSet.from([
+                        new Person("Grace", "Hopper"), 
+                        new Person("Jacob", "Bernoulli"), 
+                        new Person("Johann", "Bernoulli"), 
+                        new Person("Jinyoung", "Luvya")])        
+        
+        const yieldableCase2 =
+                        koconutCase2
+                        .union([
+                            new Person("Steve", "Jobs"),
+                            new Person("SangHun", "Luvya")
+                        ])
+        expect(yieldableCase2).to.be.instanceOf(KoconutSet)
+        const resultCase2 = await yieldableCase2.yield()
+        const expectedResultArrayCase2 = [
+                                            new Person("Grace", "Hopper"), 
+                                            new Person("Jacob", "Bernoulli"),
+                                            new Person("Jinyoung", "Luvya"),
+                                            new Person("Steve", "Jobs")
+                                        ]
+        expect(resultCase2).eqls(new Set(expectedResultArrayCase2))
+
+    })
+
+    it(KoconutSet.prototype.windowed.name, async () => {
+
+        const koconut = KoconutSet.from([1,2,3,4,5,6,7])
+
+        /* Case 1 */
+        const yieldableCase1 =
+                        koconut
+                        .windowed(3)
+        expect(yieldableCase1).to.be.instanceOf(KoconutArray)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).eqls([ [ 1, 2, 3 ], [ 2, 3, 4 ], [ 3, 4, 5 ], [ 4, 5, 6 ], [ 5, 6, 7 ] ])
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .windowed(3, 2)
+        expect(yieldableCase2).to.be.instanceOf(KoconutArray)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).eqls([ [ 1, 2, 3 ], [ 3, 4, 5 ], [ 5, 6, 7 ] ])
+
+        /* Case 3 */
+        const yieldableCase3 =
+                        koconut
+                        .windowed(3, 2, true)
+        expect(yieldableCase3).to.be.instanceOf(KoconutArray)
+        const resultCase3 = await yieldableCase3.yield()
+        expect(resultCase3).eqls([ [ 1, 2, 3 ], [ 3, 4, 5 ], [ 5, 6, 7 ], [ 7 ] ])
+
+        /* Case 4 */
+        const yieldableCase4 =
+                        koconut
+                        .windowed(3, 2, false, eachElements => {
+                            let sum = 0
+                            for(const eachElement of eachElements)
+                                sum += eachElement
+                            return sum
+                        })
+        expect(yieldableCase4).to.be.instanceOf(KoconutArray)
+        const resultCase4 = await yieldableCase4.yield()
+        expect(resultCase4).eqls([ 6, 12, 18 ])
+
+    })
+
+    it(KoconutSet.prototype.withIndex.name, async () => {
+
+        const koconut = KoconutSet.from("abcde")
+
+        const yieldable =
+                        koconut
+                        .withIndex()
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        const result = await yieldable.yield()
+        const expectedResultEntryArray = [
+                                            new Entry(0, 'a'),
+                                            new Entry(1, 'b'),
+                                            new Entry(2, 'c'),
+                                            new Entry(3, 'd'),
+                                            new Entry(4, 'e')
+                                        ]
+        expect(result).eqls(expectedResultEntryArray)
+
+    })
+
+    it(KoconutSet.prototype.zip.name, async () => {
+
+        const koconut = KoconutSet.from([1,2,3,4,5])
+
+        /* Case 1 */
+        const yieldableCase1 =
+                        koconut
+                        .zip("abcdefg")
+        expect(yieldableCase1).to.be.instanceOf(KoconutArray)
+        const resultCase1 = await yieldableCase1.yield()
+        const expectedResultPairArrayCase1 =[
+                                            new Pair(1, 'a'),
+                                            new Pair(2, 'b'),
+                                            new Pair(3, 'c'),
+                                            new Pair(4, 'd'),
+                                            new Pair(5, 'e')
+                                        ]
+        expect(resultCase1).eqls(expectedResultPairArrayCase1)
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .zip(
+                            "abc", 
+                            (eachElement, eachOtherElement) => eachElement + eachOtherElement
+                        )
+        expect(yieldableCase2).to.be.instanceOf(KoconutArray)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).eqls([ '1a', '2b', '3c' ])
+
+    })
+
+    it(KoconutSet.prototype.zipWithNext.name, async () => {
+
+        const koconut = KoconutSet.from([1,2,3,4,5])
+
+        /* Case 1 */
+        const yieldableCase1 =
+                        koconut
+                        .zipWithNext()
+        expect(yieldableCase1).to.be.instanceOf(KoconutArray)
+        const resultCase1 = await yieldableCase1.yield()
+        const expectedResultPairArrayCase1 = [
+                                                new Pair(1, 2),
+                                                new Pair(2, 3),
+                                                new Pair(3, 4),
+                                                new Pair(4, 5)
+                                            ]
+        expect(resultCase1).eqls(expectedResultPairArrayCase1)
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .zipWithNext(
+                            (eachFirstElement, eachSecondElement) => eachFirstElement * eachSecondElement
+                        )
+        expect(yieldableCase2).to.be.instanceOf(KoconutArray)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).eqls([2,6,12,20])
+        
     })
 
 })

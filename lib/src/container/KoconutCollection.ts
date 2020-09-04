@@ -2,7 +2,7 @@
 
 import {
     /* Bases */
-    KoconutPrimitive, KoconutOpener, KoconutPair, Pair, KoconutTypeChecker,
+    KoconutPrimitive, KoconutOpener, KoconutPair, Pair, Entry, KoconutTypeChecker,
 
     /* Container */
     KoconutArray, KoconutSet, KoconutMap,
@@ -10,7 +10,7 @@ import {
     /* Exception */
     KoconutInvalidArgumentException, KoconutIndexOutOfBoundsException, KoconutNoSuchElementException, KoconutConflicException,
 
-    /* Interface */
+    /* Protocol */
     KoconutEquatable, KoconutComparable
 } from "../../internal"
 
@@ -2729,4 +2729,234 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
 
     }
 
+    // toBooleanArray
+    // toByteArray
+    // toCharArray
+    // toCollection
+    // toDoubleArray
+    // toFloatArray
+    // toHashSet
+    // toIntArray
+    // toList
+    // toLongArray
+    // toMap
+    // toMutableList
+    // toMutableSet
+
+    toArray() : KoconutArray<DataType> {
+
+        const koconutToReturn = new KoconutArray<DataType>();
+        (koconutToReturn as any as KoconutOpener<Array<DataType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                return this.data ? Array.from(this.data) : new Array()
+            })
+        return koconutToReturn
+
+    }
+    
+    
+    toSet() : KoconutSet<DataType> {
+
+        const koconutToReturn = new KoconutSet<DataType>();
+        (koconutToReturn as any as KoconutOpener<Set<DataType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                return new Set(this.data)
+            })
+        return koconutToReturn
+
+    }
+
+    // toShortArray
+    // toSortedSet
+    // toUByteArray
+    // toUIntArray
+    // toULongArray
+    // toUShortArray
+
+
+    union(
+        other : Iterable<DataType>
+    ) : KoconutSet<DataType> {
+
+        const koconutToReturn = new KoconutSet<DataType>();
+        (koconutToReturn as any as KoconutOpener<Set<DataType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedSet = this.data == null ? new Set<DataType>() : new Set(this.data)
+                for(const eachDatum of other) processedSet.add(eachDatum)
+                return await KoconutSet.from(processedSet).distinct().yield() as Set<DataType>
+            })
+        return koconutToReturn
+
+    }
+
+
+    // unzip
+    windowed(
+        size : number
+    ) : KoconutArray<Array<DataType>>;
+    windowed(
+        size : number,
+        step : number
+    ) : KoconutArray<Array<DataType>>;
+    windowed(
+        size : number,
+        step : number,
+        partialWindows : boolean
+    ) : KoconutArray<Array<DataType>>;
+    windowed<ResultDataType>(
+        size : number,
+        step : number,
+        partialWindows : boolean,
+        transform : (elements : Array<DataType>) => ResultDataType | Promise<ResultDataType>
+    ) : KoconutArray<ResultDataType>;
+    windowed<ResultDataType>(
+        size : number,
+        step : number,
+        partialWindows : boolean,
+        transform : (elements : Array<DataType>) => ResultDataType | Promise<ResultDataType>,
+        thisArg : any
+    ) : KoconutArray<ResultDataType>;
+    windowed<ResultDataType>(
+        size : number,
+        step : number = 1,
+        partialWindows : boolean = false,
+        transform : ((elements : Array<DataType>) => ResultDataType | Promise<ResultDataType>) | null = null,
+        thisArg : any = null
+    ) : KoconutArray<Array<DataType> | ResultDataType> {
+
+        if(size < 0) size = -size
+        if(step < 0) step = -step
+        if(transform) transform = transform.bind(thisArg)
+        const koconutToReturn = new KoconutArray<Array<DataType> | ResultDataType>();
+        (koconutToReturn as any as KoconutOpener<Array<Array<DataType>> | Array<ResultDataType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedArray = new Array<Array<DataType>>()
+                if(this.data != null) {
+                    let currentIndex = 0
+                    const dataArray = Array.from(this.data)
+                    while(currentIndex < dataArray.length) {
+                        const eachChunkedData = dataArray.slice(currentIndex, currentIndex + size)
+                        currentIndex += step
+                        if(partialWindows || eachChunkedData.length == size) processedArray.push(eachChunkedData)
+                    }
+                }
+                if(transform) {
+                    const transformedArray = new Array<ResultDataType>()
+                    for(const eachProcessedDatum of processedArray)
+                        transformedArray.push(await transform(eachProcessedDatum))
+                    return transformedArray
+                }
+                return processedArray
+            })
+        return koconutToReturn
+
+    }
+
+
+    withIndex() : KoconutArray<Entry<number, DataType>> {
+
+        const koconutToReturn = new KoconutArray<Entry<number, DataType>>();
+        (koconutToReturn as any as KoconutOpener<Array<Entry<number, DataType>>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedArray = new Array<Entry<number, DataType>>()
+                if(this.data != null) {
+                    for(const [index, element] of Array.from(this.data).entries()) {
+                        processedArray.push(new Entry(index as number, element))
+                    }
+                }
+                return processedArray
+            })
+        return koconutToReturn
+
+    }
+
+    zip<OtherDataType>(
+        other : Iterable<OtherDataType>
+    ) : KoconutArray<Pair<DataType, OtherDataType>>;
+    zip<OtherDataType, ResultDataType>(
+        other : Iterable<OtherDataType>,
+        transform : (originalData : DataType, otherData : OtherDataType) => ResultDataType | Promise<ResultDataType>
+    ) : KoconutArray<ResultDataType>;
+    zip<OtherDataType, ResultDataType>(
+        other : Iterable<OtherDataType>,
+        transform : (originalData : DataType, otherData : OtherDataType) => ResultDataType | Promise<ResultDataType>,
+        thisArg : any
+    ) : KoconutArray<ResultDataType>;
+    zip<OtherDataType, ResultDataType>(
+        other : Iterable<OtherDataType>,
+        transform : ((originalData : DataType, otherData : OtherDataType) => ResultDataType | Promise<ResultDataType>) | null = null,
+        thisArg : any = null
+    ) : KoconutArray<Pair<DataType, OtherDataType> | ResultDataType> {
+
+        if(transform) transform = transform.bind(thisArg)
+        const koconutToReturn = new KoconutArray<Pair<DataType, OtherDataType> | ResultDataType>();
+        (koconutToReturn as any as KoconutOpener<Array<Pair<DataType, OtherDataType>> | Array<ResultDataType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedArray = new Array<Pair<DataType, OtherDataType>>()
+                if(this.data != null) {
+                    const dataArray = Array.from(this.data)
+                    const otherArray= Array.from(other)
+                    const minLength = dataArray.length < otherArray.length ? dataArray.length : otherArray.length
+                    for(let eachIndex = 0 ; eachIndex < minLength ; eachIndex++)
+                        processedArray.push(new Pair(dataArray[eachIndex], otherArray[eachIndex]))
+                }
+                if(transform) {
+                    const transformedArray = new Array<ResultDataType>()
+                    for(let eachProcessedData of processedArray)
+                        transformedArray.push(await transform(eachProcessedData.first, eachProcessedData.second))
+                    return transformedArray
+                }
+                return processedArray
+            })
+        return koconutToReturn
+
+    }
+
+
+    zipWithNext() : KoconutArray<Pair<DataType, DataType>>;
+    zipWithNext<ResultDataType>(
+        transform : (firstData : DataType, secondData : DataType) => ResultDataType | Promise<ResultDataType>
+    ) : KoconutArray<ResultDataType>;
+    zipWithNext<ResultDataType>(
+        transform : (firstData : DataType, secondData : DataType) => ResultDataType | Promise<ResultDataType>,
+        thisArg : any
+    ) : KoconutArray<ResultDataType>;
+    zipWithNext<ResultDataType>(
+        transform : ((firstData : DataType, secondData : DataType) => ResultDataType | Promise<ResultDataType>) | null = null,
+        thisArg : any = null
+    ) : KoconutArray<Pair<DataType, DataType> | ResultDataType> {
+
+        if(transform) transform.bind(thisArg)
+        const koconutToReturn = new KoconutArray<Pair<DataType, DataType> | ResultDataType>();
+        (koconutToReturn as any as KoconutOpener<Array<Pair<DataType, DataType>> | Array<ResultDataType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedArray = new Array<Pair<DataType, DataType>>()
+                if(this.data != null) {
+                    const dataArray = Array.from(this.data)
+                    if(dataArray.length >= 2) {
+                        for(let eachIndex = 0 ; eachIndex < dataArray.length - 1 ; eachIndex++)
+                            processedArray.push(new Pair(dataArray[eachIndex], dataArray[eachIndex + 1]))
+                    }
+                    
+                }
+                if(transform) {
+                    const transformedArray = new Array<ResultDataType>()
+                    for(let eachProcessedDatum of processedArray)
+                        transformedArray.push(await transform(eachProcessedDatum.first, eachProcessedDatum.second))
+                    return transformedArray
+                }
+                return processedArray
+            })
+        return koconutToReturn
+
+    }
+
+    
 }

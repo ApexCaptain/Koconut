@@ -7,7 +7,7 @@ import {
     /* Container */
     KoconutCollection,
 
-    /* Interface */
+    /* Protocol */
     KoconutEquatable, KoconutComparable
 } from "../../internal"
 

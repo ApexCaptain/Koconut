@@ -12,9 +12,9 @@ export * from "./src/enum/KoconutLoopSignal"
 // Exception
 export * from "./src/exception/KoconutExceptions"
 
-// Interface
-export * from "./src/interface/KoconutComparable"
-export * from "./src/interface/KoconutEquatable"
+// Protocol
+export * from "./src/protocol/KoconutComparable"
+export * from "./src/protocol/KoconutEquatable"
 
 // Container
 export * from "./src/container/KoconutCollection"
