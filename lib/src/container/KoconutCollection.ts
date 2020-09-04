@@ -1217,4 +1217,65 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
 
     }
 
+
+    isNotEmpty() : KoconutPrimitive<boolean> {
+
+        const koconutToReturn = new KoconutPrimitive<boolean>();
+        (koconutToReturn as any as KoconutOpener<boolean>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => Array.from(this.data!).length != 0)
+        return koconutToReturn
+
+    }
+
+
+    isNullOrEmpty() : KoconutPrimitive<boolean> {
+
+        const koconutToReturn = new KoconutPrimitive<boolean>();
+        (koconutToReturn as any as KoconutOpener<boolean>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => this.data == null || Array.from(this.data).length == 0)
+        return koconutToReturn
+
+    }
+
+
+    // joinTo
+    // joinToString
+    join(
+        separator : string = ", ",
+        prefix : string = "",
+        postfix : string = "",
+        limit : number = -1,
+        truncated : string = "...",
+        transform : ((element : DataType) => any | Promise<any>) | null = null,
+        thisArg : any = null
+    ) : KoconutPrimitive<string> {
+
+        if(transform) transform = transform.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<string>();
+        (koconutToReturn as any as KoconutOpener<string>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                let resultString = prefix
+                if(this.data != null) {
+                    let currentCount = 0
+                    const length = Array.from(this.data).length
+                    for(const eachDatum of this.data) {
+                        if(currentCount == limit) {
+                            resultString += truncated
+                            break
+                        }
+                        resultString += transform ? await transform(eachDatum) : eachDatum
+                        currentCount++
+                        if(currentCount != length && currentCount != limit) resultString += separator
+                    }
+                }
+                resultString += postfix
+                return resultString
+            })
+        return koconutToReturn
+
+    }
+
 }

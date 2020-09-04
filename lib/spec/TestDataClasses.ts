@@ -16,6 +16,10 @@ export class Person implements KoconutEquatable {
     equalsTo(other : Person) : boolean {
         return this.lastName == other.lastName
     }
+    
+    toString() : string {
+        return "zzz"
+    }
 }
 
 export class ProductInfo implements KoconutEquatable {

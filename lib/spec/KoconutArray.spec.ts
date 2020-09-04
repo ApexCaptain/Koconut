@@ -1182,4 +1182,93 @@ describe(`${KoconutArray.name} -- Function`, () => {
 
     })
 
+    it(KoconutArray.prototype.isNotEmpty.name, async () => {
+
+        const koconut = KoconutArray.from([1,2,3,4,5])
+
+        /* Case 1 */
+        const yieldableCase1 = 
+                        koconut
+                        .isNotEmpty()
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).equals(true)
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .filter(eachElement => eachElement >= 10)
+                        .isNotEmpty()
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).equals(false)
+
+    })
+
+    it(KoconutArray.prototype.isNullOrEmpty.name, async () => {
+
+        /* Case 1 */
+        const koconutCase1 = new KoconutArray()
+        
+        const yieldableCase1 =
+                        koconutCase1
+                        .isNullOrEmpty()
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).equals(true)
+
+        /* Case 2 */
+        const koconutCase2 = KoconutArray.from([1,2,3,4,5])
+
+        const yieldableCase2 =
+                        koconutCase2
+                        .filter(eachElement => eachElement > 10)
+                        .isNullOrEmpty()
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).equals(true)
+
+    })
+
+    it(KoconutArray.prototype.join.name, async () => {
+
+        const koconut = KoconutArray.from("abcdefg")
+
+        /* Case 1 */
+        const yieldableCase1 =
+                        koconut
+                        .join()
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).equals("a, b, c, d, e, f, g")
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .join(
+                            "•",
+                            "<",
+                            ">"
+                        )
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).equals("<a•b•c•d•e•f•g>")
+
+        /* Case 3 */
+        const yieldableCase3 =
+                        koconut
+                        .join(
+                            " - ",
+                            "< ",
+                            " >",
+                            5,
+                            " ~",
+                            eachElement => eachElement.toUpperCase()
+                        )
+        expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive)
+        const resultCase3 = await yieldableCase3.yield()
+        expect(resultCase3).equals("< A - B - C - D - E ~ >")
+
+    })
+
 })
