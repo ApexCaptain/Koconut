@@ -18,7 +18,22 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
 
     /* Iterable */
     [Symbol.iterator]() : Iterator<DataType> {
+
         return (this.data as Iterable<DataType>)[Symbol.iterator]()
+
+    }
+
+    /* Koconut Primitive */
+    async validiate(data : WrapperType | null) {
+        if(data != null) {
+            const dataArray = Array.from(data)
+            this.mSize = dataArray.length
+            Object
+                .keys(dataArray)
+                .map(eachString => parseInt(eachString))
+                .forEach(eachIndex => this.mIndices.push(eachIndex))
+        }   
+        
     }
 
     /* Properties */
@@ -42,16 +57,7 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
         return koconutToReturn
 
     }
-    constructor(data : WrapperType | null = null) {
-        super(data)
-        if(this.data) {
-            this.mSize = Array.from(data as WrapperType).length
-            Object
-                .keys(Array.from(this.data))
-                .map(eachString => parseInt(eachString))
-                .forEach(eachIndex => this.mIndices.push(eachIndex))
-        }
-    }
+
 
     /* Funcions */
     all(
@@ -2958,5 +2964,5 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
 
     }
 
-    
+
 }

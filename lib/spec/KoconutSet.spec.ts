@@ -161,7 +161,7 @@ describe(`${KoconutSet.name} -- Function`, () => {
         expect(yieldableCase1).to.be.instanceOf(KoconutMap)
         const resultCase1 = await yieldableCase1.yield()
         expect(resultCase1?.get("Hopper")).to.eql(new Person("Grace", "Hopper"))
-        expect(resultCase1?.get("Bernoulli")).to.eql(new Person("Johann", "Bernoulli"))
+        expect(resultCase1?.get("Bernoulli")).to.eql(new Person("Jacob", "Bernoulli"))
         expect(resultCase1?.get("Luvya")).to.eql(new Person("Jinyoung", "Luvya"))
         
         /* Case 2 */
@@ -174,7 +174,7 @@ describe(`${KoconutSet.name} -- Function`, () => {
         expect(yieldableCase2).to.be.instanceOf(KoconutMap)
         const resultCase2 = await yieldableCase2.yield()
         const expectedResultEntryArrayCase2 =[[ 'Hopper', 'Grace' ],
-                                            [ 'Bernoulli', 'Johann' ],
+                                            [ 'Bernoulli', 'Jacob' ],
                                             [ 'Luvya', 'Jinyoung' ]]
         expect(Array.from(resultCase2!.entries())).to.eql(expectedResultEntryArrayCase2)
 
@@ -199,7 +199,7 @@ describe(`${KoconutSet.name} -- Function`, () => {
         expect(yieldableCase1).to.be.instanceOf(KoconutSet)
         await yieldableCase1.process()
         expect(destinationCase1.get("Hopper")).to.eql(new Person("Grace", "Hopper"))
-        expect(destinationCase1.get("Bernoulli")).to.eql(new Person("Johann", "Bernoulli"))
+        expect(destinationCase1.get("Bernoulli")).to.eql(new Person("Jacob", "Bernoulli"))
         expect(destinationCase1.get("Luvya")).to.eql(new Person("Jinyoung", "Luvya"))
 
         /* Case 2 */
@@ -214,7 +214,7 @@ describe(`${KoconutSet.name} -- Function`, () => {
         expect(yieldableCase2).to.be.instanceOf(KoconutSet)
         await yieldableCase2.process()
         const expectedResultEntryArrayCase2 =[[ 'Hopper', 'Grace' ],
-                                            [ 'Bernoulli', 'Johann' ],
+                                            [ 'Bernoulli', 'Jacob' ],
                                             [ 'Luvya', 'Jinyoung' ]]
         expect(Array.from(destinationCase2.entries())).to.eql(expectedResultEntryArrayCase2)
 
@@ -641,6 +641,7 @@ describe(`${KoconutSet.name} -- Function`, () => {
         const yieldable =
                         koconut
                         .filter(eachElement => eachElement % 2 == 0)
+
         expect(yieldable).to.be.instanceOf(KoconutSet)
         const result = await yieldable.yield()
         expect(result).eqls(new Set([2,4,6]))
@@ -1015,7 +1016,7 @@ describe(`${KoconutSet.name} -- Function`, () => {
         const resultCase2 = await yieldableCase2.yield()
         const expectedResultEntryArrayCase2 = [
                                                 [ 'Hopper', [ 'Grace' ] ],
-                                                [ 'Bernoulli', [ 'Jacob', 'Johann' ] ],
+                                                [ 'Bernoulli', [ 'Jacob' ] ],
                                                 [ 'Luvya', [ 'Jinyoung' ] ]
                                             ]
         expect(Array.from(resultCase2!.entries())).eqls(expectedResultEntryArrayCase2)
@@ -1063,7 +1064,7 @@ describe(`${KoconutSet.name} -- Function`, () => {
         await yieldableCase2.process()
         const expectedResultEntryArrayCase2 = [
                                             [ 'Hopper', [ 'Grace' ] ],
-                                            [ 'Bernoulli', [ 'Jacob', 'Johann' ] ],
+                                            [ 'Bernoulli', [ 'Jacob' ] ],
                                             [ 'Luvya', [ 'Jinyoung' ] ]
                                         ]
         expect(Array.from(destinationCase2.entries())).eqls(expectedResultEntryArrayCase2)
@@ -1343,7 +1344,7 @@ describe(`${KoconutSet.name} -- Function`, () => {
                         .lastIndexOf(new Person("Johann", "Bernoulli"))
         expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
         const resultCase2 = await yieldableCase2.yield()
-        expect(resultCase2).equals(2)
+        expect(resultCase2).equals(1)
 
     })
 
@@ -1815,7 +1816,6 @@ describe(`${KoconutSet.name} -- Function`, () => {
         const resultCase3 = await yieldableCase3.yield()
         const expectedResultArrayCase3 = [
                                             new Person("Jacob", "Bernoulli"),
-                                            new Person("Johann", "Bernoulli"), 
                                             new Person("Jinyoung", "Luvya")
                                         ]
         expect(resultCase3).eql(new Set(expectedResultArrayCase3))
@@ -1870,7 +1870,6 @@ describe(`${KoconutSet.name} -- Function`, () => {
         const resultCase2 = await yieldableCase2.yield()
         const expectedResultArrayCase2 = [
                                             new Person("Jacob", "Bernoulli"),
-                                            new Person("Johann", "Bernoulli"), 
                                             new Person("Jinyoung", "Luvya")
                                         ]
         expect(resultCase2).eql(new Set(expectedResultArrayCase2))

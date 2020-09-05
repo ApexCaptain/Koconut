@@ -21,6 +21,14 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
 
     }
 
+    static of<DataType>(
+        ...data : DataType[]
+    ) : KoconutArray<DataType> {
+
+        return new KoconutArray(data)
+
+    }
+
 
     private static fromCollection<DataType>(
         collection : KoconutCollection<DataType, Array<DataType>>

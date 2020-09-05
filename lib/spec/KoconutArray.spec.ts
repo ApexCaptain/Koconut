@@ -1,9 +1,9 @@
 import { expect } from 'chai' 
 import {
-    /* Bases */
+    /* Base */
     KoconutPrimitive, Pair, KoconutPair, Entry,
 
-    /* Containers*/
+    /* Container */
     KoconutArray, KoconutMap, KoconutSet,
 
     /* Exception */
@@ -2741,7 +2741,7 @@ describe(`${KoconutArray.name} -- Function`, () => {
         expect(yieldableCase2).to.be.instanceOf(KoconutArray)
         const resultCase2 = await yieldableCase2.yield()
         expect(resultCase2).eqls([2,6,12,20])
-        
+
     })
 
 })

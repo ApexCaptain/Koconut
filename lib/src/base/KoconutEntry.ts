@@ -1,8 +1,14 @@
 `use strict`
 
-import { Pair, KoconutPrimitive } from "../../internal"
+import { 
+    /* Base */
+    Pair, KoconutPrimitive,
 
-export class Entry<KeyType, ValueType> {
+    /* Protocol */
+    KoconutEquatable
+} from "../../internal"
+
+export class Entry<KeyType, ValueType> implements KoconutEquatable {
     protected keyElement : KeyType
     protected valueElement : ValueType
     constructor(keyElement : KeyType, valueElement : ValueType) {
@@ -14,6 +20,9 @@ export class Entry<KeyType, ValueType> {
     toString() : string { return this.toPair().toString() }
     toArray() : Array<KeyType | ValueType> { return this.toPair().toArray() }
     toPair() : Pair<KeyType, ValueType> { return new Pair(this.key, this.value) }
+    equalsTo(other : Entry<KeyType, ValueType>) : boolean {
+        return this.key == other.key
+    }
 }
 
 export class KoconutEntry<KeyType, ValueType> extends KoconutPrimitive<Entry<KeyType, ValueType>> {

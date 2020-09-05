@@ -17,11 +17,14 @@ export class KoconutPrimitive<DataType> implements KoconutYieldable<DataType> {
         return this as any as KoconutOpener<DataType>
     }
 
+    protected async validiate(data : DataType | null) {}
+
     constructor(data : DataType | null = null) { this.data = data }
 
     async process() : Promise<void> {
         if(this.prevYieldable != null) this.data = await this.prevYieldable.yield()
         if(this.processor != null) this.data = await this.processor()
+        await this.validiate(this.data)
         this.prevYieldable = undefined
         this.processor = undefined
     }

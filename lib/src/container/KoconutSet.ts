@@ -17,7 +17,16 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
         source : Iterable<DataType>
     ) : KoconutSet<DataType> {
 
-        return new KoconutSet(new Set(source))
+        return new KoconutSet(new Set(source)).distinct()
+
+    }
+
+
+    static of<DataType>(
+        ...data : DataType[]
+    ) : KoconutSet<DataType> {
+
+        return new KoconutSet(new Set(data)).distinct()
 
     }
 
