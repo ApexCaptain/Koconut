@@ -37,7 +37,7 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
     }
 
     /* Properties */
-    private mSize = 0
+    protected mSize = 0
     size() : KoconutPrimitive<number> {
 
         const koconutToReturn = new KoconutPrimitive<number>();
@@ -47,7 +47,7 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
         return koconutToReturn
 
     }
-    private mIndices = new Array<number>()
+    protected mIndices = new Array<number>()
     indices() : KoconutArray<number> {
 
         const koconutToReturn = new KoconutArray<number>();
@@ -1933,12 +1933,6 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
 
 
     minus(
-        element : DataType
-    ) : KoconutCollection<DataType, WrapperType>;
-    minus(
-        elements : Iterable<DataType>
-    ) : KoconutCollection<DataType, WrapperType>
-    minus(
         elements : DataType | Iterable<DataType>
     ) : KoconutCollection<DataType, WrapperType> {
 
@@ -2090,12 +2084,6 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
     }
 
 
-    plus(
-        element : DataType
-    ) : KoconutCollection<DataType, WrapperType>;
-    plus(
-        elements : Iterable<DataType>
-    ) : KoconutCollection<DataType, WrapperType>;
     plus(
         elements : DataType | Iterable<DataType>
     ) : KoconutCollection<DataType, WrapperType> {

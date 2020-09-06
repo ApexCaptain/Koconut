@@ -26,7 +26,10 @@ export class Entry<KeyType, ValueType> implements KoconutEquatable {
 }
 
 export class KoconutEntry<KeyType, ValueType> extends KoconutPrimitive<Entry<KeyType, ValueType>> {
-
+    constructor(key : KeyType | null = null, value : ValueType | null = null) {
+        if(key != null && value != null) super(new Entry(key, value))
+        else super()
+    }
 }
 
 export class MutableEntry<KeyType, ValueType> extends Entry<KeyType, ValueType> {

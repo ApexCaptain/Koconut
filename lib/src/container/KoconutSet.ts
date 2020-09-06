@@ -2,7 +2,7 @@
 
 import {
     /* Bases */
-    Pair, KoconutPair,
+    Pair, KoconutPair, KoconutTypeChecker,
 
     /* Container */
     KoconutCollection,
@@ -17,7 +17,7 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
         source : Iterable<DataType>
     ) : KoconutSet<DataType> {
 
-        return new KoconutSet(new Set(source)).distinct()
+        return new KoconutSet(new Set(source))
 
     }
 
@@ -26,8 +26,36 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
         ...data : DataType[]
     ) : KoconutSet<DataType> {
 
-        return new KoconutSet(new Set(data)).distinct()
+        return new KoconutSet(new Set(data))
 
+    }
+
+    /* Koconut Primitive */
+
+    async validiate(data : Set<DataType> | null) {
+        if(data != null) {
+            let index = 0
+            const keys = new Array<DataType>()
+            for(const eachDatum of data) {
+                if(KoconutTypeChecker.checkIsEquatable(eachDatum)) {
+                    let isConflict = false
+                    for(const eachPrevEquatablekDatum of keys) {
+                        if(eachDatum.equalsTo(eachPrevEquatablekDatum as any as KoconutEquatable)) {
+                            isConflict = true
+                            break;
+                        }
+                    }
+                    if(!isConflict) {
+                        this.mSize ++
+                        this.mIndices.push(index ++)
+                        keys.push(eachDatum)
+                    } else this.data?.delete(eachDatum)
+                } else {
+                    this.mSize ++
+                    this.mIndices.push(index ++)
+                }
+            }
+        }
     }
 
 

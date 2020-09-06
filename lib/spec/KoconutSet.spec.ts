@@ -153,7 +153,7 @@ describe(`${KoconutSet.name} -- Function`, () => {
                         new Person("Jacob", "Bernoulli"), 
                         new Person("Johann", "Bernoulli"), 
                         new Person("Jinyoung", "Luvya")])
-
+                        
         /* Case 1 */
         const yieldableCase1 = 
                         koconut

@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import {
         /* Base */
-        Entry, KoconutPrimitive, Pair, KoconutEntry,
+        KoconutPrimitive, Entry, KoconutEntry, Pair, KoconutPair,
 
         /* Container */
         KoconutArray, KoconutSet, KoconutMap,
@@ -1059,6 +1059,469 @@ describe(`${KoconutMap.name} -- Function`, () => {
         expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
         const resultCase2 = await yieldableCase2.yield()
         expect(resultCase2).equals(null)
+
+    })
+
+    it(KoconutMap.prototype.maxWithOrNull.name, async () => {
+
+        const koconut = KoconutMap.of(
+                                        ["Alice", 42],
+                                        ["Bob", 28],
+                                        ["Carol", 51]
+                                    )
+
+        /* Case 1 */
+        const yieldableCase1 =
+                        koconut
+                        .maxWithOrNull(
+                            (front, rear) => front.value - rear.value
+                        )
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).eqls(new Entry("Carol", 51))
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .filter(eachEntry => eachEntry.value > 100)
+                        .maxWithOrNull(
+                            (front, rear) => front.value - rear.value
+                        )
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).equals(null)
+
+    })
+
+    it(KoconutMap.prototype.minByOrNull.name, async () => {
+
+        /* Case 1 */
+        const koconutCase1 = KoconutMap.of(
+                                        ["Alice", 42],
+                                        ["Bob", 28],
+                                        ["Carol", 51]
+                                    )
+
+        const yieldableCase1 =
+                        koconutCase1
+                        .minByOrNull(eachEntry => eachEntry.value)
+        expect(yieldableCase1).to.be.instanceOf(KoconutEntry)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).eqls(new Entry("Bob", 28))
+
+        /* Case 2 */
+        const koconutCase2 = KoconutMap.of(
+                                            ["Alice", 42],
+                                            ["Bob", 28],
+                                            ["Carol", 51]
+                                        )
+        const yieldableCase2 =
+                        koconutCase2
+                        .filter(eachEntry => eachEntry.value > 100)
+                        .minByOrNull(eachEntry => eachEntry.value)
+        expect(yieldableCase2).to.be.instanceOf(KoconutEntry)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).equals(null)
+
+        /* Case 3 */
+        const koconutCase3 = KoconutArray.from([
+                                            new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
+                                            new ProductInfo("A-2", "Mac Book Air -- September", 1200),
+                                            new ProductInfo("A-3", "iPhone -- June", 1500)]
+                                        )
+                                        .associateBy(eachElement => eachElement.id)
+        
+        const yieldableCase3 =
+                        koconutCase3
+                        .minByOrNull(eachEntry => eachEntry.value)
+        expect(yieldableCase3).to.be.instanceOf(KoconutEntry)
+        const resultCase3 = await yieldableCase3.yield()
+        expect(resultCase3).eqls(
+            new Entry("A-2", new ProductInfo("A-2", "Mac Book Air -- September", 1200)))
+
+    })
+
+    it(KoconutMap.prototype.minOf.name, async () => {
+
+        /* Case 1 */
+        const koconutCase1 = KoconutMap.of(
+                                        ["Alice", 42],
+                                        ["Bob", 28],
+                                        ["Carol", 51]
+                                    )
+
+        const yieldableCase1 =
+                        koconutCase1
+                        .minOf(eachEntry => eachEntry.value)
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).eqls(28)
+
+        /* Case 2 */
+        const koconutCase2 = KoconutMap.of(
+                                            ["Alice", 42],
+                                            ["Bob", 28],
+                                            ["Carol", 51]
+                                        )
+        const yieldableCase2 =
+                        koconutCase2
+                        .filter(eachEntry => eachEntry.value > 100)
+                        .minOf(eachEntry => eachEntry.value)
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        try { await yieldableCase2.process() }
+        catch(error) { expect(error).to.be.instanceOf(KoconutNoSuchElementException) }
+
+        /* Case 3 */
+        const koconutCase3 = KoconutArray.from([
+                                            new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
+                                            new ProductInfo("A-2", "Mac Book Air -- September", 1200),
+                                            new ProductInfo("A-3", "iPhone -- June", 1500)]
+                                        )
+                                        .associateBy(eachElement => eachElement.id)
+        
+        const yieldableCase3 =
+                        koconutCase3
+                        .minOf(eachEntry => eachEntry.value)
+        expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive)
+        const resultCase3 = await yieldableCase3.yield()
+        expect(resultCase3).eqls( new ProductInfo("A-2", "Mac Book Air -- September", 1200))
+
+    })
+
+    it(KoconutMap.prototype.minOfOrNull.name, async () => {
+
+        /* Case 1 */
+        const koconutCase1 = KoconutMap.of(
+                                        ["Alice", 42],
+                                        ["Bob", 28],
+                                        ["Carol", 51]
+                                    )
+
+        const yieldableCase1 =
+                        koconutCase1
+                        .minOfOrNull(eachEntry => eachEntry.value)
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).eqls(28)
+
+        /* Case 2 */
+        const koconutCase2 = KoconutMap.of(
+                                            ["Alice", 42],
+                                            ["Bob", 28],
+                                            ["Carol", 51]
+                                        )
+        const yieldableCase2 =
+                        koconutCase2
+                        .filter(eachEntry => eachEntry.value > 100)
+                        .minOfOrNull(eachEntry => eachEntry.value)
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).equals(null)
+
+        /* Case 3 */
+        const koconutCase3 = KoconutArray.from([
+                                            new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
+                                            new ProductInfo("A-2", "Mac Book Air -- September", 1200),
+                                            new ProductInfo("A-3", "iPhone -- June", 1500)]
+                                        )
+                                        .associateBy(eachElement => eachElement.id)
+        
+        const yieldableCase3 =
+                        koconutCase3
+                        .minOfOrNull(eachEntry => eachEntry.value)
+        expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive)
+        const resultCase3 = await yieldableCase3.yield()
+        expect(resultCase3).eqls( new ProductInfo("A-2", "Mac Book Air -- September", 1200))
+
+    })
+
+    it(KoconutMap.prototype.minOfWith.name, async () => {
+
+        const koconut = KoconutMap.of(
+                                        ["Alice", 42],
+                                        ["Bob", 28],
+                                        ["Carol", 51]
+                                    )
+
+        /* Case 1 */
+        const yieldableCase1 =
+                        koconut
+                        .minOfWith(
+                            eachEntry => eachEntry.value,
+                            (front, rear) => front - rear
+                        )
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).equals(28)
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .filter(eachEntry => eachEntry.value > 100)
+                        .minOfWith(
+                            eachEntry => eachEntry.value,
+                            (front, rear) => front = rear
+                        )
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        try { await yieldableCase2.process() }
+        catch(error) { expect(error).to.be.instanceOf(KoconutNoSuchElementException) }
+
+    })
+
+    it(KoconutMap.prototype.minOfWithOrNull.name, async () => {
+
+        const koconut = KoconutMap.of(
+                                        ["Alice", 42],
+                                        ["Bob", 28],
+                                        ["Carol", 51]
+                                    )
+
+        /* Case 1 */
+        const yieldableCase1 =
+                        koconut
+                        .minOfWithOrNull(
+                            eachEntry => eachEntry.value,
+                            (front, rear) => front - rear
+                        )
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).equals(28)
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .filter(eachEntry => eachEntry.value > 100)
+                        .minOfWithOrNull(
+                            eachEntry => eachEntry.value,
+                            (front, rear) => front = rear
+                        )
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).equals(null)
+
+    })
+
+    it(KoconutMap.prototype.minus.name, async () => {
+
+        /* Case 1 */
+        const koconutCase1 = KoconutArray.of(1,2,3)
+                                .associate(eachElement => [eachElement, eachElement])
+                    
+        const yieldableCase1 =
+                        koconutCase1
+                        .minus(1)
+        expect(yieldableCase1).to.be.instanceOf(KoconutMap)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).eqls(new Map([[2, 2], [3, 3]]))
+
+        /* Case 2 */
+        const koconutCase2 = KoconutArray.from([
+                                        new Person("Grace", "Hopper"), 
+                                        new Person("Jacob", "Bernoulli"), 
+                                        new Person("Johann", "Bernoulli"), 
+                                        new Person("Jinyoung", "Luvya")])
+                                        .associate(eachElement => [eachElement, eachElement.firstName + eachElement.lastName])  
+    
+        const yieldableCase2 =
+                        koconutCase2
+                        .minus(new Person("Jinyoung", "Luvya"))
+        expect(yieldableCase2).to.be.instanceOf(KoconutMap)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).eqls(new Map([
+                                            [new Person("Grace", "Hopper"), "GraceHopper"],
+                                            [new Person("Jacob", "Bernoulli"), "JacobBernoulli"]
+                                        ]))
+
+    })
+
+    it(KoconutMap.prototype.minWithOrNull.name, async () => {
+
+        const koconut = KoconutMap.of(
+                                        ["Alice", 42],
+                                        ["Bob", 28],
+                                        ["Carol", 51]
+                                    )
+
+        /* Case 1 */
+        const yieldableCase1 =
+                        koconut
+                        .minWithOrNull(
+                            (front, rear) => front.value - rear.value
+                        )
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).eqls(new Entry("Bob", 28))
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .filter(eachEntry => eachEntry.value > 100)
+                        .minWithOrNull(
+                            (front, rear) => front.value - rear.value
+                        )
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).equals(null)
+
+    })
+
+    it(KoconutMap.prototype.none.name, async () => {
+
+        const koconut = KoconutArray.of(1,2,3,4,5)
+                            .associate(eachElement => [eachElement, eachElement])
+
+        /* Case 1 */
+        const yieldableCase1 = 
+                        koconut
+                        .filter(eachEntry => eachEntry.key > 10)
+                        .none()
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).equals(true)
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .none(eachEntry => eachEntry.key > 10)
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).equals(true)
+
+    })
+
+    it(KoconutMap.prototype.onEach.name, async () => {
+
+        const koconut = KoconutArray.of(1,2,3,4,5)
+                        .associate(eachElement => [eachElement, eachElement])
+        
+        const yieldable =
+                        koconut
+                        .onEach(eachEntry => {
+                            expect(eachEntry.value - eachEntry.key).equals(0)
+                        })
+        expect(yieldable).to.be.instanceOf(KoconutMap)
+        await yieldable.process()
+
+    })
+
+    it(KoconutMap.prototype.onEachIndexed.name, async () => {
+
+        const koconut = KoconutArray.of(1,2,3,4,5)
+                        .associate(eachElement => [eachElement, eachElement])
+
+        const yieldable =
+                        koconut
+                        .onEachIndexed(
+                            (index, eachEntry) => {
+                                expect(eachEntry.value - index).equals(1)
+                            }
+                        )
+        expect(yieldable).to.be.instanceOf(KoconutMap)
+        await yieldable.process()
+
+    })
+
+    it(KoconutMap.prototype.plus.name, async () => {
+
+        const koconut = KoconutArray.of(1,2,3)
+                        .associate(eachElement => [eachElement, eachElement])
+
+        const expectedResultMap = new Map(
+                                            [
+                                                [1, 1],
+                                                [2, 2],
+                                                [3, 3],
+                                                [4, 4]
+                                            ]
+                                        )
+
+        /* Case 1 */
+        const yieldableCase1 =
+                        koconut
+                        .plus(new Pair(4, 4))
+        expect(yieldableCase1).to.be.instanceOf(KoconutMap)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).eqls(expectedResultMap)
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .plus(new KoconutPair(4, 4))
+        expect(yieldableCase2).to.be.instanceOf(KoconutMap)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).eqls(expectedResultMap)
+
+        /* Case 3 */
+        const yieldableCase3 =
+                        koconut
+                        .plus(new Entry(4, 4))
+        expect(yieldableCase3).to.be.instanceOf(KoconutMap)
+        const resultCase3 = await yieldableCase3.yield()
+        expect(resultCase3).eqls(expectedResultMap)
+
+        /* Case 4 */
+        const yieldableCase4 =
+                        koconut
+                        .plus(new KoconutEntry(4, 4))
+        expect(yieldableCase4).to.be.instanceOf(KoconutMap)
+        const reusltCase4 = await yieldableCase4.yield()
+        expect(reusltCase4).eqls(expectedResultMap)
+
+
+        expectedResultMap.set(5, 5)
+
+
+        /* Case 5 */
+        const yieldableCase5 =
+                        koconut
+                        .plus([new Pair(4, 4), new Pair(5, 5)])
+        expect(yieldableCase5).to.be.instanceOf(KoconutMap)
+        const reusltCase5 = await yieldableCase5.yield()
+        expect(reusltCase5).eqls(expectedResultMap)
+
+        /* Case 6 */
+        const yieldableCase6 =
+                        koconut
+                        .plus([new KoconutPair(4, 4), new KoconutPair(5, 5)])
+        expect(yieldableCase6).to.be.instanceOf(KoconutMap)
+        const resultCase6 = await yieldableCase6.yield()
+        expect(resultCase6).eqls(expectedResultMap)
+
+        /* Case 7 */
+        const yieldableCase7 =
+                        koconut
+                        .plus([new Entry(4, 4), new Entry(5, 5)])
+        expect(yieldableCase7).to.be.instanceOf(KoconutMap)
+        const resultCase7 = await yieldableCase7.yield()
+        expect(resultCase7).eqls(expectedResultMap)
+
+        /* Case 8 */
+        const yieldableCase8 =
+                        koconut
+                        .plus([new KoconutEntry(4, 4), new KoconutEntry(5, 5)])
+        expect(yieldableCase8).to.be.instanceOf(KoconutMap)
+        const resultCase8 = await yieldableCase8.yield()
+        expect(resultCase8).eqls(expectedResultMap)
+        
+    })
+
+    it(KoconutMap.prototype.toArray.name, async () => {
+
+        const koconut = KoconutArray.of(1,2,3,4,5)
+                        .associate(eachElement => [eachElement, eachElement])
+            
+        const yieldable =
+                        koconut
+                        .toArray()
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        const result = await yieldable.yield()
+        expect(result).eqls([
+                            new Entry(1, 1),
+                            new Entry(2, 2),
+                            new Entry(3, 3),
+                            new Entry(4, 4),
+                            new Entry(5, 5)
+                        ])
 
     })
 

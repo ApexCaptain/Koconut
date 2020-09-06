@@ -2,7 +2,7 @@
 
 import {
     /* Base */
-    Entry, KoconutPrimitive, Pair, KoconutOpener, KoconutTypeChecker, KoconutEntry,
+    Entry, KoconutPrimitive, Pair, KoconutPair, KoconutOpener, KoconutTypeChecker, KoconutEntry,
 
     /* Container */
     KoconutArray, KoconutSet,
@@ -52,9 +52,24 @@ export class KoconutMap<KeyType, ValueType> extends KoconutPrimitive<Map<KeyType
     
         if(data != null) {
             for(const [key, value] of data.entries()) {
-                this.mKeys.add(key)
-                this.mEntries.add(new Entry(key, value))
-                this.mValues.push(value)
+                if(KoconutTypeChecker.checkIsEquatable(key)) {
+                    let isConflict = false
+                    for(const eachPrevEquatableKey of this.mKeys) {
+                        if(key.equalsTo(eachPrevEquatableKey as any as KoconutEquatable)) {
+                            isConflict = true
+                            break
+                        }
+                    }
+                    if(!isConflict) {
+                        this.mKeys.add(key)
+                        this.mEntries.add(new Entry(key, value))
+                        this.mValues.push(value)
+                    } else this.data?.delete(key)
+                } else {
+                    this.mKeys.add(key)
+                    this.mEntries.add(new Entry(key, value))
+                    this.mValues.push(value)
+                }
             }
             this.mSize = data.size
         }
@@ -940,6 +955,381 @@ export class KoconutMap<KeyType, ValueType> extends KoconutPrimitive<Map<KeyType
                         lastComparableDatumToReturn = eachComparableDatum
                 }
                 return lastComparableDatumToReturn
+            })
+        return koconutToReturn
+
+    }
+
+
+
+    maxWithOrNull(
+        comparator : (front : Entry<KeyType, ValueType>, rear : Entry<KeyType, ValueType>) => number | Promise<number>,
+        thisArg : any = null
+    ) : KoconutPrimitive<Entry<KeyType, ValueType> | null> {
+
+        comparator = comparator.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<Entry<KeyType, ValueType> | null>();
+        (koconutToReturn as any as KoconutOpener<Entry<KeyType, ValueType> | null>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data == null || this.mSize == 0) return null
+                let dataToReturn : Entry<KeyType, ValueType> | null = null
+                for(const eachEntry of this.mEntries) {
+                    if(dataToReturn == null || await comparator(dataToReturn, eachEntry) < 0)
+                        dataToReturn = eachEntry
+                }
+                return dataToReturn
+            })
+        return koconutToReturn
+
+    }
+
+
+    minByOrNull(
+        selector : (entry : Entry<KeyType, ValueType>) => number | string | KoconutComparable | Promise<number | string | KoconutComparable>,
+        thisArg : any = null
+    ) : KoconutEntry<KeyType, ValueType> {
+
+        selector = selector.bind(thisArg)
+        const koconutToReturn = new KoconutEntry<KeyType, ValueType>();
+        (koconutToReturn as any as KoconutOpener<Entry<KeyType, ValueType> | null>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data == null || this.mSize == 0) return null
+                let dataToReturn : Entry<KeyType, ValueType> | null = null
+                let lastComparableDatum : number | string | KoconutComparable | null = null
+                for(const eachEntry of this.mEntries) {
+                    const eachComparableDatum = await selector(eachEntry)
+                    if(lastComparableDatum == null
+                        || (KoconutTypeChecker.checkIsComparable(eachComparableDatum) && (eachComparableDatum).compareTo(lastComparableDatum as any as KoconutComparable) < 0)
+                        || (!KoconutTypeChecker.checkIsComparable(eachComparableDatum) && lastComparableDatum > eachComparableDatum)) {
+                            dataToReturn = eachEntry
+                            lastComparableDatum = eachComparableDatum
+                        }
+                }
+                return dataToReturn
+            })
+        return koconutToReturn
+
+    }
+
+
+    minOf(
+        selector : (entry : Entry<KeyType, ValueType>) => number | Promise<number>
+    ) : KoconutPrimitive<number>;
+    minOf(
+        selector : (entry : Entry<KeyType, ValueType>) => number | Promise<number>,
+        thisArg : any
+    ) : KoconutPrimitive<number>;
+    minOf(
+        selector : (entry : Entry<KeyType, ValueType>) => string | Promise<string>
+    ) : KoconutPrimitive<string>;
+    minOf(
+        selector : (entry : Entry<KeyType, ValueType>) => string | Promise<string>,
+        thisArg : any
+    ) : KoconutPrimitive<string>;
+    minOf<ComparableType extends KoconutComparable>(
+        selector : (entry : Entry<KeyType, ValueType>) => ComparableType | Promise<ComparableType>
+    ) : KoconutPrimitive<ComparableType>;
+    minOf<ComparableType extends KoconutComparable>(
+        selector : (entry : Entry<KeyType, ValueType>) => ComparableType | Promise<ComparableType>,
+        thisArg : any
+    ) : KoconutPrimitive<ComparableType>;
+    minOf<ComparableType extends KoconutComparable>(
+        selector : (entry : Entry<KeyType, ValueType>) => number | string | ComparableType | Promise<number | string | ComparableType>,
+        thisArg : any = null
+    ) : KoconutPrimitive<number | string | ComparableType> {
+
+        selector = selector.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<number | string | ComparableType>();
+        (koconutToReturn as any as KoconutOpener<number | string | ComparableType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data == null || this.mSize == 0) throw new KoconutNoSuchElementException(`Source data is null or empty`)
+                let lastComparableDatumToReturn : number | string | ComparableType | null = null
+                for(const eachEntry of this.mEntries) {
+                    const eachComparableDatum = await selector(eachEntry)
+                    if(lastComparableDatumToReturn == null
+                        || (KoconutTypeChecker.checkIsComparable(eachComparableDatum) && (eachComparableDatum).compareTo(lastComparableDatumToReturn as any as KoconutComparable) < 0)
+                        || (!KoconutTypeChecker.checkIsComparable(eachComparableDatum) && lastComparableDatumToReturn > eachComparableDatum)) {
+                            lastComparableDatumToReturn = eachComparableDatum
+                        }
+                }
+                return lastComparableDatumToReturn!
+            })
+        return koconutToReturn
+
+    }
+
+
+    minOfOrNull(
+        selector : (entry : Entry<KeyType, ValueType>) => number | Promise<number>
+    ) : KoconutPrimitive<number | null>;
+    minOfOrNull(
+        selector : (entry : Entry<KeyType, ValueType>) => number | Promise<number>,
+        thisArg : any
+    ) : KoconutPrimitive<number | null>;
+    minOfOrNull(
+        selector : (entry : Entry<KeyType, ValueType>) => string | Promise<string>
+    ) : KoconutPrimitive<string | null>;
+    minOfOrNull(
+        selector : (entry : Entry<KeyType, ValueType>) => string | Promise<string>,
+        thisArg : any
+    ) : KoconutPrimitive<string | null>;
+    minOfOrNull<ComparableType extends KoconutComparable>(
+        selector : (entry : Entry<KeyType, ValueType>) => ComparableType | Promise<ComparableType>
+    ) : KoconutPrimitive<ComparableType | null>;
+    minOfOrNull<ComparableType extends KoconutComparable>(
+        selector : (entry : Entry<KeyType, ValueType>) => ComparableType | Promise<ComparableType>,
+        thisArg : any
+    ) : KoconutPrimitive<ComparableType | null>;
+    minOfOrNull<ComparableType extends KoconutComparable>(
+        selector : (entry : Entry<KeyType, ValueType>) => number | string | ComparableType | Promise<number | string | ComparableType>,
+        thisArg : any = null
+    ) : KoconutPrimitive<number | string | ComparableType | null> {
+
+        selector = selector.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<number | string | ComparableType | null>();
+        (koconutToReturn as any as KoconutOpener<number | string | ComparableType | null>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data == null || this.mSize == 0) return null
+                let lastComparableDatumToReturn : number | string | ComparableType | null = null
+                for(const eachEntry of this.mEntries) {
+                    const eachComparableDatum = await selector(eachEntry)
+                    if(lastComparableDatumToReturn == null
+                        || (KoconutTypeChecker.checkIsComparable(eachComparableDatum) && (eachComparableDatum).compareTo(lastComparableDatumToReturn as any as KoconutComparable) < 0)
+                        || (!KoconutTypeChecker.checkIsComparable(eachComparableDatum) && lastComparableDatumToReturn > eachComparableDatum)) {
+                            lastComparableDatumToReturn = eachComparableDatum
+                        }
+                }
+                return lastComparableDatumToReturn
+            })
+        return koconutToReturn
+
+    }
+
+
+    minOfWith<ResultDataType>(
+        selector : (element : Entry<KeyType, ValueType>) => ResultDataType | Promise<ResultDataType>,
+        comparator : (front : ResultDataType, rear : ResultDataType) => number | Promise<number>,
+        selectorThisArg : any = null,
+        comparatorThisArg : any = null
+    ) : KoconutPrimitive<ResultDataType> {
+
+        selector = selector.bind(selectorThisArg)
+        comparator = comparator.bind(comparatorThisArg)
+        const koconutToReturn = new KoconutPrimitive<ResultDataType>();
+        (koconutToReturn as any as KoconutOpener<ResultDataType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data == null || this.mSize == 0) throw new KoconutNoSuchElementException(`Source data is null or empty`)
+                let lastComparableDatumToReturn : ResultDataType | null = null
+                for(const eachEntry of this.mEntries) {
+                    const eachComparableDatum = await selector(eachEntry)
+                    if(lastComparableDatumToReturn == null || await comparator(lastComparableDatumToReturn, eachComparableDatum) > 0)
+                        lastComparableDatumToReturn = eachComparableDatum
+                }
+                return lastComparableDatumToReturn!
+            })
+        return koconutToReturn
+
+    }
+
+
+    minOfWithOrNull<ResultDataType>(
+        selector : (element : Entry<KeyType, ValueType>) => ResultDataType | Promise<ResultDataType>,
+        comparator : (front : ResultDataType, rear : ResultDataType) => number | Promise<number>,
+        selectorThisArg : any = null,
+        comparatorThisArg : any = null
+    ) : KoconutPrimitive<ResultDataType | null> {
+
+        selector = selector.bind(selectorThisArg)
+        comparator = comparator.bind(comparatorThisArg)
+        const koconutToReturn = new KoconutPrimitive<ResultDataType | null>();
+        (koconutToReturn as any as KoconutOpener<ResultDataType | null>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data == null || this.mSize == 0) return null
+                let lastComparableDatumToReturn : ResultDataType | null = null
+                for(const eachEntry of this.mEntries) {
+                    const eachComparableDatum = await selector(eachEntry)
+                    if(lastComparableDatumToReturn == null || await comparator(lastComparableDatumToReturn, eachComparableDatum) > 0)
+                        lastComparableDatumToReturn = eachComparableDatum
+                }
+                return lastComparableDatumToReturn
+            })
+        return koconutToReturn
+
+    }
+
+
+    minus(
+        keys : KeyType | Iterable<KeyType>
+    ) : KoconutMap<KeyType, ValueType> {
+
+        const koconutToReturn = new KoconutMap<KeyType, ValueType>();
+        (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedMap = new Map<KeyType, ValueType>();
+                if(this.data != null) {
+                    let dataToExcept = new Array<KeyType>()
+                    if(typeof (keys as any)[Symbol.iterator] === 'function') dataToExcept = Array.from(keys as Iterable<KeyType>)
+                    else dataToExcept.push(keys as KeyType)
+                    const koconutKeysToExceptArray = KoconutArray.from(dataToExcept)
+                    for(const eachEntry of this.mEntries)
+                        if(!await koconutKeysToExceptArray.contains(eachEntry.key).yield()) processedMap.set(eachEntry.key, eachEntry.value)
+                }
+                return processedMap
+            })
+        return koconutToReturn
+
+    }
+
+
+    minWithOrNull(
+        comparator : (front : Entry<KeyType, ValueType>, rear : Entry<KeyType, ValueType>) => number | Promise<number>,
+        thisArg : any = null
+    ) : KoconutPrimitive<Entry<KeyType, ValueType> | null> {
+
+        comparator = comparator.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<Entry<KeyType, ValueType> | null>();
+        (koconutToReturn as any as KoconutOpener<Entry<KeyType, ValueType> | null>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data == null || this.mSize == 0) return null
+                let dataToReturn : Entry<KeyType, ValueType> | null = null
+                for(const eachEntry of this.mEntries) {
+                    if(dataToReturn == null || await comparator(dataToReturn, eachEntry) > 0)
+                        dataToReturn = eachEntry
+                }
+                return dataToReturn
+            })
+        return koconutToReturn
+
+    }
+
+
+    none(
+        predicate : ((entry : Entry<KeyType, ValueType>) => boolean | Promise<boolean>) | null = null,
+        thisArg : any = null
+    ) : KoconutPrimitive<boolean> {
+
+        if(predicate) predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<boolean>();
+        (koconutToReturn as any as KoconutOpener<boolean>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data == null || this.mSize == 0) return true
+                if(predicate) {
+                    for(const eachEntry of this.mEntries)
+                        if(await predicate(eachEntry)) return false
+                    return true
+                }
+                return false
+            })
+        return koconutToReturn
+
+    }
+
+
+    onEach(
+        action : (entry : Entry<KeyType, ValueType>) => boolean | void | Promise<boolean | void>,
+        thisArg : any = null
+    ) : KoconutMap<KeyType, ValueType> {
+
+        action = action.bind(thisArg)
+        const koconutToReturn = new KoconutMap<KeyType, ValueType>();
+        (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data != null) {
+                    for(const eachEntry of this.mEntries)
+                        if(await action(eachEntry) == false) break
+                }
+                return this.data!
+            })
+        return koconutToReturn
+
+    }
+
+
+    onEachIndexed(
+        action : (index : number, entry : Entry<KeyType, ValueType>) => boolean | void | Promise<boolean | void>,
+        thisArg : any = null
+    ) : KoconutMap<KeyType, ValueType> {
+
+        action = action.bind(thisArg)
+        const koconutToReturn = new KoconutMap<KeyType, ValueType>();
+        (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data != null) {
+                    let eachIndex = 0
+                    for(const eachEntry of this.mEntries)
+                        if(await action(eachIndex++, eachEntry) == false) break
+                }
+                return this.data!
+            })
+        return koconutToReturn
+
+    }
+
+
+    // orEmpty
+
+
+    plus(
+        element : 
+            | Pair<KeyType, ValueType> 
+            | KoconutPair<KeyType, ValueType> 
+            | Entry<KeyType, ValueType> 
+            | KoconutEntry<KeyType, ValueType> 
+            | Iterable<
+                | Pair<KeyType, ValueType>
+                | KoconutPair<KeyType, ValueType>
+                | Entry<KeyType, ValueType> 
+                | KoconutEntry<KeyType, ValueType>>
+    ) : KoconutMap<KeyType, ValueType> {
+
+        const koconutToReturn = new KoconutMap<KeyType, ValueType>();
+        (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedMap = this.data == null ? new Map<KeyType, ValueType>() : new Map(this.data)
+                let dataToAdd = new Array<any>()
+                if(typeof (element as any)[Symbol.iterator] == 'function') dataToAdd = Array.from(element as Iterable<any>)
+                else dataToAdd.push(element as any)
+                for(const eachDatum of dataToAdd) {
+                    if(eachDatum instanceof KoconutEntry) {
+                        const entry = await eachDatum.yield()
+                        if(entry != null) processedMap.set(entry.key, entry.value)
+                    } else if(eachDatum instanceof Entry) processedMap.set(eachDatum.key, eachDatum.value)
+                    else if(eachDatum instanceof KoconutPair) {
+                        const pair = await eachDatum.yield()
+                        if(pair != null) processedMap.set(pair.first, pair.second)
+                    } else if(eachDatum instanceof Pair) processedMap.set(eachDatum.first, eachDatum.second)
+                }
+                return processedMap
+            })
+        return koconutToReturn
+
+    }
+
+
+    toArray() : KoconutArray<Entry<KeyType, ValueType>> {
+
+        const koconutToReturn = new KoconutArray<Entry<KeyType, ValueType>>();
+        (koconutToReturn as any as KoconutOpener<Array<Entry<KeyType, ValueType>>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedArray = new Array<Entry<KeyType, ValueType>>()
+                if(this.data != null) {
+                    for(const eachEntry of this.mEntries)
+                        processedArray.push(new Entry(eachEntry.key, eachEntry.value))
+                }
+                return processedArray
             })
         return koconutToReturn
 
