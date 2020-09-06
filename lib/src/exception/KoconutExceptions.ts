@@ -14,4 +14,4 @@ export class KoconutIndexOutOfBoundsException extends KoconutError {}
 
 export class KoconutNoSuchElementException extends KoconutError {}
 
-export class KoconutConflicException extends KoconutError {}
+export class KoconutConflictException extends KoconutError {}

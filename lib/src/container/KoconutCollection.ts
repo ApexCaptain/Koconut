@@ -8,7 +8,7 @@ import {
     KoconutArray, KoconutSet, KoconutMap,
 
     /* Exception */
-    KoconutInvalidArgumentException, KoconutIndexOutOfBoundsException, KoconutNoSuchElementException, KoconutConflicException,
+    KoconutInvalidArgumentException, KoconutIndexOutOfBoundsException, KoconutNoSuchElementException, KoconutConflictException,
 
     /* Protocol */
     KoconutEquatable, KoconutComparable
@@ -2441,7 +2441,7 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
                     for(const eachDatum of this.data) {
                         if(await predicate(eachDatum)) {
                             if(dataToReturn == null) dataToReturn = eachDatum
-                            else throw new KoconutConflicException("There are more than 2 elements maching the given predicate")
+                            else throw new KoconutConflictException("There are more than 2 elements maching the given predicate")
                         }
                     }
                     if(dataToReturn == null) throw new KoconutNoSuchElementException("No element exists matching the given predicate")

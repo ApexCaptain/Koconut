@@ -5,10 +5,10 @@ export {
     Entry, KoconutEntry, Pair, KoconutPair,
 
     /* Container */
-    KoconutArray, KoconutSet,
+    KoconutArray, KoconutSet, KoconutMap,
 
     /* Exception */
-    KoconutConflicException, KoconutNoSuchElementException, KoconutInvalidArgumentException, KoconutIndexOutOfBoundsException,
+    KoconutConflictException, KoconutNoSuchElementException, KoconutInvalidArgumentException, KoconutIndexOutOfBoundsException,
 
     /* Protocol */
     KoconutComparable, KoconutEquatable
