@@ -80,7 +80,7 @@ const deploy = async () => {
         }
         
         console.log(`\nOverriding package json file...`)
-        fs.writeFileSync("../package.json", JSON.stringify(packageToBeChanged, null, 2))
+        fs.writeFileSync(`${__dirname}/../package.json`, JSON.stringify(packageToBeChanged, null, 2))
         console.log("Package json overriden")
 
         const defualtMessage = `New version released : ${newVersionCode}`
