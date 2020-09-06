@@ -103,10 +103,10 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-inherited">
+						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><a href="_src_base_koconutentry_.koconutentry.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="_src_base_koconutentry_.koconutentry.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-inherited tsd-is-private-protected">
@@ -135,26 +135,29 @@
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Koconut<wbr>Entry<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">?: </span><a href="_src_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_base_koconutentry_.koconutentry.html" class="tsd-signature-type">KoconutEntry</a></li>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Koconut<wbr>Entry<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span>, value<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_base_koconutentry_.koconutentry.html" class="tsd-signature-type">KoconutEntry</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_src_base_koconutprimitive_.koconutprimitive.html">KoconutPrimitive</a>.<a href="_src_base_koconutprimitive_.koconutprimitive.html#constructor">constructor</a></p>
+								<p>Overrides <a href="_src_base_koconutprimitive_.koconutprimitive.html">KoconutPrimitive</a>.<a href="_src_base_koconutprimitive_.koconutprimitive.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/8b404ee/lib/src/base/KoconutPrimitive.ts#L20">lib/src/base/KoconutPrimitive.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/54454cf/lib/src/base/KoconutEntry.ts#L28">lib/src/base/KoconutEntry.ts:28</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> data: <a href="_src_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> = null</span></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> key: <span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> = null</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> value: <span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> = null</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_src_base_koconutentry_.koconutentry.html" class="tsd-signature-type">KoconutEntry</a></h4>
@@ -171,7 +174,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_src_base_koconutprimitive_.koconutprimitive.html">KoconutPrimitive</a>.<a href="_src_base_koconutprimitive_.koconutprimitive.html#data">data</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/8b404ee/lib/src/base/KoconutPrimitive.ts#L7">lib/src/base/KoconutPrimitive.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/54454cf/lib/src/base/KoconutPrimitive.ts#L7">lib/src/base/KoconutPrimitive.ts:7</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -182,7 +185,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_src_base_koconutprimitive_.koconutprimitive.html">KoconutPrimitive</a>.<a href="_src_base_koconutprimitive_.koconutprimitive.html#isvalidated">isValidated</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/8b404ee/lib/src/base/KoconutPrimitive.ts#L24">lib/src/base/KoconutPrimitive.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/54454cf/lib/src/base/KoconutPrimitive.ts#L24">lib/src/base/KoconutPrimitive.ts:24</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -193,7 +196,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_src_base_koconutprimitive_.koconutprimitive.html">KoconutPrimitive</a>.<a href="_src_base_koconutprimitive_.koconutprimitive.html#prevyieldable">prevYieldable</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/8b404ee/lib/src/base/KoconutPrimitive.ts#L8">lib/src/base/KoconutPrimitive.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/54454cf/lib/src/base/KoconutPrimitive.ts#L8">lib/src/base/KoconutPrimitive.ts:8</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -204,7 +207,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_src_base_koconutprimitive_.koconutprimitive.html">KoconutPrimitive</a>.<a href="_src_base_koconutprimitive_.koconutprimitive.html#processor">processor</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/8b404ee/lib/src/base/KoconutPrimitive.ts#L9">lib/src/base/KoconutPrimitive.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/54454cf/lib/src/base/KoconutPrimitive.ts#L9">lib/src/base/KoconutPrimitive.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -222,7 +225,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_base_koconutprimitive_.koconutprimitive.html">KoconutPrimitive</a>.<a href="_src_base_koconutprimitive_.koconutprimitive.html#also">also</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/8b404ee/lib/src/base/KoconutPrimitive.ts#L55">lib/src/base/KoconutPrimitive.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/54454cf/lib/src/base/KoconutPrimitive.ts#L55">lib/src/base/KoconutPrimitive.ts:55</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -264,7 +267,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_base_koconutprimitive_.koconutprimitive.html">KoconutPrimitive</a>.<a href="_src_base_koconutprimitive_.koconutprimitive.html#apply">apply</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/8b404ee/lib/src/base/KoconutPrimitive.ts#L46">lib/src/base/KoconutPrimitive.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/54454cf/lib/src/base/KoconutPrimitive.ts#L46">lib/src/base/KoconutPrimitive.ts:46</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -306,7 +309,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_base_koconutprimitive_.koconutprimitive.html">KoconutPrimitive</a>.<a href="_src_base_koconutprimitive_.koconutprimitive.html#let">let</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/8b404ee/lib/src/base/KoconutPrimitive.ts#L42">lib/src/base/KoconutPrimitive.ts:42</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/54454cf/lib/src/base/KoconutPrimitive.ts#L42">lib/src/base/KoconutPrimitive.ts:42</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -354,7 +357,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_base_koconutprimitive_.koconutprimitive.html">KoconutPrimitive</a>.<a href="_src_base_koconutprimitive_.koconutprimitive.html#process">process</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/8b404ee/lib/src/base/KoconutPrimitive.ts#L26">lib/src/base/KoconutPrimitive.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/54454cf/lib/src/base/KoconutPrimitive.ts#L26">lib/src/base/KoconutPrimitive.ts:26</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -372,7 +375,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_base_koconutprimitive_.koconutprimitive.html">KoconutPrimitive</a>.<a href="_src_base_koconutprimitive_.koconutprimitive.html#run">run</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/8b404ee/lib/src/base/KoconutPrimitive.ts#L51">lib/src/base/KoconutPrimitive.ts:51</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/54454cf/lib/src/base/KoconutPrimitive.ts#L51">lib/src/base/KoconutPrimitive.ts:51</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -420,7 +423,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_base_koconutprimitive_.koconutprimitive.html">KoconutPrimitive</a>.<a href="_src_base_koconutprimitive_.koconutprimitive.html#setprevyieldable">setPrevYieldable</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/8b404ee/lib/src/base/KoconutPrimitive.ts#L11">lib/src/base/KoconutPrimitive.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/54454cf/lib/src/base/KoconutPrimitive.ts#L11">lib/src/base/KoconutPrimitive.ts:11</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -444,7 +447,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_base_koconutprimitive_.koconutprimitive.html">KoconutPrimitive</a>.<a href="_src_base_koconutprimitive_.koconutprimitive.html#setprocessor">setProcessor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/8b404ee/lib/src/base/KoconutPrimitive.ts#L15">lib/src/base/KoconutPrimitive.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/54454cf/lib/src/base/KoconutPrimitive.ts#L15">lib/src/base/KoconutPrimitive.ts:15</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -480,7 +483,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_base_koconutprimitive_.koconutprimitive.html">KoconutPrimitive</a>.<a href="_src_base_koconutprimitive_.koconutprimitive.html#validiate">validiate</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/8b404ee/lib/src/base/KoconutPrimitive.ts#L20">lib/src/base/KoconutPrimitive.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/54454cf/lib/src/base/KoconutPrimitive.ts#L20">lib/src/base/KoconutPrimitive.ts:20</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -505,7 +508,7 @@
 								<p>Implementation of <a href="../interfaces/_src_base_koconutyieldable_.koconutyieldable.html">KoconutYieldable</a>.<a href="../interfaces/_src_base_koconutyieldable_.koconutyieldable.html#yield">yield</a></p>
 								<p>Inherited from <a href="_src_base_koconutprimitive_.koconutprimitive.html">KoconutPrimitive</a>.<a href="_src_base_koconutprimitive_.koconutprimitive.html#yield">yield</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/8b404ee/lib/src/base/KoconutPrimitive.ts#L37">lib/src/base/KoconutPrimitive.ts:37</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/54454cf/lib/src/base/KoconutPrimitive.ts#L37">lib/src/base/KoconutPrimitive.ts:37</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_src_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -580,7 +583,7 @@
 					<li class="current tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="_src_base_koconutentry_.koconutentry.html" class="tsd-kind-icon">Koconut<wbr>Entry</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
 								<a href="_src_base_koconutentry_.koconutentry.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
@@ -642,22 +645,22 @@
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
-			</ul>
-			<ul class="tsd-legend">
 				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
 				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
 			</ul>
 		</div>
 	</div>

@@ -5,10 +5,11 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
+    "update": "ncu -u && npm install",
     "build": "node ./etc/ClearTask.js && tsc",
     "doc": "typedoc",
-    "test": "mocha -r ts-node/register ./lib/spec/*.spec.ts",
-    "update": "ncu -u && npm install"
+    "distribute": "npm run update && npm run build && npm run doc && node ./etc/DistributingTask",
+    "test": "mocha -r ts-node/register ./lib/spec/*.spec.ts"
   },
   "repository": {
     "type": "git",
