@@ -1,13 +1,16 @@
 import { expect } from 'chai'
 import {
-        /* Base */
-        KoconutPrimitive, Entry, KoconutEntry, Pair, KoconutPair,
+    /* Tool */
+    KoconutPrimitive, 
 
-        /* Container */
-        KoconutArray, KoconutSet, KoconutMap,
+    /* Base */
+    Entry, KoconutEntry, Pair, KoconutPair,
 
-        /* Exception */
-        KoconutNoSuchElementException
+    /* Container */
+    KoconutArray, KoconutSet, KoconutMap,
+
+    /* Exception */
+    KoconutNoSuchElementException
 } from "../internal"
 import { Person, ProductInfo } from "./TestDataClasses"
 

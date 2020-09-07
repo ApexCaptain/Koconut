@@ -1,0 +1,13 @@
+{
+    "out" : "./docs",
+    "readme" : "./README.md",
+    "exclude" : [
+        "./lib/internal.ts",
+        "./lib/src/tool/*.ts",
+        "./lib/spec"
+    ],
+    "excludeExternals": false,
+    "excludeNotExported": false,
+    "excludePrivate": true,
+    "excludeProtected" : true
+}

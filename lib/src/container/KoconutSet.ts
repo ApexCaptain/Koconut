@@ -1,7 +1,7 @@
 `use strict`
 
 import {
-    /* Bases */
+    /* Base */
     Pair, KoconutPair, KoconutTypeChecker,
 
     /* Container */

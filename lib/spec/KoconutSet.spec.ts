@@ -1,13 +1,16 @@
 import { expect } from 'chai'
 import {
-    /* Bases */
-    KoconutPrimitive, Pair, KoconutPair, Entry,
+    /* Tool */
+    KoconutPrimitive, 
 
-    /* Containers*/
+    /* Base */
+    Pair, KoconutPair, Entry,
+
+    /* Container*/
     KoconutArray, KoconutSet, KoconutMap,
 
     /* Exception */
-    KoconutNoSuchElementException, KoconutConflicException
+    KoconutNoSuchElementException, KoconutConflictException
 } from "../internal"
 import {
     Person, ProductInfo
@@ -2273,7 +2276,7 @@ describe(`${KoconutSet.name} -- Function`, () => {
                         .single(eachElement => eachElement % 2 == 0)
         expect(yieldableCase4).to.be.instanceOf(KoconutPrimitive)
         try { await yieldableCase4.process() }
-        catch(error) { expect(error).to.be.instanceOf(KoconutConflicException) }
+        catch(error) { expect(error).to.be.instanceOf(KoconutConflictException) }
 
         /* Case 5 */
         const yieldableCase5 =

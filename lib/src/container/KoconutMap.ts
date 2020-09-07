@@ -1,8 +1,11 @@
 `use strict`
 
 import {
+    /* Tool */
+    KoconutPrimitive, KoconutOpener, KoconutTypeChecker, 
+
     /* Base */
-    Entry, KoconutPrimitive, Pair, KoconutPair, KoconutOpener, KoconutTypeChecker, KoconutEntry,
+    Entry, Pair, KoconutPair, KoconutEntry,
 
     /* Container */
     KoconutArray, KoconutSet,

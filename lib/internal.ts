@@ -1,10 +1,12 @@
+// Tool
+export * from "./src/tool/KoconutYieldable"
+export * from "./src/tool/KoconutOpener"
+export * from "./src/tool/KoconutPrimitive"
+export * from "./src/tool/KoconutTypeChecker"
+
 // Base
-export * from "./src/base/KoconutYieldable"
-export * from "./src/base/KoconutOpener"
-export * from "./src/base/KoconutPrimitive"
 export * from "./src/base/KoconutPair"
 export * from "./src/base/KoconutEntry"
-export * from "./src/base/KoconutTypeChecker"
 
 // Enum
 export * from "./src/enum/KoconutLoopSignal"
