@@ -12,7 +12,13 @@ import {
 } from "../../internal"
 
 /** 
- * Represents a key/value pair for {@link KoconutMap} 
+ * Represents a key/value pair for {@link KoconutMap}.
+ * The type of key is basically could be any kind of class instance,
+ * but it is recommended to be a number, string or custom class that inherits {@link KoconutEquatable}.
+ * Otherwise, further equality check process in {@link KoconutSet} or {@link KoconutMap} will not work
+ * as intented. This is beacuse even if there are two different instances of same class, which have 
+ * exactly identical properties, they are fundamentally indistinguishable from each other.
+ * Please, check the {@link Entry.equalsTo example of 'equalsTo' method}
  * 
  * @see 
  * <pre>
@@ -26,52 +32,18 @@ import {
  * {@link KoconutEquatable}
  * </pre>
  * 
- * @param KeyType The type of key is basically could be any kind of class instance,
- * but it is recommended to be a number, string or custom class that inherits {@link KoconutEquatable}.
- * Otherwise, further equality check process in {@link KoconutSet} or {@link KoconutMap} will not work
- * as intented. This is beacuse even if there are two different instances of same class, which have 
- * exactly identical properties, they are fundamentally indistinguishable from each other.
- * Have a check following example.
- * ```typescript
- *   class MyKey {
- *       private keyString : string
- *       constructor(keyString : string) {
- *           this.keyString = keyString
- *       }
- *   }
- *
- *   class MyEquatableKey implements KoconutEquatable {
- *
- *       private keyString : string
- *       constructor(keyString : string) {
- *           this.keyString = keyString
- *       }
- *       equalsTo(other : MyEquatableKey) {
- *           return this.keyString == other.keyString
- *       }
- *
- *   }
- *
- *   const myKeyEntry = Entry.from([new MyKey("myKeyString"), 0])
- *   const myKeyEntry2 = Entry.from([new MyKey("myKeyString"), 0])
- *   console.log(`${myKeyEntry.equalsTo(myKeyEntry2)}`)
- *   // ↑ false
- *
- *   const myEquatableKeyEntry = Entry.from([new MyEquatableKey("myEquatableKeyString"), 0])
- *   const myEquatableKeyEntry2 = Entry.from([new MyEquatableKey("myEquatableKeyString"), 0])
- *   console.log(`${myEquatableKeyEntry.equalsTo(myEquatableKeyEntry2)}`)
- *   // ↑ true
- * ```
+ * @param KeyType The type of the key value.
+ * 
  * @param ValueType The type of the value.
  * 
 */
 export class Entry<KeyType, ValueType> implements KoconutEquatable {
 
-    protected keyElement : KeyType
-    protected valueElement : ValueType
+    private keyElement : KeyType
+    private valueElement : ValueType
 
     /** 
-     * Create an {@link Entry} instance by iterable pair.
+     * Create an {@link Entry} instance by iterable two values pair.
      * 
      * @param entry Entry pair of key/value as iterable.
      * 
@@ -82,7 +54,7 @@ export class Entry<KeyType, ValueType> implements KoconutEquatable {
      * // ↑ Entry { keyElement: 'Apex', valueElement: 'Captain' }
      * ```
      */
-    static from<KeyType, ValueType>(entry : [KeyType, ValueType]) {
+    static from<KeyType, ValueType>(entry : [KeyType, ValueType]) : Entry<KeyType, ValueType> {
         return new Entry(entry[0], entry[1])
     }
 
@@ -148,9 +120,41 @@ export class Entry<KeyType, ValueType> implements KoconutEquatable {
     /**
      * {@link Entry} class implements {@link KoconutEquatable}. The equality check process
      * of this is done simply by using '==' operator when the KeyType is not {@link KoconutEquatable},
-     * otherwise, using the method '{@link KoconutEquatable.equalsTo equalsTo}' of the key element.
-     * 
+     * otherwise, by using the method '{@link KoconutEquatable.equalsTo equalsTo}' to the the key element.
+     * Please, have a check following example.
      * @param other Other {@link Entry} instance to check equality.
+     * 
+     * @example
+     * ```typescript
+     *   class MyKey {
+     *       private keyString : string
+     *       constructor(keyString : string) {
+     *           this.keyString = keyString
+     *       }
+     *   }
+     *
+     *   class MyEquatableKey implements KoconutEquatable {
+     *
+     *       private keyString : string
+     *       constructor(keyString : string) {
+     *           this.keyString = keyString
+     *       }
+     *       equalsTo(other : MyEquatableKey) {
+     *           return this.keyString == other.keyString
+     *       }
+     *
+     *   }
+     *
+     *   const myKeyEntry = Entry.from([new MyKey("myKeyString"), 0])
+     *   const myKeyEntry2 = Entry.from([new MyKey("myKeyString"), 0])
+     *   console.log(`${myKeyEntry.equalsTo(myKeyEntry2)}`)
+     *   // ↑ false
+     *
+     *   const myEquatableKeyEntry = Entry.from([new MyEquatableKey("myEquatableKeyString"), 0])
+     *   const myEquatableKeyEntry2 = Entry.from([new MyEquatableKey("myEquatableKeyString"), 0])
+     *   console.log(`${myEquatableKeyEntry.equalsTo(myEquatableKeyEntry2)}`)
+     *   // ↑ true
+     * ```
      */
     equalsTo(other : Entry<KeyType, ValueType>) : boolean {
         if(KoconutTypeChecker.checkIsEquatable(this.key) && KoconutTypeChecker.checkIsEquatable(other.key)) return this.key.equalsTo(other.key)

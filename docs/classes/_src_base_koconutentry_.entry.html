@@ -72,7 +72,13 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Represents a key/value pair for <a href="_src_container_koconutmap_.koconutmap.html">KoconutMap</a></p>
+						<p>Represents a key/value pair for <a href="_src_container_koconutmap_.koconutmap.html">KoconutMap</a>.
+							The type of key is basically could be any kind of class instance,
+							but it is recommended to be a number, string or custom class that inherits <a href="../interfaces/_src_protocol_koconutequatable_.koconutequatable.html">KoconutEquatable</a>.
+							Otherwise, further equality check process in <a href="_src_container_koconutset_.koconutset.html">KoconutSet</a> or <a href="_src_container_koconutmap_.koconutmap.html">KoconutMap</a> will not work
+							as intented. This is beacuse even if there are two different instances of same class, which have
+							exactly identical properties, they are fundamentally indistinguishable from each other.
+						Please, check the <a href="_src_base_koconutentry_.entry.html#equalsto">example of &#39;equalsTo&#39; method</a></p>
 					</div>
 					<dl class="tsd-comment-tags">
 						<dt>see</dt>
@@ -97,40 +103,7 @@
 						<h4>KeyType</h4>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>The type of key is basically could be any kind of class instance,
-									but it is recommended to be a number, string or custom class that inherits <a href="../interfaces/_src_protocol_koconutequatable_.koconutequatable.html">KoconutEquatable</a>.
-									Otherwise, further equality check process in <a href="_src_container_koconutset_.koconutset.html">KoconutSet</a> or <a href="_src_container_koconutmap_.koconutmap.html">KoconutMap</a> will not work
-									as intented. This is beacuse even if there are two different instances of same class, which have
-									exactly identical properties, they are fundamentally indistinguishable from each other.
-								Have a check following example.</p>
-								<pre><code class="language-typescript">  <span class="hljs-keyword">class</span> MyKey {
-      <span class="hljs-keyword">private</span> keyString : <span class="hljs-built_in">string</span>
-      <span class="hljs-keyword">constructor</span>(<span class="hljs-params">keyString : <span class="hljs-built_in">string</span></span>) {
-          <span class="hljs-built_in">this</span>.keyString = keyString
-      }
-  }
-
-  <span class="hljs-keyword">class</span> MyEquatableKey <span class="hljs-keyword">implements</span> KoconutEquatable {
-
-      <span class="hljs-keyword">private</span> keyString : <span class="hljs-built_in">string</span>
-      <span class="hljs-keyword">constructor</span>(<span class="hljs-params">keyString : <span class="hljs-built_in">string</span></span>) {
-          <span class="hljs-built_in">this</span>.keyString = keyString
-      }
-      equalsTo(other : MyEquatableKey) {
-          <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.keyString == other.keyString
-      }
-
-  }
-
-  <span class="hljs-keyword">const</span> myKeyEntry = Entry.from([<span class="hljs-keyword">new</span> MyKey(<span class="hljs-string">&quot;myKeyString&quot;</span>), <span class="hljs-number">0</span>])
-  <span class="hljs-keyword">const</span> myKeyEntry2 = Entry.from([<span class="hljs-keyword">new</span> MyKey(<span class="hljs-string">&quot;myKeyString&quot;</span>), <span class="hljs-number">0</span>])
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${myKeyEntry.equalsTo(myKeyEntry2)}</span>`</span>)
-  <span class="hljs-comment">// ↑ false</span>
-
-  <span class="hljs-keyword">const</span> myEquatableKeyEntry = Entry.from([<span class="hljs-keyword">new</span> MyEquatableKey(<span class="hljs-string">&quot;myEquatableKeyString&quot;</span>), <span class="hljs-number">0</span>])
-  <span class="hljs-keyword">const</span> myEquatableKeyEntry2 = Entry.from([<span class="hljs-keyword">new</span> MyEquatableKey(<span class="hljs-string">&quot;myEquatableKeyString&quot;</span>), <span class="hljs-number">0</span>])
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${myEquatableKeyEntry.equalsTo(myEquatableKeyEntry2)}</span>`</span>)
-  <span class="hljs-comment">// ↑ true</span></code></pre>
+								<p>The type of the key value.</p>
 							</div>
 						</div>
 					</li>
@@ -200,7 +173,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/9a7bd21/lib/src/base/KoconutEntry.ts#L87">lib/src/base/KoconutEntry.ts:87</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/0de415b/lib/src/base/KoconutEntry.ts#L59">lib/src/base/KoconutEntry.ts:59</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -244,7 +217,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/9a7bd21/lib/src/base/KoconutEntry.ts#L104">lib/src/base/KoconutEntry.ts:104</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/0de415b/lib/src/base/KoconutEntry.ts#L76">lib/src/base/KoconutEntry.ts:76</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -267,7 +240,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/9a7bd21/lib/src/base/KoconutEntry.ts#L110">lib/src/base/KoconutEntry.ts:110</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/0de415b/lib/src/base/KoconutEntry.ts#L82">lib/src/base/KoconutEntry.ts:82</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -294,15 +267,48 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_src_protocol_koconutequatable_.koconutequatable.html">KoconutEquatable</a>.<a href="../interfaces/_src_protocol_koconutequatable_.koconutequatable.html#equalsto">equalsTo</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/9a7bd21/lib/src/base/KoconutEntry.ts#L155">lib/src/base/KoconutEntry.ts:155</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/0de415b/lib/src/base/KoconutEntry.ts#L159">lib/src/base/KoconutEntry.ts:159</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p><a href="_src_base_koconutentry_.entry.html">Entry</a> class implements <a href="../interfaces/_src_protocol_koconutequatable_.koconutequatable.html">KoconutEquatable</a>. The equality check process
 										of this is done simply by using &#39;==&#39; operator when the KeyType is not <a href="../interfaces/_src_protocol_koconutequatable_.koconutequatable.html">KoconutEquatable</a>,
-									otherwise, using the method &#39;<a href="../interfaces/_src_protocol_koconutequatable_.koconutequatable.html#equalsto">equalsTo</a>&#39; of the key element.</p>
+										otherwise, by using the method &#39;<a href="../interfaces/_src_protocol_koconutequatable_.koconutequatable.html#equalsto">equalsTo</a>&#39; to the the key element.
+									Please, have a check following example.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-typescript">  <span class="hljs-keyword">class</span> MyKey {
+      <span class="hljs-keyword">private</span> keyString : <span class="hljs-built_in">string</span>
+      <span class="hljs-keyword">constructor</span>(<span class="hljs-params">keyString : <span class="hljs-built_in">string</span></span>) {
+          <span class="hljs-built_in">this</span>.keyString = keyString
+      }
+  }
+
+  <span class="hljs-keyword">class</span> MyEquatableKey <span class="hljs-keyword">implements</span> KoconutEquatable {
+
+      <span class="hljs-keyword">private</span> keyString : <span class="hljs-built_in">string</span>
+      <span class="hljs-keyword">constructor</span>(<span class="hljs-params">keyString : <span class="hljs-built_in">string</span></span>) {
+          <span class="hljs-built_in">this</span>.keyString = keyString
+      }
+      equalsTo(other : MyEquatableKey) {
+          <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.keyString == other.keyString
+      }
+
+  }
+
+  <span class="hljs-keyword">const</span> myKeyEntry = Entry.from([<span class="hljs-keyword">new</span> MyKey(<span class="hljs-string">&quot;myKeyString&quot;</span>), <span class="hljs-number">0</span>])
+  <span class="hljs-keyword">const</span> myKeyEntry2 = Entry.from([<span class="hljs-keyword">new</span> MyKey(<span class="hljs-string">&quot;myKeyString&quot;</span>), <span class="hljs-number">0</span>])
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${myKeyEntry.equalsTo(myKeyEntry2)}</span>`</span>)
+  <span class="hljs-comment">// ↑ false</span>
+
+  <span class="hljs-keyword">const</span> myEquatableKeyEntry = Entry.from([<span class="hljs-keyword">new</span> MyEquatableKey(<span class="hljs-string">&quot;myEquatableKeyString&quot;</span>), <span class="hljs-number">0</span>])
+  <span class="hljs-keyword">const</span> myEquatableKeyEntry2 = Entry.from([<span class="hljs-keyword">new</span> MyEquatableKey(<span class="hljs-string">&quot;myEquatableKeyString&quot;</span>), <span class="hljs-number">0</span>])
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${myEquatableKeyEntry.equalsTo(myEquatableKeyEntry2)}</span>`</span>)
+  <span class="hljs-comment">// ↑ true</span></code></pre>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -327,7 +333,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/9a7bd21/lib/src/base/KoconutEntry.ts#L134">lib/src/base/KoconutEntry.ts:134</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/0de415b/lib/src/base/KoconutEntry.ts#L106">lib/src/base/KoconutEntry.ts:106</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -356,7 +362,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/9a7bd21/lib/src/base/KoconutEntry.ts#L145">lib/src/base/KoconutEntry.ts:145</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/0de415b/lib/src/base/KoconutEntry.ts#L117">lib/src/base/KoconutEntry.ts:117</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -385,7 +391,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/9a7bd21/lib/src/base/KoconutEntry.ts#L122">lib/src/base/KoconutEntry.ts:122</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/0de415b/lib/src/base/KoconutEntry.ts#L94">lib/src/base/KoconutEntry.ts:94</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -414,12 +420,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/9a7bd21/lib/src/base/KoconutEntry.ts#L85">lib/src/base/KoconutEntry.ts:85</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/0de415b/lib/src/base/KoconutEntry.ts#L57">lib/src/base/KoconutEntry.ts:57</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Create an <a href="_src_base_koconutentry_.entry.html">Entry</a> instance by iterable pair.</p>
+									<p>Create an <a href="_src_base_koconutentry_.entry.html">Entry</a> instance by iterable two values pair.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>example</dt>

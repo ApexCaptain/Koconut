@@ -7,9 +7,10 @@
   "scripts": {
     "update": "ncu -u && npm install",
     "build": "node ./etc/ClearTask.js && tsc",
-    "doc": "typedoc --options ./typedoc.json ./lib",
+    "doc": "typedoc --options ./typedoc.json ./lib && node ./etc/TypeDocNoJekyllCreatingTask.js",
     "distribute": "npm run update && npm run build && npm run doc && node ./etc/DistributingTask",
     "test": "mocha -r ts-node/register ./lib/spec/*.spec.ts",
+    
     "sample": "ts-node ./sampleTest.ts"
   },
   "repository": {

@@ -69,14 +69,46 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Represents a generic pair of two Values. There is no meaning attached to values
+							in this class. It can be used for any purpose. Pair exhibits values semantics,
+							i.e. two pairs are equal if both components are equal. However, if any of those
+							two values are instance of class, you&#39;d better make the class explicitly distinguishable
+						by inheriting <a href="../interfaces/_src_protocol_koconutequatable_.koconutequatable.html">KoconutEquatable</a>. Please, check the <a href="_src_base_koconutpair_.pair.html#equalsto">example of &#39;equalsTo&#39; method</a></p>
+					</div>
+					<dl class="tsd-comment-tags">
+						<dt>see</dt>
+						<dd><pre>
+-- Base --
+<a href="_src_base_koconutpair_.koconutpair.html">KoconutPair</a>, <a href="_src_base_koconutentry_.entry.html">Entry</a>, <a href="_src_base_koconutentry_.koconutentry.html">KoconutEntry</a>
+
+-- Protocol --
+<a href="../interfaces/_src_protocol_koconutequatable_.koconutequatable.html">KoconutEquatable</a>
+</pre>
+						</dd>
+					</dl>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-type-parameters">
 				<h3>Type parameters</h3>
 				<ul class="tsd-type-parameters">
 					<li>
 						<h4>FirstType</h4>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>The type of the first value.</p>
+							</div>
+						</div>
 					</li>
 					<li>
 						<h4>SecondType</h4>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>The type of the second value.</p>
+							</div>
+						</div>
 					</li>
 				</ul>
 			</section>
@@ -86,6 +118,12 @@
 					<li>
 						<span class="target">Pair</span>
 					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../interfaces/_src_protocol_koconutequatable_.koconutequatable.html" class="tsd-signature-type">KoconutEquatable</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -108,9 +146,11 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_base_koconutpair_.pair.html#equalsto" class="tsd-kind-icon">equals<wbr>To</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_base_koconutpair_.pair.html#toarray" class="tsd-kind-icon">to<wbr>Array</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_base_koconutpair_.pair.html#toentry" class="tsd-kind-icon">to<wbr>Entry</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_base_koconutpair_.pair.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="_src_base_koconutpair_.pair.html#from" class="tsd-kind-icon">from</a></li>
 							</ul>
 						</section>
 					</div>
@@ -128,16 +168,31 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/9a7bd21/lib/src/base/KoconutPair.ts#L5">lib/src/base/KoconutPair.ts:5</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/0de415b/lib/src/base/KoconutPair.ts#L47">lib/src/base/KoconutPair.ts:47</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Constructor for <a href="_src_base_koconutpair_.pair.html">Pair</a>.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>firstElement: <span class="tsd-signature-type">FirstType</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>FirstType element.</p>
+										</div>
+									</div>
 								</li>
 								<li>
 									<h5>secondElement: <span class="tsd-signature-type">SecondType</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>SecondType element.</p>
+										</div>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_src_base_koconutpair_.pair.html" class="tsd-signature-type">Pair</a></h4>
@@ -157,10 +212,16 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/9a7bd21/lib/src/base/KoconutPair.ts#L10">lib/src/base/KoconutPair.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/0de415b/lib/src/base/KoconutPair.ts#L63">lib/src/base/KoconutPair.ts:63</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the first value of this first/second pair.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">FirstType</span></h4>
+							<p>The first value of this first/second pair.</p>
 						</li>
 					</ul>
 				</section>
@@ -174,16 +235,99 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/9a7bd21/lib/src/base/KoconutPair.ts#L11">lib/src/base/KoconutPair.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/0de415b/lib/src/base/KoconutPair.ts#L69">lib/src/base/KoconutPair.ts:69</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the second value of this first/second pair.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">SecondType</span></h4>
+							<p>The second value of this first/second pair.</p>
 						</li>
 					</ul>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="equalsto" class="tsd-anchor"></a>
+					<h3>equals<wbr>To</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">equals<wbr>To<span class="tsd-signature-symbol">(</span>other<span class="tsd-signature-symbol">: </span><a href="_src_base_koconutpair_.pair.html" class="tsd-signature-type">Pair</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">FirstType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">SecondType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_src_protocol_koconutequatable_.koconutequatable.html">KoconutEquatable</a>.<a href="../interfaces/_src_protocol_koconutequatable_.koconutequatable.html#equalsto">equalsTo</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/0de415b/lib/src/base/KoconutPair.ts#L156">lib/src/base/KoconutPair.ts:156</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p><a href="_src_base_koconutpair_.pair.html">Pair</a> class implements <a href="../interfaces/_src_protocol_koconutequatable_.koconutequatable.html">KoconutEquatable</a>. The equality check process
+										of this is done simply by using &#39;==&#39; operator when the FirstType or SecondType is not <a href="../interfaces/_src_protocol_koconutequatable_.koconutequatable.html">KoconutEquatable</a>,
+										otherwise, by using method &#39;<a href="../interfaces/_src_protocol_koconutequatable_.koconutequatable.html#equalsto">equalsTo</a>&#39; to the corresponding element.
+									Please, have a check following example.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-typescript">  <span class="hljs-comment">// Case 1 -- All values are simply number or string</span>
+  <span class="hljs-keyword">const</span> myPairCase1_01 = Pair.from([<span class="hljs-number">10</span>, <span class="hljs-number">20</span>])
+  <span class="hljs-keyword">const</span> myPairCase1_02 = Pair.from([<span class="hljs-number">10</span>, <span class="hljs-number">20</span>])
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${myPairCase1_01.equalsTo(myPairCase1_02)}</span>`</span>)
+  <span class="hljs-comment">// ↑ true</span>
+
+  <span class="hljs-keyword">const</span> myPairCase1_03 = Pair.from([<span class="hljs-string">&quot;Apex&quot;</span>, <span class="hljs-string">&quot;Captain&quot;</span>])
+  <span class="hljs-keyword">const</span> myPairCase1_04 = Pair.from([<span class="hljs-string">&quot;Apex&quot;</span>, <span class="hljs-string">&quot;Captain&quot;</span>])
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${myPairCase1_03 == myPairCase1_04}</span>`</span>)
+  <span class="hljs-comment">// ↑ false</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${myPairCase1_03.equalsTo(myPairCase1_04)}</span>`</span>)
+  <span class="hljs-comment">// ↑ true</span>
+
+  <span class="hljs-comment">// Case 2 -- First Type is indistinguishable class</span>
+  <span class="hljs-keyword">class</span> MyClass {
+      <span class="hljs-keyword">private</span> value : <span class="hljs-built_in">string</span>
+      <span class="hljs-keyword">constructor</span>(<span class="hljs-params">value : <span class="hljs-built_in">string</span></span>) {
+          <span class="hljs-built_in">this</span>.value = value
+      }
+  }
+  <span class="hljs-keyword">const</span> myPairCase2_01 = Pair.from([<span class="hljs-keyword">new</span> MyClass(<span class="hljs-string">&quot;Apex&quot;</span>), <span class="hljs-string">&quot;Captain&quot;</span>])
+  <span class="hljs-keyword">const</span> myPairCase2_02 = Pair.from([<span class="hljs-keyword">new</span> MyClass(<span class="hljs-string">&quot;Apex&quot;</span>), <span class="hljs-string">&quot;Captain&quot;</span>])
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${myPairCase2_01.equalsTo(myPairCase2_02)}</span>`</span>)
+  <span class="hljs-comment">// ↑ false</span>
+
+  <span class="hljs-comment">// Case 3 -- First Type is distinguishable class</span>
+  <span class="hljs-keyword">class</span> MyDistinguishableClass <span class="hljs-keyword">implements</span> KoconutEquatable {
+      <span class="hljs-keyword">private</span> value : <span class="hljs-built_in">string</span>
+      <span class="hljs-keyword">constructor</span>(<span class="hljs-params">value : <span class="hljs-built_in">string</span></span>) {
+          <span class="hljs-built_in">this</span>.value = value
+      }
+      equalsTo(other : MyDistinguishableClass) : <span class="hljs-built_in">boolean</span> {
+          <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.value == other.value
+      }
+  }
+  <span class="hljs-keyword">const</span> myPairCase3_01 = Pair.from([<span class="hljs-keyword">new</span> MyDistinguishableClass(<span class="hljs-string">&quot;Apex&quot;</span>), <span class="hljs-string">&quot;Captain&quot;</span>])
+  <span class="hljs-keyword">const</span> myPairCase3_02 = Pair.from([<span class="hljs-keyword">new</span> MyDistinguishableClass(<span class="hljs-string">&quot;Apex&quot;</span>), <span class="hljs-string">&quot;Captain&quot;</span>])
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${myPairCase3_01.equalsTo(myPairCase3_02)}</span>`</span>)
+  <span class="hljs-comment">// ↑ true</span></code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>other: <a href="_src_base_koconutpair_.pair.html" class="tsd-signature-type">Pair</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">FirstType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">SecondType</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="toarray" class="tsd-anchor"></a>
 					<h3>to<wbr>Array</h3>
@@ -194,9 +338,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/9a7bd21/lib/src/base/KoconutPair.ts#L13">lib/src/base/KoconutPair.ts:13</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/0de415b/lib/src/base/KoconutPair.ts#L93">lib/src/base/KoconutPair.ts:93</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Truns this <a href="_src_base_koconutpair_.pair.html">Pair</a> instance into a simple array.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-typescript"><span class="hljs-keyword">const</span> myPair = Pair.from([<span class="hljs-string">&quot;Apex&quot;</span>,<span class="hljs-string">&quot;Captain&quot;</span>])
+<span class="hljs-built_in">console</span>.log(myPair.toArray())
+<span class="hljs-comment">// ↑ [ &#x27;Apex&#x27;, &#x27;Captain&#x27; ]</span></code></pre>
+									</dd>
+								</dl>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">FirstType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">SecondType</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
@@ -211,9 +367,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/9a7bd21/lib/src/base/KoconutPair.ts#L14">lib/src/base/KoconutPair.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/0de415b/lib/src/base/KoconutPair.ts#L104">lib/src/base/KoconutPair.ts:104</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Turns this <a href="_src_base_koconutpair_.pair.html">Pair</a> instance into a simple <a href="_src_base_koconutentry_.entry.html">Entry</a></p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-typescript"><span class="hljs-keyword">const</span> myPair = Pair.from([<span class="hljs-string">&quot;Apex&quot;</span>,<span class="hljs-string">&quot;Captain&quot;</span>])
+<span class="hljs-built_in">console</span>.log(myPair.toEntry())
+<span class="hljs-comment">// ↑ Entry { keyElement: &#x27;Apex&#x27;, valueElement: &#x27;Captain&#x27; }</span></code></pre>
+									</dd>
+								</dl>
+							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_src_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">FirstType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">SecondType</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
@@ -228,10 +396,65 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/9a7bd21/lib/src/base/KoconutPair.ts#L12">lib/src/base/KoconutPair.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/0de415b/lib/src/base/KoconutPair.ts#L81">lib/src/base/KoconutPair.ts:81</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Truns this <a href="_src_base_koconutpair_.pair.html">Pair</a> instance into a simple JSON object string.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-typescript"><span class="hljs-keyword">const</span> myPair = Pair.from([<span class="hljs-string">&quot;Apex&quot;</span>,<span class="hljs-string">&quot;Captain&quot;</span>])
+<span class="hljs-built_in">console</span>.log(myPair.toString()) <span class="hljs-comment">// Or, you can use console.log(`${myPair}`)</span>
+<span class="hljs-comment">// ↑ {&quot;first&quot;:&quot;Apex&quot;,&quot;second&quot;:&quot;Captain&quot;}</span></code></pre>
+									</dd>
+								</dl>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<a name="from" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> from</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">from&lt;FirstType, SecondType&gt;<span class="tsd-signature-symbol">(</span>pair<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">FirstType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">SecondType</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_base_koconutpair_.pair.html" class="tsd-signature-type">Pair</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">FirstType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">SecondType</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/0de415b/lib/src/base/KoconutPair.ts#L45">lib/src/base/KoconutPair.ts:45</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create a <a href="_src_base_koconutpair_.pair.html">Pair</a> instance by iterable two values pair.</p>
+								</div>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>FirstType</h4>
+								</li>
+								<li>
+									<h4>SecondType</h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>pair: <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">FirstType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">SecondType</span><span class="tsd-signature-symbol">]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Values pair of first/second as iterable.</p>
+										<pre><code class="language-typescript"><span class="hljs-keyword">const</span> myPair = Pair.from([<span class="hljs-string">&quot;Apex&quot;</span>,<span class="hljs-string">&quot;Captain&quot;</span>])
+<span class="hljs-built_in">console</span>.log(myPair)
+<span class="hljs-comment">// ↑ Pair { firstElement: &#x27;Apex&#x27;, secondElement: &#x27;Captain&#x27; }</span></code></pre>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_src_base_koconutpair_.pair.html" class="tsd-signature-type">Pair</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">FirstType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">SecondType</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -298,6 +521,9 @@
 								<a href="_src_base_koconutpair_.pair.html#second" class="tsd-kind-icon">second</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_src_base_koconutpair_.pair.html#equalsto" class="tsd-kind-icon">equals<wbr>To</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_src_base_koconutpair_.pair.html#toarray" class="tsd-kind-icon">to<wbr>Array</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -305,6 +531,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_src_base_koconutpair_.pair.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+								<a href="_src_base_koconutpair_.pair.html#from" class="tsd-kind-icon">from</a>
 							</li>
 						</ul>
 					</li>
