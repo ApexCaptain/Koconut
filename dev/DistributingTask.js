@@ -59,7 +59,7 @@ const checkIsNewVersionCodeValid = (newVersionCode) => {
     return false;
 }
 
-const deploy = async () => {
+const distibute = async () => {
     try {
         var newVersionCode
         while(true) {
@@ -102,4 +102,4 @@ const deploy = async () => {
     }
 }
 
-deploy()
+distibute()
