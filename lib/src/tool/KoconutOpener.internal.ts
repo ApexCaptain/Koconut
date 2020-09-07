@@ -1,6 +1,6 @@
 `use strict`
 
-import { KoconutYieldable } from "../../internal"
+import { KoconutYieldable } from "../../module.internal"
 
 export interface KoconutOpener<DataType> {
     setPrevYieldable(prevYieldable : KoconutYieldable<any>) : KoconutOpener<DataType>

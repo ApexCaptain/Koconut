@@ -1,10 +1,11 @@
-/dist/*.spec*
+dev/
 docs/
-etc/
 lib/
 node_modules/
 ReadMeRes/
+test/
+
+README.md
+sampleTest.ts
 tsconfig.json
-
-
-Desktop.zip
+typedoc.json

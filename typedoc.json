@@ -2,7 +2,6 @@
     "out" : "./docs",
     "readme" : "./README.md",
     "exclude" : [
-        "./lib/spec",
         "./lib/**/*internal.ts"
     ],
     "excludeExternals": true,

@@ -1,6 +1,6 @@
 import { 
     KoconutComparable, KoconutEquatable
-} from "../../internal"
+} from "../../module.internal"
 
 export const KoconutTypeChecker = {
 

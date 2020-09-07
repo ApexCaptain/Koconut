@@ -7,7 +7,7 @@ import {
 
     /* Protol */
     KoconutEquatable
-} from "../../../internal"
+} from "../../../module.internal"
 
 /**
  * Represents a generic pair of two Values. There is no meaning attached to values

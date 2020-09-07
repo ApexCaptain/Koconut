@@ -1,16 +1,9 @@
 import {
     /* Tool */
     KoconutPrimitive, KoconutOpener
-} from "../../internal"
+} from "../../module.internal"
 
-export class KoconutIterable<DataType, CombinedDataType, CombinedWrapperType extends Iterable<CombinedDataType>,WrapperType extends Iterable<DataType>> extends KoconutPrimitive<WrapperType> implements Iterable<CombinedDataType> {
-
-    /* Iterable */
-    [Symbol.iterator]() : Iterator<CombinedDataType> {
-
-        return (this.combinedDataWrapper as Iterable<CombinedDataType>)[Symbol.iterator]()
-
-    }
+export class KoconutIterable<DataType, CombinedDataType, CombinedWrapperType extends Iterable<CombinedDataType>,WrapperType extends Iterable<DataType>> extends KoconutPrimitive<WrapperType> {
 
     protected combinedDataWrapper : CombinedWrapperType | null = null
 

@@ -1,6 +1,6 @@
 `use strict`
 
-import { KoconutYieldable, KoconutOpener } from "../../internal"
+import { KoconutYieldable, KoconutOpener } from "../../module.internal"
 
 export class KoconutPrimitive<DataType> implements KoconutYieldable<DataType> {
     
