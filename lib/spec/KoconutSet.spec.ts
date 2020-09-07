@@ -7,7 +7,7 @@ import {
     Pair, KoconutPair, Entry,
 
     /* Container*/
-    KoconutArray, KoconutSet, KoconutMap,
+    KoconutIterable, KoconutArray, KoconutSet, KoconutMap,
 
     /* Exception */
     KoconutNoSuchElementException, KoconutConflictException
@@ -101,9 +101,9 @@ describe(`${KoconutSet.name} -- Function`, () => {
         const yieldable =
                     koconut
                     .asIterable()
-        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
+        expect(yieldable).to.be.instanceOf(KoconutIterable)
         const result = await yieldable.yield()
-        expect(result).to.eql([1,2,3,4,5])
+        expect(result).to.eql(new Set([1,2,3,4,5]))
 
     })
 

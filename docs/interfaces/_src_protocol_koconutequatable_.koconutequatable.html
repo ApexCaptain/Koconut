@@ -38,10 +38,6 @@
 							</div>
 							<input type="checkbox" id="tsd-filter-inherited" checked />
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-							<input type="checkbox" id="tsd-filter-externals" checked />
-							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
-							<input type="checkbox" id="tsd-filter-only-exported" />
-							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
 					</div>
 					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -69,6 +65,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Classes which inherit from this protocol is able to check equality with other instances of them.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -80,10 +83,10 @@
 			<section class="tsd-panel">
 				<h3>Implemented by</h3>
 				<ul class="tsd-hierarchy">
-					<li><a href="../classes/_src_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a></li>
-					<li><a href="../classes/_src_base_koconutentry_.koconutentry.html" class="tsd-signature-type">KoconutEntry</a></li>
-					<li><a href="../classes/_src_base_koconutpair_.koconutpair.html" class="tsd-signature-type">KoconutPair</a></li>
-					<li><a href="../classes/_src_base_koconutpair_.pair.html" class="tsd-signature-type">Pair</a></li>
+					<li><a href="../classes/_src_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a></li>
+					<li><a href="../classes/_src_container_base_koconutentry_.koconutentry.html" class="tsd-signature-type">KoconutEntry</a></li>
+					<li><a href="../classes/_src_container_base_koconutpair_.koconutpair.html" class="tsd-signature-type">KoconutPair</a></li>
+					<li><a href="../classes/_src_container_base_koconutpair_.pair.html" class="tsd-signature-type">Pair</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -105,19 +108,27 @@
 					<a name="equalsto" class="tsd-anchor"></a>
 					<h3>equals<wbr>To</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">equals<wbr>To<span class="tsd-signature-symbol">(</span>other<span class="tsd-signature-symbol">: </span><a href="_src_protocol_koconutequatable_.koconutequatable.html" class="tsd-signature-type">KoconutEquatable</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">equals<wbr>To<span class="tsd-signature-symbol">(</span>other<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/0de415b/lib/src/protocol/KoconutEquatable.ts#L4">lib/src/protocol/KoconutEquatable.ts:4</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/13debfb/lib/src/protocol/KoconutEquatable.ts#L11">lib/src/protocol/KoconutEquatable.ts:11</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Check whether this instance equals to target object</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>other: <a href="_src_protocol_koconutequatable_.koconutequatable.html" class="tsd-signature-type">KoconutEquatable</a></h5>
+									<h5>other: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Target instance to check equality.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -136,22 +147,19 @@
 						<a href="../modules/_index_.html">&quot;index&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="../modules/_src_base_koconutentry_.html">&quot;src/base/<wbr>Koconut<wbr>Entry&quot;</a>
+						<a href="../modules/_src_container_base_koconutentry_.html">&quot;src/container/base/<wbr>Koconut<wbr>Entry&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="../modules/_src_base_koconutpair_.html">&quot;src/base/<wbr>Koconut<wbr>Pair&quot;</a>
+						<a href="../modules/_src_container_base_koconutpair_.html">&quot;src/container/base/<wbr>Koconut<wbr>Pair&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="../modules/_src_container_koconutarray_.html">&quot;src/container/<wbr>Koconut<wbr>Array&quot;</a>
+						<a href="../modules/_src_container_collection_array_koconutarray_.html">&quot;src/container/collection/array/<wbr>Koconut<wbr>Array&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="../modules/_src_container_koconutcollection_.html">&quot;src/container/<wbr>Koconut<wbr>Collection&quot;</a>
+						<a href="../modules/_src_container_collection_set_koconutset_.html">&quot;src/container/collection/set/<wbr>Koconut<wbr>Set&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="../modules/_src_container_koconutmap_.html">&quot;src/container/<wbr>Koconut<wbr>Map&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="../modules/_src_container_koconutset_.html">&quot;src/container/<wbr>Koconut<wbr>Set&quot;</a>
+						<a href="../modules/_src_container_map_koconutmap_.html">&quot;src/container/map/<wbr>Koconut<wbr>Map&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="../modules/_src_enum_koconutloopsignal_.html">&quot;src/enum/<wbr>Koconut<wbr>Loop<wbr>Signal&quot;</a>

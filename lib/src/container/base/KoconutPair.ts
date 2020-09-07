@@ -7,7 +7,7 @@ import {
 
     /* Protol */
     KoconutEquatable
-} from "../../internal"
+} from "../../../internal"
 
 /**
  * Represents a generic pair of two Values. There is no meaning attached to values
@@ -47,7 +47,7 @@ export class Pair<FirstType, SecondType> implements KoconutEquatable {
     }
 
     /**
-     * Constructor for {@link Pair}.
+     * Constructor of {@link Pair}.
      * 
      * @param firstElement FirstType element.
      * @param secondElement SecondType element.
@@ -69,7 +69,7 @@ export class Pair<FirstType, SecondType> implements KoconutEquatable {
     get second() : SecondType { return this.secondElement }
 
     /**
-     * Truns this {@link Pair} instance into a simple JSON object string.
+     * Turns this {@link Pair} instance into a simple JSON object string.
      * 
      * @example
      * ```typescript
@@ -81,7 +81,7 @@ export class Pair<FirstType, SecondType> implements KoconutEquatable {
     toString() : string { return JSON.stringify({first : this.first, second : this.second}) }
 
     /**
-     * Truns this {@link Pair} instance into a simple array.
+     * Turns this {@link Pair} instance into a simple array.
      * 
      * @example
      * ```typescript
@@ -104,10 +104,10 @@ export class Pair<FirstType, SecondType> implements KoconutEquatable {
     toEntry() : Entry<FirstType, SecondType> { return new Entry(this.first, this.second)}
 
     /**
-     * {@link Pair} class implements {@link KoconutEquatable}. The equality check process
-     * of this is done simply by using '==' operator when the FirstType or SecondType is not {@link KoconutEquatable},
-     * otherwise, by using method '{@link KoconutEquatable.equalsTo equalsTo}' to the corresponding element.
-     * Please, have a check following example.
+     * Class {@link Pair} implments {@link KoconutEquatable}. The '{@link KoconutEquatable.equalsTo equalsTo}' method of
+     * this is basically check each individual element (first/second) are same or not. When the type of each element
+     * is child of {@link KoconutEquatable}, it'd be done by using its '{@link KoconutEquatable.equalsTo equalsTo}' method.
+     * Otherwise, it'd be done simply by '==' operator.
      * @param other 
      * 
      * @example
@@ -170,17 +170,41 @@ export class Pair<FirstType, SecondType> implements KoconutEquatable {
     }
 }
 
+/**
+ * Koconut Wrapper class for {@link Pair}
+ * 
+ * @see
+ * <pre>
+ * -- Base --
+ * {@link Pair}, {@link Entry}, {@link KoconutPair}
+ * 
+ * -- Protocol --
+ * {@link KoconutEquatable}
+ * </pre>
+ * 
+ * @param FirstType Check for {@link Pair}
+ * @param SecondType Check for {@link Pair}
+ */
 export class KoconutPair<FirstType, SecondType> extends KoconutPrimitive<Pair<FirstType, SecondType>> implements KoconutEquatable {
-    constructor(frist : FirstType | null = null, second : SecondType | null = null) {
-        if(frist != null && second != null) super(new Pair(frist, second))
+    
+    /**
+     * Constructor of {@link KoconutPair}
+     * 
+     * @param first FirstType element of inner {@link Pair} instance.
+     * @param second SecondType element of inner {@link Pair} instance.
+     */
+    constructor(first : FirstType | null = null, second : SecondType | null = null) {
+        if(first != null && second != null) super(new Pair(first, second))
         else super()
     }
 
+    /**
+     * Class {@link KoconutPair} implements {@link KoconutEquatable}. The equality check process
+     * is done by using '{@link Pair.equalsTo equalsTo method of Pair}'
+     * @param other 
+     */
     equalsTo(other : KoconutPair<FirstType, SecondType>) {
-        if(this.data != null && other.data != null) {
-            if(KoconutTypeChecker.checkIsEquatable(this.data) && KoconutTypeChecker.checkIsEquatable(other.data)) return this.data.equalsTo(other.data)
-            else return this.data == other.data
-        }
+        if(this.data != null && other.data != null) return this.data.equalsTo(other.data)
         return false
     }
 }

@@ -9,7 +9,7 @@ import {
 
     /* Protocol */
     KoconutEquatable, KoconutComparable
-} from "../../internal"
+} from "../../../../internal"
 
 export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataType>> {
  
@@ -55,6 +55,7 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
                     this.mIndices.push(index ++)
                 }
             }
+            this.combinedDataWrapper = data
         }
     }
 

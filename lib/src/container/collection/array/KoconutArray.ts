@@ -9,7 +9,7 @@ import {
 
     /* Protocol */
     KoconutEquatable, KoconutComparable
-} from "../../internal"
+} from "../../../../internal"
 
 export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<DataType>> {
     

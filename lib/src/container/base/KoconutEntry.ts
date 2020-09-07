@@ -9,7 +9,7 @@ import {
 
     /* Protocol */
     KoconutEquatable
-} from "../../internal"
+} from "../../../internal"
 
 /** 
  * Represents a key/value pair for {@link KoconutMap}.
@@ -59,7 +59,7 @@ export class Entry<KeyType, ValueType> implements KoconutEquatable {
     }
 
     /** 
-     * Constructor for {@link Entry}.
+     * Constructor of {@link Entry}.
      * 
      * @param keyElement KeyType element it'd better be distinguishable.
      * @param valueElement  ValueType element.
@@ -118,7 +118,7 @@ export class Entry<KeyType, ValueType> implements KoconutEquatable {
 
 
     /**
-     * {@link Entry} class implements {@link KoconutEquatable}. The equality check process
+     * Class {@link Entry} implements {@link KoconutEquatable}. The equality check process
      * of this is done simply by using '==' operator when the KeyType is not {@link KoconutEquatable},
      * otherwise, by using the method '{@link KoconutEquatable.equalsTo equalsTo}' to the the key element.
      * Please, have a check following example.
@@ -184,7 +184,7 @@ export class Entry<KeyType, ValueType> implements KoconutEquatable {
 export class KoconutEntry<KeyType, ValueType> extends KoconutPrimitive<Entry<KeyType, ValueType>> implements KoconutEquatable {
 
     /**
-     * Constructor for {@link KoconutEntry}.
+     * Constructor of {@link KoconutEntry}.
      * 
      * @param key KeyType element of inner {@link Entry} instance, it'd better be distinguishable. 
      * @param value ValueType element of inner {@link Entry}.
@@ -195,17 +195,13 @@ export class KoconutEntry<KeyType, ValueType> extends KoconutPrimitive<Entry<Key
     }
 
     /**
-     * {@link KoconutEntry} class implements {@link KoconutEquatable}. The equality check process
-     * of this is done simply by using '==' operator when the {@link Entry} is not {@link KoconutEquatable},
-     * otherwise, using method '{@link KoconutEquatable.equalsTo equalsTo}' of the {@link Entry} data.
+     * Class {@link KoconutEntry} implements {@link KoconutEquatable}. The equality check process
+     * is done by using '{@link Entry.equalsTo equalsTo method of Entry}'.
      * 
      * @param other Other {@link KoconutEntry} instance to check equality.
      */
     equalsTo(other : KoconutEntry<KeyType, ValueType>) : boolean {
-        if(this.data != null && other.data != null) {
-            if(KoconutTypeChecker.checkIsEquatable(this.data) && KoconutTypeChecker.checkIsEquatable(other.data)) return this.data.equalsTo(other.data)
-            else return this.data == other.data
-        }
+        if(this.data != null && other.data != null) return this.data.equalsTo(other.data)
         return false
     }
 

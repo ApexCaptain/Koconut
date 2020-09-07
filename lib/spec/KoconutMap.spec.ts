@@ -7,7 +7,7 @@ import {
     Entry, KoconutEntry, Pair, KoconutPair,
 
     /* Container */
-    KoconutArray, KoconutSet, KoconutMap,
+    KoconutIterable, KoconutArray, KoconutSet, KoconutMap,
 
     /* Exception */
     KoconutNoSuchElementException
@@ -101,6 +101,7 @@ describe(`${KoconutMap.name} -- Function`, () => {
         expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
         const resultCase1 = await yieldableCase1.yield()
         expect(resultCase1).equals(true)
+        
 
         /* Case 2 */
         const yieldableCase2 =
@@ -109,6 +110,7 @@ describe(`${KoconutMap.name} -- Function`, () => {
         expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
         const resultCase2 = await yieldableCase2.yield()
         expect(resultCase2).equals(false)
+        
 
     })
 
@@ -144,13 +146,14 @@ describe(`${KoconutMap.name} -- Function`, () => {
         const yieldable = 
                         koconut
                         .asIterable()
-        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
+        expect(yieldable).to.be.instanceOf(KoconutIterable)
         const result = await yieldable.yield()
-        expect(result).eqls(new Set([
-                                    new Entry(1, 1),
-                                    new Entry(2, 2),
-                                    new Entry(3, 3)
-                                ])[Symbol.iterator]())
+        console.log(result)
+        expect(result).eqls(new Map([
+                                    [1, 1],
+                                    [2, 2],
+                                    [3, 3]
+                                ]))
 
     })
 

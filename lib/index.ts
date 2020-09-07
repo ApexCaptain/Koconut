@@ -1,7 +1,7 @@
 `use strict`
 
 export {
-    /* Tool */
+    /* Base */
     Entry, KoconutEntry, Pair, KoconutPair,
 
     /* Container */

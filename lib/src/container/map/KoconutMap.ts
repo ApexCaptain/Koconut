@@ -8,16 +8,16 @@ import {
     Entry, Pair, KoconutPair, KoconutEntry,
 
     /* Container */
-    KoconutArray, KoconutSet,
+    KoconutIterable, KoconutArray, KoconutSet,
 
     /* Exception */
     KoconutNoSuchElementException,
 
     /* Protocol */
     KoconutEquatable, KoconutComparable
-} from "../../internal"
+} from "../../../internal"
 
-export class KoconutMap<KeyType, ValueType> extends KoconutPrimitive<Map<KeyType, ValueType>> implements Iterable<Entry<KeyType, ValueType>>{
+export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, ValueType], Entry<KeyType, ValueType>, Set<Entry<KeyType, ValueType>>, Map<KeyType, ValueType>> {
 
     static from<KeyType, ValueType>(
         source : Map<KeyType, ValueType>
@@ -42,18 +42,11 @@ export class KoconutMap<KeyType, ValueType> extends KoconutPrimitive<Map<KeyType
     }
 
 
-    /* Iterable */
-    [Symbol.iterator]() : Iterator<Entry<KeyType, ValueType>> {
-
-        return this.mEntries[Symbol.iterator]()
-    
-    }
-
-
     /* Koconut Primitive */
     async validiate(data : Map<KeyType, ValueType> | null) {
     
         if(data != null) {
+            this.combinedDataWrapper = new Set()
             for(const [key, value] of data.entries()) {
                 if(KoconutTypeChecker.checkIsEquatable(key)) {
                     let isConflict = false
@@ -65,11 +58,13 @@ export class KoconutMap<KeyType, ValueType> extends KoconutPrimitive<Map<KeyType
                     }
                     if(!isConflict) {
                         this.mKeys.add(key)
+                        this.combinedDataWrapper.add(new Entry(key, value))
                         this.mEntries.add(new Entry(key, value))
                         this.mValues.push(value)
                     } else this.data?.delete(key)
                 } else {
                     this.mKeys.add(key)
+                    this.combinedDataWrapper.add(new Entry(key, value))
                     this.mEntries.add(new Entry(key, value))
                     this.mValues.push(value)
                 }
@@ -133,64 +128,6 @@ export class KoconutMap<KeyType, ValueType> extends KoconutPrimitive<Map<KeyType
 
 
     /* Functions */
-    all(
-        predicate : (entry : Entry<KeyType, ValueType>) => boolean | Promise<boolean>,
-        thisArg : any = null
-    ) : KoconutPrimitive<boolean> {
-
-        predicate = predicate.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<boolean>();
-        (koconutToReturn as any as KoconutOpener<boolean>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data != null) {
-                    for(const eachEntry of this.mEntries)
-                        if(!await predicate(eachEntry)) return false
-                    return true
-                }
-                return false
-            })
-        return koconutToReturn
-
-    }
-
-
-    any(
-        predicate : (entry : Entry<KeyType, ValueType>) => boolean | Promise<boolean>,
-        thisArg : any = null
-    ) : KoconutPrimitive<boolean> {
-
-        predicate = predicate.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<boolean>();
-        (koconutToReturn as any as KoconutOpener<boolean>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data != null) {
-                    for(const eachEntry of this.mEntries) {
-                        if(await predicate(eachEntry)) return true
-                    }
-                }
-                return false
-            })
-        return koconutToReturn
-
-    }
-
-
-    asIterable() : KoconutPrimitive<Iterable<Entry<KeyType, ValueType>>> {
-
-        const koconutToReturn = new KoconutPrimitive<Iterable<Entry<KeyType, ValueType>>>();
-        (koconutToReturn as any as KoconutOpener<Iterable<Entry<KeyType, ValueType>>>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                return this.mEntries[Symbol.iterator]()
-            })
-        return koconutToReturn
-
-    }
-
-
-    // asSequence
     asArray() : KoconutArray<Entry<KeyType, ValueType>> {
 
         const koconutToReturn = new KoconutArray<Entry<KeyType, ValueType>>();
@@ -244,28 +181,6 @@ export class KoconutMap<KeyType, ValueType> extends KoconutPrimitive<Map<KeyType
                     || (!KoconutTypeChecker.checkIsEquatable(eachValue) && eachValue == value)) return true
                 }
                 return false
-            })
-        return koconutToReturn
-
-    }
-
-
-    count(
-        predicate : ((entry : Entry<KeyType, ValueType>) => boolean | Promise<boolean>) | null = null,
-        thisArg : any = null
-    ) : KoconutPrimitive<number> {
-
-        if(predicate) predicate = predicate.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<number>();
-        (koconutToReturn as any as KoconutOpener<number>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(predicate) {
-                    let count = 0
-                    for(const eachEntry of this.mEntries)
-                        if(await predicate(eachEntry)) count++
-                    return count
-                } else return this.mValues.length
             })
         return koconutToReturn
 

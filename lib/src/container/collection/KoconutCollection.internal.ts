@@ -8,23 +8,17 @@ import {
     KoconutPair, Pair, Entry, 
 
     /* Container */
-    KoconutArray, KoconutSet, KoconutMap,
+    KoconutIterable, KoconutArray, KoconutSet, KoconutMap,
 
     /* Exception */
     KoconutInvalidArgumentException, KoconutIndexOutOfBoundsException, KoconutNoSuchElementException, KoconutConflictException,
 
     /* Protocol */
     KoconutEquatable, KoconutComparable
-} from "../../internal"
+} from "../../../internal"
 
-export class KoconutCollection<DataType, WrapperType extends Array<DataType> | Set<DataType>> extends KoconutPrimitive<WrapperType> implements Iterable<DataType>{
-
-    /* Iterable */
-    [Symbol.iterator]() : Iterator<DataType> {
-
-        return (this.data as Iterable<DataType>)[Symbol.iterator]()
-
-    }
+/** @internal */
+export class KoconutCollection<DataType, WrapperType extends Array<DataType> | Set<DataType>> extends KoconutIterable<DataType, DataType, WrapperType, WrapperType> {
 
     /* Koconut Primitive */
     async validiate(data : WrapperType | null) {
@@ -35,6 +29,7 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
                 .keys(dataArray)
                 .map(eachString => parseInt(eachString))
                 .forEach(eachIndex => this.mIndices.push(eachIndex))
+            this.combinedDataWrapper = data
         }   
         
     }
@@ -63,62 +58,6 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
 
 
     /* Funcions */
-    all(
-        predicate : (element : DataType) => boolean | Promise<boolean>,
-        thisArg : any = null
-    ) : KoconutPrimitive<boolean> {
-
-        predicate = predicate.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<boolean>();
-        (koconutToReturn as any as KoconutOpener<boolean>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data == null) return false
-                for(const eachDatum of this.data)
-                    if(!await predicate(eachDatum)) return false
-                return true
-            })
-        return koconutToReturn
-
-    }
-
-
-    any(
-        predicate : ((element : DataType) => boolean | Promise<boolean>) | null = null,
-        thisArg : any = null
-    ) : KoconutPrimitive<boolean> {
-
-        if(predicate) predicate.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<boolean>();
-        (koconutToReturn as any as KoconutOpener<boolean>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data == null) return false
-                if(predicate) {
-                    for(const eachDatum of this.data) 
-                        if(await predicate(eachDatum)) return true
-                    return false
-                } else return this.mSize != 0
-            })
-        return koconutToReturn
-
-    }
-
-
-    asIterable() : KoconutPrimitive<Iterable<DataType> | null> {
-
-        const koconutToReturn = new KoconutPrimitive<Iterable<DataType> | null>();
-        (koconutToReturn as any as KoconutOpener<Iterable<DataType> | null>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => this.data == null ? null : Array.from(this.data) as Iterable<DataType>)
-        return koconutToReturn
-
-    }
-
-
-    // asSequence
-
-
     associate<KeyType, ValueType>(
         transform : (element : DataType) => [KeyType, ValueType] | Pair<KeyType, ValueType> | KoconutPair<KeyType, ValueType> | Promise<[KeyType, ValueType] | Pair<KeyType, ValueType> | KoconutPair<KeyType, ValueType>>,
         thisArg : any = null
@@ -366,29 +305,6 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
                     } else if(!dataArray.includes(eachElementToCheck)) return false
                 }
                 return true
-            })
-        return koconutToReturn
-
-    }
-
-
-    count(
-        predicate : ((element : DataType) => boolean | Promise<boolean>) | null = null,
-        thisArg : any = null
-    ) : KoconutPrimitive<number> {
-
-        if(predicate) predicate = predicate.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<number>();
-        (koconutToReturn as any as KoconutOpener<number>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data == null) return 0
-                const dataArray = Array.from(this.data)
-                if(!predicate) return dataArray.length
-                let count = 0
-                for(const [index, element] of dataArray.entries())
-                    if(await predicate(element)) count++
-                return count
             })
         return koconutToReturn
 
