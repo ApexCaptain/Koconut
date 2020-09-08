@@ -6,6 +6,10 @@
 - [Installation](#Installation)
 - [Introduction](#Introduction)
 - [Documents](#Documents)
+- [Necessity](#Necessity)
+- [Example](#Example)
+- [Hierarchy](#Hierarchy)
+- [License](#License)
 
 # Installation
 
@@ -95,7 +99,7 @@ The full document of this library is running on [git-hub page].
 
 [Koconut] is promise-friendly. The basic design philsophy of this library is to use `async/await` functionality without any interruption even if whlie using iterative process. Let me give you an example.
 
-Imagine if there are 3 different http request info. Each and every one of them has very different purpose and cannot be merged into a single requset. You want to process one by one sequentially.
+Imagine if there are 3 different http requests info. Each and every one of them has a very different purpose and cannot be merged into a single requset. You may want to hadle one by one sequentially.
 ```ts
 const requestInfoList = [
     {
@@ -121,7 +125,7 @@ const requestInfoList = [
     }
 ]
 ```
-Now, let's send those request with one of the most common http node.js lib, [axios](https://www.npmjs.com/package/axios).
+Now, let's send those requests with one of the most common http node.js lib, [axios](https://www.npmjs.com/package/axios).
 ```ts
 const mainProcess = async () => {
 
@@ -134,24 +138,69 @@ const mainProcess = async () => {
 }
 mainProcess()
 ```
-Within upper example, each http request processed asynchronously. However, the result of outer `forEach` function of normal `Array` is not a [Promise], in other words it does not support [Promise] nor `async/await`. Therefore, printed message[2], which is `Finished!` will come out much earlier before any one[1] of requests is actually done.
-
+Within upper example, each http request is handled asynchronously. However, the result of outer `forEach` function of normal `Array` is not a [Promise], in other word, it does not support [Promise] nor `async/await`. Therefore, printed message[2], which is `Finished!` will come out much earlier before any one[1] of requests is actually completed.
 
 Now, you have to come up with a different way. Maybe, after some Googling and Googleing (Like as I did), you'll find an answer just like below.
-
 
 ```ts
 const mainProcess = async () => {
 
     for(const eachRequestInfo of requestInfoList) {
         const eachResult = await axios(eachRequestInfo)
-        console.log(eachResult) // --- [1]
+        console.log(eachResult) 
     }
-    console.log("Finished!") // --- [2]
+    console.log("Finished!") 
 
 }
 mainProcess()
 ```
+By doing this, all the requests are sent one by one as intended. 
+
+The problem is resolved! Having a nice cuppa tea, reclining your seat, you may work leave work early today.
+
+Or... is it?
+
+The next day, your boss told you that each request result should be checked weather it is validate or not.
+
+Easy. It can be done like this.
+```ts
+const mainProcess = async () => {
+
+    const filteredResult = new Array()
+    for(const eachRequestInfo of requestInfoList) {
+        const eachResult = await axios(eachRequestInfo)
+        if(checkIsValidiate(eachResult))
+            filteredResult.push(eachResult) 
+    }
+    console.log("Finished!") 
+
+}
+mainProcess()
+```
+Now you have two different arrays. This is the problem. Since previous iterable classes don't support [Promise], you have to keep adding more and more `for...of` or `for...in` statement into your source code. As time goes by and your software becomes more and more complicated, your data processing would be unrecognizable and frustrating.
+
+It would be great just if you can use `filter` function, right?
+
+Here's an example using [KoconutArray].
+
+```ts
+import { KoconutArray } from 'koconut'
+const mainProcess = async () => {
+
+    const filteredResult = await KoconutArray
+                                .from(requestInfoList)
+                                .filter(async eachRequestInfo => checkIsValidiate(await axios(eachRequestInfo)))
+                                .yield()
+    console.log("Finished!") 
+
+}
+mainProcess()
+```
+Boom! It is done! No more complicated loop. It is safe and quite pretty.
+
+# Example
+
+# Hierarchy
 
 # License
 
