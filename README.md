@@ -99,7 +99,7 @@ The full document of this library is running on [git-hub page].
 
 [Koconut] is promise-friendly. The basic design philsophy of this library is to use `async/await` functionality without any interruption even if whlie using iterative process. Let me give you an example.
 
-Imagine if there are 3 different http requests info. Each and every one of them has a very different purpose and cannot be merged into a single requset. You may want to hadle one by one sequentially.
+Imagine if there are 3 different http requests info. Each and every one of them has a very different purpose and cannot be merged into a single requset. You may want to handle one by one sequentially.
 ```ts
 const requestInfoList = [
     {
