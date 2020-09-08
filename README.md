@@ -217,8 +217,8 @@ const mainProcess = async () => {
 mainProcess()
 ```
 Boom! It is done! No more complicated loop. It is safe and quite beautiful.
-Of course, I know that it's pretty practiced example. You could fetch result and validate it just in one loop.
-But by drawing upon [Koconut] library, the source code would be much more clear and efficient.
+Of course, I know that it's pretty practiced example. You could fetch result and validate it simultaneously just in one loop.
+But by drawing upon [Koconut] library, your source code would be much more clear and efficient.
 
 # Example
 
