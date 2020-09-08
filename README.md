@@ -91,7 +91,7 @@ The full document of this library is running on [git-hub page].
 - [KoconutEquatable]
 
 # Necessity
-`OK, so... why do I need it?`
+### `OK, so... why do I need it?`
 
 [Koconut] is promise-friendly. The basic design philsophy of this library is to use `async/await` functionality without any interruption even if whlie using iterative process. Let me give you an example.
 
@@ -136,15 +136,8 @@ mainProcess()
 ```
 Within upper example, each http request processed asynchronously. However, the result of outer `forEach` function of normal `Array` is not a [Promise], in other words it does not support [Promise] nor `async/await`. Therefore, printed message[2], which is `Finished!` will come out much earlier before any one[1] of requests is actually done.
 
-<table>
-    <th><img src="ReadMeRes/troll/searching.gif" alt="Troll Searching" width="70"></th>
-    <th style = "text-align:left; font-weight:normal">Now, you have to come up with a different way. Maybe, after some Googling and Googleing (Like as I did), you'll find an answer just like below.
-    </th>
-</table>
 
-
-
-
+Now, you have to come up with a different way. Maybe, after some Googling and Googleing (Like as I did), you'll find an answer just like below.
 
 
 ```ts
