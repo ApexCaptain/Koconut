@@ -169,7 +169,7 @@ const mainProcess = async () => {
     const filteredResult = new Array()
     for(const eachRequestInfo of requestInfoList) {
         const eachResult = await axios(eachRequestInfo)
-        if(checkIsValidiate(eachResult))
+        if(checkIsValidate(eachResult))
             filteredResult.push(eachResult) 
     }
     console.log("Finished!") 
@@ -189,7 +189,7 @@ const mainProcess = async () => {
 
     const filteredResult = await KoconutArray
                                 .from(requestInfoList)
-                                .filter(async eachRequestInfo => checkIsValidiate(await axios(eachRequestInfo)))
+                                .filter(async eachRequestInfo => checkIsValidate(await axios(eachRequestInfo)))
                                 .yield()
     console.log("Finished!") 
 
