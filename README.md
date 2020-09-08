@@ -91,7 +91,7 @@ The full document of this library is running on [git-hub page].
 - [KoconutEquatable]
 
 # Necessity
-### `OK, so... why do I need it?`
+`OK, so... why do I need it?`
 
 [Koconut] is promise-friendly. The basic design philsophy of this library is to use `async/await` functionality without any interruption even if whlie using iterative process. Let me give you an example.
 
