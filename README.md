@@ -17,9 +17,9 @@ This is [Node.js](https://nodejs.org/en/) library available through the [npm reg
 
 Before you install it, please [download and install Node.js](https://nodejs.org/en/download/).
 
-Currently, [Koconut] does not require specific node version, however is is recommended to be 0.8.x or higher due to this library depends on [Promise] a lot.
+Currently, [Koconut] does not require specific node version, however it is recommended to be 0.8.x or higher since this library depends on [Promise] a lot.
 
-Installation is done using [`npm install` command](https://docs.npmjs.com/getting-started/installing-npm-packages-locally)
+Installation is done by using [`npm install` command](https://docs.npmjs.com/getting-started/installing-npm-packages-locally)
 
 ```sh
 $ npm install koconut --save
@@ -27,7 +27,7 @@ $ npm install koconut --save
 
 # Introduction
 
-This is a node.js library for collection, a.k.a data structure. It's fully written in TypeScript, but also compatible with JavaScript application. It is 100% [Apache-2.0](https://github.com/ApexCaptain/Koconut/blob/master/LICENSE) licensed.
+This is a node.js library for collection(a.k.a data structure). It's fully written in TypeScript, but also compatible with JavaScript application. It is 100% [Apache-2.0](https://github.com/ApexCaptain/Koconut/blob/master/LICENSE) licensed.
 
 Here is a short example on how to use it:
 
@@ -69,7 +69,7 @@ const sampleProcess = async () => {
 sampleProcess()
 ```
 
-As you can see, there's no big difference between using in JS and TS. Both examples created an 1 to 6 integer array and filtered only the even numbers.
+As you can see, there's no big difference between using it in JS and TS. Both examples created an 1 to 6 integer array and filtered only the even numbers.
 
 # Documents
 
@@ -129,74 +129,96 @@ Now, let's send those requests with one of the most common http node.js lib, [ax
 ```ts
 const mainProcess = async () => {
 
+    const results = new Array()
     requestInfoList.forEach(async eachRequestInfo => {
         const eachResult = await axios(eachRequestInfo)
-        console.log(eachResult) // --- [1]
+        results.push(eachResult)
     })
-    console.log("Finished!") // --- [2] 
+
+    console.log(results) // --- [1] : Empty List
+    console.log("Nailed it!") 
 
 }
 mainProcess()
 ```
-Within upper example, each http request is handled asynchronously. However, the result of outer `forEach` function of normal `Array` is not a [Promise], in other word, it does not support [Promise] nor `async/await`. Therefore, printed message[2], which is `Finished!` will come out much earlier before any one[1] of requests is actually completed.
+Within upper example, each http request is handled asynchronously. However, the result of outer `forEach` function of normal `Array` is not a [Promise] instance, in other words, it does not support [Promise] nor `async/await`. 
 
-Now, you have to come up with a different way. Maybe, after some Googling and Googleing (Like as I did), you'll find an answer just like below.
+Therefore, printed message at [1] is gonna be an empty list. This is definitely not what you've intended.
+
+Now, you have to come up with a different way. Maybe, after some Googling and Googling (Like as I did), you'll find an answer just like below.
 
 ```ts
 const mainProcess = async () => {
 
+    const results = new Array()
     for(const eachRequestInfo of requestInfoList) {
         const eachResult = await axios(eachRequestInfo)
-        console.log(eachResult) 
+        results.push(eachResult)
     }
-    console.log("Finished!") 
+
+    console.log(results) // --- [1] : [ result1, result2, result3 ]
+    console.log("Nailed it!") 
 
 }
 mainProcess()
 ```
-By doing this, all the requests are sent one by one as intended. 
+By doing this, all the requests are sent one by one. Printed message at [1] would be an array of three request results.
 
-The problem is resolved! Having a nice cuppa tea, reclining your seat, you may work leave work early today.
+The problem is resolved! Having a nice cuppa tea, reclining your seat, wow, you may leave work early today!
 
 Or... is it?
 
-The next day, your boss told you that each request result should be checked weather it is validate or not.
+The next day, your boss told you that each request result should be checked whether it's valid or not.
 
-Easy. It can be done like this.
+The information you need is all in some other database. So, you made another async function called `checkIsValid`.
+
+Easy! It can be done like this.
 ```ts
 const mainProcess = async () => {
 
-    const filteredResult = new Array()
+    const results = new Array()
     for(const eachRequestInfo of requestInfoList) {
-        const eachResult = await axios(eachRequestInfo)
-        if(checkIsValidate(eachResult))
-            filteredResult.push(eachResult) 
+        const eachResult = await axios(eachRequesInfo)
+        results.push(eachResult)
     }
-    console.log("Finished!") 
+
+    const validResults = new Array()
+    for(const eachResult of results) {
+        if(await checkIsValid(eachResult))
+            validResults.push(eachResult)
+    }
+
+    console.log(validResults) // --- [1] : Valid results matches the given condition
+    console.log("Nailed it!") 
 
 }
 mainProcess()
 ```
-Now you have two different arrays. This is the problem. Since previous iterable classes don't support [Promise], you have to keep adding more and more `for...of` or `for...in` statement into your source code. As time goes by and your software becomes more and more complicated, your data processing would be unrecognizable and frustrating.
+Now you have two different arrays. This is the problem. Since previous iterable classes don't support [Promise], you have to keep adding `for...of` or `for...in` statement over and over again into your source code. As time goes by and your software becomes more and more complicated, your data processing would be unrecognizable and frustrating.
 
-It would be great just if you can use `filter` function, right?
+It would be great just if you can use `filter` function instead, right?
 
-Here's an example using [KoconutArray].
+Well, here's an example using [KoconutArray].
 
 ```ts
 import { KoconutArray } from 'koconut'
 const mainProcess = async () => {
 
-    const filteredResult = await KoconutArray
+    const validResults = await KoconutArray
                                 .from(requestInfoList)
-                                .filter(async eachRequestInfo => checkIsValidate(await axios(eachRequestInfo)))
+                                .map(async eachRequestInfo => await axios(eachRequestInfo))
+                                .filter(async eachResult => checkIsValid(eachResult))
                                 .yield()
-    console.log("Finished!") 
+
+    console.log(validresults)
+    console.log("Nailed it!") 
 
 }
 mainProcess()
 ```
-Boom! It is done! No more complicated loop. It is safe and quite pretty.
+Boom! It is done! No more complicated loop. It is safe and quite beautiful.
+Of course, I know that it's pretty practiced example. You could fetch result and validate it just in one loop.
+But by drawing upon [Koconut] library, the source code would be much more clear and efficient.
 
 # Example
 
