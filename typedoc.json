@@ -1,6 +1,6 @@
 {
     "out" : "./docs",
-    "readme" : "./README.md",
+    "readme" : "./RELEASE.md",
     "exclude" : [
         "./lib/**/*internal.ts"
     ],
