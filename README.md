@@ -1,4 +1,4 @@
-# <img src="ReadMeRes/logo.png" alt="Koconut Logo" width="86" height="86">Koconut : Kotlin Style Collection Library For Node.Js 
+# <img src="ReadMeRes/logo.png" alt="Koconut Logo" width="70" height="70">Koconut : Kotlin Style Collection Lib For Node.Js 
 
 [![npm version](https://img.shields.io/npm/v/koconut.svg?color=RED&label=Koconut&style=plastic&logo=npm)](https://www.npmjs.com/settings/ayteneve93/packages)
 
