@@ -194,7 +194,7 @@ const mainProcess = async () => {
 }
 mainProcess()
 ```
-Now you have two different arrays. This is the problem. Since previous iterable classes don't support [Promise], you have to keep adding `for...of` or `for...in` statement over and over again into your source code. As time goes by and your software becomes more and more complicated, your data processing would be unrecognizable and frustrating.
+Now you have two different arrays. This is the problem. Since previous iterable classes don't support [Promise], you have to keep adding `for...of` or `for...in` statement over and over again into your source code. As time goes by and your software becomes more and more complicated, your data processing would be unrecognizable and messy.
 
 It would be great just if you can use `filter` function instead, right?
 
@@ -217,7 +217,7 @@ const mainProcess = async () => {
 mainProcess()
 ```
 Boom! It is done! No more complicated loop. It is safe and quite beautiful.
-Of course, I know that it's pretty practiced example. You could fetch result and validate it simultaneously just in one loop.
+Of course, I know that it's pretty unnatural example. You could fetch result and validate it simultaneously just in one loop.
 But by drawing upon [Koconut] library, your source code would be much more clear and efficient.
 
 # Example

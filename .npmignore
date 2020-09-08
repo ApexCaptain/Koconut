@@ -7,6 +7,7 @@ ReadMeRes/
 test/
 
 # Files
+desktop.ini
 README.md
 tsconfig.json
 typedoc.json
