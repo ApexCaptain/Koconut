@@ -10,6 +10,9 @@ export {
     /* Exception */
     KoconutConflictException, KoconutNoSuchElementException, KoconutInvalidArgumentException, KoconutIndexOutOfBoundsException,
 
+    /* Enum */
+    KoconutLoopSignal,
+
     /* Protocol */
     KoconutComparable, KoconutEquatable
 } from "./module.internal"

@@ -248,7 +248,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/tool/KoconutPrimitive.internal.ts#L20">lib/src/tool/KoconutPrimitive.internal.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/tool/KoconutPrimitive.internal.ts#L20">lib/src/tool/KoconutPrimitive.internal.ts:20</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -275,13 +275,93 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#all">all</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/KoconutIterable.internal.ts#L10">lib/src/container/KoconutIterable.internal.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/KoconutIterable.internal.ts#L93">lib/src/container/KoconutIterable.internal.ts:93</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Return <code>true</code> if all elements match te given <code>predicate</code>.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-typescript">  <span class="hljs-comment">// Case 1 -- KoconutArray</span>
+  <span class="hljs-keyword">const</span> koconutArray = KoconutArray.of(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>)
+
+  <span class="hljs-keyword">const</span> areAllArrayElementsGreaterThan0 = <span class="hljs-keyword">await</span> koconutArray
+                                          .all(<span class="hljs-function"><span class="hljs-params">eachNumber</span> =&gt;</span> eachNumber &gt; <span class="hljs-number">0</span>)
+                                          .yield()
+  <span class="hljs-built_in">console</span>.log(areAllArrayElementsGreaterThan0)
+  <span class="hljs-comment">// ↑ true</span>
+
+  <span class="hljs-keyword">const</span> areAllArrayElementsEven = <span class="hljs-keyword">await</span> koconutArray
+                                  .all(<span class="hljs-function"><span class="hljs-params">eachNumber</span> =&gt;</span> eachNumber % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>)
+                                  .yield()
+  <span class="hljs-built_in">console</span>.log(areAllArrayElementsEven)
+  <span class="hljs-comment">// ↑ false -- i.e. &#x27;1&#x27; is not an even number.</span>
+
+
+  <span class="hljs-comment">// Case 2 -- KoconutSet</span>
+  <span class="hljs-keyword">const</span> koconutSet = KoconutSet.of(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>)
+
+  <span class="hljs-keyword">const</span> areAllSetElementsGreaterThan0 = <span class="hljs-keyword">await</span> koconutSet
+                                          .all(<span class="hljs-function"><span class="hljs-params">eachNumber</span> =&gt;</span> eachNumber &gt; <span class="hljs-number">0</span>)
+                                          .yield()
+  <span class="hljs-built_in">console</span>.log(areAllSetElementsGreaterThan0)
+  <span class="hljs-comment">// ↑ true</span>
+
+  <span class="hljs-keyword">const</span> areAllSetElementsOdd = <span class="hljs-keyword">await</span> koconutSet
+                                  .all(<span class="hljs-function"><span class="hljs-params">eachNumber</span> =&gt;</span> eachNumber % <span class="hljs-number">2</span> == <span class="hljs-number">1</span>)
+                                  .yield()
+  <span class="hljs-built_in">console</span>.log(areAllSetElementsOdd)
+  <span class="hljs-comment">// ↑ false -- i.e. &#x27;2&#x27; is not an odd number.</span>
+
+
+  <span class="hljs-comment">// Case 3 -- KoconutMap</span>
+  <span class="hljs-keyword">const</span> koconutMap = KoconutMap.of(
+      [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+      [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>],
+      [<span class="hljs-number">2</span>, <span class="hljs-number">2</span>]
+  )
+
+  <span class="hljs-keyword">const</span> areAllMapEntriesKeyEqualsToValue = <span class="hljs-keyword">await</span> koconutMap
+                                         .all(<span class="hljs-function"><span class="hljs-params">eachEntry</span> =&gt;</span> eachEntry.key == eachEntry.value)
+                                         .yield()
+  <span class="hljs-built_in">console</span>.log(areAllMapEntriesKeyEqualsToValue)
+  <span class="hljs-comment">// ↑ true</span>
+
+  <span class="hljs-keyword">const</span> areAllMapEntriesSumGreaterThan3 = <span class="hljs-keyword">await</span> koconutMap
+                                        .all(<span class="hljs-function"><span class="hljs-params">eachEntry</span> =&gt;</span> eachEntry.key + eachEntry.value &gt; <span class="hljs-number">3</span>)
+                                        .yield()
+  <span class="hljs-built_in">console</span>.log(areAllMapEntriesSumGreaterThan3)
+  <span class="hljs-comment">// ↑ false -- i.e. Sum of key and value of first Entry { 0, 0 } is 0.</span>
+  <span class="hljs-comment">// It&#x27;s definetly less than 3</span>
+
+  <span class="hljs-comment">// Case 4 -- You can also do it asynchronously</span>
+  <span class="hljs-keyword">const</span> koconutArray2 = KoconutArray.of(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>)
+
+  <span class="hljs-keyword">const</span> areAllArrayElementsLessThan10 = <span class="hljs-keyword">await</span> koconutArray2
+                                      .all(<span class="hljs-keyword">async</span> eachNumber =&gt; eachNumber &lt; <span class="hljs-number">10</span>)
+                                      .yield()
+  <span class="hljs-built_in">console</span>.log(areAllArrayElementsLessThan10)
+  <span class="hljs-comment">// ↑ true</span>
+
+  <span class="hljs-keyword">const</span> areAllArrayElementsOdd = <span class="hljs-keyword">await</span> koconutArray2
+                                  .all(<span class="hljs-function"><span class="hljs-params">eachNumber</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> {
+                                      resolve(eachNumber % <span class="hljs-number">2</span> == <span class="hljs-number">1</span>)
+                                  }))
+                                  .yield()
+  <span class="hljs-built_in">console</span>.log(areAllArrayElementsOdd)
+  <span class="hljs-comment">// ↑ false -- i.e. &#x27;2&#x27; is not an odd number.</span></code></pre>
+									</dd>
+								</dl>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>predicate: <span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DataType</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A callback function that accepts an argument. The method calls the <code>predicate</code> one time for each element in object.</p>
+									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-signature">
 											<ul class="tsd-signatures tsd-kind-type-literal">
@@ -303,6 +383,9 @@
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> thisArg: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = null</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>An object to which the <code>this</code> keyword can refer in the <code>predicate</code>. If <code>thisArg</code> is omitted, <code>null</code> is used as the <code>this</code> value.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -320,7 +403,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_base_koconutpair_.koconutpair.html">KoconutPair</a>.<a href="_container_base_koconutpair_.koconutpair.html#also">also</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/tool/KoconutPrimitive.internal.ts#L55">lib/src/tool/KoconutPrimitive.internal.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/tool/KoconutPrimitive.internal.ts#L55">lib/src/tool/KoconutPrimitive.internal.ts:55</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -362,13 +445,91 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#any">any</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/KoconutIterable.internal.ts#L30">lib/src/container/KoconutIterable.internal.ts:30</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/KoconutIterable.internal.ts#L188">lib/src/container/KoconutIterable.internal.ts:188</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns <code>true</code> if the collection has at least one element matches the given <code>predicate</code>.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-typescript"><span class="hljs-comment">// Case 1 -- KoconutArray</span>
+<span class="hljs-keyword">const</span> koconutArray = KoconutArray.of(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>)
+
+<span class="hljs-keyword">const</span> isAnyArrayElementGreaterThan4 = <span class="hljs-keyword">await</span> koconutArray
+                                          .any(<span class="hljs-function"><span class="hljs-params">eachNumber</span> =&gt;</span> eachNumber &gt; <span class="hljs-number">4</span>)
+                                          .yield()
+<span class="hljs-built_in">console</span>.log(isAnyArrayElementGreaterThan4)
+<span class="hljs-comment">// ↑ true -- i.e. &#x27;5&#x27; is greater than 4.</span>
+
+<span class="hljs-keyword">const</span> isAnyArrayElementMultipleOf6 = <span class="hljs-keyword">await</span> koconutArray
+                                          .any(<span class="hljs-function"><span class="hljs-params">eachNumber</span> =&gt;</span> eachNumber % <span class="hljs-number">6</span> == <span class="hljs-number">0</span>)
+                                          .yield()
+<span class="hljs-built_in">console</span>.log(isAnyArrayElementMultipleOf6)
+<span class="hljs-comment">// ↑ false</span>
+
+<span class="hljs-comment">// Case 2 -- KoconutSet</span>
+<span class="hljs-keyword">const</span> koconutSet = KoconutSet.of(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>)
+
+<span class="hljs-keyword">const</span> isAnySetElementGreaterThan3 = <span class="hljs-keyword">await</span> koconutSet
+                                          .any(<span class="hljs-function"><span class="hljs-params">eachNumber</span> =&gt;</span> eachNumber &gt; <span class="hljs-number">3</span>)
+                                          .yield()
+<span class="hljs-built_in">console</span>.log(isAnySetElementGreaterThan3)
+<span class="hljs-comment">// ↑ true -- i.e. &#x27;4&#x27; is greater than 3.</span>
+
+<span class="hljs-keyword">const</span> isAnySetElementLessThan0 = <span class="hljs-keyword">await</span> koconutSet
+                                      .any(<span class="hljs-function"><span class="hljs-params">eachNumber</span> =&gt;</span> eachNumber &lt; <span class="hljs-number">0</span>)
+                                      .yield()
+<span class="hljs-built_in">console</span>.log(isAnySetElementLessThan0)
+<span class="hljs-comment">// ↑ false</span>
+
+<span class="hljs-comment">// Case 3 -- KoconutMap</span>
+<span class="hljs-keyword">const</span> koconutMap = KoconutMap.of(
+  [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+  [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>],
+  [<span class="hljs-number">2</span>, <span class="hljs-number">2</span>]
+)
+
+<span class="hljs-keyword">const</span> isAnyMapEntrySumGreaterThan3 = <span class="hljs-keyword">await</span> koconutMap
+                                       .any(<span class="hljs-function"><span class="hljs-params">eachEntry</span> =&gt;</span> eachEntry.key + eachEntry.value &gt; <span class="hljs-number">3</span>)
+                                       .yield()
+<span class="hljs-built_in">console</span>.log(isAnyMapEntrySumGreaterThan3)
+<span class="hljs-comment">// ↑ true -- i.e. Sum of key and value of third Entry { 2, 2 } is 4.</span>
+<span class="hljs-comment">// It&#x27;s grater than 4.</span>
+
+<span class="hljs-keyword">const</span> isAnyMapEntryKeyMultipleOf4 = <span class="hljs-keyword">await</span> koconutMap
+                                 .any(<span class="hljs-function"><span class="hljs-params">eachEntry</span> =&gt;</span> eachEntry.key &gt; <span class="hljs-number">0</span> &amp;&amp; eachEntry.key % <span class="hljs-number">4</span> == <span class="hljs-number">0</span>)
+                                 .yield()
+<span class="hljs-built_in">console</span>.log(isAnyMapEntryKeyMultipleOf4)
+<span class="hljs-comment">// ↑ false</span>
+
+<span class="hljs-comment">// Case 4 -- You can also do it asynchronously</span>
+<span class="hljs-keyword">const</span> koconutArray2 = KoconutArray.of(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>)
+
+<span class="hljs-keyword">const</span> isAnyArrayElementLessThan2 = <span class="hljs-keyword">await</span> koconutArray2
+                                  .any(<span class="hljs-keyword">async</span> eachNumber =&gt; eachNumber &lt; <span class="hljs-number">2</span>)
+                                  .yield()
+<span class="hljs-built_in">console</span>.log(isAnyArrayElementLessThan2)
+<span class="hljs-comment">// ↑ true -- i.e. &#x27;1&#x27; is less than 2.</span>
+
+<span class="hljs-keyword">const</span> isAnyArrayElementGreaterThan7 = <span class="hljs-keyword">await</span> koconutArray2
+                                      .any(<span class="hljs-function"><span class="hljs-params">eachNumber</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> {
+                                          resolve(eachNumber &gt; <span class="hljs-number">7</span>)
+                                      }))
+                                      .yield()
+<span class="hljs-built_in">console</span>.log(isAnyArrayElementGreaterThan7)
+<span class="hljs-comment">// ↑ false</span></code></pre>
+									</dd>
+								</dl>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>predicate: <span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DataType</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A callback function that accepts an argument. The method calls the <code>predicate</code> one time for each element in object.</p>
+									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-signature">
 											<ul class="tsd-signatures tsd-kind-type-literal">
@@ -390,6 +551,9 @@
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> thisArg: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = null</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>An object to which the <code>this</code> keyword can refer in the <code>predicate</code>. If <code>thisArg</code> is omitted, <code>null</code> is used as the <code>this</code> value.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -407,7 +571,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_base_koconutpair_.koconutpair.html">KoconutPair</a>.<a href="_container_base_koconutpair_.koconutpair.html#apply">apply</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/tool/KoconutPrimitive.internal.ts#L46">lib/src/tool/KoconutPrimitive.internal.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/tool/KoconutPrimitive.internal.ts#L46">lib/src/tool/KoconutPrimitive.internal.ts:46</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -449,9 +613,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#asiterable">asIterable</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/KoconutIterable.internal.ts#L50">lib/src/container/KoconutIterable.internal.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/KoconutIterable.internal.ts#L211">lib/src/container/KoconutIterable.internal.ts:211</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns this collection as an KoconutIterable</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">KoconutIterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">DataType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">DataType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">DataType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">DataType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
@@ -467,7 +636,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#associate">associate</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L61">lib/src/container/collection/KoconutCollection.internal.ts:61</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L61">lib/src/container/collection/KoconutCollection.internal.ts:61</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -521,7 +690,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#associateby">associateBy</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L89">lib/src/container/collection/KoconutCollection.internal.ts:89</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L89">lib/src/container/collection/KoconutCollection.internal.ts:89</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -581,7 +750,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.associateByTo</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L45">lib/src/container/collection/array/KoconutArray.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L45">lib/src/container/collection/array/KoconutArray.ts:45</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -644,7 +813,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.associateTo</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L58">lib/src/container/collection/array/KoconutArray.ts:58</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L58">lib/src/container/collection/array/KoconutArray.ts:58</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -701,7 +870,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#associatewith">associateWith</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L173">lib/src/container/collection/KoconutCollection.internal.ts:173</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L173">lib/src/container/collection/KoconutCollection.internal.ts:173</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -752,7 +921,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.associateWithTo</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L69">lib/src/container/collection/array/KoconutArray.ts:69</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L69">lib/src/container/collection/array/KoconutArray.ts:69</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -808,7 +977,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#chunked">chunked</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L221">lib/src/container/collection/KoconutCollection.internal.ts:221</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L221">lib/src/container/collection/KoconutCollection.internal.ts:221</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -823,7 +992,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#chunked">chunked</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L224">lib/src/container/collection/KoconutCollection.internal.ts:224</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L224">lib/src/container/collection/KoconutCollection.internal.ts:224</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -865,7 +1034,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#chunked">chunked</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L228">lib/src/container/collection/KoconutCollection.internal.ts:228</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L228">lib/src/container/collection/KoconutCollection.internal.ts:228</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -919,7 +1088,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#contains">contains</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L266">lib/src/container/collection/KoconutCollection.internal.ts:266</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L266">lib/src/container/collection/KoconutCollection.internal.ts:266</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -943,7 +1112,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#containsall">containsAll</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L285">lib/src/container/collection/KoconutCollection.internal.ts:285</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L285">lib/src/container/collection/KoconutCollection.internal.ts:285</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -967,16 +1136,96 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#count">count</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/KoconutIterable.internal.ts#L60">lib/src/container/KoconutIterable.internal.ts:60</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/KoconutIterable.internal.ts#L295">lib/src/container/KoconutIterable.internal.ts:295</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the number of the elements matching the given <code>predicate</code>. If the <code>predicate</code> is ommitted it&#39;ll returns the whole number of elements.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-typescript"><span class="hljs-comment">// Case 1 -- KoconutArray</span>
+<span class="hljs-keyword">const</span> koconutArray = KoconutArray.of(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>)
+
+<span class="hljs-keyword">const</span> numberOfAllArrayElements = <span class="hljs-keyword">await</span> koconutArray
+                                      .count()
+                                      .yield()
+<span class="hljs-built_in">console</span>.log(numberOfAllArrayElements)
+<span class="hljs-comment">// ↑ 5</span>
+
+<span class="hljs-keyword">const</span> numberOfArrayElementsHigherThan2 = <span class="hljs-keyword">await</span> koconutArray
+                                          .count(<span class="hljs-function"><span class="hljs-params">eachNumber</span> =&gt;</span> eachNumber &gt; <span class="hljs-number">2</span>)
+                                          .yield()
+<span class="hljs-built_in">console</span>.log(numberOfArrayElementsHigherThan2)
+<span class="hljs-comment">// ↑ 3 -- i.e. [3, 4, 5]</span>
+
+<span class="hljs-comment">// Case 2 -- KoconutSet</span>
+<span class="hljs-keyword">const</span> koconutSet = KoconutSet.of(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>)
+
+<span class="hljs-keyword">const</span> numberOfAllSetElements = <span class="hljs-keyword">await</span> koconutSet
+                                      .count()
+                                      .yield()
+<span class="hljs-built_in">console</span>.log(numberOfAllSetElements)
+<span class="hljs-comment">// ↑ 5</span>
+
+<span class="hljs-keyword">const</span> numberOfOddSetElements = <span class="hljs-keyword">await</span> koconutSet
+                                      .count(<span class="hljs-function"><span class="hljs-params">eachNumber</span> =&gt;</span> eachNumber % <span class="hljs-number">2</span> == <span class="hljs-number">1</span>)
+                                      .yield()
+<span class="hljs-built_in">console</span>.log(numberOfOddSetElements)
+<span class="hljs-comment">// ↑ 3 -- i.e. [1, 3, 5]</span>
+
+<span class="hljs-comment">// Case 3 -- KoconutMap</span>
+<span class="hljs-keyword">const</span> koconutMap = KoconutArray.of(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>)
+                  .associateWith(<span class="hljs-function"><span class="hljs-params">eachNumber</span> =&gt;</span> eachNumber * <span class="hljs-number">2</span>)
+                  <span class="hljs-comment">// ↑ Map { 1 =&gt; 2,</span>
+                  <span class="hljs-comment">//         2 =&gt; 4,</span>
+                  <span class="hljs-comment">//         3 =&gt; 6 }</span>
+
+<span class="hljs-keyword">const</span> numberOfAllMapEntries = <span class="hljs-keyword">await</span> koconutMap
+                                  .count()
+                                  .yield()
+<span class="hljs-built_in">console</span>.log(numberOfAllMapEntries)
+<span class="hljs-comment">// ↑ 3</span>
+
+<span class="hljs-keyword">const</span> numberOfMapEntriesValueHigherThan5 = <span class="hljs-keyword">await</span> koconutMap
+                                              .count(<span class="hljs-function"><span class="hljs-params">eachEntry</span> =&gt;</span> eachEntry.value &gt; <span class="hljs-number">5</span>)
+                                              .yield()
+<span class="hljs-built_in">console</span>.log(numberOfMapEntriesValueHigherThan5)
+<span class="hljs-comment">// ↑ 1 -- i.e. Entry { 3, 6 }</span>
+
+<span class="hljs-comment">// Case 4 -- You can also do it asynchronously</span>
+<span class="hljs-keyword">const</span> koconutArray2 = KoconutArray.of(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>)
+
+<span class="hljs-keyword">const</span> numberOfArrayElementsLessThan3 = <span class="hljs-keyword">await</span> koconutArray2
+                                      .count(<span class="hljs-keyword">async</span> eachNumber =&gt; eachNumber &lt; <span class="hljs-number">3</span>)
+                                      .yield()
+<span class="hljs-built_in">console</span>.log(numberOfArrayElementsLessThan3)
+<span class="hljs-comment">// ↑ 2 -- i.e. [1, 2]</span>
+
+<span class="hljs-keyword">const</span> numberOfEvenArrayElements = <span class="hljs-keyword">await</span> koconutArray2
+                                  .count(<span class="hljs-function"><span class="hljs-params">eachNumber</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> {
+                                      resolve(eachNumber % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>)
+                                  }))
+                                  .yield()
+<span class="hljs-built_in">console</span>.log(numberOfEvenArrayElements)
+<span class="hljs-comment">// ↑ 2 -- i.e. [2, 4]</span></code></pre>
+									</dd>
+								</dl>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> predicate: <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DataType</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> = null</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A callback function that accepts an argument. The method calls the <code>predicate</code> one time for each element in object.</p>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> thisArg: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = null</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>An object to which the <code>this</code> keyword can refer in the <code>predicate</code>. If <code>thisArg</code> is omitted, <code>null</code> is used as the <code>this</code> value.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -994,7 +1243,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.distinct</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L80">lib/src/container/collection/array/KoconutArray.ts:80</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L80">lib/src/container/collection/array/KoconutArray.ts:80</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_container_collection_array_koconutarray_.koconutarray.html" class="tsd-signature-type">KoconutArray</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">DataType</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -1012,7 +1261,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.distinctBy</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L87">lib/src/container/collection/array/KoconutArray.ts:87</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L87">lib/src/container/collection/array/KoconutArray.ts:87</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1066,7 +1315,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.drop</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L97">lib/src/container/collection/array/KoconutArray.ts:97</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L97">lib/src/container/collection/array/KoconutArray.ts:97</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1090,7 +1339,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.dropLast</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L106">lib/src/container/collection/array/KoconutArray.ts:106</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L106">lib/src/container/collection/array/KoconutArray.ts:106</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1114,7 +1363,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.dropLastWhile</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L115">lib/src/container/collection/array/KoconutArray.ts:115</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L115">lib/src/container/collection/array/KoconutArray.ts:115</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1159,7 +1408,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.dropWhile</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L125">lib/src/container/collection/array/KoconutArray.ts:125</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L125">lib/src/container/collection/array/KoconutArray.ts:125</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1204,7 +1453,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#elementat">elementAt</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L488">lib/src/container/collection/KoconutCollection.internal.ts:488</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L488">lib/src/container/collection/KoconutCollection.internal.ts:488</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1228,7 +1477,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#elementatorelse">elementAtOrElse</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L505">lib/src/container/collection/KoconutCollection.internal.ts:505</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L505">lib/src/container/collection/KoconutCollection.internal.ts:505</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1273,7 +1522,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#elementatornull">elementAtOrNull</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L523">lib/src/container/collection/KoconutCollection.internal.ts:523</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L523">lib/src/container/collection/KoconutCollection.internal.ts:523</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1297,7 +1546,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.filter</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L135">lib/src/container/collection/array/KoconutArray.ts:135</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L135">lib/src/container/collection/array/KoconutArray.ts:135</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1342,7 +1591,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.filterIndexed</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L145">lib/src/container/collection/array/KoconutArray.ts:145</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L145">lib/src/container/collection/array/KoconutArray.ts:145</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1390,7 +1639,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.filterIndexedTo</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L155">lib/src/container/collection/array/KoconutArray.ts:155</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L155">lib/src/container/collection/array/KoconutArray.ts:155</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1441,7 +1690,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.filterNot</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L166">lib/src/container/collection/array/KoconutArray.ts:166</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L166">lib/src/container/collection/array/KoconutArray.ts:166</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1486,7 +1735,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.filterNotNull</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L176">lib/src/container/collection/array/KoconutArray.ts:176</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L176">lib/src/container/collection/array/KoconutArray.ts:176</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_container_collection_array_koconutarray_.koconutarray.html" class="tsd-signature-type">KoconutArray</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">DataType</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -1504,7 +1753,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.filterNotNullTo</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L183">lib/src/container/collection/array/KoconutArray.ts:183</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L183">lib/src/container/collection/array/KoconutArray.ts:183</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1528,7 +1777,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.filterNotTo</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L192">lib/src/container/collection/array/KoconutArray.ts:192</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L192">lib/src/container/collection/array/KoconutArray.ts:192</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1576,7 +1825,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.filterTo</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L203">lib/src/container/collection/array/KoconutArray.ts:203</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L203">lib/src/container/collection/array/KoconutArray.ts:203</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1624,7 +1873,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#find">find</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L726">lib/src/container/collection/KoconutCollection.internal.ts:726</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L726">lib/src/container/collection/KoconutCollection.internal.ts:726</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1669,7 +1918,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#findlast">findLast</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L746">lib/src/container/collection/KoconutCollection.internal.ts:746</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L746">lib/src/container/collection/KoconutCollection.internal.ts:746</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1714,7 +1963,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#first">first</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L768">lib/src/container/collection/KoconutCollection.internal.ts:768</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L768">lib/src/container/collection/KoconutCollection.internal.ts:768</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1741,7 +1990,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#firstornull">firstOrNull</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L790">lib/src/container/collection/KoconutCollection.internal.ts:790</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L790">lib/src/container/collection/KoconutCollection.internal.ts:790</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1768,9 +2017,74 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#flatmap">flatMap</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L813">lib/src/container/collection/KoconutCollection.internal.ts:813</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/KoconutIterable.internal.ts#L382">lib/src/container/KoconutIterable.internal.ts:382</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns a single list of all elements yielded from results of <code>transform</code> function being invoked on each element of original collection.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-typescript"><span class="hljs-comment">// Case 1 -- KoconutArray</span>
+<span class="hljs-keyword">const</span> koconutArray = KoconutArray.of(<span class="hljs-string">&quot;123&quot;</span>, <span class="hljs-string">&quot;45&quot;</span>)
+
+<span class="hljs-keyword">const</span> allNumberInArray = <span class="hljs-keyword">await</span> koconutArray
+                          .flatMap(<span class="hljs-function"><span class="hljs-params">eachString</span> =&gt;</span> eachString)
+                          <span class="hljs-comment">// ↑ The string itself can be used as Iterable&lt;string&gt;.</span>
+                          <span class="hljs-comment">// If you want to make it clear, also possible to type</span>
+                          <span class="hljs-comment">// as eachString =&gt; eachString.split(&#x27;&#x27;)</span>
+                          .map(<span class="hljs-built_in">parseInt</span>)
+                          .yield()
+<span class="hljs-built_in">console</span>.log(allNumberInArray)
+<span class="hljs-comment">// ↑ [ 1, 2, 3, 4, 5 ]</span>
+
+<span class="hljs-comment">// Case 2 - KoconutSet</span>
+<span class="hljs-keyword">const</span> koconutSet = KoconutSet.of(<span class="hljs-string">&quot;abc&quot;</span>, <span class="hljs-string">&quot;de&quot;</span>)
+
+<span class="hljs-keyword">const</span> allCharactersInSet = <span class="hljs-keyword">await</span> koconutSet
+                          .flatMap(<span class="hljs-function"><span class="hljs-params">eachString</span> =&gt;</span> eachString)
+                          .yield()
+<span class="hljs-built_in">console</span>.log(allCharactersInSet)
+<span class="hljs-comment">// ↑ [ &#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;, &#x27;d&#x27;, &#x27;e&#x27; ]</span>
+
+<span class="hljs-comment">// Case 3 -- KoconutMap</span>
+<span class="hljs-keyword">const</span> koconutMap = KoconutArray.of(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>)
+                  .associateWith(<span class="hljs-function"><span class="hljs-params">eachNumber</span> =&gt;</span> eachNumber * <span class="hljs-number">2</span>)
+
+<span class="hljs-keyword">const</span> allKeysAndValuesInMap = <span class="hljs-keyword">await</span> koconutMap
+                              .flatMap(<span class="hljs-function"><span class="hljs-params">eachEntry</span> =&gt;</span> [eachEntry.key, eachEntry.value])
+                              .yield()
+<span class="hljs-built_in">console</span>.log(allKeysAndValuesInMap)
+<span class="hljs-comment">// ↑ [1, 2, 2, 4, 3, 6, 4, 8, 5, 10]</span>
+
+
+<span class="hljs-comment">// Case 4 -- You can also do it asynchronously</span>
+<span class="hljs-keyword">const</span> koconutArray2 = KoconutArray.of(<span class="hljs-number">123</span>, <span class="hljs-number">987</span>)
+
+<span class="hljs-keyword">const</span> allDigitsInArray = <span class="hljs-keyword">await</span> koconutArray2
+                              .flatMap(<span class="hljs-keyword">async</span> eachNumber =&gt; {
+                                  <span class="hljs-keyword">const</span> digits = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>&lt;<span class="hljs-built_in">number</span>&gt;()
+                                  <span class="hljs-keyword">while</span>(eachNumber != <span class="hljs-number">0</span>) {
+                                      digits.unshift(eachNumber % <span class="hljs-number">10</span>)
+                                      eachNumber = <span class="hljs-built_in">Math</span>.floor(eachNumber / <span class="hljs-number">10</span>)
+                                  }
+                                  <span class="hljs-keyword">return</span> digits
+                              })
+                              .yield()
+<span class="hljs-built_in">console</span>.log(allDigitsInArray)
+<span class="hljs-comment">// ↑ [ 1, 2, 3, 9, 8, 7 ]</span>
+
+<span class="hljs-keyword">const</span> allNumberCharactersInArray = <span class="hljs-keyword">await</span> koconutArray2
+                                      .flatMap(<span class="hljs-function"><span class="hljs-params">eachNumber</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> {
+                                          resolve(eachNumber.toString())
+                                      }))
+                                      .yield()
+<span class="hljs-built_in">console</span>.log(allNumberCharactersInArray)
+<span class="hljs-comment">// ↑ [ &#x27;1&#x27;, &#x27;2&#x27;, &#x27;3&#x27;, &#x27;9&#x27;, &#x27;8&#x27;, &#x27;7&#x27; ]</span></code></pre>
+									</dd>
+								</dl>
+							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
@@ -1781,6 +2095,9 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>transform: <span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DataType</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ResultDataType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ResultDataType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A callback function that accepts an argument. The method calls the <code>transform</code> one time for each element in object.</p>
+									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-signature">
 											<ul class="tsd-signatures tsd-kind-type-literal">
@@ -1802,6 +2119,9 @@
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> thisArg: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = null</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>An object to which the <code>this</code> keyword can refer in the <code>transform</code>. If <code>thisArg</code> is omitted, <code>null</code> is used as the <code>this</code> value.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_container_collection_array_koconutarray_.koconutarray.html" class="tsd-signature-type">KoconutArray</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ResultDataType</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -1819,7 +2139,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#flatmapindexed">flatMapIndexed</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L837">lib/src/container/collection/KoconutCollection.internal.ts:837</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L813">lib/src/container/collection/KoconutCollection.internal.ts:813</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1873,7 +2193,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.flatMapIndexedTo</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L214">lib/src/container/collection/array/KoconutArray.ts:214</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L214">lib/src/container/collection/array/KoconutArray.ts:214</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1930,7 +2250,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.flatMapTo</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L225">lib/src/container/collection/array/KoconutArray.ts:225</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L225">lib/src/container/collection/array/KoconutArray.ts:225</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1984,7 +2304,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#fold">fold</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L911">lib/src/container/collection/KoconutCollection.internal.ts:911</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L887">lib/src/container/collection/KoconutCollection.internal.ts:887</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -2041,7 +2361,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#foldindexed">foldIndexed</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L934">lib/src/container/collection/KoconutCollection.internal.ts:934</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L910">lib/src/container/collection/KoconutCollection.internal.ts:910</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -2094,24 +2414,93 @@
 					<a name="foreach" class="tsd-anchor"></a>
 					<h3>for<wbr>Each</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">for<wbr>Each<span class="tsd-signature-symbol">(</span>action<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DataType</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span>, thisArg<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">for<wbr>Each<span class="tsd-signature-symbol">(</span>action<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DataType</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><a href="../enums/_enum_koconutloopsignal_.koconutloopsignal.html" class="tsd-signature-type">KoconutLoopSignal</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><a href="../enums/_enum_koconutloopsignal_.koconutloopsignal.html" class="tsd-signature-type">KoconutLoopSignal</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span>, thisArg<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#foreach">forEach</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L957">lib/src/container/collection/KoconutCollection.internal.ts:957</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/KoconutIterable.internal.ts#L471">lib/src/container/KoconutIterable.internal.ts:471</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Performs the given <code>action</code> on each element.
+									When you want to stop iteration in the meantime <code>return</code> <code>false</code> or <a href="../enums/_enum_koconutloopsignal_.koconutloopsignal.html#break">KoconutLoopSignal.BREAK</a>.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-typescript"><span class="hljs-comment">// Case 1 -- KoconutArray</span>
+<span class="hljs-keyword">const</span> koconutArray = KoconutArray.of(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>)
+<span class="hljs-keyword">await</span> koconutArray
+  .forEach(<span class="hljs-built_in">console</span>.log)
+  <span class="hljs-comment">// ↑ 1 2 3 4 5 6 7  -- i.e. This will print out each number</span>
+  .process()
+
+<span class="hljs-keyword">await</span> koconutArray
+  .forEach(<span class="hljs-function"><span class="hljs-params">eachNumber</span> =&gt;</span> {
+      <span class="hljs-keyword">if</span>(eachNumber &gt; <span class="hljs-number">4</span>) <span class="hljs-keyword">return</span> KoconutLoopSignal.BREAK
+      <span class="hljs-built_in">console</span>.log(eachNumber)
+  })
+  <span class="hljs-comment">// ↑ 1 2 3 4  -- i.e. Since &#x27;5&#x27;, it is greater than 4, so the loop is broken.</span>
+  .process()
+
+
+<span class="hljs-comment">// Case 2 -- KoconutSet</span>
+<span class="hljs-keyword">const</span> koconutSet = KoconutSet.of(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>)
+
+<span class="hljs-keyword">await</span> koconutSet
+  .forEach(<span class="hljs-built_in">console</span>.log)
+  <span class="hljs-comment">// ↑ 1 2 3 -- i.e. All conflicted numbers will be ignored.</span>
+  .process()
+
+<span class="hljs-keyword">await</span> koconutSet
+  .forEach(<span class="hljs-function"><span class="hljs-params">eachNumber</span> =&gt;</span> {
+      <span class="hljs-keyword">if</span>(eachNumber % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+      <span class="hljs-built_in">console</span>.log(eachNumber)
+  })
+  <span class="hljs-comment">// ↑ 1 -- i.e. Since &#x27;2&#x27;, it is an even number, so the loop is broken.</span>
+  .process()
+
+<span class="hljs-comment">// Case 3 -- KoconutMap</span>
+<span class="hljs-keyword">const</span> koconutMap = KoconutArray.of(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>)
+                  .associateWith(<span class="hljs-function"><span class="hljs-params">eachElement</span> =&gt;</span> eachElement)
+
+<span class="hljs-keyword">await</span> koconutMap
+  .forEach(<span class="hljs-built_in">console</span>.log)
+  <span class="hljs-comment">// ↑</span>
+  <span class="hljs-comment">// Entry { keyElement: 1, valueElement: 1 }</span>
+  <span class="hljs-comment">// Entry { keyElement: 2, valueElement: 2 }</span>
+  <span class="hljs-comment">// Entry { keyElement: 3, valueElement: 3 }</span>
+  .process()
+
+<span class="hljs-comment">// Case 4 -- You can also do it asynchronously</span>
+<span class="hljs-keyword">const</span> koconutArray2 = KoconutArray.of(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>)
+
+<span class="hljs-keyword">await</span> koconutArray2
+  .forEach(<span class="hljs-keyword">async</span> eachNumber =&gt; <span class="hljs-built_in">console</span>.log(eachNumber))
+  <span class="hljs-comment">// ↑ 1 2 3</span>
+  .process()
+
+<span class="hljs-keyword">await</span> koconutArray2
+  .forEach(<span class="hljs-function"><span class="hljs-params">eachNumber</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> resolve(<span class="hljs-built_in">console</span>.log(eachNumber))))
+  <span class="hljs-comment">// ↑ 1 2 3</span>
+  .process()</code></pre>
+									</dd>
+								</dl>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>action: <span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DataType</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>action: <span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DataType</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><a href="../enums/_enum_koconutloopsignal_.koconutloopsignal.html" class="tsd-signature-type">KoconutLoopSignal</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><a href="../enums/_enum_koconutloopsignal_.koconutloopsignal.html" class="tsd-signature-type">KoconutLoopSignal</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A callback function that accepts an argument. The method calls the <code>action</code> one time for each element in object.</p>
+									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-signature">
 											<ul class="tsd-signatures tsd-kind-type-literal">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DataType</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DataType</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><a href="../enums/_enum_koconutloopsignal_.koconutloopsignal.html" class="tsd-signature-type">KoconutLoopSignal</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><a href="../enums/_enum_koconutloopsignal_.koconutloopsignal.html" class="tsd-signature-type">KoconutLoopSignal</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 											</ul>
 											<ul class="tsd-descriptions">
 												<li class="tsd-description">
@@ -2121,7 +2510,7 @@
 															<h5>element: <span class="tsd-signature-type">DataType</span></h5>
 														</li>
 													</ul>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><a href="../enums/_enum_koconutloopsignal_.koconutloopsignal.html" class="tsd-signature-type">KoconutLoopSignal</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><a href="../enums/_enum_koconutloopsignal_.koconutloopsignal.html" class="tsd-signature-type">KoconutLoopSignal</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 												</li>
 											</ul>
 										</li>
@@ -2129,6 +2518,9 @@
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> thisArg: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = null</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>An object to which the <code>this</code> keyword can refer in the <code>action</code>. If <code>thisArg</code> is omitted, <code>null</code> is used as the <code>this</code> value.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -2146,7 +2538,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#foreachindexed">forEachIndexed</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L977">lib/src/container/collection/KoconutCollection.internal.ts:977</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L933">lib/src/container/collection/KoconutCollection.internal.ts:933</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2194,7 +2586,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#groupby">groupBy</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L997">lib/src/container/collection/KoconutCollection.internal.ts:997</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L953">lib/src/container/collection/KoconutCollection.internal.ts:953</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -2254,7 +2646,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.groupByTo</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L235">lib/src/container/collection/array/KoconutArray.ts:235</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L235">lib/src/container/collection/array/KoconutArray.ts:235</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -2317,7 +2709,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#indexof">indexOf</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1058">lib/src/container/collection/KoconutCollection.internal.ts:1058</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1014">lib/src/container/collection/KoconutCollection.internal.ts:1014</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2341,7 +2733,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#indexoffirst">indexOfFirst</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1080">lib/src/container/collection/KoconutCollection.internal.ts:1080</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1036">lib/src/container/collection/KoconutCollection.internal.ts:1036</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2386,7 +2778,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#indexoflast">indexOfLast</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1101">lib/src/container/collection/KoconutCollection.internal.ts:1101</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1057">lib/src/container/collection/KoconutCollection.internal.ts:1057</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2431,7 +2823,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#indices">indices</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L49">lib/src/container/collection/KoconutCollection.internal.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L49">lib/src/container/collection/KoconutCollection.internal.ts:49</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_container_collection_array_koconutarray_.koconutarray.html" class="tsd-signature-type">KoconutArray</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -2449,7 +2841,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#intersect">intersect</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1123">lib/src/container/collection/KoconutCollection.internal.ts:1123</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1079">lib/src/container/collection/KoconutCollection.internal.ts:1079</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2473,7 +2865,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#isnotempty">isNotEmpty</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1146">lib/src/container/collection/KoconutCollection.internal.ts:1146</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1102">lib/src/container/collection/KoconutCollection.internal.ts:1102</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -2491,7 +2883,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#isnullorempty">isNullOrEmpty</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1157">lib/src/container/collection/KoconutCollection.internal.ts:1157</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1113">lib/src/container/collection/KoconutCollection.internal.ts:1113</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -2509,7 +2901,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#join">join</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1170">lib/src/container/collection/KoconutCollection.internal.ts:1170</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1126">lib/src/container/collection/KoconutCollection.internal.ts:1126</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2551,7 +2943,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#last">last</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1207">lib/src/container/collection/KoconutCollection.internal.ts:1207</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1163">lib/src/container/collection/KoconutCollection.internal.ts:1163</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2578,7 +2970,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#lastindexof">lastIndexOf</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1230">lib/src/container/collection/KoconutCollection.internal.ts:1230</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1186">lib/src/container/collection/KoconutCollection.internal.ts:1186</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2602,7 +2994,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#lastornull">lastOrNull</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1252">lib/src/container/collection/KoconutCollection.internal.ts:1252</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1208">lib/src/container/collection/KoconutCollection.internal.ts:1208</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2629,7 +3021,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_base_koconutpair_.koconutpair.html">KoconutPair</a>.<a href="_container_base_koconutpair_.koconutpair.html#let">let</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/tool/KoconutPrimitive.internal.ts#L42">lib/src/tool/KoconutPrimitive.internal.ts:42</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/tool/KoconutPrimitive.internal.ts#L42">lib/src/tool/KoconutPrimitive.internal.ts:42</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -2677,7 +3069,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#map">map</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1279">lib/src/container/collection/KoconutCollection.internal.ts:1279</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1235">lib/src/container/collection/KoconutCollection.internal.ts:1235</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -2728,7 +3120,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#mapindexed">mapIndexed</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1301">lib/src/container/collection/KoconutCollection.internal.ts:1301</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1257">lib/src/container/collection/KoconutCollection.internal.ts:1257</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -2782,7 +3174,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#mapindexednotnull">mapIndexedNotNull</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1323">lib/src/container/collection/KoconutCollection.internal.ts:1323</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1279">lib/src/container/collection/KoconutCollection.internal.ts:1279</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -2836,7 +3228,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.mapIndexedNotNullTo</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L248">lib/src/container/collection/array/KoconutArray.ts:248</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L248">lib/src/container/collection/array/KoconutArray.ts:248</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -2893,7 +3285,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.mapIndexedTo</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L259">lib/src/container/collection/array/KoconutArray.ts:259</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L259">lib/src/container/collection/array/KoconutArray.ts:259</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -2950,7 +3342,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#mapnotnull">mapNotNull</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1398">lib/src/container/collection/KoconutCollection.internal.ts:1398</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1354">lib/src/container/collection/KoconutCollection.internal.ts:1354</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -3001,7 +3393,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.mapNotNullTo</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L270">lib/src/container/collection/array/KoconutArray.ts:270</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L270">lib/src/container/collection/array/KoconutArray.ts:270</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -3055,7 +3447,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.mapTo</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L281">lib/src/container/collection/array/KoconutArray.ts:281</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L281">lib/src/container/collection/array/KoconutArray.ts:281</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -3109,7 +3501,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#maxbyornull">maxByOrNull</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1474">lib/src/container/collection/KoconutCollection.internal.ts:1474</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1430">lib/src/container/collection/KoconutCollection.internal.ts:1430</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3159,7 +3551,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#maxof">maxOf</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1503">lib/src/container/collection/KoconutCollection.internal.ts:1503</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1459">lib/src/container/collection/KoconutCollection.internal.ts:1459</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3192,7 +3584,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#maxof">maxOf</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1506">lib/src/container/collection/KoconutCollection.internal.ts:1506</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1462">lib/src/container/collection/KoconutCollection.internal.ts:1462</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3228,7 +3620,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#maxof">maxOf</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1510">lib/src/container/collection/KoconutCollection.internal.ts:1510</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1466">lib/src/container/collection/KoconutCollection.internal.ts:1466</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3261,7 +3653,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#maxof">maxOf</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1513">lib/src/container/collection/KoconutCollection.internal.ts:1513</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1469">lib/src/container/collection/KoconutCollection.internal.ts:1469</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3297,7 +3689,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#maxof">maxOf</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1517">lib/src/container/collection/KoconutCollection.internal.ts:1517</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1473">lib/src/container/collection/KoconutCollection.internal.ts:1473</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -3336,7 +3728,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#maxof">maxOf</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1520">lib/src/container/collection/KoconutCollection.internal.ts:1520</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1476">lib/src/container/collection/KoconutCollection.internal.ts:1476</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -3392,7 +3784,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#maxofornull">maxOfOrNull</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1551">lib/src/container/collection/KoconutCollection.internal.ts:1551</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1507">lib/src/container/collection/KoconutCollection.internal.ts:1507</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3425,7 +3817,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#maxofornull">maxOfOrNull</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1554">lib/src/container/collection/KoconutCollection.internal.ts:1554</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1510">lib/src/container/collection/KoconutCollection.internal.ts:1510</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3461,7 +3853,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#maxofornull">maxOfOrNull</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1558">lib/src/container/collection/KoconutCollection.internal.ts:1558</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1514">lib/src/container/collection/KoconutCollection.internal.ts:1514</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3494,7 +3886,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#maxofornull">maxOfOrNull</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1561">lib/src/container/collection/KoconutCollection.internal.ts:1561</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1517">lib/src/container/collection/KoconutCollection.internal.ts:1517</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3530,7 +3922,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#maxofornull">maxOfOrNull</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1565">lib/src/container/collection/KoconutCollection.internal.ts:1565</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1521">lib/src/container/collection/KoconutCollection.internal.ts:1521</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -3569,7 +3961,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#maxofornull">maxOfOrNull</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1568">lib/src/container/collection/KoconutCollection.internal.ts:1568</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1524">lib/src/container/collection/KoconutCollection.internal.ts:1524</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -3620,7 +4012,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#maxofwith">maxOfWith</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1598">lib/src/container/collection/KoconutCollection.internal.ts:1598</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1554">lib/src/container/collection/KoconutCollection.internal.ts:1554</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -3698,7 +4090,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#maxofwithornull">maxOfWithOrNull</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1625">lib/src/container/collection/KoconutCollection.internal.ts:1625</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1581">lib/src/container/collection/KoconutCollection.internal.ts:1581</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -3776,7 +4168,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#maxwithornull">maxWithOrNull</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1652">lib/src/container/collection/KoconutCollection.internal.ts:1652</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1608">lib/src/container/collection/KoconutCollection.internal.ts:1608</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3824,7 +4216,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#minbyornull">minByOrNull</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1675">lib/src/container/collection/KoconutCollection.internal.ts:1675</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1631">lib/src/container/collection/KoconutCollection.internal.ts:1631</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3874,7 +4266,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#minof">minOf</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1704">lib/src/container/collection/KoconutCollection.internal.ts:1704</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1660">lib/src/container/collection/KoconutCollection.internal.ts:1660</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3907,7 +4299,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#minof">minOf</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1707">lib/src/container/collection/KoconutCollection.internal.ts:1707</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1663">lib/src/container/collection/KoconutCollection.internal.ts:1663</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3943,7 +4335,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#minof">minOf</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1711">lib/src/container/collection/KoconutCollection.internal.ts:1711</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1667">lib/src/container/collection/KoconutCollection.internal.ts:1667</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3976,7 +4368,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#minof">minOf</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1714">lib/src/container/collection/KoconutCollection.internal.ts:1714</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1670">lib/src/container/collection/KoconutCollection.internal.ts:1670</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4012,7 +4404,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#minof">minOf</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1718">lib/src/container/collection/KoconutCollection.internal.ts:1718</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1674">lib/src/container/collection/KoconutCollection.internal.ts:1674</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -4051,7 +4443,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#minof">minOf</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1721">lib/src/container/collection/KoconutCollection.internal.ts:1721</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1677">lib/src/container/collection/KoconutCollection.internal.ts:1677</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -4107,7 +4499,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#minofornull">minOfOrNull</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1752">lib/src/container/collection/KoconutCollection.internal.ts:1752</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1708">lib/src/container/collection/KoconutCollection.internal.ts:1708</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4140,7 +4532,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#minofornull">minOfOrNull</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1755">lib/src/container/collection/KoconutCollection.internal.ts:1755</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1711">lib/src/container/collection/KoconutCollection.internal.ts:1711</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4176,7 +4568,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#minofornull">minOfOrNull</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1759">lib/src/container/collection/KoconutCollection.internal.ts:1759</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1715">lib/src/container/collection/KoconutCollection.internal.ts:1715</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4209,7 +4601,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#minofornull">minOfOrNull</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1762">lib/src/container/collection/KoconutCollection.internal.ts:1762</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1718">lib/src/container/collection/KoconutCollection.internal.ts:1718</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4245,7 +4637,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#minofornull">minOfOrNull</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1766">lib/src/container/collection/KoconutCollection.internal.ts:1766</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1722">lib/src/container/collection/KoconutCollection.internal.ts:1722</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -4284,7 +4676,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#minofornull">minOfOrNull</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1769">lib/src/container/collection/KoconutCollection.internal.ts:1769</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1725">lib/src/container/collection/KoconutCollection.internal.ts:1725</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -4335,7 +4727,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#minofwith">minOfWith</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1800">lib/src/container/collection/KoconutCollection.internal.ts:1800</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1756">lib/src/container/collection/KoconutCollection.internal.ts:1756</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -4413,7 +4805,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#minofwithornull">minOfWithOrNull</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1827">lib/src/container/collection/KoconutCollection.internal.ts:1827</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1783">lib/src/container/collection/KoconutCollection.internal.ts:1783</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -4491,7 +4883,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#minwithornull">minWithOrNull</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1889">lib/src/container/collection/KoconutCollection.internal.ts:1889</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1845">lib/src/container/collection/KoconutCollection.internal.ts:1845</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4540,7 +4932,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.minus</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L292">lib/src/container/collection/array/KoconutArray.ts:292</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L292">lib/src/container/collection/array/KoconutArray.ts:292</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4555,7 +4947,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.minus</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L295">lib/src/container/collection/array/KoconutArray.ts:295</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L295">lib/src/container/collection/array/KoconutArray.ts:295</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4579,7 +4971,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.minusElement</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L308">lib/src/container/collection/array/KoconutArray.ts:308</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L308">lib/src/container/collection/array/KoconutArray.ts:308</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4603,7 +4995,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#none">none</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1912">lib/src/container/collection/KoconutCollection.internal.ts:1912</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1868">lib/src/container/collection/KoconutCollection.internal.ts:1868</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4630,7 +5022,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.onEach</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L317">lib/src/container/collection/array/KoconutArray.ts:317</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L317">lib/src/container/collection/array/KoconutArray.ts:317</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4675,7 +5067,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.onEachIndexed</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L327">lib/src/container/collection/array/KoconutArray.ts:327</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L327">lib/src/container/collection/array/KoconutArray.ts:327</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4723,7 +5115,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#partition">partition</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L1980">lib/src/container/collection/KoconutCollection.internal.ts:1980</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1936">lib/src/container/collection/KoconutCollection.internal.ts:1936</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4769,7 +5161,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.plus</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L337">lib/src/container/collection/array/KoconutArray.ts:337</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L337">lib/src/container/collection/array/KoconutArray.ts:337</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4784,7 +5176,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.plus</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L340">lib/src/container/collection/array/KoconutArray.ts:340</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L340">lib/src/container/collection/array/KoconutArray.ts:340</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4808,7 +5200,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.plusElement</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L353">lib/src/container/collection/array/KoconutArray.ts:353</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L353">lib/src/container/collection/array/KoconutArray.ts:353</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4832,7 +5224,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_base_koconutpair_.koconutpair.html">KoconutPair</a>.<a href="_container_base_koconutpair_.koconutpair.html#process">process</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/tool/KoconutPrimitive.internal.ts#L26">lib/src/tool/KoconutPrimitive.internal.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/tool/KoconutPrimitive.internal.ts#L26">lib/src/tool/KoconutPrimitive.internal.ts:26</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -4850,7 +5242,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#random">random</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2037">lib/src/container/collection/KoconutCollection.internal.ts:2037</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L1993">lib/src/container/collection/KoconutCollection.internal.ts:1993</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">DataType</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -4868,7 +5260,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#randomornull">randomOrNull</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2052">lib/src/container/collection/KoconutCollection.internal.ts:2052</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2008">lib/src/container/collection/KoconutCollection.internal.ts:2008</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">DataType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -4886,7 +5278,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#reduce">reduce</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2067">lib/src/container/collection/KoconutCollection.internal.ts:2067</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2023">lib/src/container/collection/KoconutCollection.internal.ts:2023</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4934,7 +5326,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#reduceindexed">reduceIndexed</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2089">lib/src/container/collection/KoconutCollection.internal.ts:2089</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2045">lib/src/container/collection/KoconutCollection.internal.ts:2045</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4985,7 +5377,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#reduceindexedornull">reduceIndexedOrNull</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2111">lib/src/container/collection/KoconutCollection.internal.ts:2111</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2067">lib/src/container/collection/KoconutCollection.internal.ts:2067</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5036,7 +5428,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#reduceornull">reduceOrNull</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2133">lib/src/container/collection/KoconutCollection.internal.ts:2133</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2089">lib/src/container/collection/KoconutCollection.internal.ts:2089</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5084,7 +5476,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.reversed</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L362">lib/src/container/collection/array/KoconutArray.ts:362</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L362">lib/src/container/collection/array/KoconutArray.ts:362</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_container_collection_array_koconutarray_.koconutarray.html" class="tsd-signature-type">KoconutArray</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">DataType</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -5102,7 +5494,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_base_koconutpair_.koconutpair.html">KoconutPair</a>.<a href="_container_base_koconutpair_.koconutpair.html#run">run</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/tool/KoconutPrimitive.internal.ts#L51">lib/src/tool/KoconutPrimitive.internal.ts:51</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/tool/KoconutPrimitive.internal.ts#L51">lib/src/tool/KoconutPrimitive.internal.ts:51</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -5150,7 +5542,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#runningfold">runningFold</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2171">lib/src/container/collection/KoconutCollection.internal.ts:2171</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2127">lib/src/container/collection/KoconutCollection.internal.ts:2127</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -5207,7 +5599,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#runningfoldindexed">runningFoldindexed</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2197">lib/src/container/collection/KoconutCollection.internal.ts:2197</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2153">lib/src/container/collection/KoconutCollection.internal.ts:2153</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -5267,7 +5659,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#runningreduce">runningReduce</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2223">lib/src/container/collection/KoconutCollection.internal.ts:2223</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2179">lib/src/container/collection/KoconutCollection.internal.ts:2179</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5315,7 +5707,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#runningreduceindexed">runningReduceIndexed</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2249">lib/src/container/collection/KoconutCollection.internal.ts:2249</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2205">lib/src/container/collection/KoconutCollection.internal.ts:2205</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5366,7 +5758,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#scan">scan</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2275">lib/src/container/collection/KoconutCollection.internal.ts:2275</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2231">lib/src/container/collection/KoconutCollection.internal.ts:2231</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -5423,7 +5815,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#scanindexed">scanIndexed</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2301">lib/src/container/collection/KoconutCollection.internal.ts:2301</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2257">lib/src/container/collection/KoconutCollection.internal.ts:2257</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -5483,7 +5875,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.shuffled</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L369">lib/src/container/collection/array/KoconutArray.ts:369</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L369">lib/src/container/collection/array/KoconutArray.ts:369</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_container_collection_array_koconutarray_.koconutarray.html" class="tsd-signature-type">KoconutArray</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">DataType</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -5501,7 +5893,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#single">single</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2347">lib/src/container/collection/KoconutCollection.internal.ts:2347</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2303">lib/src/container/collection/KoconutCollection.internal.ts:2303</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5528,7 +5920,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#singleornull">singleOrNull</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2375">lib/src/container/collection/KoconutCollection.internal.ts:2375</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2331">lib/src/container/collection/KoconutCollection.internal.ts:2331</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5555,7 +5947,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#size">size</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L39">lib/src/container/collection/KoconutCollection.internal.ts:39</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L39">lib/src/container/collection/KoconutCollection.internal.ts:39</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -5573,7 +5965,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.sortedBy</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L376">lib/src/container/collection/array/KoconutArray.ts:376</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L376">lib/src/container/collection/array/KoconutArray.ts:376</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5618,7 +6010,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.sortedByDescending</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L386">lib/src/container/collection/array/KoconutArray.ts:386</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L386">lib/src/container/collection/array/KoconutArray.ts:386</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5663,7 +6055,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.sortedWith</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L396">lib/src/container/collection/array/KoconutArray.ts:396</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L396">lib/src/container/collection/array/KoconutArray.ts:396</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5711,7 +6103,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#substarct">substarct</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2512">lib/src/container/collection/KoconutCollection.internal.ts:2512</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2468">lib/src/container/collection/KoconutCollection.internal.ts:2468</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5735,7 +6127,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#sumby">sumBy</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2535">lib/src/container/collection/KoconutCollection.internal.ts:2535</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2491">lib/src/container/collection/KoconutCollection.internal.ts:2491</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5780,7 +6172,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.take</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L406">lib/src/container/collection/array/KoconutArray.ts:406</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L406">lib/src/container/collection/array/KoconutArray.ts:406</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5804,7 +6196,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.takeLast</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L415">lib/src/container/collection/array/KoconutArray.ts:415</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L415">lib/src/container/collection/array/KoconutArray.ts:415</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5828,7 +6220,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.takeLastWhile</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L424">lib/src/container/collection/array/KoconutArray.ts:424</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L424">lib/src/container/collection/array/KoconutArray.ts:424</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5873,7 +6265,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutCollection.takeWhile</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L434">lib/src/container/collection/array/KoconutArray.ts:434</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L434">lib/src/container/collection/array/KoconutArray.ts:434</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5918,7 +6310,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#toarray">toArray</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2659">lib/src/container/collection/KoconutCollection.internal.ts:2659</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2615">lib/src/container/collection/KoconutCollection.internal.ts:2615</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_container_collection_array_koconutarray_.koconutarray.html" class="tsd-signature-type">KoconutArray</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">DataType</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -5936,7 +6328,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#toset">toSet</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2672">lib/src/container/collection/KoconutCollection.internal.ts:2672</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2628">lib/src/container/collection/KoconutCollection.internal.ts:2628</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_container_collection_set_koconutset_.koconutset.html" class="tsd-signature-type">KoconutSet</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">DataType</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -5954,7 +6346,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#union">union</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2692">lib/src/container/collection/KoconutCollection.internal.ts:2692</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2648">lib/src/container/collection/KoconutCollection.internal.ts:2648</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5979,7 +6371,7 @@
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#validiate">validiate</a></p>
 								<p>Overrides KoconutPrimitive.validiate</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L24">lib/src/container/collection/KoconutCollection.internal.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L24">lib/src/container/collection/KoconutCollection.internal.ts:24</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -6007,7 +6399,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#windowed">windowed</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2710">lib/src/container/collection/KoconutCollection.internal.ts:2710</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2666">lib/src/container/collection/KoconutCollection.internal.ts:2666</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -6022,7 +6414,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#windowed">windowed</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2713">lib/src/container/collection/KoconutCollection.internal.ts:2713</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2669">lib/src/container/collection/KoconutCollection.internal.ts:2669</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -6040,7 +6432,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#windowed">windowed</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2717">lib/src/container/collection/KoconutCollection.internal.ts:2717</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2673">lib/src/container/collection/KoconutCollection.internal.ts:2673</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -6061,7 +6453,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#windowed">windowed</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2722">lib/src/container/collection/KoconutCollection.internal.ts:2722</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2678">lib/src/container/collection/KoconutCollection.internal.ts:2678</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -6109,7 +6501,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#windowed">windowed</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2728">lib/src/container/collection/KoconutCollection.internal.ts:2728</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2684">lib/src/container/collection/KoconutCollection.internal.ts:2684</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -6169,7 +6561,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#withindex">withIndex</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2773">lib/src/container/collection/KoconutCollection.internal.ts:2773</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2729">lib/src/container/collection/KoconutCollection.internal.ts:2729</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_container_collection_array_koconutarray_.koconutarray.html" class="tsd-signature-type">KoconutArray</a><span class="tsd-signature-symbol">&lt;</span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">DataType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -6187,7 +6579,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_base_koconutpair_.koconutpair.html">KoconutPair</a>.<a href="_container_base_koconutpair_.koconutpair.html#yield">yield</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/tool/KoconutPrimitive.internal.ts#L37">lib/src/tool/KoconutPrimitive.internal.ts:37</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/tool/KoconutPrimitive.internal.ts#L37">lib/src/tool/KoconutPrimitive.internal.ts:37</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">DataType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -6207,7 +6599,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#zip">zip</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2791">lib/src/container/collection/KoconutCollection.internal.ts:2791</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2747">lib/src/container/collection/KoconutCollection.internal.ts:2747</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -6228,7 +6620,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#zip">zip</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2794">lib/src/container/collection/KoconutCollection.internal.ts:2794</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2750">lib/src/container/collection/KoconutCollection.internal.ts:2750</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -6276,7 +6668,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#zip">zip</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2798">lib/src/container/collection/KoconutCollection.internal.ts:2798</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2754">lib/src/container/collection/KoconutCollection.internal.ts:2754</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -6338,7 +6730,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#zipwithnext">zipWithNext</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2835">lib/src/container/collection/KoconutCollection.internal.ts:2835</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2791">lib/src/container/collection/KoconutCollection.internal.ts:2791</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_container_collection_array_koconutarray_.koconutarray.html" class="tsd-signature-type">KoconutArray</a><span class="tsd-signature-symbol">&lt;</span><a href="_container_base_koconutpair_.pair.html" class="tsd-signature-type">Pair</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">DataType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">DataType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -6347,7 +6739,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#zipwithnext">zipWithNext</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2836">lib/src/container/collection/KoconutCollection.internal.ts:2836</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2792">lib/src/container/collection/KoconutCollection.internal.ts:2792</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -6389,7 +6781,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#zipwithnext">zipWithNext</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/KoconutCollection.internal.ts#L2839">lib/src/container/collection/KoconutCollection.internal.ts:2839</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/KoconutCollection.internal.ts#L2795">lib/src/container/collection/KoconutCollection.internal.ts:2795</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -6442,7 +6834,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L16">lib/src/container/collection/array/KoconutArray.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L16">lib/src/container/collection/array/KoconutArray.ts:16</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -6471,7 +6863,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/7608518/lib/src/container/collection/array/KoconutArray.ts#L24">lib/src/container/collection/array/KoconutArray.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/f12b901/lib/src/container/collection/array/KoconutArray.ts#L24">lib/src/container/collection/array/KoconutArray.ts:24</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>

@@ -17,7 +17,7 @@ import {
     KoconutEquatable, KoconutComparable
 } from "../../../module.internal"
 
-export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, ValueType], Entry<KeyType, ValueType>, Set<Entry<KeyType, ValueType>>, Map<KeyType, ValueType>> {
+export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, ValueType], Entry<KeyType, ValueType>, Map<KeyType, ValueType>, Set<Entry<KeyType, ValueType>>> {
 
     static from<KeyType, ValueType>(
         source : Map<KeyType, ValueType>
@@ -325,30 +325,6 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
     }
 
 
-    flatMap<ResultDataType>(
-        transform : (entry : Entry<KeyType, ValueType>) => Array<ResultDataType> | Promise<Array<ResultDataType>>,
-        thisArg : any = null
-    ) : KoconutArray<ResultDataType> {
-
-        transform = transform.bind(thisArg)
-        const koconutToReturn = new KoconutArray<ResultDataType>();
-        (koconutToReturn as any as KoconutOpener<Array<ResultDataType>>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                const processedArray = new Array<ResultDataType>()
-                if(this.data != null) {
-                    for(const eachEntry of this.mEntries) {
-                        for(const eachResultData of await transform(eachEntry)) 
-                            processedArray.push(eachResultData)
-                    }
-                }
-                return processedArray
-            })
-        return koconutToReturn
-
-    }
-
-
     flatMapTo<ResultDataType>(
         destination : Array<ResultDataType> | Set<ResultDataType>,
         transform : (entry : Entry<KeyType, ValueType>) => Array<ResultDataType> | Promise<Array<ResultDataType>>,
@@ -368,26 +344,6 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
                     }
                 }
                 return this.data!
-            })
-        return koconutToReturn
-
-    }
-
-
-    forEach(
-        action : (entry : Entry<KeyType, ValueType>) => boolean | void | Promise<boolean | void>,
-        thisArg : any = null
-    ) : KoconutPrimitive<void> {
-
-        action = action.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<void>();
-        (koconutToReturn as any as KoconutOpener<void>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data != null) {
-                    for(const eachEntry of this.mEntries)
-                        if(await action(eachEntry) == false) break
-                }
             })
         return koconutToReturn
 

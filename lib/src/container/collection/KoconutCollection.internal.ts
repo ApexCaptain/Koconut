@@ -810,30 +810,6 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
     }
 
 
-    flatMap<ResultDataType>(
-        transform : (element : DataType) => Iterable<ResultDataType> | Promise<Iterable<ResultDataType>>,
-        thisArg : any = null
-    ) : KoconutArray<ResultDataType> {
-
-        transform = transform.bind(thisArg)
-        const koconutToReturn = new KoconutArray<ResultDataType>();
-        (koconutToReturn as any as KoconutOpener<Array<ResultDataType>>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                const processedArray = new Array<ResultDataType>()
-                if(this.data != null) {
-                    for(const eachDatum of this.data) {
-                        for(let eachSubElement of await transform(eachDatum))
-                            processedArray.push(eachSubElement)
-                    }
-                }
-                return processedArray
-            })
-        return koconutToReturn
-
-    }
-
-
     flatMapIndexed<ResultDataType>(
         transform : (index : number, element : DataType) => Iterable<ResultDataType> | Promise<Iterable<ResultDataType>>,
         thisArg : any = null
@@ -953,26 +929,6 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
 
     }
 
-
-    forEach(
-        action : (element : DataType) => boolean | void | Promise<boolean | void>,
-        thisArg : any = null
-    ) : KoconutPrimitive<void> {
-
-        action = action.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<void>();
-        (koconutToReturn as any as KoconutOpener<void>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data != null) {
-                    for(const eachDatum of this.data) 
-                        if(await action(eachDatum) == false) break
-                }
-            })
-        return koconutToReturn
-
-    }
-    
 
     forEachIndexed(
         action : (index : number, element : DataType) => boolean | void | Promise<boolean | void>,

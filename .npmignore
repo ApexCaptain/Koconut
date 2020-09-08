@@ -1,3 +1,4 @@
+# Directories
 dev/
 docs/
 lib/
@@ -5,7 +6,10 @@ node_modules/
 ReadMeRes/
 test/
 
+# Files
 README.md
-sampleTest.ts
 tsconfig.json
 typedoc.json
+
+# Temp Files
+sampleTest.ts

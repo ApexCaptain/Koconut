@@ -150,7 +150,6 @@ describe(`${KoconutMap.name} -- Function`, () => {
                         .asIterable()
         expect(yieldable).to.be.instanceOf(KoconutIterable)
         const result = await yieldable.yield()
-        console.log(result)
         expect(result).eqls(new Map([
                                     [1, 1],
                                     [2, 2],
