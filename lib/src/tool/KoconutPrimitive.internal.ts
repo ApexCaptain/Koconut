@@ -17,7 +17,7 @@ export class KoconutPrimitive<DataType> implements KoconutYieldable<DataType> {
         return this as any as KoconutOpener<DataType>
     }
 
-    protected async validiate(data : DataType | null) {}
+    protected async validate(data : DataType | null) {}
 
     constructor(data : DataType | null = null) { this.data = data }
 
@@ -27,7 +27,7 @@ export class KoconutPrimitive<DataType> implements KoconutYieldable<DataType> {
         if(this.prevYieldable != null) this.data = await this.prevYieldable.yield()
         if(this.processor != null) this.data = await this.processor()
         if(!this.isValidated) {
-            await this.validiate(this.data)
+            await this.validate(this.data)
             this.isValidated = true
         }   
         this.prevYieldable = undefined
@@ -41,15 +41,6 @@ export class KoconutPrimitive<DataType> implements KoconutYieldable<DataType> {
 
     async let<ReturnType>(block : (data : DataType | null) => ReturnType | Promise<ReturnType>) : Promise<ReturnType>{
         return await block(await this.yield())
-    }
-    
-    async apply(block : (this : DataType | null) => void | Promise<void>) : Promise<DataType | null> {
-        await block.call(await this.yield())
-        return this.data
-    }
-
-    async run<ReturnType>(block : (this : DataType | null) => ReturnType | Promise<ReturnType>) : Promise<ReturnType> {
-        return await block.call(await this.yield())
     }
 
     async also(block : (data : DataType | null) => void | Promise<void>) : Promise<DataType | null> {

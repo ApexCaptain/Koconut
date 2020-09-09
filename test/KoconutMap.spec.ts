@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import {
     /* Tool */
-    KoconutPrimitive, 
+    KoconutPrimitive, KoconutDeprecation,
 
     /* Base */
     Entry, KoconutEntry, Pair, KoconutPair,
@@ -15,6 +15,8 @@ import {
 import { 
     Person, ProductInfo 
 } from "./TestDataClasses"
+
+KoconutDeprecation.isRunningOnDevUnitTesting = true
 
 describe(`${KoconutMap.name} -- Property Getter`, () => {
 

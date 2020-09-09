@@ -7,6 +7,9 @@ import {
     /* Container */
     KoconutCollection,
 
+    /* Enum */
+    KoconutLoopSignal,
+
     /* Protocol */
     KoconutEquatable, KoconutComparable
 } from "../../../../module.internal"
@@ -315,7 +318,7 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
 
 
     onEach(
-        action : (element : DataType) => boolean | void | Promise<boolean| void>,
+        action : (element : DataType) => boolean | KoconutLoopSignal | void | Promise<boolean | KoconutLoopSignal | void>,
         thisArg : any = null
     ) : KoconutArray<DataType> {
 
@@ -325,7 +328,7 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
 
 
     onEachIndexed(
-        action : (index : number, element : DataType) => boolean | void | Promise<boolean | void>,
+        action : (index : number, element : DataType) => boolean | KoconutLoopSignal | void | Promise<boolean | KoconutLoopSignal | void>,
         thisArg : any = null
     ) : KoconutArray<DataType> {
 

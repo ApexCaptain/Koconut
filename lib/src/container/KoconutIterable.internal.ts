@@ -1,6 +1,6 @@
 import {
     /* Tool */
-    KoconutPrimitive, KoconutOpener,
+    KoconutPrimitive, KoconutOpener, KoconutDeprecation,
 
     /* Container */
     KoconutArray,
@@ -209,7 +209,8 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
      * Returns this collection as an KoconutIterable
      */
     asIterable() : KoconutIterable<DataType, CombinedDataType, WrapperType, CombinedWrapperType> {
-
+        
+        KoconutDeprecation.showDeprecationWarning("1.0.11")
         return this
 
     }
@@ -481,6 +482,29 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
                 if(this.combinedDataWrapper != null) {
                     for(const eachCombinedDatum of this.combinedDataWrapper) {
                         const signal = await action(eachCombinedDatum)
+                        if(signal == false || signal == KoconutLoopSignal.BREAK) break
+                    }
+                }
+            })
+        return koconutToReturn
+
+    }
+
+
+    forEachIndexed(
+        action : (index : number, element : CombinedDataType) => boolean | KoconutLoopSignal | void | Promise<boolean | KoconutLoopSignal | void>,
+        thisArg : any = null
+    ) : KoconutPrimitive<void> {
+
+        action = action.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<void>();
+        (koconutToReturn as any as KoconutOpener<void>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.combinedDataWrapper != null) {
+                    let eachIndex = 0
+                    for(const eachCombinedDatum of this.combinedDataWrapper) {
+                        const signal = await action(eachIndex++, eachCombinedDatum)
                         if(signal == false || signal == KoconutLoopSignal.BREAK) break
                     }
                 }

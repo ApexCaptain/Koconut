@@ -7,6 +7,9 @@ import {
     /* Container */
     KoconutCollection,
 
+    /* Enum */
+    KoconutLoopSignal,
+
     /* Protocol */
     KoconutEquatable, KoconutComparable
 } from "../../../../module.internal"
@@ -32,7 +35,7 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
 
     /* Koconut Primitive */
 
-    async validiate(data : Set<DataType> | null) {
+    async validate(data : Set<DataType> | null) {
         if(data != null) {
             let index = 0
             const keys = new Array<DataType>()
@@ -346,7 +349,7 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
 
 
     onEach(
-        action : (element : DataType) => boolean | void | Promise<boolean| void>,
+        action : (element : DataType) => boolean | KoconutLoopSignal | void | Promise<boolean | KoconutLoopSignal | void>,
         thisArg : any = null
     ) : KoconutSet<DataType> {
 
@@ -356,7 +359,7 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
 
 
     onEachIndexed(
-        action : (index : number, element : DataType) => boolean | void | Promise<boolean | void>,
+        action : (index : number, element : DataType) => boolean | KoconutLoopSignal | void | Promise<boolean | KoconutLoopSignal | void>,
         thisArg : any = null
     ) : KoconutSet<DataType> {
 

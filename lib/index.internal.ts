@@ -11,8 +11,11 @@ export {
     KoconutConflictException, KoconutNoSuchElementException, KoconutInvalidArgumentException, KoconutIndexOutOfBoundsException,
 
     /* Enum */
-    KoconutLoopSignal,
+    KoconutLocale, KoconutLoopSignal,
 
     /* Protocol */
-    KoconutComparable, KoconutEquatable
+    KoconutComparable, KoconutEquatable,
+
+    /* Tool */
+    KoconutOption
 } from "./module.internal"

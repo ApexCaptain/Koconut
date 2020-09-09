@@ -1,17 +1,21 @@
-# Directories
-dev/
+# Dcouments
 docs/
+
+# Development
+dev/
 lib/
 node_modules/
-ReadMeRes/
 test/
-
-# Files
-desktop.ini
-README.md
-tsconfig.json
-typedoc.json
 ToDo
 
-# Temp Files
-sampleTest.ts
+# Read Me
+README.md
+ReadMeRes/
+
+# Configuration Files
+tsconfig.json
+typedoc.json
+
+# System Files
+desktop.ini
+.DS_Store

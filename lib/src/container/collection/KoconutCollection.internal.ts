@@ -10,6 +10,9 @@ import {
     /* Container */
     KoconutIterable, KoconutArray, KoconutSet, KoconutMap,
 
+    /* Enum*/
+    KoconutLoopSignal,
+
     /* Exception */
     KoconutInvalidArgumentException, KoconutIndexOutOfBoundsException, KoconutNoSuchElementException, KoconutConflictException,
 
@@ -21,7 +24,7 @@ import {
 export class KoconutCollection<DataType, WrapperType extends Array<DataType> | Set<DataType>> extends KoconutIterable<DataType, DataType, WrapperType, WrapperType> {
 
     /* Koconut Primitive */
-    async validiate(data : WrapperType | null) {
+    async validate(data : WrapperType | null) {
         if(data != null) {
             const dataArray = Array.from(data)
             this.mSize = dataArray.length
@@ -924,26 +927,6 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
                         dataToReturn = await operation(eachIndex as number, dataToReturn, eachDatum)
                 }
                 return dataToReturn
-            })
-        return koconutToReturn
-
-    }
-
-
-    forEachIndexed(
-        action : (index : number, element : DataType) => boolean | void | Promise<boolean | void>,
-        thisArg : any = null
-    ) : KoconutPrimitive<void> {
-
-        action = action.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<void>();
-        (koconutToReturn as any as KoconutOpener<void>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data != null) {
-                    for(const [eachIndex, eachDatum] of Array.from(this.data).entries())
-                        if(await action(eachIndex as number, eachDatum) == false) break
-                }
             })
         return koconutToReturn
 
@@ -1889,7 +1872,7 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
 
 
     onEach(
-        action : (element : DataType) => boolean | void | Promise<boolean | void>,
+        action : (element : DataType) => boolean | KoconutLoopSignal | void | Promise<boolean | KoconutLoopSignal | void>,
         thisArg : any = null
     ) : KoconutCollection<DataType, WrapperType> {
 
@@ -1900,7 +1883,8 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
             .setProcessor(async () => {
                 if(this.data != null) {
                     for(const eachDatum of this.data) {
-                        if(await action(eachDatum) == false) break
+                        const signal = await action(eachDatum)
+                        if(signal == false || signal == KoconutLoopSignal.BREAK) break
                     }
                 }
                 return this.data!
@@ -1911,7 +1895,7 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
 
 
     onEachIndexed(
-        action : (index : number, element : DataType) => boolean| void | Promise<boolean | void>,
+        action : (index : number, element : DataType) => boolean | KoconutLoopSignal | void | Promise<boolean | KoconutLoopSignal | void>,
         thisArg : any = null
     ) : KoconutCollection<DataType, WrapperType> {
 
@@ -1921,8 +1905,10 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
             .setPrevYieldable(this)
             .setProcessor(async () => {
                 if(this.data != null) {
-                    for(const [eachIndex, eachDatum] of Array.from(this.data).entries()) {
-                        if(await action(eachIndex as number, eachDatum) == false) break
+                    let eachIndex = 0
+                    for(const eachDatum of this.data) {
+                        const signal = await action(eachIndex++, eachDatum)
+                        if(signal == false || signal == KoconutLoopSignal.BREAK) break
                     }
                 }
                 return this.data!

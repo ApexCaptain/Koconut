@@ -1,7 +1,7 @@
 import { expect } from 'chai' 
 import {
     /* Tool */
-    KoconutPrimitive, 
+    KoconutPrimitive, KoconutDeprecation,
 
     /* Base */
     Pair, KoconutPair, Entry,
@@ -15,6 +15,8 @@ import {
 import {
     Person, ProductInfo
 } from "./TestDataClasses"
+
+KoconutDeprecation.isRunningOnDevUnitTesting = true
 
 describe(`${KoconutArray.name} -- Property Getter`, () => {
 
@@ -949,7 +951,6 @@ describe(`${KoconutArray.name} -- Function`, () => {
         expect(yieldable).to.be.instanceOf(KoconutPrimitive)
         const result = await yieldable.yield()
         expect(result).equals(25)
-
     })
 
     it(KoconutArray.prototype.forEach.name, async () => {

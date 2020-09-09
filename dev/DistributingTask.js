@@ -7,6 +7,7 @@ const readline = require('readline').createInterface({
 })
 const versionStringReg = /\d+.\d+.\d+/
 const fs = require('fs')
+const { validateDeprecatedMethod } = require("./DepreactedMethodValidatingTask.js")
 
 const runPromisifiedCommand = async (cmd, showLog = true) => {
     return new Promise((resolve, reject) => {
@@ -69,6 +70,11 @@ const distibute = async () => {
             if(isNewVersionCodeValid) break
         }
 
+        if(!await validateDeprecatedMethod(newVersionCode)) {
+            console.log(`Cannot distribute the package. Not all deprecated method is valid in version of ${newVersionCode}`)
+            process.exit(0)
+        }
+        
         const packageToBeChanged = require('../package.json')
         packageToBeChanged.version = newVersionCode
         console.log(`\n-- Check your new package info --\n`)
@@ -83,6 +89,8 @@ const distibute = async () => {
         fs.writeFileSync(`${__dirname}/../package.json`, JSON.stringify(packageToBeChanged, null, 2))
         console.log("Package json overriden")
 
+        await runPromisifiedCommand(`npm run update`)
+
         const defualtMessage = `New version released : ${newVersionCode}`
         var commitMessage = await readPromisifiedText(`\nGit Commit Message (Default : ${defualtMessage}) : `)
         if(!commitMessage) commitMessage = defualtMessage
@@ -91,8 +99,13 @@ const distibute = async () => {
         await runPromisifiedCommand(`git tag "${newVersionCode}"`)
         await runPromisifiedCommand('git push origin master --tags')
 
+        const copiedPackageInfo = JSON.parse(JSON.stringify(packageToBeChanged))
+        delete packageToBeChanged.scripts
+        delete packageToBeChanged.devDependencies
+        fs.writeFileSync(`${__dirname}/../package.json`, JSON.stringify(packageToBeChanged, null, 2))
         await runPromisifiedCommand(`npm publish`)
-
+        fs.writeFileSync(`${__dirname}/../package.json`, JSON.stringify(copiedPackageInfo, null, 2))
+        
         console.log("Deploying package is successfully completed!")
         process.exit(0)
         

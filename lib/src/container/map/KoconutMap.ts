@@ -16,6 +16,7 @@ import {
     /* Protocol */
     KoconutEquatable, KoconutComparable
 } from "../../../module.internal"
+import { KoconutLoopSignal } from "../../enum/KoconutLoopSignal"
 
 export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, ValueType], Entry<KeyType, ValueType>, Map<KeyType, ValueType>, Set<Entry<KeyType, ValueType>>> {
 
@@ -43,7 +44,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
 
 
     /* Koconut Primitive */
-    async validiate(data : Map<KeyType, ValueType> | null) {
+    async validate(data : Map<KeyType, ValueType> | null) {
     
         if(data != null) {
             this.combinedDataWrapper = new Set()
@@ -1109,7 +1110,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
 
 
     onEach(
-        action : (entry : Entry<KeyType, ValueType>) => boolean | void | Promise<boolean | void>,
+        action : (entry : Entry<KeyType, ValueType>) => boolean | KoconutLoopSignal | void  | Promise<boolean | KoconutLoopSignal | void>,
         thisArg : any = null
     ) : KoconutMap<KeyType, ValueType> {
 
@@ -1119,8 +1120,10 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
             .setPrevYieldable(this)
             .setProcessor(async () => {
                 if(this.data != null) {
-                    for(const eachEntry of this.mEntries)
-                        if(await action(eachEntry) == false) break
+                    for(const eachEntry of this.mEntries) {
+                        const signal = await action(eachEntry)
+                        if(signal == false || signal == KoconutLoopSignal.BREAK) break
+                    }
                 }
                 return this.data!
             })
@@ -1130,7 +1133,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
 
 
     onEachIndexed(
-        action : (index : number, entry : Entry<KeyType, ValueType>) => boolean | void | Promise<boolean | void>,
+        action : (index : number, entry : Entry<KeyType, ValueType>) => boolean | KoconutLoopSignal | void | Promise<boolean | KoconutLoopSignal | void>,
         thisArg : any = null
     ) : KoconutMap<KeyType, ValueType> {
 
@@ -1141,8 +1144,10 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
             .setProcessor(async () => {
                 if(this.data != null) {
                     let eachIndex = 0
-                    for(const eachEntry of this.mEntries)
-                        if(await action(eachIndex++, eachEntry) == false) break
+                    for(const eachEntry of this.mEntries) {
+                        const signal = await action(eachIndex++, eachEntry)
+                        if(signal == false || signal == KoconutLoopSignal.BREAK) break
+                    }
                 }
                 return this.data!
             })
