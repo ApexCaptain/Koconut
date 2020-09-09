@@ -206,8 +206,8 @@ const mainProcess = async () => {
 
     const validResults = await KoconutArray
                                 .from(requestInfoList)
-                                .map(async eachRequestInfo => await axios(eachRequestInfo))
-                                .filter(async eachResult => await checkIsValid(eachResult))
+                                .map(axios)
+                                .filter(checkIsValid)
                                 .yield()
 
     console.log(validresults)

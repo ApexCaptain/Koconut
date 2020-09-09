@@ -3,14 +3,15 @@ import {
 } from "./dist/index.internal"
 // https://typedoc.org/guides/doccomments/
 
+const isEven = async (each : number) : Promise<boolean> => {
+    return each % 2== 0
+}
+
 const sampleProcess = async () => {
-    const myArray = KoconutArray.of(1,2,3,4,5,6)
 
-    const evenNumbers = await myArray
-                        .filter(eachNumber => eachNumber % 2 == 0)
-                        .yield()
+    const arr = KoconutArray.from([1,2,3,4,5])
+    const ft = await arr.filter(isEven).yield()
+    console.log(ft)
 
-    console.log(evenNumbers)
-    // ↑ [ 2, 4, 6 ]
 }
 sampleProcess()
