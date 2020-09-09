@@ -1,22 +1,33 @@
 import {
     /* Tool */
-    KoconutPrimitive, KoconutOpener, KoconutDeprecation,
+    KoconutPrimitive, KoconutOpener, KoconutDeprecation, KoconutTypeChecker,
 
     /* Container */
     KoconutArray,
 
     /* Enum */
-    KoconutLoopSignal
+    KoconutLoopSignal,
+
+    /* Exception */
+    KoconutNoSuchElementException,
+
+    /* Protocol */
+    KoconutComparable
 } from "../../module.internal"
 
 export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Iterable<DataType>, CombinedWrapperType extends Iterable<CombinedDataType>> extends KoconutPrimitive<WrapperType> {
 
     protected combinedDataWrapper : CombinedWrapperType | null = null
 
+    // Inspector
     /**
      * Return ```true``` if all elements match te given ```predicate```.
      * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
      * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Inspector
      * 
      * @example
      * ``` typescript
@@ -115,6 +126,10 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
      * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
      * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
      * 
+     * @since 1.0.10
+     * 
+     * @category Inspector
+     * 
      * @example
      * ``` typescript
      * // Case 1 -- KoconutArray
@@ -204,25 +219,115 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
 
     }
 
+    // Transformer
+
+
+    // asIterable
+
 
     /**
-     * Returns this collection as an KoconutIterable
+     * Returns a single list of all elements yielded from results of ```transform``` function being invoked on each element of original collection.
+     * @param transform A callback function that accepts an argument. The method calls the ```transform``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Transformer
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of("123", "45")
+     *
+     * const allNumberInArray = await koconutArray
+     *                           .flatMap(eachString => eachString)
+     *                           // ↑ The string itself can be used as Iterable<string>.
+     *                           // If you want to make it clear, also possible to type
+     *                           // as eachString => eachString.split('')
+     *                           .map(parseInt)
+     *                           .yield()
+     * console.log(allNumberInArray)
+     * // ↑ [ 1, 2, 3, 4, 5 ]
+     *
+     * // Case 2 - KoconutSet
+     * const koconutSet = KoconutSet.of("abc", "de")
+     *
+     * const allCharactersInSet = await koconutSet
+     *                           .flatMap(eachString => eachString)
+     *                           .yield()
+     * console.log(allCharactersInSet)
+     * // ↑ [ 'a', 'b', 'c', 'd', 'e' ]
+     *
+     * // Case 3 -- KoconutMap
+     * const koconutMap = KoconutArray.of(1,2,3,4,5)
+     *                   .associateWith(eachNumber => eachNumber * 2)
+     *
+     * const allKeysAndValuesInMap = await koconutMap
+     *                               .flatMap(eachEntry => [eachEntry.key, eachEntry.value])
+     *                               .yield()
+     * console.log(allKeysAndValuesInMap)
+     * // ↑ [1, 2, 2, 4, 3, 6, 4, 8, 5, 10]
+     *
+     *
+     * // Case 4 -- You can also do it asynchronously
+     * const koconutArray2 = KoconutArray.of(123, 987)
+     *
+     * const allDigitsInArray = await koconutArray2
+     *                               .flatMap(async eachNumber => {
+     *                                   const digits = new Array<number>()
+     *                                   while(eachNumber != 0) {
+     *                                       digits.unshift(eachNumber % 10)
+     *                                       eachNumber = Math.floor(eachNumber / 10)
+     *                                   }
+     *                                   return digits
+     *                               })
+     *                               .yield()
+     * console.log(allDigitsInArray)
+     * // ↑ [ 1, 2, 3, 9, 8, 7 ]
+     *
+     * const allNumberCharactersInArray = await koconutArray2
+     *                                       .flatMap(eachNumber => new Promise<string>(resolve => {
+     *                                           resolve(eachNumber.toString())
+     *                                       }))
+     *                                       .yield()
+     * console.log(allNumberCharactersInArray)
+     * // ↑ [ '1', '2', '3', '9', '8', '7' ]
+     * ```
      */
-    asIterable() : KoconutIterable<DataType, CombinedDataType, WrapperType, CombinedWrapperType> {
-        
-        KoconutDeprecation.showDeprecationWarning("1.0.11")
-        return this
+    flatMap<ResultDataType>(
+        transform : (element : CombinedDataType) => Iterable<ResultDataType> | Promise<Iterable<ResultDataType>>,
+        thisArg : any = null
+    ) : KoconutArray<ResultDataType> {
+
+        transform = transform.bind(thisArg)
+        const koconutToReturn = new KoconutArray<ResultDataType>();
+        (koconutToReturn as any as KoconutOpener<Array<ResultDataType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedArray = new Array<ResultDataType>()
+                if(this.combinedDataWrapper != null) {
+                    for(const eachCombinedDatum of this.combinedDataWrapper)
+                        for(let eachSubElement of await transform(eachCombinedDatum))
+                            processedArray.push(eachSubElement)
+                }
+                return processedArray
+            })
+        return koconutToReturn
 
     }
 
 
     // asSequence
 
-
+    // Calculator
     /**
      * Returns the number of the elements matching the given ```predicate```. If the ```predicate``` is ommitted it'll returns the whole number of elements. 
      * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
      * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Calculator
      * 
      * @example
      * ``` typescript
@@ -315,88 +420,106 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
 
     }
 
+
     /**
-     * Returns a single list of all elements yielded from results of ```transform``` function being invoked on each element of original collection.
-     * @param transform A callback function that accepts an argument. The method calls the ```transform``` one time for each element in object.
-     * @param thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * Returns the first element yielding the largest value of the given function or 
+     * throw {@link KoconutNoSuchElementException} if there are no elements.
+     * 
+     * @throws {@link KoconutNoSuchElementException}
+     * 
+     * @category Calculator
+     * 
+     * @since 1.0.10
+     * @deprecated Use {@link maxByOrNull} instead.
+     * 
+     * @param selector 
+     * @param thisArg 
      * 
      * @example
      * ```typescript
      * // Case 1 -- KoconutArray
-     * const koconutArray = KoconutArray.of("123", "45")
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
      *
-     * const allNumberInArray = await koconutArray
-     *                           .flatMap(eachString => eachString)
-     *                           // ↑ The string itself can be used as Iterable<string>.
-     *                           // If you want to make it clear, also possible to type
-     *                           // as eachString => eachString.split('')
-     *                           .map(parseInt)
-     *                           .yield()
-     * console.log(allNumberInArray)
-     * // ↑ [ 1, 2, 3, 4, 5 ]
+     * const largestNumberOfArray = await koconutArray
+     *                               .maxBy(eachNumber => eachNumber)
+     *                               .yield()
+     * console.log(largestNumberOfArray)
+     * // ↑ 5
      *
-     * // Case 2 - KoconutSet
-     * const koconutSet = KoconutSet.of("abc", "de")
+     * try {
+     *   await koconutArray
+     *           .filter(eachNumber => eachNumber > 10)
+     *           .maxBy(eachNumber => eachNumber)
+     *           .yield()
+     * } catch(error) {
+     *   console.log(error.name)
+     *   // ↑ Koconut No Such Element Exception
+     *   // i.e. -- Array is filtered.
+     *   // No element in 1 to 5 is greater than 10.
+     * }
      *
-     * const allCharactersInSet = await koconutSet
-     *                           .flatMap(eachString => eachString)
-     *                           .yield()
-     * console.log(allCharactersInSet)
-     * // ↑ [ 'a', 'b', 'c', 'd', 'e' ]
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of("a", "ab", "abc")
+     *
+     * const lognestStringOfSet = await koconutSet
+     *                               .maxBy(eachString => eachString.length)
+     *                               .yield()
+     * console.log(lognestStringOfSet)
+     * // ↑ abc
      *
      * // Case 3 -- KoconutMap
-     * const koconutMap = KoconutArray.of(1,2,3,4,5)
-     *                   .associateWith(eachNumber => eachNumber * 2)
+     * const koconutMap = KoconutArray.of(1, 12, 123)
+     *                   .associateWith(eachNumber => eachNumber.toString())
      *
-     * const allKeysAndValuesInMap = await koconutMap
-     *                               .flatMap(eachEntry => [eachEntry.key, eachEntry.value])
-     *                               .yield()
-     * console.log(allKeysAndValuesInMap)
-     * // ↑ [1, 2, 2, 4, 3, 6, 4, 8, 5, 10]
-     *
+     * const longestDigitsEntryOfMap = await koconutMap
+     *                                       .maxBy(eachEntry => eachEntry.value.length)
+     *                                       .yield()
+     * console.log(longestDigitsEntryOfMap)
+     * // ↑ Entry { keyElement: 123, valueElement: '123' }
      *
      * // Case 4 -- You can also do it asynchronously
-     * const koconutArray2 = KoconutArray.of(123, 987)
+     * const koconutArray2 = KoconutArray.of(19,27,32)
      *
-     * const allDigitsInArray = await koconutArray2
-     *                               .flatMap(async eachNumber => {
-     *                                   const digits = new Array<number>()
-     *                                   while(eachNumber != 0) {
-     *                                       digits.unshift(eachNumber % 10)
-     *                                       eachNumber = Math.floor(eachNumber / 10)
-     *                                   }
-     *                                   return digits
-     *                               })
-     *                               .yield()
-     * console.log(allDigitsInArray)
-     * // ↑ [ 1, 2, 3, 9, 8, 7 ]
+     * const largestNumberOfArray2 = await koconutArray2
+     *                                   .maxBy(async eachNumber => eachNumber)
+     *                                   .yield()
+     * console.log(largestNumberOfArray2)
+     * // ↑ 32
      *
-     * const allNumberCharactersInArray = await koconutArray2
-     *                                       .flatMap(eachNumber => new Promise<string>(resolve => {
-     *                                           resolve(eachNumber.toString())
+     * const largest1sDigitNumberOfArray2 = await koconutArray2
+     *                                       .maxBy(eachNumber => new Promise(resolve => {
+     *                                           resolve(eachNumber % 10)
      *                                       }))
      *                                       .yield()
-     * console.log(allNumberCharactersInArray)
-     * // ↑ [ '1', '2', '3', '9', '8', '7' ]
+     * console.log(largest1sDigitNumberOfArray2)
+     * // ↑ 19
      * ```
      */
-    flatMap<ResultDataType>(
-        transform : (element : CombinedDataType) => Iterable<ResultDataType> | Promise<Iterable<ResultDataType>>,
+    maxBy(
+        selector : (element : CombinedDataType) => number | string | KoconutComparable | Promise<number | string | KoconutComparable>,
         thisArg : any = null
-    ) : KoconutArray<ResultDataType> {
+    ) : KoconutPrimitive<CombinedDataType> {
 
-        transform = transform.bind(thisArg)
-        const koconutToReturn = new KoconutArray<ResultDataType>();
-        (koconutToReturn as any as KoconutOpener<Array<ResultDataType>>)
+        KoconutDeprecation.showDeprecationWarning("1.2.0", this.maxByOrNull)
+        selector = selector.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<CombinedDataType>();
+        (koconutToReturn as any as KoconutOpener<CombinedDataType>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
-                const processedArray = new Array<ResultDataType>()
-                if(this.combinedDataWrapper != null) {
-                    for(const eachCombinedDatum of this.combinedDataWrapper)
-                        for(let eachSubElement of await transform(eachCombinedDatum))
-                            processedArray.push(eachSubElement)
+                if(this.combinedDataWrapper == null) throw new KoconutNoSuchElementException(`Source data is null`)
+                let dataToReturn : CombinedDataType | null = null
+                let lastComparableDatum : number | string | KoconutComparable | null = null
+                for(const eachCombinedDatum of this.combinedDataWrapper) {
+                    const eachComparableDatum = await selector(eachCombinedDatum)
+                    if(lastComparableDatum == null
+                        || (KoconutTypeChecker.checkIsComparable(eachComparableDatum) && eachComparableDatum.compareTo(lastComparableDatum as any as KoconutComparable) > 0)
+                        || (!KoconutTypeChecker.checkIsComparable(eachComparableDatum) && lastComparableDatum < eachComparableDatum)) {
+                            dataToReturn = eachCombinedDatum
+                            lastComparableDatum = eachComparableDatum
+                        }
                 }
-                return processedArray
+                if(dataToReturn == null) throw new KoconutNoSuchElementException(`Source data is empty`)
+                return dataToReturn
             })
         return koconutToReturn
 
@@ -404,10 +527,171 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
 
 
     /**
+     * Returns the first element yielding the largest value of the given function or null if there are no elements.
+     * 
+     * @category Calculator
+     * 
+     * @since 1.0.10
+     * 
+     * @param selector 
+     * @param thisArg 
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const largestNumberOfArray = await koconutArray
+     *                               .maxByOrNull(eachNumber => eachNumber)
+     *                               .yield()
+     * console.log(largestNumberOfArray)
+     * // ↑ 5
+     *
+     * 
+     * const largestNumberOfEmptyArray = await koconutArray
+     *                                 .filter(eachNumber => eachNumber > 10)
+     *                                 .maxByOrNull(eachNumber => eachNumber)
+     *                                 .yield()
+     * console.log(largestNumberOfEmptyArray)
+     * // ↑ null
+     * 
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of("a", "ab", "abc")
+     *
+     * const lognestStringOfSet = await koconutSet
+     *                               .maxByOrNull(eachString => eachString.length)
+     *                               .yield()
+     * console.log(lognestStringOfSet)
+     * // ↑ abc
+     *
+     * // Case 3 -- KoconutMap
+     * const koconutMap = KoconutArray.of(1, 12, 123)
+     *                   .associateWith(eachNumber => eachNumber.toString())
+     *
+     * const longestDigitsEntryOfMap = await koconutMap
+     *                                       .maxByOrNull(eachEntry => eachEntry.value.length)
+     *                                       .yield()
+     * console.log(longestDigitsEntryOfMap)
+     * // ↑ Entry { keyElement: 123, valueElement: '123' }
+     *
+     * // Case 4 -- You can also do it asynchronously
+     * const koconutArray2 = KoconutArray.of(19,27,32)
+     *
+     * const largestNumberOfArray2 = await koconutArray2
+     *                                   .maxByOrNull(async eachNumber => eachNumber)
+     *                                   .yield()
+     * console.log(largestNumberOfArray2)
+     * // ↑ 32
+     *
+     * const largest1sDigitNumberOfArray2 = await koconutArray2
+     *                                       .maxByOrNull(eachNumber => new Promise(resolve => {
+     *                                           resolve(eachNumber % 10)
+     *                                       }))
+     *                                       .yield()
+     * console.log(largest1sDigitNumberOfArray2)
+     * // ↑ 19
+     * ```
+     */
+    maxByOrNull(
+        selector : (element : CombinedDataType) => number | string | KoconutComparable | Promise<number | string | KoconutComparable>,
+        thisArg : any = null
+    ) : KoconutPrimitive<CombinedDataType | null> {
+
+        selector = selector.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<CombinedDataType | null>();
+        (koconutToReturn as any as KoconutOpener<CombinedDataType | null>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.combinedDataWrapper == null) return null
+                let dataToReturn : CombinedDataType | null = null
+                let lastComparableDatum : number | string | KoconutComparable | null = null
+                for(const eachCombinedDatum of this.combinedDataWrapper) {
+                    const eachComparableDatum = await selector(eachCombinedDatum)
+                    if(lastComparableDatum == null
+                        || (KoconutTypeChecker.checkIsComparable(eachComparableDatum) && eachComparableDatum.compareTo(lastComparableDatum as any as KoconutComparable) > 0)
+                        || (!KoconutTypeChecker.checkIsComparable(eachComparableDatum) && lastComparableDatum < eachComparableDatum)) {
+                            dataToReturn = eachCombinedDatum
+                            lastComparableDatum = eachComparableDatum
+                        }
+                }
+                return dataToReturn
+            })
+        return koconutToReturn
+
+    }
+    
+
+    /**
+     * 
+     * @since 1.0.10
+     * 
+     * @category Calculator
+     * 
+     * @param selector zxc
+     * @param thisArg asd
+     */
+    maxOf(
+        selector : (element : CombinedDataType) => number | Promise<number>,
+        thisArg : any
+    ) : KoconutPrimitive<number>;
+    /** @ignore */
+    maxOf(
+        selector : (element : CombinedDataType) => number | Promise<number>
+    ) : KoconutPrimitive<number>;
+    maxOf(
+        selector : (element : CombinedDataType) => string | Promise<string>,
+        thisArg : any
+    ) : KoconutPrimitive<string>;
+    /** @ignore */
+    maxOf(
+        selector : (element : CombinedDataType) => string | Promise<string>
+    ) : KoconutPrimitive<string>
+    maxOf<ComparableType extends KoconutComparable>(
+        selector : (element : CombinedDataType) =>  ComparableType | Promise<ComparableType>,
+        thisArg : any
+    ) : KoconutPrimitive<ComparableType>;
+    /** @ignore */
+    maxOf<ComparableType extends KoconutComparable>(
+        selector : (element : CombinedDataType) => ComparableType | Promise<ComparableType>
+    ) : KoconutPrimitive<ComparableType>;
+    maxOf<ComparableType extends KoconutComparable>(
+        selector : (element : CombinedDataType) => number | string | ComparableType | Promise<number | string | ComparableType>,
+        thisArg : any = null
+    ) : KoconutPrimitive<number | string | ComparableType> {
+
+        selector = selector.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<number | string | ComparableType>();
+        (koconutToReturn as any as KoconutOpener<number | string | ComparableType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.combinedDataWrapper == null) throw new KoconutNoSuchElementException(`Source data is null`)
+                let lastComparableDatumToReturn : number | string | ComparableType | null = null
+                for(const eachCombinedDatum of this.combinedDataWrapper) {
+                    const eachComparableDatum = await selector(eachCombinedDatum)
+                    if(lastComparableDatumToReturn == null
+                        || (KoconutTypeChecker.checkIsComparable(eachComparableDatum) && (eachComparableDatum).compareTo(lastComparableDatumToReturn as any as KoconutComparable) > 0)
+                        || (!KoconutTypeChecker.checkIsComparable(eachComparableDatum) && lastComparableDatumToReturn < eachComparableDatum)) {
+                            lastComparableDatumToReturn = eachComparableDatum
+                        }
+                }
+                if(lastComparableDatumToReturn == null) throw new KoconutNoSuchElementException(`Source data is empty`)
+                return lastComparableDatumToReturn
+            })
+        return koconutToReturn
+
+    }
+    
+
+    // Iterator
+    /**
      * Performs the given ```action``` on each element.
      * When you want to stop iteration in the meantime ```return``` ```false``` or {@link KoconutLoopSignal.BREAK}.
      * @param action A callback function that accepts an argument. The method calls the ```action``` one time for each element in object.
      * @param thisArg An object to which the ```this``` keyword can refer in the ```action```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Iterator
      * 
      * @example
      * ```typescript
@@ -490,7 +774,92 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
 
     }
 
-
+    /**
+     * Performs the given ```action``` on each element, providing sequential index with the element.
+     * When you want to stop iteration in the meantime ```return``` ```false``` or {@link KoconutLoopSignal.BREAK}.
+     * @param action A callback function that accepts two arguments. The method calls the ```action``` one time for each index and element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```action```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @category Iterator
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5,6,7)
+     *
+     * await koconutArray
+     *       .forEachIndexed(console.log)
+     *       // ↑ 0 1
+     *       //   1 2
+     *       //   2 3
+     *       //   3 4
+     *       //   4 5
+     *       //   5 6
+     *       //   6 7
+     *       .process()
+     *
+     * await koconutArray
+     *       .forEachIndexed((eachIndex, eachNumber) => {
+     *           if(eachIndex == 3) return KoconutLoopSignal.BREAK
+     *           console.log(eachNumber) 
+     *       })
+     *       // ↑ 1 2 3 -- i.e. Since when the index is '3', the loop is interrupted.
+     *       // The last printed number(element) would be '3'.
+     *       .process()
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of(1,2,3,1,2,3)
+     *   
+     * await koconutSet
+     *       .forEachIndexed(console.log)
+     *       // ↑ 0 1
+     *       //   1 2
+     *       //   2 3
+     *       .process()
+     *
+     * await koconutSet
+     *       .forEachIndexed((eachIndex, eachNumber) => {
+     *           if(eachIndex != 0 && eachIndex % 2 == 0) return false
+     *           console.log(eachNumber)
+     *       })
+     *       // ↑ 1 2 -- i.e. Since when the index '2', it's an even number.
+     *       // So the loop is interrupted.
+     *       // The last printed number(element) would be '2'
+     *       .process()
+     *
+     * // Case 3 -- KoconutMap
+     * const koconutMap = KoconutArray.of(1,2,3)
+     *                   .associateWith(eachElement => eachElement)
+     *
+     * await koconutMap
+     *       .forEachIndexed(console.log)
+     *       // ↑
+     *       // 0 Entry { keyElement: 1, valueElement: 1 }
+     *       // 1 Entry { keyElement: 2, valueElement: 2 }
+     *       // 2 Entry { keyElement: 3, valueElement: 3 }
+     *       .process()
+     *
+     * // Case 4 -- You can also do it asynchronously
+     * const koconutArray2 = KoconutArray.of(1,2,3)
+     *
+     * await koconutArray2
+     *       .forEachIndexed(async (eachIndex, eachNumber) => 
+     *                       console.log(eachIndex, eachNumber))
+     *       // ↑ 0 1
+     *       //   1 2
+     *       //   2 3
+     *       .process()
+     *
+     * await koconutArray2
+     *       .forEachIndexed(async (eachIndex, eachNumber) => new Promise(resolve => {
+     *           resolve(console.log(eachIndex, eachNumber))
+     *       }))
+     *       // ↑ 0 1
+     *       //   1 2
+     *       //   2 3
+     *       .process()
+     * ```
+     */
     forEachIndexed(
         action : (index : number, element : CombinedDataType) => boolean | KoconutLoopSignal | void | Promise<boolean | KoconutLoopSignal | void>,
         thisArg : any = null
@@ -512,5 +881,11 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
         return koconutToReturn
 
     }
+
+    
+
+
+
+    
 
 }

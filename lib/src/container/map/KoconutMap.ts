@@ -656,79 +656,17 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
 
     }
 
-    // maxBy -- Depreacted
+    
     maxByOrNull(
         selector : (entry : Entry<KeyType, ValueType>) => number | string | KoconutComparable | Promise<number | string | KoconutComparable>,
         thisArg : any = null
     ) : KoconutEntry<KeyType, ValueType> {
 
-        selector = selector.bind(thisArg)
+        const fromSuper = super.maxByOrNull(selector, this)
         const koconutToReturn = new KoconutEntry<KeyType, ValueType>();
         (koconutToReturn as any as KoconutOpener<Entry<KeyType, ValueType> | null>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data == null || this.mSize == 0) return null
-                let dataToReturn : Entry<KeyType, ValueType> | null = null
-                let lastComparableDatum : number | string | KoconutComparable | null = null
-                for(const eachEntry of this.mEntries) {
-                    const eachComparableDatum = await selector(eachEntry)
-                    if(lastComparableDatum == null
-                        || (KoconutTypeChecker.checkIsComparable(eachComparableDatum) && (eachComparableDatum).compareTo(lastComparableDatum as any as KoconutComparable) > 0)
-                        || (!KoconutTypeChecker.checkIsComparable(eachComparableDatum) && lastComparableDatum < eachComparableDatum)) {
-                            dataToReturn = eachEntry
-                            lastComparableDatum = eachComparableDatum
-                        }
-                }
-                return dataToReturn
-            })
-        return koconutToReturn
-
-    }
-
-
-    maxOf(
-        selector : (entry : Entry<KeyType, ValueType>) => number | Promise<number>
-    ) : KoconutPrimitive<number>;
-    maxOf(
-        selector : (entry : Entry<KeyType, ValueType>) => number | Promise<number>,
-        thisArg : any
-    ) : KoconutPrimitive<number>;
-    maxOf(
-        selector : (entry : Entry<KeyType, ValueType>) => string | Promise<string>
-    ) : KoconutPrimitive<string>;
-    maxOf(
-        selector : (entry : Entry<KeyType, ValueType>) => string | Promise<string>,
-        thisArg : any
-    ) : KoconutPrimitive<string>;
-    maxOf<ComparableType extends KoconutComparable>(
-        selector : (entry : Entry<KeyType, ValueType>) => ComparableType | Promise<ComparableType>
-    ) : KoconutPrimitive<ComparableType>;
-    maxOf<ComparableType extends KoconutComparable>(
-        selector : (entry : Entry<KeyType, ValueType>) => ComparableType | Promise<ComparableType>,
-        thisArg : any
-    ) : KoconutPrimitive<ComparableType>;
-    maxOf<ComparableType extends KoconutComparable>(
-        selector : (entry : Entry<KeyType, ValueType>) => number | string | ComparableType | Promise<number | string | ComparableType>,
-        thisArg : any = null
-    ) : KoconutPrimitive<number | string | ComparableType> {
-
-        selector = selector.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<number | string | ComparableType>();
-        (koconutToReturn as any as KoconutOpener<number | string | ComparableType>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data == null || this.mSize == 0) throw new KoconutNoSuchElementException(`Source data is null or empty`)
-                let lastComparableDatumToReturn : number | string | ComparableType | null = null
-                for(const eachEntry of this.mEntries) {
-                    const eachComparableDatum = await selector(eachEntry)
-                    if(lastComparableDatumToReturn == null
-                        || (KoconutTypeChecker.checkIsComparable(eachComparableDatum) && (eachComparableDatum).compareTo(lastComparableDatumToReturn as any as KoconutComparable) > 0)
-                        || (!KoconutTypeChecker.checkIsComparable(eachComparableDatum) && lastComparableDatumToReturn < eachComparableDatum)) {
-                            lastComparableDatumToReturn = eachComparableDatum
-                        }
-                }
-                return lastComparableDatumToReturn!
-            })
+            .setPrevYieldable(fromSuper['prevYieldable']!)
+            .setProcessor(fromSuper['processor']!)
         return koconutToReturn
 
     }

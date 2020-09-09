@@ -96,18 +96,6 @@ describe(`${KoconutSet.name} -- Function`, () => {
 
     })
 
-    it(KoconutSet.prototype.asIterable.name, async () => {
-
-        const koconut = KoconutSet.from([1,2,3,4,5])
-
-        const yieldable =
-                    koconut
-                    .asIterable()
-        expect(yieldable).to.be.instanceOf(KoconutIterable)
-        const result = await yieldable.yield()
-        expect(result).to.eql(new Set([1,2,3,4,5]))
-
-    })
 
     it(KoconutSet.prototype.associate.name, async () =>{
 

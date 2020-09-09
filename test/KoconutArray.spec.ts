@@ -94,18 +94,6 @@ describe(`${KoconutArray.name} -- Function`, () => {
 
     })
 
-    it(KoconutArray.prototype.asIterable.name, async () => {
-
-        const koconut = KoconutArray.from([1,2,3,4,5])
-
-        const yieldable =
-                    koconut
-                    .asIterable()
-        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
-        const result = await yieldable.yield()
-        expect(result).to.eql([1,2,3,4,5])
-
-    })
 
     it(KoconutArray.prototype.associate.name, async () =>{
 

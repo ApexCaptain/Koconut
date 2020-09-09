@@ -142,23 +142,6 @@ describe(`${KoconutMap.name} -- Function`, () => {
 
     })
 
-    it(KoconutMap.prototype.asIterable.name, async () => {
-
-        const koconut = KoconutArray.of(1,2,3)
-                        .associate(eachElement => new Pair(eachElement, eachElement))
-
-        const yieldable = 
-                        koconut
-                        .asIterable()
-        expect(yieldable).to.be.instanceOf(KoconutIterable)
-        const result = await yieldable.yield()
-        expect(result).eqls(new Map([
-                                    [1, 1],
-                                    [2, 2],
-                                    [3, 3]
-                                ]))
-
-    })
 
     it(KoconutMap.prototype.asArray.name, async () => {
 
