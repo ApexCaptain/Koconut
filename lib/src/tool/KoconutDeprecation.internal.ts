@@ -38,19 +38,19 @@ const deprecationWarningGenerators = {
         `${FontTextColour.Yellow}[Deprecation Warning] ${FontStyle.Reset}: `
         + `Method named ${FontTextColour.Cyan}'${methodName}' ${FontStyle.Reset}of ${FontTextColour.Magenta}'${className}' ${FontStyle.Reset}class would be ${FontTextColour.Yellow}Deprecated${FontStyle.Reset} `
         + `${deprecationVersion ? `since Version : ${FontTextColour.Cyan}'${deprecationVersion}'${FontStyle.Reset}.` : "in the future."}`
-        + `${alternativeMethodName ? `\nYou can use ${FontTextColour.Cyan}'${alternativeMethodName}' ${FontStyle.Reset}method alternatively.` : ""}`,
+        + `${alternativeMethodName ? `\n                        You can use ${FontTextColour.Cyan}'${alternativeMethodName}' ${FontStyle.Reset}method alternatively.` : ""}`,
 
     "japanese" : (className : string, methodName : string, deprecationVersion : string | null, alternativeMethodName : string | null | undefined) =>
         `${FontTextColour.Yellow}[非推奨の警告] ${FontStyle.Reset}: `
         + `${FontTextColour.Magenta}'${className}'${FontStyle.Reset}クラスの${FontTextColour.Cyan}'${methodName}'${FontStyle.Reset}メソッドは`
         + `${deprecationVersion ? `${FontTextColour.Cyan}'${deprecationVersion}'${FontStyle.Reset}バージョンから` : ` 向後`}サポートが${FontTextColour.Yellow}中止${FontStyle.Reset}される予定です。`
-        + `${alternativeMethodName ? `\nその機能は${FontTextColour.Cyan}'${alternativeMethodName}'${FontStyle.Reset}メソッドに置換えて使用することをお勧めします。` : ``}`,
+        + `${alternativeMethodName ? `\n                 その機能は${FontTextColour.Cyan}'${alternativeMethodName}'${FontStyle.Reset}メソッドに置換えて使用することをお勧めします。` : ``}`,
 
     "korean" : (className : string, methodName : string, deprecationVersion : string | null, alternativeMethodName : string | null | undefined) =>
         `${FontTextColour.Yellow}[지원 중단 경고] ${FontStyle.Reset}: `
         + `${FontTextColour.Magenta}'${className}' ${FontStyle.Reset}클래스의 ${FontTextColour.Cyan}'${methodName}' ${FontStyle.Reset}메소드는`
         + `${deprecationVersion ? ` ${FontTextColour.Cyan}'${deprecationVersion}' ${FontStyle.Reset}버전부터` : ` 향후`} 지원이 ${FontTextColour.Yellow}중단${FontStyle.Reset} 될 예정입니다.`
-        + `${alternativeMethodName ? `\n해당 기능은 ${FontTextColour.Cyan}'${alternativeMethodName}'${FontStyle.Reset} 메소드로 대체하여 사용하는 것을 권장합니다.` : ``}`,
+        + `${alternativeMethodName ? `\n                   해당 기능은 ${FontTextColour.Cyan}'${alternativeMethodName}'${FontStyle.Reset} 메소드로 대체하여 사용하는 것을 권장합니다.` : ``}`,
 
 }
 const deprecationWarningLocale = {
@@ -88,7 +88,7 @@ export class KoconutDeprecation {
             const callStack = (new Error().stack)?.split('\n').slice(2, 8)
             const [ className, methodName ] = callStack!.shift()!.trim().split(' ')[1].split('.')
             let warningString = deprecationWarningLocale[KoconutOption.locale]!(className, methodName, deprecationVersion, alternative?.name)
-            if(KoconutOption.doesDeprecationWarningShowCallStack) warningString += `\n${FontTextColour.Green}${callStack?.join('\n')}${FontStyle.Reset}`
+            if(KoconutOption.doesDeprecationWarningShowCallStack) warningString += `\n${FontTextColour.Green}${callStack?.join('\n')}\n${FontStyle.Reset}`
             console.warn(warningString)
             if(this.isRunningOnDevUnitTesting) {
                 try {

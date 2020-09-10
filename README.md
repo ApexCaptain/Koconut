@@ -14,7 +14,7 @@
 
 # Installation
 
-This is [Node.js](https://nodejs.org/en/) library available through the [npm registry](https://www.npmjs.com/).
+This is a [Node.js](https://nodejs.org/en/) library available through the [npm registry](https://www.npmjs.com/).
 
 Before you install it, please [download and install Node.js](https://nodejs.org/en/download/).
 
@@ -222,11 +222,95 @@ Of course, I know that it's pretty unnatural example. You could fetch result and
 But by drawing upon [Koconut] library, your source code would be much more clear and efficient.
 
 # Deprecation Warning
-Some functions might no longer be supported in the future. If you have used any one of them, your application is gonna be crashed after updating the library with no reason. To prevent such trouble, [Koconut] supports `deprecation warning` functionality since version [1.0.10](./RELEASE.md#Release-1.0.10). 
+## Introduction
+Some methods might no longer be supported in the future. If you have used any one of them, your application is gonna be crashed after updating the library with no reason. To prevent such troubles, [Koconut] supports `Deprecation Warning` functionality since version [1.0.10](./RELEASE.md#Release-1.0.10). 
 
-What this means?
+What does that mean?
 
-For instance, ther is 
+## Example
+For instance, [maxBy] method in [KoconutArray] returns the first element yielding the largest value of the given function or throw [KoconutNoSuchElementException] if there are no elements. Following examples are same as written in document page.
+```typescript
+import { KoconutArray } from "koconut"
+
+const main = async () => {
+
+    // Create an 1 to 5 number array.
+    const koconutArray = KoconutArray.of(1,2,3,4,5)
+
+    // 1st example. Finding largest number.
+    const largestNumberOfArray = await koconutArray
+                                .maxBy(eachNumber => eachNumber)
+                                .yield()
+    console.log(largestNumberOfArray)
+    // ↑ 5
+
+    // 2nd example. Finding largest number of an empty array.
+    try {
+        await koconutArray
+                .filter(eachNumber => eachNumber > 10) // <-- Now, it's empty
+                .maxBy(eachNumber => eachNumber) // <-- This is impossible
+                .yield()
+    } catch(error) {
+        console.log(error.name)
+        // ↑ Koconut No Such Element Exception
+        // i.e. -- Array is filtered.
+        // No element in 1 to 5 is greater than 10.
+    }
+
+}
+main()
+
+```
+The first example returns `5`, which is of course, the largest value of the array. 
+
+However in the second one, [maxBy] method throws an error because you've just tried to get an `element` in an `empty array`. If this error had not been caught, the whole application would be termintaed.
+
+This is why [maxBy] method is depreacted, and also why usage of [maxByOrNull] method is recommended. This method will just return `null` if the array is empty.
+
+The problem is that you might not have known about it. This is the time the `Deprecation Warning` comes up. When you use a method that is gonna be depreacted someday, [Koconut] will notice you that `"Oh, this method is not supported any more. You'd better use this one instead."`.
+
+## Language Support
+Currently, `Deprecation Warning` of [Koconut] supports three languages. 
+![languageSupportExample](/ReadMeRes/deprecationWarning/languageSupportExample.JPG)
+
+Locale setting is done automatically. If you are in Japan, message will be printed in Japanese. If you are in Korea it'll be Korean or if you're in States, English will be your default locale.
+
+If you want more detail, please have a check [here](https://apexcaptain.github.io/Koconut/enums/_enum_koconutlocale_.koconutlocale.html).
+
+## [Options](https://apexcaptain.github.io/Koconut/classes/_tool_koconutoption_.koconutoption.html)
+There are three options you can change for `Depreation Warning`.
+- [Locale](https://apexcaptain.github.io/Koconut/enums/_enum_koconutlocale_.koconutlocale.html)
+    
+    You can chagne the language explicitly. Default value depends on your actual region. If it's not supported, `en(English)` will be the default. For instance, if you're in China or Russia, default locale is just `English`. I'm sorry I cannot handle them all...
+    ```typescript
+        import { KoconutOption, KoconutLocale } from "koconut"
+
+        KoconutOption.locale = KoconutLocale.en // English
+        KoconutOption.locale = KoconutLocale.ja // Japanese
+        KoconutOption.locale = KoconutLocale.ko // Korean
+        
+    ```
+- Availability
+
+    Simply, if you don't want to use `Depreaction Warning` set the flag to `false`. Default value is `true`.
+    ```typescript
+        import { KoconutOption } from "koconut"
+
+        KoconutOption.isDeprecationWarningEnabled = true // Enabled (Default)
+        KoconutOption.isDeprecationWarningEnabled = false // Disabled
+        
+    ```
+
+- Call Stack
+
+    If you don't want to see messy call stack of the warning, you just disable it by setting the flag to `false`.
+    ```typescript
+        import { KoconutOption } from "koconut"
+
+        KoconutOption.doesDeprecationWarningShowCallStack = true // Enabled (Default)
+        KoconutOption.doesDeprecationWarningShowCallStack = false // Disabled
+        
+    ```
 
 # Example
 
@@ -267,3 +351,6 @@ For instance, ther is
 [KoconutEquatable]: https://apexcaptain.github.io/Koconut/interfaces/_protocol_koconutequatable_.koconutequatable.html
 
 [Promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+
+[maxBy]: https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#maxby
+[maxByOrNull]: https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#maxbyornull
