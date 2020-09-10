@@ -7,7 +7,7 @@
 - [Introduction](#Introduction)
 - [Documents](#Documents)
 - [Necessity](#Necessity)
-- [Deprecation](#Deprecation)
+- [Deprecation Warning](#Deprecation-Warning)
 - [Example](#Example)
 - [Hierarchy](#Hierarchy)
 - [License](#License)
@@ -221,8 +221,8 @@ Boom! It is done! No more complicated `for...of` or `for...in` iterative process
 Of course, I know that it's pretty unnatural example. You could fetch result and validate it simultaneously just in one loop.
 But by drawing upon [Koconut] library, your source code would be much more clear and efficient.
 
-# Deprecation
-Some functions might no longer be supported in the future. If you have used any one of them, your application is gonna be crashed after updating the library with no reason. To prevent such trouble, [Koconut] supports `deprecation warning` functionality since version 1.0.10. 
+# Deprecation Warning
+Some functions might no longer be supported in the future. If you have used any one of them, your application is gonna be crashed after updating the library with no reason. To prevent such trouble, [Koconut] supports `deprecation warning` functionality since version [1.0.10](./RELEASE.md#Release-1.0.10). 
 
 What this means?
 
