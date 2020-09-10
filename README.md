@@ -100,7 +100,7 @@ The full document of this library is running on [git-hub page].
 ## Hierarchy
 This is the [Koconut] class hierarchy in current version.
 
-![Hierarchy](/ReadMeRes/Hierarchy.png)
+![Hierarchy](ReadMeRes/Hierarchy.png)
 
 # Necessity
 `OK, so... why do I need it?`
@@ -230,11 +230,12 @@ But by drawing upon [Koconut] library, your source code would be much more clear
 
 # Examples
 Let me give you a few examples for basic usage of this library.
-
-I only used [KoconutArray] as representative class.
+I've written only about [KoconutArray] as a representative class.
 ## Creation
-Creating a [KoconutArray] instance. There are three ways.
+To create a [KoconutArray] instance, you can do it in 3 different ways.
 1. Using `new` keyword.
+
+    Very traditional way. You can create a new instance from an iterable object or if it's ommitted you may have an empty array. In case of that, you'd better declare generic type explicitly.
     ```typescript
         import { KoconutArray } from 'koconut'
 
@@ -245,7 +246,9 @@ Creating a [KoconutArray] instance. There are three ways.
         const koconuntNumbers = new KoconutArray(numbers)
         // ↑ This is a Koconut number array consists of 1 to 5.
     ```
-2. Using `static` [from](file:///C:/Users/ayten/Desktop/WorkSpace/GitHub/ApexCaptain/Koconut/docs/classes/_container_collection_array_koconutarray_.koconutarray.html#from) method.
+2. Using `static` [from](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#from) method.
+
+    You can create a new instance from an iterable object.
     ```typescript
         import { KoconutArray } from 'koconut'
 
@@ -253,21 +256,93 @@ Creating a [KoconutArray] instance. There are three ways.
         const koconutNumbers = KoconutArray.from(numbers)
         // ↑ This is a Koconut number array consists of 1 to 5.
     ```
-3. Using `static` [of](file:///C:/Users/ayten/Desktop/WorkSpace/GitHub/ApexCaptain/Koconut/docs/classes/_container_collection_array_koconutarray_.koconutarray.html#of) method.
+3. Using `static` [of](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#of) method.
+
+    You can create a new instance with a variable number of arguments
     ```typescript
         import { KoconutArray } from 'koconut'
 
         const koconutNumbers = KoconutArray.of(1,2,3,4,5)
         // ↑ This is a Koconut number array consists of 1 to 5.
     ```
+    
 ## Processing
-All the [Koconut] containers internally connected with each other within [Promise] chain. In a nutshell, you have to process all the chained objects before you get the result. There are 3 ways to do that.
+All the [Koconut] containers internally connected with each other within [Promise] chain. In a nutshell, you have to process all the chained objects before you get the result. There are 3 ways to do that. They're almost same but slightly different.
 
 1. Using [yield](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#yield) method.
+
+    This method processes all the chained objects and returns the result.
     ```typescript
+        import { KoconutArray } from 'koconut'
+
+        const mainProcess = async () => {
+            const koconutNumbers = KoconutArray.of(1,2,3,4,5)
+
+            const firstNumber = await koconutNumbers
+                                                .first()
+                                                .yield()
+            console.log(firstNumber)
+            // ↑ 1
+        }
+        mainProcess()
+    ```
+2. Using [process](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#process) method.
+
+    This method just simply processes all the chained objects, then return `Promise<void>`.
+    ```typescript
+        import { KoconutArray } from 'koconut'
+
+        const mainProcess = async () => {
+            const koconutNumbers = KoconutArray.of(1,2,3,4,5)
+
+            await koconutNumbers
+                        .forEach(console.log)
+                        .process()
+            // ↑ 1 2 3 4 5
+        }
+        mainProcess()
+    ```
+3. Using [let](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#let) method.
+
+    This method processes all the chained objects and calls the specified function `block` with the reuslt value as its argument and returns the final result of the `block`.
+
+    ```typescript
+        import { KoconutArray } from 'koconut'
+
+        const mainProcess = async () => {
+            const koconutNumbers = KoconutArray.of(1,2,3,4,5)
+
+            const firstNumberPlus2 = await koconutNumbers
+                                    .first()
+                                    .let(result => result + 2)
+            console.log(firstNumber)
+            // ↑ 3
+        }
+        mainProcess()
+    ```
+4. Using [also](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#also) method.
+
+    This method processes all the chained objects and calls the specified function `block` with the result value as its argument and return passed result object.
+    ```typescript
+        import { KoconutArray } from 'koconut'
+
+        const mainProcess = async () => {
+            const koconutNumbers = KoconutArray.of(1,2,3,4,5)
+
+            const moreNumbers = await koconutNumbers
+                                    .also(result => {
+                                        result.push(6)
+                                        result.push(7)
+                                        result.push(8)
+                                    })
+            console.log(moreNumbers)
+            // ↑ [1, 2, 3, 4, 5, 6, 7, 8]
+        }
+        mainProcess()
     ```
 
 ## Iteration
+Iterative function [KoconutArray]
 ## Calculation
 ## Manipulation
 ## Inspection

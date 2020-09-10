@@ -39,11 +39,11 @@ export class KoconutPrimitive<DataType> implements KoconutYieldable<DataType> {
         return this.data!
     }
 
-    async let<ReturnType>(block : (data : DataType | null) => ReturnType | Promise<ReturnType>) : Promise<ReturnType>{
+    async let<ReturnType>(block : (data : DataType) => ReturnType | Promise<ReturnType>) : Promise<ReturnType>{
         return await block(await this.yield())
     }
 
-    async also(block : (data : DataType | null) => void | Promise<void>) : Promise<DataType | null> {
+    async also(block : (data : DataType) => void | Promise<void>) : Promise<DataType | null> {
         await block(await this.yield())
         return this.data
     }
