@@ -5,11 +5,10 @@
 # Table of Contents
 - [Installation](#Installation)
 - [Introduction](#Introduction)
-- [Documents](#Documents)
+- [Components](#Components)
 - [Necessity](#Necessity)
 - [Deprecation Warning](#Deprecation-Warning)
 - [Example](#Example)
-- [Hierarchy](#Hierarchy)
 - [License](#License)
 
 # Installation
@@ -72,8 +71,8 @@ sampleProcess()
 
 As you can see, there's no big difference between using it in JS and TS. Both examples created an 1 to 6 integer array and filtered only the even numbers.
 
-# Documents
-
+# Components
+## Documents
 The full document of this library is running on [git-hub page].
 
 ### Container
@@ -97,6 +96,11 @@ The full document of this library is running on [git-hub page].
 - [KoconutEquatable]
 ### Tool
 - [KoconutOption]
+
+## Hierarchy
+This is the [Koconut] class hierarchy in current version.
+
+![Hierarchy](/ReadMeRes/Hierarchy.png)
 
 # Necessity
 `OK, so... why do I need it?`
@@ -317,7 +321,6 @@ There are three options you can change for `Depreation Warning`.
 
 # Example
 
-# Hierarchy
 
 # License
 
