@@ -4,17 +4,17 @@ import {
 } from "../lib/module.internal" // Same as -- from 'koconut'
 
 const sampleProcess = async () => {
+    const koconutArray = KoconutArray.of(1,2,3,4,5)
 
-    const koconutNumbers = KoconutArray.of(1,2,3,4,5)
+    const dobuledNumbers = await koconutArray
+                                .map(eachNumber => eachNumber * 2)
+                                .yield()
+    console.log(dobuledNumbers)
 
-    const moreNumbers = await koconutNumbers
-                            .also(result => {
-                                result.push(6)
-                                result.push(7)
-                                result.push(8)
-                            })
-    console.log(moreNumbers)
-    // ↑ [1, 2, 3, 4, 5, 6, 7, 8]
+    const numberStrings = await koconutArray
+                                .map(eachNumber => eachNumber.toString())
+                                .yield()
+    console.log(numberStrings)
 
 }
 sampleProcess()

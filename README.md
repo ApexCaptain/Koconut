@@ -342,11 +342,125 @@ All the [Koconut] containers internally connected with each other within [Promis
     ```
 
 ## Iteration
-Iterative function [KoconutArray]
+Iterative methods of [KoconutArray] are [forEach](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#foreach), [forEachIndexed](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#foreachindexed), [onEach](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#oneach) and [onEachIndexed](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#oneachindexed). These methods loop to repeat given `action`. 
+
+Methods of which names start with `for` return nothing. 
+
+Methods start with `on` return the original collection itself.
+``` typescript
+    import { KoconutArray } from 'koconut'
+
+    const mainProcess = async () => {
+        const koconutNumbers = KoconutArray.of(1,2,3,4,5)
+
+        const resultOfForEach = await koconutNumbers
+                                        .forEach(console.log)
+                                        // ↑ 1 2 3 4 5
+                                        .yield()
+        console.log(resultOfForEach)
+        // ↑ undefined
+
+        const resultOfOnEach = await koconutNumbers
+                                        .onEach(console.log)
+                                        // ↑ 1 2 3 4 5
+                                        .yield()
+        console.log(resultOfForEach)
+        // ↑ [1, 2, 3, 4, 5]
+    }
+    mainProcess()
+```
+And of course, methods of which name end with `indexed` have action block given with two arguments.
+
+ One is index, and the other is element.
 ## Calculation
+Each calculator method has its own purpose, performing calculation according to the established rules. For instance, [maxBy] method returns the first element yielding the largest value of the given function block.
+```typescript
+    import { KoconutArray } from 'koconut'
+
+    const mainProcess = async () => {
+        const koconutArray = KoconutArray.of(1,2,3,4,5)
+
+        const largestNumberOfArray = await koconutArray
+                                    .maxBy(eachNumber => eachNumber)
+                                    .yield()
+        console.log(largestNumberOfArray)
+        // ↑ 5
+
+        try {
+        await koconutArray
+                .filter(eachNumber => eachNumber > 10)
+                .maxBy(eachNumber => eachNumber)
+                .yield()
+        } catch(error) {
+        console.log(error.name)
+        // ↑ Koconut No Such Element Exception
+        // i.e. -- Array is filtered.
+        // No element in 1 to 5 is greater than 10.
+        }
+    }
+    mainProcess()
+``` 
 ## Manipulation
+Manipulator methods rearrange the collection, add new elements or filter it by given condition. For instance, [sortedBy](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#sortedby) method returns a collection of all elements sorted according to natural sort order(ASC) of the value returned by specified `selector` function block.
+```typescript
+    import { KoconutArray } from 'koconut'
+
+    const mainProcess = async () => {
+        const koconutArray = KoconutArray.of("abcd", "ab", "abc", "a")
+
+        const sortedStringArrayByLength = await koconutArray
+                                            .sortedBy(eachString => eachString.length)
+                                            .yield()
+        console.log(sortedStringArrayByLength)
+        // ↑ [ 'a', 'ab', 'abc', 'abcd' ]
+    }
+    mainProcess()
+```
 ## Inspection
+Inspector methods check the elements at given condtion. For instance, [all](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#all) method return `true` if all elements match the given `predicate` function block. If any one of those elements met the condtion, if'll return `false`.
+```typescript
+    import { KoconutArray } from 'koconut'
+
+    const mainProcess = async () => {
+        const koconutArray = KoconutArray.of(1,2,3,4,5)
+
+        const areAllArrayElementsGreaterThan0 = await koconutArray
+                                                .all(eachNumber => eachNumber > 0)
+                                                .yield()
+        console.log(areAllArrayElementsGreaterThan0)
+        // ↑ true
+
+        const areAllArrayElementsEven = await koconutArray
+                                        .all(eachNumber => eachNumber % 2 == 0)
+                                        .yield()
+        console.log(areAllArrayElementsEven)
+        // ↑ false -- i.e. '1' is not an even number.
+    }
+    mainProcess()
+``` 
 ## Transformation
+Transformer methods convert the collection into other format. The [map](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#map) method is representative. It returns a list containing the results of applying the given `transform` function block to each element in this original collection.
+```typescript
+    import { KoconutArray } from 'koconut'
+
+    const mainProcess = async () => {
+        const koconutArray = KoconutArray.of(1,2,3,4,5)
+
+        const dobuledNumbers = await koconutArray
+                                    .map(eachNumber => eachNumber * 2)
+                                    .yield()
+        console.log(dobuledNumbers)
+        // ↑ [ 2, 4, 6, 8, 10 ]
+
+        const numberStrings = await koconutArray
+                                    .map(eachNumber => eachNumber.toString())
+                                    .yield()
+        console.log(numberStrings)
+        // ↑ [ '1', '2', '3', '4', '5' ]
+
+    }
+    mainProcess()
+```
 
 # Deprecation Warning
 ## Introduction
