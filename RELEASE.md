@@ -8,4 +8,4 @@
 ### Repository
 - [README.md](https://github.com/ApexCaptain/Koconut/blob/master/README.md) and [RELEASE.md](https://github.com/ApexCaptain/Koconut/blob/master/RELEASE.md) added.
 - All the classes, method, enum... etc are currently being documentized and available from now on. There are still lots of work to do though... You can check'em [here](https://apexcaptain.github.io/Koconut/).
-- [Test](./README.md#Deprecation-Warning)
+- [Test](https://github.com/ApexCaptain/Koconut/blob/master/README.md#Deprecation-Warning)
