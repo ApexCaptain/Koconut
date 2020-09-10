@@ -417,7 +417,7 @@ Manipulator methods rearrange the collection, add new elements or filter it by g
     mainProcess()
 ```
 ## Inspection
-Inspector methods check the elements at given condtion. For instance, [all](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#all) method return `true` if all elements match the given `predicate` function block. If any one of those elements met the condtion, if'll return `false`.
+Inspector methods check the elements at given condtion. For instance, [all](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#all) method return `true` if all elements match the given `predicate` function block. If any one of those elements doesn't meet the condtion, it'll return `false`.
 ```typescript
     import { KoconutArray } from 'koconut'
 
