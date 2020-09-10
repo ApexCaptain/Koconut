@@ -85,6 +85,7 @@ The full document of this library is running on [git-hub page].
 - [KoconutSet]
 - [KoconutMap]
 ### Enum
+- [KoconutLocale]
 - [KoconutLoopSignal]
 ### Exception
 - [KoconutConflictException]
@@ -94,6 +95,8 @@ The full document of this library is running on [git-hub page].
 ### Protocol (Interface)
 - [KoconutComparable]
 - [KoconutEquatable]
+### Tool
+- [KoconutOption]
 
 # Necessity
 `OK, so... why do I need it?`
@@ -342,15 +345,22 @@ There are three options you can change for `Depreation Warning`.
 [KoconutArray]: https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html
 [KoconutSet]: https://apexcaptain.github.io/Koconut/modules/_container_collection_set_koconutset_.html
 [KoconutMap]: https://apexcaptain.github.io/Koconut/classes/_container_map_koconutmap_.koconutmap.html
+
+[KoconutLocale]: https://apexcaptain.github.io/Koconut/enums/_enum_koconutlocale_.koconutlocale.html
 [KoconutLoopSignal]: https://apexcaptain.github.io/Koconut/enums/_enum_koconutloopsignal_.koconutloopsignal.html
+
 [KoconutConflictException]: https://apexcaptain.github.io/Koconut/classes/_exception_koconutexceptions_.koconutconflictexception.html
 [KoconutIndexOutOfBoundsException]: https://apexcaptain.github.io/Koconut/classes/_exception_koconutexceptions_.koconutindexoutofboundsexception.html
 [KoconutInvalidArgumentException]: https://apexcaptain.github.io/Koconut/classes/_exception_koconutexceptions_.koconutinvalidargumentexception.html
 [KoconutNoSuchElementException]: https://apexcaptain.github.io/Koconut/classes/_exception_koconutexceptions_.koconutnosuchelementexception.html
+
 [KoconutComparable]: https://apexcaptain.github.io/Koconut/interfaces/_protocol_koconutcomparable_.koconutcomparable.html
 [KoconutEquatable]: https://apexcaptain.github.io/Koconut/interfaces/_protocol_koconutequatable_.koconutequatable.html
+
+[KoconutOption]: https://apexcaptain.github.io/Koconut/classes/_tool_koconutoption_.koconutoption.html
 
 [Promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
 [maxBy]: https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#maxby
 [maxByOrNull]: https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#maxbyornull
+
