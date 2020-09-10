@@ -34,6 +34,10 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
     }
 
     /* Koconut Primitive */
+    constructor(set : Iterable<DataType> | null = null) {
+        super()
+        this.data = set == null ? new Set() : new Set(set)
+    }
 
     async validate(data : Set<DataType> | null) {
         if(data != null) {

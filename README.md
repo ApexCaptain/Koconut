@@ -7,8 +7,8 @@
 - [Introduction](#Introduction)
 - [Components](#Components)
 - [Necessity](#Necessity)
+- [Examples](#Examples)
 - [Deprecation Warning](#Deprecation-Warning)
-- [Example](#Example)
 - [License](#License)
 
 # Installation
@@ -228,6 +228,51 @@ Boom! It is done! No more complicated `for...of` or `for...in` iterative process
 Of course, I know that it's pretty unnatural example. You could fetch result and validate it simultaneously just in one loop.
 But by drawing upon [Koconut] library, your source code would be much more clear and efficient.
 
+# Examples
+Let me give you a few examples for basic usage of this library.
+
+I only used [KoconutArray] as representative class.
+## Creation
+Creating a [KoconutArray] instance. There are three ways.
+1. Using `new` keyword.
+    ```typescript
+        import { KoconutArray } from 'koconut'
+
+        const emptyKoconutNumbers = new KoconutArray<number>()
+        // ↑ This is an empty Koconut number array
+
+        const numbers = Array.of(1,2,3,4,5)
+        const koconuntNumbers = new KoconutArray(numbers)
+        // ↑ This is a Koconut number array consists of 1 to 5.
+    ```
+2. Using `static` [from](file:///C:/Users/ayten/Desktop/WorkSpace/GitHub/ApexCaptain/Koconut/docs/classes/_container_collection_array_koconutarray_.koconutarray.html#from) method.
+    ```typescript
+        import { KoconutArray } from 'koconut'
+
+        const numbers = Array.of(1,2,3,4,5)
+        const koconutNumbers = KoconutArray.from(numbers)
+        // ↑ This is a Koconut number array consists of 1 to 5.
+    ```
+3. Using `static` [of](file:///C:/Users/ayten/Desktop/WorkSpace/GitHub/ApexCaptain/Koconut/docs/classes/_container_collection_array_koconutarray_.koconutarray.html#of) method.
+    ```typescript
+        import { KoconutArray } from 'koconut'
+
+        const koconutNumbers = KoconutArray.of(1,2,3,4,5)
+        // ↑ This is a Koconut number array consists of 1 to 5.
+    ```
+## Processing
+All the [Koconut] containers internally connected with each other within [Promise] chain. In a nutshell, you have to process all the chained objects before you get the result. There are 3 ways to do that.
+
+1. Using [yield](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#yield) method.
+    ```typescript
+    ```
+
+## Iteration
+## Calculation
+## Manipulation
+## Inspection
+## Transformation
+
 # Deprecation Warning
 ## Introduction
 Some methods might no longer be supported in the future. If you have used any one of them, your application is gonna be crashed after updating the library with no reason. To prevent such troubles, [Koconut] supports `Deprecation Warning` functionality since version [1.0.10](./RELEASE.md#Release-1.0.10). 
@@ -318,9 +363,6 @@ There are three options you can change for `Depreation Warning`.
         KoconutOption.doesDeprecationWarningShowCallStack = false // Disabled
         
     ```
-
-# Example
-
 
 # License
 

@@ -30,8 +30,8 @@ export class KoconutPrimitive<DataType> implements KoconutYieldable<DataType> {
             await this.validate(this.data)
             this.isValidated = true
         }   
-        this.prevYieldable = undefined
-        this.processor = undefined
+        delete this.prevYieldable
+        delete this.processor
     }
 
     async yield() : Promise<DataType> {

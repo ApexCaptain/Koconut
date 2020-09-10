@@ -424,6 +424,8 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
     /**
      * Returns the first element yielding the largest value of the given function or 
      * throw {@link KoconutNoSuchElementException} if there are no elements.
+     * @param selector A callback function that accepts an argument. The method calls the ```selector``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```selector```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
      * 
      * @throws {@link KoconutNoSuchElementException}
      * 
@@ -431,9 +433,6 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
      * 
      * @since 1.0.10
      * @deprecated Use {@link maxByOrNull} instead.
-     * 
-     * @param selector 
-     * @param thisArg 
      * 
      * @example
      * ```typescript
@@ -528,13 +527,12 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
 
     /**
      * Returns the first element yielding the largest value of the given function or null if there are no elements.
+     * @param selector A callback function that accepts an argument. The method calls the ```selector``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```selector```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
      * 
      * @category Calculator
      * 
      * @since 1.0.10
-     * 
-     * @param selector 
-     * @param thisArg 
      * 
      * @example
      * ```typescript
@@ -622,13 +620,92 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
     
 
     /**
+     * Returns the largest value among all values produced by ```selector``` function applied to each element in the collection or 
+     * throw {@link KoconutNoSuchElementException} if there are no elements.
+     * @param selector A callback function that accepts an argument. The method calls the ```selector``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```selector```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
      * 
-     * @since 1.0.10
+     * @throws {@link KoconutNoSuchElementException}
      * 
      * @category Calculator
      * 
-     * @param selector zxc
-     * @param thisArg asd
+     * @since 1.0.10
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,7,9)
+     *
+     * const largestRemainderNumberDividedBy5OfArray = await koconutArray
+     *                                               .maxOf(eachNumber => eachNumber % 5)
+     *                                               .yield()
+     * console.log(largestRemainderNumberDividedBy5OfArray)
+     * // ↑ 4
+     *
+     * try {
+     *   await koconutArray
+     *           .filter(eachNumber => eachNumber > 10)
+     *           .maxOf(eachNumber => eachNumber % 5)
+     *           .yield()
+     * } catch(error) {
+     *   console.log(error.name)
+     *   // ↑ Koconut No Such Element Exception
+     *   // i.e. -- Array is filtered.
+     *   // No element in 1 to 5 is greater than 10.
+     * }
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of("a", "ab", "abc")
+     *
+     * const longestStringLengthOfSet = await koconutSet
+     *                               .maxOf(eachString => eachString.length)
+     *                               .yield()
+     * console.log(longestStringLengthOfSet)
+     * // ↑ 3
+     *
+     * class ComparableString implements KoconutComparable{
+     *   str : string
+     *   constructor(str : string) {
+     *       this.str = str
+     *   }
+     *   // Override
+     *   compareTo(other : ComparableString) : number {
+     *       return this.str.length - other.str.length
+     *   }
+     * }
+     * const maxComparableString = await koconutSet
+     *                           .maxOf(eachString => new ComparableString(eachString))
+     *                           .yield()
+     * console.log(maxComparableString)
+     * // ↑ ComparableString { str: 'abc' }
+     *
+     * // Case 3 -- KoconutMap
+     * const koconutMap = KoconutArray.of("a", "ab", "abc")
+     *                   .associate(eachString => [eachString.length, eachString])
+     *
+     * const longestStringLengthOfMap = await koconutMap
+     *                                   .maxOf(eachEntry => eachEntry.key)
+     *                                   .yield()
+     * console.log(longestStringLengthOfMap)
+     * // ↑ 3
+     *
+     * // Case 4 -- You can also do it asynchronously
+     * const koconutArray2 = KoconutArray.of(12,51,32,45,50)
+     *
+     * const largestNumberOfArray2 = await koconutArray2
+     *                           .maxOf(async eachNumber => eachNumber)
+     *                           .yield()
+     * console.log(largestNumberOfArray2)
+     * // ↑ 51
+     *
+     * const largest1sDigitOfArray2 = await koconutArray2
+     *                           .maxOf(eachNumber => new Promise(resolve => {
+     *                               resolve(eachNumber % 10)
+     *                           }))
+     *                           .yield()
+     * console.log(largest1sDigitOfArray2)
+     * // ↑ 5
+     * ```
      */
     maxOf(
         selector : (element : CombinedDataType) => number | Promise<number>,
@@ -679,6 +756,133 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
             })
         return koconutToReturn
 
+    }
+
+    /**
+     * Returns the largest value among all values produced by ```selector``` function applied to each element in the collection or 
+     * null if there are no elements.
+     * @param selector A callback function that accepts an argument. The method calls the ```selector``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```selector```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @category Calculator
+     * 
+     * @since 1.0.10
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,7,9)
+     *
+     * const largestRemainderNumberDividedBy5OfArray = await koconutArray
+     *                                               .maxOfOrNull(eachNumber => eachNumber % 5)
+     *                                               .yield()
+     * console.log(largestRemainderNumberDividedBy5OfArray)
+     * // ↑ 4
+     * 
+     * const largestRemainderNumberDividedBy5OfEmptyArray = await koconutArray
+     *                                       .filter(eachNumber => eachNumber > 10)
+     *                                       .maxOfOrNull(eachNumber => eachNumber % 5)
+     *                                       .yield()
+     * console.log(largestRemainderNumberDividedBy5OfEmptyArray)
+     * // ↑ null
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of("a", "ab", "abc")
+     *
+     * const longestStringLengthOfSet = await koconutSet
+     *                               .maxOfOrNull(eachString => eachString.length)
+     *                               .yield()
+     * console.log(longestStringLengthOfSet)
+     * // ↑ 3
+     *
+     * class ComparableString implements KoconutComparable{
+     *   str : string
+     *   constructor(str : string) {
+     *       this.str = str
+     *   }
+     *   // Override
+     *   compareTo(other : ComparableString) : number {
+     *       return this.str.length - other.str.length
+     *   }
+     * }
+     * const maxComparableString = await koconutSet
+     *                           .maxOfOrNull(eachString => new ComparableString(eachString))
+     *                           .yield()
+     * console.log(maxComparableString)
+     * // ↑ ComparableString { str: 'abc' }
+     *
+     * // Case 3 -- KoconutMap
+     * const koconutMap = KoconutArray.of("a", "ab", "abc")
+     *                   .associate(eachString => [eachString.length, eachString])
+     *
+     * const longestStringLengthOfMap = await koconutMap
+     *                                   .maxOfOrNull(eachEntry => eachEntry.key)
+     *                                   .yield()
+     * console.log(longestStringLengthOfMap)
+     * // ↑ 3
+     *
+     * // Case 4 -- You can also do it asynchronously
+     * const koconutArray2 = KoconutArray.of(12,51,32,45,50)
+     *
+     * const largestNumberOfArray2 = await koconutArray2
+     *                           .maxOfOrNull(async eachNumber => eachNumber)
+     *                           .yield()
+     * console.log(largestNumberOfArray2)
+     * // ↑ 51
+     *
+     * const largest1sDigitOfArray2 = await koconutArray2
+     *                           .maxOfOrNull(eachNumber => new Promise(resolve => {
+     *                               resolve(eachNumber % 10)
+     *                           }))
+     *                           .yield()
+     * console.log(largest1sDigitOfArray2)
+     * // ↑ 5
+     * ```
+     */
+    maxOfOrNull(
+        selector : (element : CombinedDataType) => number | Promise<number>
+    ) : KoconutPrimitive<number | null>;
+    maxOfOrNull(
+        selector : (element : CombinedDataType) => number | Promise<number>,
+        thisArg : any
+    ) : KoconutPrimitive<number | null>;
+    maxOfOrNull(
+        selector : (element : CombinedDataType) => string | Promise<string>
+    ) : KoconutPrimitive<string | null>
+    maxOfOrNull(
+        selector : (element : CombinedDataType) => string | Promise<string>,
+        thisArg : any
+    ) : KoconutPrimitive<string | null>
+    maxOfOrNull<ComparableType extends KoconutComparable>(
+        selector : (element : CombinedDataType) => ComparableType | Promise<ComparableType>
+    ) : KoconutPrimitive<ComparableType | null>;
+    maxOfOrNull<ComparableType extends KoconutComparable>(
+        selector : (element : CombinedDataType) => ComparableType | Promise<ComparableType>,
+        thisArg : any
+    ) : KoconutPrimitive<ComparableType | null>;
+    maxOfOrNull<ComparableType extends KoconutComparable>(
+        selector : (element : CombinedDataType) => number | string | ComparableType | Promise<number | string | ComparableType>,
+        thisArg : any = null
+    ) : KoconutPrimitive<number | string | ComparableType | null> {
+
+        selector = selector.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<number | string | ComparableType | null>();
+        (koconutToReturn as any as KoconutOpener<number | string | ComparableType | null>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.combinedDataWrapper == null) return null
+                let lastComparableDatumToReturn : number | string | ComparableType | null = null
+                for(const eachCombinedDatum of this.combinedDataWrapper) {
+                    const eachComparableDatum = await selector(eachCombinedDatum)
+                    if(lastComparableDatumToReturn == null
+                        || (KoconutTypeChecker.checkIsComparable(eachComparableDatum) && (eachComparableDatum).compareTo(lastComparableDatumToReturn as any as KoconutComparable) > 0)
+                        || (!KoconutTypeChecker.checkIsComparable(eachComparableDatum) && lastComparableDatumToReturn < eachComparableDatum)) {
+                            lastComparableDatumToReturn = eachComparableDatum
+                        }
+                }
+                return lastComparableDatumToReturn
+            })
+        return koconutToReturn
     }
     
 

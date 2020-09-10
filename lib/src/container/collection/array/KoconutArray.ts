@@ -44,6 +44,12 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
 
     }
 
+    /* Koconut Primitive */
+    constructor(array : Iterable<DataType> | null = null) {
+        super()
+        this.data = array == null ? new Array() : Array.from(array)
+    }
+
 
     associateByTo<KeyType, ValueType = DataType>(
         destination : Map<KeyType, ValueType>,

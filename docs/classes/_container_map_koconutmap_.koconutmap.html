@@ -111,6 +111,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_container_map_koconutmap_.koconutmap.html#count" class="tsd-kind-icon">count</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_container_map_koconutmap_.koconutmap.html#maxby" class="tsd-kind-icon">max<wbr>By</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="_container_map_koconutmap_.koconutmap.html#maxof" class="tsd-kind-icon">max<wbr>Of</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="_container_map_koconutmap_.koconutmap.html#maxofornull" class="tsd-kind-icon">max<wbr>OfOr<wbr>Null</a></li>
 							</ul>
 							<h3>Inspector Methods</h3>
 							<ul class="tsd-index-list">
@@ -155,7 +156,6 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_container_map_koconutmap_.koconutmap.html#mapvaluesto" class="tsd-kind-icon">map<wbr>Values<wbr>To</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_container_map_koconutmap_.koconutmap.html#mapvaues" class="tsd-kind-icon">map<wbr>Vaues</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_container_map_koconutmap_.koconutmap.html#maxbyornull" class="tsd-kind-icon">max<wbr>ByOr<wbr>Null</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_container_map_koconutmap_.koconutmap.html#maxofornull" class="tsd-kind-icon">max<wbr>OfOr<wbr>Null</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_container_map_koconutmap_.koconutmap.html#maxofwith" class="tsd-kind-icon">max<wbr>OfWith</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_container_map_koconutmap_.koconutmap.html#maxofwithornull" class="tsd-kind-icon">max<wbr>OfWith<wbr>OrNull</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_container_map_koconutmap_.koconutmap.html#maxwithornull" class="tsd-kind-icon">max<wbr>With<wbr>OrNull</a></li>
@@ -198,9 +198,9 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#constructor">constructor</a></p>
+								<p>Inherited from <a href="_container_map_koconutmap_.koconutmap.html">KoconutMap</a>.<a href="_container_map_koconutmap_.koconutmap.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/tool/KoconutPrimitive.internal.ts#L20">lib/src/tool/KoconutPrimitive.internal.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/tool/KoconutPrimitive.internal.ts#L20">lib/src/tool/KoconutPrimitive.internal.ts:20</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -227,7 +227,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#count">count</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/KoconutIterable.internal.ts#L401">lib/src/container/KoconutIterable.internal.ts:401</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/KoconutIterable.internal.ts#L401">lib/src/container/KoconutIterable.internal.ts:401</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -337,7 +337,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#maxby">maxBy</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/KoconutIterable.internal.ts#L498">lib/src/container/KoconutIterable.internal.ts:498</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/KoconutIterable.internal.ts#L497">lib/src/container/KoconutIterable.internal.ts:497</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -419,6 +419,9 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>selector: <span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_protocol_koconutcomparable_.koconutcomparable.html" class="tsd-signature-type">KoconutComparable</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_protocol_koconutcomparable_.koconutcomparable.html" class="tsd-signature-type">KoconutComparable</a><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A callback function that accepts an argument. The method calls the <code>selector</code> one time for each element in object.</p>
+									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-signature">
 											<ul class="tsd-signatures tsd-kind-type-literal">
@@ -441,6 +444,7 @@
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> thisArg: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = null</span></h5>
 									<div class="tsd-comment tsd-typography">
+										<p>An object to which the <code>this</code> keyword can refer in the <code>selector</code>. If <code>thisArg</code> is omitted, <code>null</code> is used as the <code>this</code> value.</p>
 									</div>
 								</li>
 							</ul>
@@ -461,13 +465,94 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#maxof">maxOf</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/KoconutIterable.internal.ts#L633">lib/src/container/KoconutIterable.internal.ts:633</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/KoconutIterable.internal.ts#L710">lib/src/container/KoconutIterable.internal.ts:710</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the largest value among all values produced by <code>selector</code> function applied to each element in the collection or
+									throw <a href="_exception_koconutexceptions_.koconutnosuchelementexception.html">KoconutNoSuchElementException</a> if there are no elements.</p>
+								</div>
 								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p><a href="_exception_koconutexceptions_.koconutnosuchelementexception.html">KoconutNoSuchElementException</a></p>
+									</dd>
 									<dt>since</dt>
 									<dd><p>1.0.10</p>
+									</dd>
+									<dt>example</dt>
+									<dd><pre><code class="language-typescript"><span class="hljs-comment">// Case 1 -- KoconutArray</span>
+<span class="hljs-keyword">const</span> koconutArray = KoconutArray.of(<span class="hljs-number">1</span>,<span class="hljs-number">7</span>,<span class="hljs-number">9</span>)
+
+<span class="hljs-keyword">const</span> largestRemainderNumberDividedBy5OfArray = <span class="hljs-keyword">await</span> koconutArray
+                                              .maxOf(<span class="hljs-function"><span class="hljs-params">eachNumber</span> =&gt;</span> eachNumber % <span class="hljs-number">5</span>)
+                                              .yield()
+<span class="hljs-built_in">console</span>.log(largestRemainderNumberDividedBy5OfArray)
+<span class="hljs-comment">// ↑ 4</span>
+
+<span class="hljs-keyword">try</span> {
+  <span class="hljs-keyword">await</span> koconutArray
+          .filter(<span class="hljs-function"><span class="hljs-params">eachNumber</span> =&gt;</span> eachNumber &gt; <span class="hljs-number">10</span>)
+          .maxOf(<span class="hljs-function"><span class="hljs-params">eachNumber</span> =&gt;</span> eachNumber % <span class="hljs-number">5</span>)
+          .yield()
+} <span class="hljs-keyword">catch</span>(error) {
+  <span class="hljs-built_in">console</span>.log(error.name)
+  <span class="hljs-comment">// ↑ Koconut No Such Element Exception</span>
+  <span class="hljs-comment">// i.e. -- Array is filtered.</span>
+  <span class="hljs-comment">// No element in 1 to 5 is greater than 10.</span>
+}
+
+<span class="hljs-comment">// Case 2 -- KoconutSet</span>
+<span class="hljs-keyword">const</span> koconutSet = KoconutSet.of(<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;ab&quot;</span>, <span class="hljs-string">&quot;abc&quot;</span>)
+
+<span class="hljs-keyword">const</span> longestStringLengthOfSet = <span class="hljs-keyword">await</span> koconutSet
+                              .maxOf(<span class="hljs-function"><span class="hljs-params">eachString</span> =&gt;</span> eachString.length)
+                              .yield()
+<span class="hljs-built_in">console</span>.log(longestStringLengthOfSet)
+<span class="hljs-comment">// ↑ 3</span>
+
+<span class="hljs-keyword">class</span> ComparableString <span class="hljs-keyword">implements</span> KoconutComparable{
+  str : <span class="hljs-built_in">string</span>
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">str : <span class="hljs-built_in">string</span></span>) {
+      <span class="hljs-built_in">this</span>.str = str
+  }
+  <span class="hljs-comment">// Override</span>
+  compareTo(other : ComparableString) : <span class="hljs-built_in">number</span> {
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.str.length - other.str.length
+  }
+}
+<span class="hljs-keyword">const</span> maxComparableString = <span class="hljs-keyword">await</span> koconutSet
+                          .maxOf(<span class="hljs-function"><span class="hljs-params">eachString</span> =&gt;</span> <span class="hljs-keyword">new</span> ComparableString(eachString))
+                          .yield()
+<span class="hljs-built_in">console</span>.log(maxComparableString)
+<span class="hljs-comment">// ↑ ComparableString { str: &#x27;abc&#x27; }</span>
+
+<span class="hljs-comment">// Case 3 -- KoconutMap</span>
+<span class="hljs-keyword">const</span> koconutMap = KoconutArray.of(<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;ab&quot;</span>, <span class="hljs-string">&quot;abc&quot;</span>)
+                  .associate(<span class="hljs-function"><span class="hljs-params">eachString</span> =&gt;</span> [eachString.length, eachString])
+
+<span class="hljs-keyword">const</span> longestStringLengthOfMap = <span class="hljs-keyword">await</span> koconutMap
+                                  .maxOf(<span class="hljs-function"><span class="hljs-params">eachEntry</span> =&gt;</span> eachEntry.key)
+                                  .yield()
+<span class="hljs-built_in">console</span>.log(longestStringLengthOfMap)
+<span class="hljs-comment">// ↑ 3</span>
+
+<span class="hljs-comment">// Case 4 -- You can also do it asynchronously</span>
+<span class="hljs-keyword">const</span> koconutArray2 = KoconutArray.of(<span class="hljs-number">12</span>,<span class="hljs-number">51</span>,<span class="hljs-number">32</span>,<span class="hljs-number">45</span>,<span class="hljs-number">50</span>)
+
+<span class="hljs-keyword">const</span> largestNumberOfArray2 = <span class="hljs-keyword">await</span> koconutArray2
+                          .maxOf(<span class="hljs-keyword">async</span> eachNumber =&gt; eachNumber)
+                          .yield()
+<span class="hljs-built_in">console</span>.log(largestNumberOfArray2)
+<span class="hljs-comment">// ↑ 51</span>
+
+<span class="hljs-keyword">const</span> largest1sDigitOfArray2 = <span class="hljs-keyword">await</span> koconutArray2
+                          .maxOf(<span class="hljs-function"><span class="hljs-params">eachNumber</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> {
+                              resolve(eachNumber % <span class="hljs-number">10</span>)
+                          }))
+                          .yield()
+<span class="hljs-built_in">console</span>.log(largest1sDigitOfArray2)
+<span class="hljs-comment">// ↑ 5</span></code></pre>
 									</dd>
 								</dl>
 							</div>
@@ -476,7 +561,7 @@
 								<li>
 									<h5>selector: <span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>zxc</p>
+										<p>A callback function that accepts an argument. The method calls the <code>selector</code> one time for each element in object.</p>
 									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-signature">
@@ -500,7 +585,7 @@
 								<li>
 									<h5>thisArg: <span class="tsd-signature-type">any</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>asd</p>
+										<p>An object to which the <code>this</code> keyword can refer in the <code>selector</code>. If <code>thisArg</code> is omitted, <code>null</code> is used as the <code>this</code> value.</p>
 									</div>
 								</li>
 							</ul>
@@ -510,7 +595,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#maxof">maxOf</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/KoconutIterable.internal.ts#L641">lib/src/container/KoconutIterable.internal.ts:641</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/KoconutIterable.internal.ts#L718">lib/src/container/KoconutIterable.internal.ts:718</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -546,7 +631,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#maxof">maxOf</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/KoconutIterable.internal.ts#L649">lib/src/container/KoconutIterable.internal.ts:649</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/KoconutIterable.internal.ts#L726">lib/src/container/KoconutIterable.internal.ts:726</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -586,6 +671,322 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+					<a name="maxofornull" class="tsd-anchor"></a>
+					<h3>max<wbr>OfOr<wbr>Null</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">max<wbr>OfOr<wbr>Null<span class="tsd-signature-symbol">(</span>selector<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">max<wbr>OfOr<wbr>Null<span class="tsd-signature-symbol">(</span>selector<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span>, thisArg<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">max<wbr>OfOr<wbr>Null<span class="tsd-signature-symbol">(</span>selector<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">max<wbr>OfOr<wbr>Null<span class="tsd-signature-symbol">(</span>selector<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span>, thisArg<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">max<wbr>OfOr<wbr>Null&lt;ComparableType&gt;<span class="tsd-signature-symbol">(</span>selector<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">max<wbr>OfOr<wbr>Null&lt;ComparableType&gt;<span class="tsd-signature-symbol">(</span>selector<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol">&gt;</span>, thisArg<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#maxofornull">maxOfOrNull</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/KoconutIterable.internal.ts#L842">lib/src/container/KoconutIterable.internal.ts:842</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the largest value among all values produced by <code>selector</code> function applied to each element in the collection or
+									null if there are no elements.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>since</dt>
+									<dd><p>1.0.10</p>
+									</dd>
+									<dt>example</dt>
+									<dd><pre><code class="language-typescript"><span class="hljs-comment">// Case 1 -- KoconutArray</span>
+<span class="hljs-keyword">const</span> koconutArray = KoconutArray.of(<span class="hljs-number">1</span>,<span class="hljs-number">7</span>,<span class="hljs-number">9</span>)
+
+<span class="hljs-keyword">const</span> largestRemainderNumberDividedBy5OfArray = <span class="hljs-keyword">await</span> koconutArray
+                                              .maxOfOrNull(<span class="hljs-function"><span class="hljs-params">eachNumber</span> =&gt;</span> eachNumber % <span class="hljs-number">5</span>)
+                                              .yield()
+<span class="hljs-built_in">console</span>.log(largestRemainderNumberDividedBy5OfArray)
+<span class="hljs-comment">// ↑ 4</span>
+
+<span class="hljs-keyword">const</span> largestRemainderNumberDividedBy5OfEmptyArray = <span class="hljs-keyword">await</span> koconutArray
+                                      .filter(<span class="hljs-function"><span class="hljs-params">eachNumber</span> =&gt;</span> eachNumber &gt; <span class="hljs-number">10</span>)
+                                      .maxOfOrNull(<span class="hljs-function"><span class="hljs-params">eachNumber</span> =&gt;</span> eachNumber % <span class="hljs-number">5</span>)
+                                      .yield()
+<span class="hljs-built_in">console</span>.log(largestRemainderNumberDividedBy5OfArray)
+<span class="hljs-comment">// ↑ null</span>
+
+<span class="hljs-comment">// Case 2 -- KoconutSet</span>
+<span class="hljs-keyword">const</span> koconutSet = KoconutSet.of(<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;ab&quot;</span>, <span class="hljs-string">&quot;abc&quot;</span>)
+
+<span class="hljs-keyword">const</span> longestStringLengthOfSet = <span class="hljs-keyword">await</span> koconutSet
+                              .maxOfOrNull(<span class="hljs-function"><span class="hljs-params">eachString</span> =&gt;</span> eachString.length)
+                              .yield()
+<span class="hljs-built_in">console</span>.log(longestStringLengthOfSet)
+<span class="hljs-comment">// ↑ 3</span>
+
+<span class="hljs-keyword">class</span> ComparableString <span class="hljs-keyword">implements</span> KoconutComparable{
+  str : <span class="hljs-built_in">string</span>
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">str : <span class="hljs-built_in">string</span></span>) {
+      <span class="hljs-built_in">this</span>.str = str
+  }
+  <span class="hljs-comment">// Override</span>
+  compareTo(other : ComparableString) : <span class="hljs-built_in">number</span> {
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.str.length - other.str.length
+  }
+}
+<span class="hljs-keyword">const</span> maxComparableString = <span class="hljs-keyword">await</span> koconutSet
+                          .maxOfOrNull(<span class="hljs-function"><span class="hljs-params">eachString</span> =&gt;</span> <span class="hljs-keyword">new</span> ComparableString(eachString))
+                          .yield()
+<span class="hljs-built_in">console</span>.log(maxComparableString)
+<span class="hljs-comment">// ↑ ComparableString { str: &#x27;abc&#x27; }</span>
+
+<span class="hljs-comment">// Case 3 -- KoconutMap</span>
+<span class="hljs-keyword">const</span> koconutMap = KoconutArray.of(<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;ab&quot;</span>, <span class="hljs-string">&quot;abc&quot;</span>)
+                  .associate(<span class="hljs-function"><span class="hljs-params">eachString</span> =&gt;</span> [eachString.length, eachString])
+
+<span class="hljs-keyword">const</span> longestStringLengthOfMap = <span class="hljs-keyword">await</span> koconutMap
+                                  .maxOfOrNull(<span class="hljs-function"><span class="hljs-params">eachEntry</span> =&gt;</span> eachEntry.key)
+                                  .yield()
+<span class="hljs-built_in">console</span>.log(longestStringLengthOfMap)
+<span class="hljs-comment">// ↑ 3</span>
+
+<span class="hljs-comment">// Case 4 -- You can also do it asynchronously</span>
+<span class="hljs-keyword">const</span> koconutArray2 = KoconutArray.of(<span class="hljs-number">12</span>,<span class="hljs-number">51</span>,<span class="hljs-number">32</span>,<span class="hljs-number">45</span>,<span class="hljs-number">50</span>)
+
+<span class="hljs-keyword">const</span> largestNumberOfArray2 = <span class="hljs-keyword">await</span> koconutArray2
+                          .maxOfOrNull(<span class="hljs-keyword">async</span> eachNumber =&gt; eachNumber)
+                          .yield()
+<span class="hljs-built_in">console</span>.log(largestNumberOfArray2)
+<span class="hljs-comment">// ↑ 51</span>
+
+<span class="hljs-keyword">const</span> largest1sDigitOfArray2 = <span class="hljs-keyword">await</span> koconutArray2
+                          .maxOfOrNull(<span class="hljs-function"><span class="hljs-params">eachNumber</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> {
+                              resolve(eachNumber % <span class="hljs-number">10</span>)
+                          }))
+                          .yield()
+<span class="hljs-built_in">console</span>.log(largest1sDigitOfArray2)
+<span class="hljs-comment">// ↑ 5</span></code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>selector: <span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A callback function that accepts an argument. The method calls the <code>selector</code> one time for each element in object.</p>
+									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>element: <a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#maxofornull">maxOfOrNull</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/KoconutIterable.internal.ts#L845">lib/src/container/KoconutIterable.internal.ts:845</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>selector: <span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>element: <a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<h5>thisArg: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#maxofornull">maxOfOrNull</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/KoconutIterable.internal.ts#L849">lib/src/container/KoconutIterable.internal.ts:849</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>selector: <span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>element: <a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#maxofornull">maxOfOrNull</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/KoconutIterable.internal.ts#L852">lib/src/container/KoconutIterable.internal.ts:852</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>selector: <span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>element: <a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<h5>thisArg: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#maxofornull">maxOfOrNull</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/KoconutIterable.internal.ts#L856">lib/src/container/KoconutIterable.internal.ts:856</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>ComparableType<span class="tsd-signature-symbol">: </span><a href="../interfaces/_protocol_koconutcomparable_.koconutcomparable.html" class="tsd-signature-type">KoconutComparable</a></h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>selector: <span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol">&gt;</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>element: <a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol">&gt;</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#maxofornull">maxOfOrNull</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/KoconutIterable.internal.ts#L859">lib/src/container/KoconutIterable.internal.ts:859</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>ComparableType<span class="tsd-signature-symbol">: </span><a href="../interfaces/_protocol_koconutcomparable_.koconutcomparable.html" class="tsd-signature-type">KoconutComparable</a></h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>selector: <span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol">&gt;</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>element: <a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol">&gt;</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<h5>thisArg: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Inspector Methods</h2>
@@ -600,7 +1001,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#all">all</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/KoconutIterable.internal.ts#L104">lib/src/container/KoconutIterable.internal.ts:104</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/KoconutIterable.internal.ts#L104">lib/src/container/KoconutIterable.internal.ts:104</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -731,7 +1132,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#any">any</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/KoconutIterable.internal.ts#L203">lib/src/container/KoconutIterable.internal.ts:203</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/KoconutIterable.internal.ts#L203">lib/src/container/KoconutIterable.internal.ts:203</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -863,7 +1264,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#foreach">forEach</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/KoconutIterable.internal.ts#L756">lib/src/container/KoconutIterable.internal.ts:756</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/KoconutIterable.internal.ts#L960">lib/src/container/KoconutIterable.internal.ts:960</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -983,7 +1384,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#foreachindexed">forEachIndexed</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/KoconutIterable.internal.ts#L863">lib/src/container/KoconutIterable.internal.ts:863</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/KoconutIterable.internal.ts#L1067">lib/src/container/KoconutIterable.internal.ts:1067</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1124,7 +1525,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_base_koconutpair_.koconutpair.html">KoconutPair</a>.<a href="_container_base_koconutpair_.koconutpair.html#also">also</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/tool/KoconutPrimitive.internal.ts#L46">lib/src/tool/KoconutPrimitive.internal.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/tool/KoconutPrimitive.internal.ts#L46">lib/src/tool/KoconutPrimitive.internal.ts:46</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1165,7 +1566,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L132">lib/src/container/map/KoconutMap.ts:132</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L132">lib/src/container/map/KoconutMap.ts:132</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_container_collection_array_koconutarray_.koconutarray.html" class="tsd-signature-type">KoconutArray</a><span class="tsd-signature-symbol">&lt;</span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -1182,7 +1583,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L144">lib/src/container/map/KoconutMap.ts:144</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L144">lib/src/container/map/KoconutMap.ts:144</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1205,7 +1606,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L163">lib/src/container/map/KoconutMap.ts:163</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L163">lib/src/container/map/KoconutMap.ts:163</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1228,7 +1629,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L172">lib/src/container/map/KoconutMap.ts:172</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L172">lib/src/container/map/KoconutMap.ts:172</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1251,7 +1652,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L98">lib/src/container/map/KoconutMap.ts:98</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L98">lib/src/container/map/KoconutMap.ts:98</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_container_collection_set_koconutset_.koconutset.html" class="tsd-signature-type">KoconutSet</a><span class="tsd-signature-symbol">&lt;</span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -1268,7 +1669,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L191">lib/src/container/map/KoconutMap.ts:191</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L191">lib/src/container/map/KoconutMap.ts:191</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1312,7 +1713,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L214">lib/src/container/map/KoconutMap.ts:214</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L214">lib/src/container/map/KoconutMap.ts:214</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1356,7 +1757,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L237">lib/src/container/map/KoconutMap.ts:237</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L237">lib/src/container/map/KoconutMap.ts:237</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1400,7 +1801,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L260">lib/src/container/map/KoconutMap.ts:260</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L260">lib/src/container/map/KoconutMap.ts:260</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1447,7 +1848,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L283">lib/src/container/map/KoconutMap.ts:283</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L283">lib/src/container/map/KoconutMap.ts:283</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1494,7 +1895,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L306">lib/src/container/map/KoconutMap.ts:306</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L306">lib/src/container/map/KoconutMap.ts:306</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1538,7 +1939,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L329">lib/src/container/map/KoconutMap.ts:329</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L329">lib/src/container/map/KoconutMap.ts:329</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1591,7 +1992,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L354">lib/src/container/map/KoconutMap.ts:354</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L354">lib/src/container/map/KoconutMap.ts:354</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1614,7 +2015,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L375">lib/src/container/map/KoconutMap.ts:375</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L375">lib/src/container/map/KoconutMap.ts:375</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1640,7 +2041,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L397">lib/src/container/map/KoconutMap.ts:397</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L397">lib/src/container/map/KoconutMap.ts:397</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1678,7 +2079,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L419">lib/src/container/map/KoconutMap.ts:419</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L419">lib/src/container/map/KoconutMap.ts:419</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1701,7 +2102,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L440">lib/src/container/map/KoconutMap.ts:440</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L440">lib/src/container/map/KoconutMap.ts:440</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -1718,7 +2119,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L451">lib/src/container/map/KoconutMap.ts:451</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L451">lib/src/container/map/KoconutMap.ts:451</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -1735,7 +2136,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L462">lib/src/container/map/KoconutMap.ts:462</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L462">lib/src/container/map/KoconutMap.ts:462</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -1752,7 +2153,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L87">lib/src/container/map/KoconutMap.ts:87</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L87">lib/src/container/map/KoconutMap.ts:87</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_container_collection_set_koconutset_.koconutset.html" class="tsd-signature-type">KoconutSet</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -1770,7 +2171,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_base_koconutpair_.koconutpair.html">KoconutPair</a>.<a href="_container_base_koconutpair_.koconutpair.html#let">let</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/tool/KoconutPrimitive.internal.ts#L42">lib/src/tool/KoconutPrimitive.internal.ts:42</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/tool/KoconutPrimitive.internal.ts#L42">lib/src/tool/KoconutPrimitive.internal.ts:42</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1817,7 +2218,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L473">lib/src/container/map/KoconutMap.ts:473</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L473">lib/src/container/map/KoconutMap.ts:473</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1867,7 +2268,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L495">lib/src/container/map/KoconutMap.ts:495</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L495">lib/src/container/map/KoconutMap.ts:495</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1917,7 +2318,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L517">lib/src/container/map/KoconutMap.ts:517</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L517">lib/src/container/map/KoconutMap.ts:517</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1970,7 +2371,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L539">lib/src/container/map/KoconutMap.ts:539</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L539">lib/src/container/map/KoconutMap.ts:539</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -2020,7 +2421,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L563">lib/src/container/map/KoconutMap.ts:563</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L563">lib/src/container/map/KoconutMap.ts:563</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -2073,7 +2474,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L589">lib/src/container/map/KoconutMap.ts:589</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L589">lib/src/container/map/KoconutMap.ts:589</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -2126,7 +2527,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L637">lib/src/container/map/KoconutMap.ts:637</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L637">lib/src/container/map/KoconutMap.ts:637</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -2179,7 +2580,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L614">lib/src/container/map/KoconutMap.ts:614</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L614">lib/src/container/map/KoconutMap.ts:614</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -2230,7 +2631,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#maxbyornull">maxByOrNull</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L660">lib/src/container/map/KoconutMap.ts:660</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L660">lib/src/container/map/KoconutMap.ts:660</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2265,233 +2666,6 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a name="maxofornull" class="tsd-anchor"></a>
-					<h3>max<wbr>OfOr<wbr>Null</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">max<wbr>OfOr<wbr>Null<span class="tsd-signature-symbol">(</span>selector<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>entry<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">max<wbr>OfOr<wbr>Null<span class="tsd-signature-symbol">(</span>selector<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>entry<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span>, thisArg<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">max<wbr>OfOr<wbr>Null<span class="tsd-signature-symbol">(</span>selector<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>entry<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">max<wbr>OfOr<wbr>Null<span class="tsd-signature-symbol">(</span>selector<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>entry<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span>, thisArg<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">max<wbr>OfOr<wbr>Null&lt;ComparableType&gt;<span class="tsd-signature-symbol">(</span>selector<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>entry<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">max<wbr>OfOr<wbr>Null&lt;ComparableType&gt;<span class="tsd-signature-symbol">(</span>selector<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>entry<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol">&gt;</span>, thisArg<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L675">lib/src/container/map/KoconutMap.ts:675</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>selector: <span class="tsd-signature-symbol">(</span>entry<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h5>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter-signature">
-											<ul class="tsd-signatures tsd-kind-type-literal">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>entry<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></li>
-											</ul>
-											<ul class="tsd-descriptions">
-												<li class="tsd-description">
-													<h4 class="tsd-parameters-title">Parameters</h4>
-													<ul class="tsd-parameters">
-														<li>
-															<h5>entry: <a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span></h5>
-														</li>
-													</ul>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
-												</li>
-											</ul>
-										</li>
-									</ul>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L678">lib/src/container/map/KoconutMap.ts:678</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>selector: <span class="tsd-signature-symbol">(</span>entry<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h5>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter-signature">
-											<ul class="tsd-signatures tsd-kind-type-literal">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>entry<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></li>
-											</ul>
-											<ul class="tsd-descriptions">
-												<li class="tsd-description">
-													<h4 class="tsd-parameters-title">Parameters</h4>
-													<ul class="tsd-parameters">
-														<li>
-															<h5>entry: <a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span></h5>
-														</li>
-													</ul>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
-												</li>
-											</ul>
-										</li>
-									</ul>
-								</li>
-								<li>
-									<h5>thisArg: <span class="tsd-signature-type">any</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L682">lib/src/container/map/KoconutMap.ts:682</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>selector: <span class="tsd-signature-symbol">(</span>entry<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter-signature">
-											<ul class="tsd-signatures tsd-kind-type-literal">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>entry<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
-											</ul>
-											<ul class="tsd-descriptions">
-												<li class="tsd-description">
-													<h4 class="tsd-parameters-title">Parameters</h4>
-													<ul class="tsd-parameters">
-														<li>
-															<h5>entry: <a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span></h5>
-														</li>
-													</ul>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
-												</li>
-											</ul>
-										</li>
-									</ul>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L685">lib/src/container/map/KoconutMap.ts:685</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>selector: <span class="tsd-signature-symbol">(</span>entry<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter-signature">
-											<ul class="tsd-signatures tsd-kind-type-literal">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>entry<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
-											</ul>
-											<ul class="tsd-descriptions">
-												<li class="tsd-description">
-													<h4 class="tsd-parameters-title">Parameters</h4>
-													<ul class="tsd-parameters">
-														<li>
-															<h5>entry: <a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span></h5>
-														</li>
-													</ul>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
-												</li>
-											</ul>
-										</li>
-									</ul>
-								</li>
-								<li>
-									<h5>thisArg: <span class="tsd-signature-type">any</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L689">lib/src/container/map/KoconutMap.ts:689</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-type-parameters-title">Type parameters</h4>
-							<ul class="tsd-type-parameters">
-								<li>
-									<h4>ComparableType<span class="tsd-signature-symbol">: </span><a href="../interfaces/_protocol_koconutcomparable_.koconutcomparable.html" class="tsd-signature-type">KoconutComparable</a></h4>
-								</li>
-							</ul>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>selector: <span class="tsd-signature-symbol">(</span>entry<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol">&gt;</span></h5>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter-signature">
-											<ul class="tsd-signatures tsd-kind-type-literal">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>entry<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol">&gt;</span></li>
-											</ul>
-											<ul class="tsd-descriptions">
-												<li class="tsd-description">
-													<h4 class="tsd-parameters-title">Parameters</h4>
-													<ul class="tsd-parameters">
-														<li>
-															<h5>entry: <a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span></h5>
-														</li>
-													</ul>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol">&gt;</span></h4>
-												</li>
-											</ul>
-										</li>
-									</ul>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L692">lib/src/container/map/KoconutMap.ts:692</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-type-parameters-title">Type parameters</h4>
-							<ul class="tsd-type-parameters">
-								<li>
-									<h4>ComparableType<span class="tsd-signature-symbol">: </span><a href="../interfaces/_protocol_koconutcomparable_.koconutcomparable.html" class="tsd-signature-type">KoconutComparable</a></h4>
-								</li>
-							</ul>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>selector: <span class="tsd-signature-symbol">(</span>entry<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol">&gt;</span></h5>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter-signature">
-											<ul class="tsd-signatures tsd-kind-type-literal">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>entry<span class="tsd-signature-symbol">: </span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol">&gt;</span></li>
-											</ul>
-											<ul class="tsd-descriptions">
-												<li class="tsd-description">
-													<h4 class="tsd-parameters-title">Parameters</h4>
-													<ul class="tsd-parameters">
-														<li>
-															<h5>entry: <a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span></h5>
-														</li>
-													</ul>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol">&gt;</span></h4>
-												</li>
-											</ul>
-										</li>
-									</ul>
-								</li>
-								<li>
-									<h5>thisArg: <span class="tsd-signature-type">any</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ComparableType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 					<a name="maxofwith" class="tsd-anchor"></a>
 					<h3>max<wbr>OfWith</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
@@ -2501,7 +2675,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L723">lib/src/container/map/KoconutMap.ts:723</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L675">lib/src/container/map/KoconutMap.ts:675</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -2578,7 +2752,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L750">lib/src/container/map/KoconutMap.ts:750</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L702">lib/src/container/map/KoconutMap.ts:702</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -2655,7 +2829,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L778">lib/src/container/map/KoconutMap.ts:778</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L730">lib/src/container/map/KoconutMap.ts:730</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2702,7 +2876,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L801">lib/src/container/map/KoconutMap.ts:801</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L753">lib/src/container/map/KoconutMap.ts:753</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2751,7 +2925,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L830">lib/src/container/map/KoconutMap.ts:830</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L782">lib/src/container/map/KoconutMap.ts:782</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2783,7 +2957,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L833">lib/src/container/map/KoconutMap.ts:833</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L785">lib/src/container/map/KoconutMap.ts:785</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2818,7 +2992,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L837">lib/src/container/map/KoconutMap.ts:837</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L789">lib/src/container/map/KoconutMap.ts:789</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2850,7 +3024,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L840">lib/src/container/map/KoconutMap.ts:840</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L792">lib/src/container/map/KoconutMap.ts:792</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2885,7 +3059,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L844">lib/src/container/map/KoconutMap.ts:844</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L796">lib/src/container/map/KoconutMap.ts:796</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -2923,7 +3097,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L847">lib/src/container/map/KoconutMap.ts:847</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L799">lib/src/container/map/KoconutMap.ts:799</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -2978,7 +3152,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L878">lib/src/container/map/KoconutMap.ts:878</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L830">lib/src/container/map/KoconutMap.ts:830</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3010,7 +3184,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L881">lib/src/container/map/KoconutMap.ts:881</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L833">lib/src/container/map/KoconutMap.ts:833</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3045,7 +3219,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L885">lib/src/container/map/KoconutMap.ts:885</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L837">lib/src/container/map/KoconutMap.ts:837</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3077,7 +3251,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L888">lib/src/container/map/KoconutMap.ts:888</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L840">lib/src/container/map/KoconutMap.ts:840</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3112,7 +3286,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L892">lib/src/container/map/KoconutMap.ts:892</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L844">lib/src/container/map/KoconutMap.ts:844</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -3150,7 +3324,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L895">lib/src/container/map/KoconutMap.ts:895</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L847">lib/src/container/map/KoconutMap.ts:847</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -3200,7 +3374,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L926">lib/src/container/map/KoconutMap.ts:926</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L878">lib/src/container/map/KoconutMap.ts:878</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -3277,7 +3451,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L953">lib/src/container/map/KoconutMap.ts:953</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L905">lib/src/container/map/KoconutMap.ts:905</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -3354,7 +3528,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L1004">lib/src/container/map/KoconutMap.ts:1004</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L956">lib/src/container/map/KoconutMap.ts:956</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3401,7 +3575,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L980">lib/src/container/map/KoconutMap.ts:980</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L932">lib/src/container/map/KoconutMap.ts:932</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3424,7 +3598,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L1027">lib/src/container/map/KoconutMap.ts:1027</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L979">lib/src/container/map/KoconutMap.ts:979</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3450,7 +3624,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L1050">lib/src/container/map/KoconutMap.ts:1050</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L1002">lib/src/container/map/KoconutMap.ts:1002</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3494,7 +3668,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L1073">lib/src/container/map/KoconutMap.ts:1073</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L1025">lib/src/container/map/KoconutMap.ts:1025</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3541,7 +3715,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L1100">lib/src/container/map/KoconutMap.ts:1100</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L1052">lib/src/container/map/KoconutMap.ts:1052</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3565,7 +3739,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_base_koconutpair_.koconutpair.html">KoconutPair</a>.<a href="_container_base_koconutpair_.koconutpair.html#process">process</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/tool/KoconutPrimitive.internal.ts#L26">lib/src/tool/KoconutPrimitive.internal.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/tool/KoconutPrimitive.internal.ts#L26">lib/src/tool/KoconutPrimitive.internal.ts:26</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -3582,7 +3756,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L120">lib/src/container/map/KoconutMap.ts:120</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L120">lib/src/container/map/KoconutMap.ts:120</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -3599,7 +3773,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L1138">lib/src/container/map/KoconutMap.ts:1138</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L1090">lib/src/container/map/KoconutMap.ts:1090</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_container_collection_array_koconutarray_.koconutarray.html" class="tsd-signature-type">KoconutArray</a><span class="tsd-signature-symbol">&lt;</span><a href="_container_base_koconutentry_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -3617,7 +3791,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutPrimitive.validate</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L47">lib/src/container/map/KoconutMap.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L47">lib/src/container/map/KoconutMap.ts:47</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3640,7 +3814,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L109">lib/src/container/map/KoconutMap.ts:109</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L109">lib/src/container/map/KoconutMap.ts:109</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_container_collection_array_koconutarray_.koconutarray.html" class="tsd-signature-type">KoconutArray</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -3658,7 +3832,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_base_koconutpair_.koconutpair.html">KoconutPair</a>.<a href="_container_base_koconutpair_.koconutpair.html#yield">yield</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/tool/KoconutPrimitive.internal.ts#L37">lib/src/tool/KoconutPrimitive.internal.ts:37</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/tool/KoconutPrimitive.internal.ts#L37">lib/src/tool/KoconutPrimitive.internal.ts:37</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -3675,7 +3849,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L23">lib/src/container/map/KoconutMap.ts:23</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L23">lib/src/container/map/KoconutMap.ts:23</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -3707,7 +3881,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/map/KoconutMap.ts#L31">lib/src/container/map/KoconutMap.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/map/KoconutMap.ts#L31">lib/src/container/map/KoconutMap.ts:31</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -3743,7 +3917,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_collection_array_koconutarray_.koconutarray.html">KoconutArray</a>.<a href="_container_collection_array_koconutarray_.koconutarray.html#flatmap">flatMap</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/5c08167/lib/src/container/KoconutIterable.internal.ts#L297">lib/src/container/KoconutIterable.internal.ts:297</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/c492a9d/lib/src/container/KoconutIterable.internal.ts#L297">lib/src/container/KoconutIterable.internal.ts:297</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4027,7 +4201,7 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 								<a href="_container_map_koconutmap_.koconutmap.html#maxof" class="tsd-kind-icon">max<wbr>Of</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 								<a href="_container_map_koconutmap_.koconutmap.html#maxofornull" class="tsd-kind-icon">max<wbr>OfOr<wbr>Null</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
