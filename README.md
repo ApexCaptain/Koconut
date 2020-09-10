@@ -512,7 +512,7 @@ The problem is that you might not have known about it. This is the time the `Dep
 
 ## Language Support
 Currently, `Deprecation Warning` of [Koconut] supports three languages. 
-![languageSupportExample](/ReadMeRes/deprecationWarning/languageSupportExample.JPG)
+![languageSupportExample](ReadMeRes/deprecationWarning/languageSupportExample.JPG)
 
 Locale setting is done automatically. If you are in Japan, message will be printed in Japanese. If you are in Korea it'll be Korean or if you're in States, English will be your default locale.
 
