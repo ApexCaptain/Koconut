@@ -5,6 +5,7 @@
 [![Travis][travis-image]][travis-url]
 [![License][license-image]][license-url]
 [![Bundle Size][bundle-size-image]][bundle-size-url]
+[![Dev Dependencies][dev-dependencies-image]][dev-dependencies-url]
 
 
 
@@ -592,6 +593,9 @@ There are three options you can change for `Depreation Warning`.
 
 [license-image]: https://img.shields.io/github/license/ApexCaptain/Koconut.svg?color=B82149&label=License&style=plastic&logo=Apache
 [license-url]: https://github.com/ApexCaptain/Koconut/blob/master/LICENSE
+
+[dev-dependencies-image]: https://img.shields.io/librariesio/release/npm/koconut?label=devDependencies&style=plastic&logo=Dependabot
+[dev-dependencies-url]: http://npm.broofa.com/?q=koconut
 
 <!-- Basic -->
 [Koconut]: https://github.com/ApexCaptain/Koconut
