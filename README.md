@@ -4,6 +4,8 @@
 [![npm version][npm-image]][npm-url]
 [![Travis][travis-image]][travis-url]
 [![License][license-image]][license-url]
+[![Bundle Size][bundle-size-image]][bundle-size-url]
+
 
 
 <!--
@@ -581,10 +583,15 @@ There are three options you can change for `Depreation Warning`.
 <!-- IO Shields -->
 [npm-image]: https://img.shields.io/npm/v/koconut.svg?color=RED&label=npm&style=plastic&logo=npm
 [npm-url]: https://www.npmjs.com/package/koconut
-[license-image]: https://img.shields.io/github/license/ApexCaptain/Koconut.svg?color=BLUE&label=License&style=plastic&logo=Apache
-[license-url]: https://github.com/ApexCaptain/Koconut/blob/master/LICENSE
+
 [travis-image]: https://img.shields.io/travis/ApexCaptain/Koconut?color=success&label=Travis%20CI&logo=travis-ci&style=plastic
 [travis-url]: https://travis-ci.org/github/ApexCaptain/Koconut
+
+[bundle-size-image]: https://img.shields.io/bundlephobia/min/koconut?label=Bundle&style=plastic&logo=node.js
+[bundle-size-url]: https://bundlephobia.com/result?p=koconut
+
+[license-image]: https://img.shields.io/github/license/ApexCaptain/Koconut.svg?color=B82149&label=License&style=plastic&logo=Apache
+[license-url]: https://github.com/ApexCaptain/Koconut/blob/master/LICENSE
 
 <!-- Basic -->
 [Koconut]: https://github.com/ApexCaptain/Koconut
