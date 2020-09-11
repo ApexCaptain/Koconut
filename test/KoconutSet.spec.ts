@@ -1511,6 +1511,39 @@ describe(`${KoconutSet.name} -- Function`, () => {
 
     })
 
+    it(KoconutSet.prototype.maxBy.name, async () => {
+
+        const koconut = KoconutSet.from([
+                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
+                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
+                        new ProductInfo("A-3", "iPhone -- June", 1500)])
+
+        /* Case 1 */
+        const yieldableCase1 =
+                        koconut
+                        .maxBy(eachElement => eachElement.name)
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).eqls(new ProductInfo("A-3", "iPhone -- June", 1500))
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .maxBy(eachElement => eachElement)
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).eqls(new ProductInfo("A-1", "Mac Book Pro -- May", 2000))
+
+        /* Case 3 */
+        const yieldableCase3 =
+                        koconut
+                        .filter(eachElement => eachElement.price > 3000)
+                        .maxBy(eachElement => eachElement)
+        try { await yieldableCase3.process() }
+        catch(error) { expect(error).to.be.instanceOf(KoconutNoSuchElementException) }
+
+    })
+
     it(KoconutSet.prototype.maxByOrNull.name, async () => {
 
         const koconut = KoconutSet.from([
@@ -1533,6 +1566,15 @@ describe(`${KoconutSet.name} -- Function`, () => {
         expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
         const resultCase2 = await yieldableCase2.yield()
         expect(resultCase2).eqls(new ProductInfo("A-1", "Mac Book Pro -- May", 2000))
+
+        /* Case 3 */
+        const yieldableCase3 =
+                        koconut
+                        .filter(eachElement => eachElement.price > 3000)
+                        .maxByOrNull(eachElement => eachElement)
+        expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive)
+        const resultCase3 = await yieldableCase3.yield()
+        expect(resultCase3).equals(null)
 
     })
 

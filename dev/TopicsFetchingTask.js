@@ -2,6 +2,9 @@
 const { Octokit } = require('@octokit/rest')
 const fs = require('fs')
 const octokit = new Octokit()
+const path = require('path')
+const rootPath = path.normalize(`${__dirname}/../`)
+const packageJsonPath = path.join(rootPath, 'package.json')
 const fetchTopics = async () => {
     try {
         const topics = (await octokit.repos.getAllTopics({
@@ -10,7 +13,7 @@ const fetchTopics = async () => {
         })).data.names
         const packageToBeChanged = require('../package.json')
         packageToBeChanged.keywords = topics
-        fs.writeFileSync(`${__dirname}/../package.json`, JSON.stringify(packageToBeChanged, null, 2))
+        fs.writeFileSync(packageJsonPath, JSON.stringify(packageToBeChanged, null, 2))
 
         process.exit(0)
     } catch(error) {

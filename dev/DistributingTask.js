@@ -9,6 +9,13 @@ const versionStringReg = /\d+.\d+.\d+/
 const fs = require('fs')
 const { validateDeprecatedMethod } = require("./DepreactedMethodValidatingTask.js")
 
+const path = require('path')
+const rootPath = path.normalize(`${__dirname}/../`)
+const packageJsonPath = path.join(rootPath, 'package.json')
+const readmePath = path.join(rootPath, "README.md")
+const npmReadmePath = path.join(rootPath, "README.npm.md")
+const gitReadmePath = path.join(rootPath, "README.git.md")
+
 const runPromisifiedCommand = async (cmd, showLog = true) => {
     return new Promise((resolve, reject) => {
         exec(cmd, (err, stdout, stderr) => {
@@ -85,12 +92,10 @@ const distibute = async () => {
             else if(answer == 'N' || answer == 'NO') process.exit()
         }
         
-        console.log(`\nOverriding package json file...`)
-        fs.writeFileSync(`${__dirname}/../package.json`, JSON.stringify(packageToBeChanged, null, 2))
-        console.log("Package json overriden")
-
-        await runPromisifiedCommand(`npm run update`)
-
+        console.log(`\nUpdating version...`)
+        fs.writeFileSync(packageJsonPath, JSON.stringify(packageToBeChanged, null, 2))
+        console.log("Package version overriden")
+        
         const defualtMessage = `New version released : ${newVersionCode}`
         var commitMessage = await readPromisifiedText(`\nGit Commit Message (Default : ${defualtMessage}) : `)
         if(!commitMessage) commitMessage = defualtMessage
@@ -102,9 +107,13 @@ const distibute = async () => {
         const copiedPackageInfo = JSON.parse(JSON.stringify(packageToBeChanged))
         delete packageToBeChanged.scripts
         delete packageToBeChanged.devDependencies
-        fs.writeFileSync(`${__dirname}/../package.json`, JSON.stringify(packageToBeChanged, null, 2))
+        fs.writeFileSync(packageJsonPath, JSON.stringify(packageToBeChanged, null, 2))
+        fs.renameSync(readmePath, gitReadmePath)
+        fs.renameSync(npmReadmePath, readmePath)
         await runPromisifiedCommand(`npm publish`)
-        fs.writeFileSync(`${__dirname}/../package.json`, JSON.stringify(copiedPackageInfo, null, 2))
+        fs.writeFileSync(packageJsonPath, JSON.stringify(copiedPackageInfo, null, 2))
+        fs.renameSync(readmePath, npmReadmePath)
+        fs.renameSync(gitReadmePath, readmePath)
         
         console.log("Deploying package is successfully completed!")
         process.exit(0)
@@ -115,4 +124,6 @@ const distibute = async () => {
     }
 }
 
-distibute()
+// distibute()
+
+console.log(path.join(rootPath, 'package.json'))

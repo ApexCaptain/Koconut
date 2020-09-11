@@ -656,6 +656,21 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
 
     }
 
+
+    maxBy(
+        selector : (entry : Entry<KeyType, ValueType>) => number | string | KoconutComparable | Promise<number | string | KoconutComparable>,
+        thisArg : any = null
+    ) : KoconutEntry<KeyType, ValueType> {
+        
+        const fromSuper = super.maxBy(selector, this)
+        const koconutToReturn = new KoconutEntry<KeyType, ValueType>();
+        (koconutToReturn as any as KoconutOpener<Entry<KeyType, ValueType> | null>)
+            .setPrevYieldable(fromSuper['prevYieldable']!)
+            .setProcessor(fromSuper['processor']!)
+        return koconutToReturn
+
+    }
+
     
     maxByOrNull(
         selector : (entry : Entry<KeyType, ValueType>) => number | string | KoconutComparable | Promise<number | string | KoconutComparable>,
