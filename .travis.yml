@@ -6,14 +6,8 @@ arch:
 node_js:
   - 11
   - 9
-
-before_script:
-  - npm install mocha -g
-
 script:
   - npm run travis
-  - mocha -r @babel/register ./test/compatibilityTest/*.spec.js
-
 
 branches:
   only:
