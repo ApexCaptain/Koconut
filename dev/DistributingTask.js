@@ -14,7 +14,7 @@ const rootPath = path.normalize(`${__dirname}/../`)
 const packageJsonPath = path.join(rootPath, 'package.json')
 const readmePath = path.join(rootPath, "README.md")
 const npmReadmePath = path.join(rootPath, "README.npm.md")
-const gitReadmePath = path.join(rootPath, "README.git.md")
+const gitReadmeTmp = path.join(rootPath, "README.git.tmp")
 
 const runPromisifiedCommand = async (cmd, showLog = true) => {
     return new Promise((resolve, reject) => {
@@ -108,12 +108,12 @@ const distibute = async () => {
         // delete packageToBeChanged.scripts
         // delete packageToBeChanged.devDependencies
         //fs.writeFileSync(packageJsonPath, JSON.stringify(packageToBeChanged, null, 2))
-        fs.renameSync(readmePath, gitReadmePath)
+        fs.renameSync(readmePath, gitReadmeTmp)
         fs.renameSync(npmReadmePath, readmePath)
         await runPromisifiedCommand(`npm publish`)
         //fs.writeFileSync(packageJsonPath, JSON.stringify(copiedPackageInfo, null, 2))
         fs.renameSync(readmePath, npmReadmePath)
-        fs.renameSync(gitReadmePath, readmePath)
+        fs.renameSync(gitReadmeTmp, readmePath)
         
         console.log("Deploying package is successfully completed!")
         process.exit(0)
