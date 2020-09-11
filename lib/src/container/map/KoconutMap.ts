@@ -10,13 +10,15 @@ import {
     /* Container */
     KoconutIterable, KoconutArray, KoconutSet,
 
+    /* Enum */
+    KoconutLoopSignal,
+
     /* Exception */
     KoconutNoSuchElementException,
 
     /* Protocol */
     KoconutEquatable, KoconutComparable
 } from "../../../module.internal"
-import { KoconutLoopSignal } from "../../enum/KoconutLoopSignal"
 
 export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, ValueType], Entry<KeyType, ValueType>, Map<KeyType, ValueType>, Set<Entry<KeyType, ValueType>>> {
 

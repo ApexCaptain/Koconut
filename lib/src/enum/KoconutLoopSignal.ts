@@ -1,5 +1,5 @@
 `use strict`
 
-export const enum KoconutLoopSignal {
+export enum KoconutLoopSignal {
     CONTINUE, BREAK
 }

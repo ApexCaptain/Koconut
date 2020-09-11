@@ -13,9 +13,11 @@ export {
     /* Enum */
     KoconutLocale, KoconutLoopSignal,
 
-    /* Protocol */
-    KoconutComparable, KoconutEquatable,
-
     /* Tool */
     KoconutOption
+} from "./module.internal"
+
+export type {
+    /* Protocol */
+    KoconutComparable, KoconutEquatable,
 } from "./module.internal"
