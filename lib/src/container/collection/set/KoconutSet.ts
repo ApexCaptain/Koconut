@@ -17,7 +17,7 @@ import {
 export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataType>> {
  
     static from<DataType>(
-        source : Iterable<DataType>
+        source : Iterable<DataType> | null = null
     ) : KoconutSet<DataType> {
 
         return new KoconutSet(new Set(source))

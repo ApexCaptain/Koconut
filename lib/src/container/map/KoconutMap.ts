@@ -23,7 +23,7 @@ import {
 export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, ValueType], Entry<KeyType, ValueType>, Map<KeyType, ValueType>, Set<Entry<KeyType, ValueType>>> {
 
     static from<KeyType, ValueType>(
-        source : Map<KeyType, ValueType>
+        source : Iterable<[KeyType, ValueType] | Entry<KeyType, ValueType> | Pair<KeyType, ValueType>> | null = null
     ) : KoconutMap<KeyType, ValueType> {
 
         return new KoconutMap(source)
@@ -31,16 +31,10 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
     }
 
     static of<KeyType, ValueType>(
-        ...data : [KeyType, ValueType][] | Pair<KeyType, ValueType>[] | Entry<KeyType, ValueType>[]
+        ...data : ([KeyType, ValueType] | Entry<KeyType, ValueType> | Pair<KeyType, ValueType>)[]
     ) : KoconutMap<KeyType, ValueType> {
 
-        const map = new Map<KeyType, ValueType>()
-        for(const eachDatum of data) {
-            if(eachDatum instanceof Entry) map.set(eachDatum.key, eachDatum.value)
-            else if(eachDatum instanceof Pair) map.set(eachDatum.first, eachDatum.second)
-            else map.set(eachDatum[0], eachDatum[1])
-        }
-        return new KoconutMap(map)
+        return new KoconutMap(data)
 
     }
 
@@ -75,6 +69,22 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
             this.mSize = data.size
         }
 
+    }
+
+
+    constructor(map : Iterable<[KeyType, ValueType] | Entry<KeyType, ValueType> | Pair<KeyType, ValueType>> |  null = null) {
+        
+        super()
+        const mapObject = new Map<KeyType, ValueType>()
+        if(map != null) {
+            for(const eachEntry of map) {
+                if(eachEntry instanceof Entry) mapObject.set(eachEntry.key, eachEntry.value)
+                else if(eachEntry instanceof Pair) mapObject.set(eachEntry.first, eachEntry.second)
+                else mapObject.set(eachEntry[0], eachEntry[1])
+            }
+        }
+        this.data = mapObject
+        
     }
 
 

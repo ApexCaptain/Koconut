@@ -104,14 +104,14 @@ const distibute = async () => {
         await runPromisifiedCommand(`git tag "${newVersionCode}"`)
         await runPromisifiedCommand('git push origin master --tags')
 
-        const copiedPackageInfo = JSON.parse(JSON.stringify(packageToBeChanged))
-        delete packageToBeChanged.scripts
-        delete packageToBeChanged.devDependencies
-        fs.writeFileSync(packageJsonPath, JSON.stringify(packageToBeChanged, null, 2))
+        // const copiedPackageInfo = JSON.parse(JSON.stringify(packageToBeChanged))
+        // delete packageToBeChanged.scripts
+        // delete packageToBeChanged.devDependencies
+        //fs.writeFileSync(packageJsonPath, JSON.stringify(packageToBeChanged, null, 2))
         fs.renameSync(readmePath, gitReadmePath)
         fs.renameSync(npmReadmePath, readmePath)
         await runPromisifiedCommand(`npm publish`)
-        fs.writeFileSync(packageJsonPath, JSON.stringify(copiedPackageInfo, null, 2))
+        //fs.writeFileSync(packageJsonPath, JSON.stringify(copiedPackageInfo, null, 2))
         fs.renameSync(readmePath, npmReadmePath)
         fs.renameSync(gitReadmePath, readmePath)
         
@@ -124,6 +124,4 @@ const distibute = async () => {
     }
 }
 
-// distibute()
-
-console.log(path.join(rootPath, 'package.json'))
+distibute()
