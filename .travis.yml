@@ -9,17 +9,9 @@ arch:
   - s390x
   - arm64
 node_js:
-  - "node"
-  - "lts/*"
-  - 14
-  - 13
-  - 12
-  - 11
-  - 10
   - 9
-  - 8
 
-befir_script :
+before_script :
   - npm install
 script:
   - npm test
