@@ -17,7 +17,7 @@ node_js:
 before_script :
   - npm install
 script:
-  - npm test
+  - npm run travis
 
 
 branches:
