@@ -23,8 +23,6 @@ This is a [Node.js](https://nodejs.org/en/) library available through the [npm r
 
 Before you install it, please [download and install Node.js](https://nodejs.org/en/download/).
 
-Currently, [Koconut] does not require specific node version, however it is recommended to be 0.8.x or higher since this library depends on [Promise] a lot.
-
 Installation is done by using [`npm install` command](https://docs.npmjs.com/getting-started/installing-npm-packages-locally)
 
 ```sh
