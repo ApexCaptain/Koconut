@@ -1,6 +1,13 @@
 # <img src="ReadMeRes/logo.png" alt="Koconut Logo" width="70" height="70">Koconut : Kotlin Style Collection Lib For Node.Js 
 
-[![npm version](https://img.shields.io/npm/v/koconut.svg?color=RED&label=Koconut&style=plastic&logo=npm)](https://www.npmjs.com/settings/ayteneve93/packages)
+<!-- I.O Sheilds -->
+
+<!-- NPM -->
+[![npm version][npm-image]][npm-url]
+
+<!-- License -->
+[![License][license-image]][license-url]
+
 
 # Table of Contents
 - [Installation](#Installation)
@@ -567,11 +574,18 @@ There are three options you can change for `Depreation Warning`.
     See the License for the specific language governing permissions and
     limitations under the License.
 
+<!-- Links -->
+
+<!-- IO Shields -->
+[npm-image]: https://img.shields.io/npm/v/koconut.svg?color=RED&label=npm&style=plastic&logo=npm
+[npm-url]: https://www.npmjs.com/package/koconut
+[license-image]: https://img.shields.io/github/license/ApexCaptain/Koconut.svg?color=BLUE&label=License&style=plastic&logo=Apache
+[license-url]: https://github.com/ApexCaptain/Koconut/blob/master/LICENSE
+<!-- Basic -->
 [Koconut]: https://github.com/ApexCaptain/Koconut
 [git-hub page]: https://apexcaptain.github.io/Koconut/
 
-
-
+<!-- Documents -->
 [KoconutEntry]: https://apexcaptain.github.io/Koconut/classes/_container_base_koconutentry_.koconutentry.html
 [Entry]: https://apexcaptain.github.io/Koconut/classes/_container_base_koconutentry_.entry.html
 [KoconutPair]: https://apexcaptain.github.io/Koconut/classes/_container_base_koconutpair_.koconutpair.html
@@ -593,8 +607,8 @@ There are three options you can change for `Depreation Warning`.
 
 [KoconutOption]: https://apexcaptain.github.io/Koconut/classes/_tool_koconutoption_.koconutoption.html
 
+<!-- Outer or example -->
 [Promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
-
 [maxBy]: https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#maxby
 [maxByOrNull]: https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#maxbyornull
 
