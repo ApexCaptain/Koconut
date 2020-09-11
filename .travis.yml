@@ -16,6 +16,7 @@ node_js:
 
 before_script :
   - npm install
+  - npm install mocha -g
 script:
   - npm run travis
 
