@@ -1,6 +1,16 @@
 language: node_js
 node_js:
-  - 0.12
+  - "node"
+
+before_script:
+  - cd ./nodejs
+
+script:
+  - npm install
+
+after_script:
+  - npm test
+
 bracnches:
   only:
     - master
