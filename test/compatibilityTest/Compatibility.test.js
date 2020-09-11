@@ -17,3 +17,8 @@ const {
     /* Protocol */
     KoconutComparable, KoconutEquatable,
 } = require("../../dist/index.internal")
+
+const runCompatibilityTest = async () => {
+
+}
+runCompatibilityTest()

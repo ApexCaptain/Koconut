@@ -1,11 +1,7 @@
 # <img src="ReadMeRes/logo.png" alt="Koconut Logo" width="70" height="70">Koconut : Kotlin Style Collection Lib For Node.Js 
 
 <!-- I.O Sheilds -->
-
-<!-- NPM -->
 [![npm version][npm-image]][npm-url]
-
-<!-- License -->
 [![License][license-image]][license-url]
 
 
