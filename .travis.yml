@@ -12,6 +12,10 @@ script:
 matrix :
   include :
     - dist: focal
+      node_js :
+        - "node"
+        - "lts/*"
+        - 14
     - dist: bionic
     - dist: xenial
     - dist: trusty
