@@ -2,8 +2,14 @@
 
 <!-- I.O Sheilds -->
 [![npm version][npm-image]][npm-url]
+[![Travis][travis-image]][travis-url]
 [![License][license-image]][license-url]
 
+
+<!--
+[![Node.js Version][node-version-image]][node-version-url]
+http://img.shields.io/node/v/koconut.svg
+-->
 
 # Table of Contents
 - [Installation](#Installation)
@@ -577,6 +583,9 @@ There are three options you can change for `Depreation Warning`.
 [npm-url]: https://www.npmjs.com/package/koconut
 [license-image]: https://img.shields.io/github/license/ApexCaptain/Koconut.svg?color=BLUE&label=License&style=plastic&logo=Apache
 [license-url]: https://github.com/ApexCaptain/Koconut/blob/master/LICENSE
+[travis-image]: https://img.shields.io/travis/ApexCaptain/Koconut?color=success&label=Travis%20CI&logo=travis-ci&style=plastic
+[travis-url]: https://travis-ci.org/github/ApexCaptain/Koconut
+
 <!-- Basic -->
 [Koconut]: https://github.com/ApexCaptain/Koconut
 [git-hub page]: https://apexcaptain.github.io/Koconut/

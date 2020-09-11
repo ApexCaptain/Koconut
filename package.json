@@ -11,6 +11,9 @@
     "collection",
     "promise"
   ],
+  "engines": {
+    "node": ">= 7.0"
+  },
   "scripts": {
     "update": "ncu -u && npm install && echo Update Completed",
     "build": "node ./dev/ClearTask.js && babel ./lib --out-dir dist --extensions .ts,.tsx && tsc && echo Build Completed",
@@ -18,7 +21,6 @@
     "topic": "node ./dev/TopicsFetchingTask.js && echo Topics Fethcing Completed",
     "test": "echo Preparing Unit Test... && mocha -r ts-node/register ./test/unitTest/*.spec.ts && echo Unit Test Completed",
     "validate": "npm run test && node ./dev/DepreactedMethodValidatingTask.js -f && echo Validating deprecation method completed.",
-    "travis" : "node ./test/compatibilityTest/Compatibility.test.js",
 
     "distribute": "npm run update && npm run build && npm run doc && npm run topic && npm test && node ./dev/DistributingTask",
 

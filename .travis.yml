@@ -1,8 +1,13 @@
 language: node_js
 os :
   - linux
+  - osx
+  - windows
 arch:
   - amd64
+  - ppc64le
+  - s390x
+  - arm64
 node_js:
   - "node"
   - "lts/*"
@@ -11,11 +16,8 @@ node_js:
   - 12
   - 11
   - 10
-  - 9
-  - 8
-  - 7
 script:
-  - npm run travis
+  - npm test
 
 branches:
   only:

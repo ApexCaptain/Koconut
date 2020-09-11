@@ -2,7 +2,7 @@
 
 import {
     KoconutEquatable, KoconutComparable
-} from "../../dist/module.internal"
+} from "../../lib/module.internal"
 
 export class Person implements KoconutEquatable {
     firstName : string
