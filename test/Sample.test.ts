@@ -6,15 +6,12 @@ import {
 const sampleProcess = async () => {
     const koconutArray = KoconutArray.of(1,2,3,4,5)
 
-    const dobuledNumbers = await koconutArray
-                                .map(eachNumber => eachNumber * 2)
-                                .yield()
-    console.log(dobuledNumbers)
-
-    const numberStrings = await koconutArray
-                                .map(eachNumber => eachNumber.toString())
-                                .yield()
-    console.log(numberStrings)
+    KoconutOption.locale = KoconutLocale.en
+    await koconutArray.maxBy(e => e).yield()
+    KoconutOption.locale = KoconutLocale.ja
+    await koconutArray.maxBy(e => e).yield()
+    KoconutOption.locale = KoconutLocale.ko
+    await koconutArray.maxBy(e => e).yield()
 
 }
 sampleProcess()

@@ -119,7 +119,7 @@ This is the [Koconut] class hierarchy in current version.
 
 [Koconut] is promise-friendly. The basic design philsophy of this library is to use `async/await` functionality without any interruption even if whlie using iterative process. Let me give you an example.
 
-Imagine if there are 3 different http requests info. Each and every one of them has a very different purpose and cannot be merged into a single requset. You may want to handle one by one sequentially.
+Imagine if there are 3 different http requests info. Each and every one of them has a very different purpose and cannot be merged into a single requset. You may want to handle them one by one sequentially.
 ```ts
 const requestInfoList = [
     {
@@ -190,7 +190,7 @@ Or... is it?
 
 The next day, your boss told you that each request result should be checked whether it's valid or not.
 
-The information you need is all in some other database. So, you made another async function called `checkIsValid`.
+The information you need is all in some other database. So, you made another `async` function called `checkIsValid`.
 
 Easy! It can be done like this.
 ```ts
@@ -214,7 +214,7 @@ const mainProcess = async () => {
 }
 mainProcess()
 ```
-Now you have two different arrays. This is the problem. Since previous iterable classes don't support [Promise], you have to keep adding `for...of` or `for...in` statement over and over again into your source code. As time goes by and your software becomes more and more complicated, your data processing would be unrecognizable and messy.
+Now you have two different arrays. This is the problem. Since previous iterable classes don't support [Promise], you have to keep adding `for...of` or `for...in` statement over and over again into your source code. As time goes by and your software becomes more and more complicated, your data processing would be messy and unrecognizable.
 
 It would be great just if you can use `filter` function instead, right?
 
@@ -384,6 +384,8 @@ Methods start with `on` return the original collection itself.
 And of course, methods of which name end with `indexed` have action block given with two arguments.
 
  One is index, and the other is element.
+
+ If you want to interrupt, in other word `stop` the iteration process in the meantime, you may return `false` or [KoconutLoopSignal.BREAK](https://apexcaptain.github.io/Koconut/enums/_enum_koconutloopsignal_.koconutloopsignal.html#break).
 ## Calculation
 Each calculator method has its own purpose, performing calculation according to the established rules. For instance, [maxBy] method returns the first element yielding the largest value of the given function block.
 ```typescript
@@ -451,7 +453,7 @@ Inspector methods check the elements at given condtion. For instance, [all](http
     mainProcess()
 ``` 
 ## Transformation
-Transformer methods convert the collection into other format. The [map](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#map) method is representative. It returns a list containing the results of applying the given `transform` function block to each element in this original collection.
+Transformer methods convert the collection into other format. The [map](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#map) method is representative. It returns a list containing the results of applying the given `transform` function block to each element in the original collection.
 ```typescript
     import { KoconutArray } from 'koconut'
 
@@ -518,13 +520,13 @@ The first example returns `5`, which is of course, the largest value of the arra
 
 However in the second one, [maxBy] method throws an error because you've just tried to get an `element` in an `empty array`. If this error had not been caught, the whole application would be termintaed.
 
-This is why [maxBy] method is depreacted, and also why usage of [maxByOrNull] method is recommended. This method will just return `null` if the array is empty.
+This is why [maxBy] method is depreacted, and also why usage of [maxByOrNull] method is recommended. It'll just return `null` if the array is empty.
 
-The problem is that you might not have known about it. This is the time the `Deprecation Warning` comes up. When you use a method that is gonna be depreacted someday, [Koconut] will notice you that `"Oh, this method is not supported any more. You'd better use this one instead."`.
+The problem is that you might not have known about it. You must be warned before that happens and that's where the `Deprecation Warning` comes in. When you use a method that is gonna be depreacted someday, [Koconut] will notice you that `"Oh, this method is not supported any more. You'd better use this one instead."`.
 
 ## Language Support
 Currently, `Deprecation Warning` of [Koconut] supports three languages. 
-![languageSupportExample](ReadMeRes/deprecationWarning/languageSupportExample.JPG)
+![languageSupportExample](ReadMeRes/deprecationWarning/languageSupportExample.png)
 
 Locale setting is done automatically. If you are in Japan, message will be printed in Japanese. If you are in Korea it'll be Korean or if you're in States, English will be your default locale.
 
