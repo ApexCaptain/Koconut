@@ -4,17 +4,18 @@ node_js:
   - "lts/*"
   - 14
 
-dist:
-  - focal
-  - bionic
-  - xenial
-  - trusty
-  - precise
-
 befir_script :
   - npm install
 script:
   - npm test
+
+matrix :
+  include :
+    - dist: focal
+    - dist: bionic
+    - dist: xenial
+    - dist: trusty
+    - dist: precise
 
 branches:
   only:
