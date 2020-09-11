@@ -18,7 +18,14 @@ const {
     KoconutComparable, KoconutEquatable,
 } = require("../../dist/index.internal")
 
-const runCompatibilityTest = async () => {
-
+function runCompatibilityTest() {
+    KoconutArray.of(1,2,3,4,5)
+                .filter(function(element) {
+                    return element % 2 == 0
+                })
+                .yield()
+                .then(function(result){
+                    console.log(result)
+                })
 }
 runCompatibilityTest()
