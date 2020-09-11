@@ -16,7 +16,7 @@
     "build": "node ./dev/ClearTask.js && tsc && echo Build Completed",
     "doc": "typedoc --options ./typedoc.json ./lib && node ./dev/TypeDocNoJekyllCreatingTask.js && echo Documentization Completed",
     "topic": "node ./dev/TopicsFetchingTask.js && echo Topics Fethcing Completed",
-    "test": "echo Preparing Unit Test... && mocha -r ts-node/register ./test/*.spec.ts && echo Unit Test Completed",
+    "test": "echo Testing...",
     "validate": "npm run test && node ./dev/DepreactedMethodValidatingTask.js -f && echo Validating deprecation method completed.",
     "distribute": "npm run update && npm run build && npm run doc && npm run topic && npm test && node ./dev/DistributingTask",
     "sample": "ts-node ./test/Sample.test.ts && echo Sample Test Completed"
