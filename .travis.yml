@@ -4,12 +4,18 @@ node_js:
   - "lts/*"
   - 14
 
-script:
-  - npm install
+dist:
+  - focal
+  - bionic
+  - xenial
+  - trusty
+  - precise
 
-after_script:
+befir_script :
+  - npm install
+script:
   - npm test
 
-bracnches:
+branches:
   only:
     - master
