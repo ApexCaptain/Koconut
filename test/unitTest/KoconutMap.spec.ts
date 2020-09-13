@@ -1102,6 +1102,37 @@ describe(`${KoconutMap.name} -- Function`, () => {
 
     })
 
+    it(KoconutMap.prototype.maxWith.name, async () => {
+
+        const koconut = KoconutMap.of(
+                                        ["Alice", 42],
+                                        ["Bob", 28],
+                                        ["Carol", 51]
+                                    )
+
+        /* Case 1 */
+        const yieldableCase1 =
+                        koconut
+                        .maxWith(
+                            (front, rear) => front.value - rear.value
+                        )
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).eqls(new Entry("Carol", 51))
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .filter(eachEntry => eachEntry.value > 100)
+                        .maxWith(
+                            (front, rear) => front.value - rear.value
+                        )
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        try { await yieldableCase2.yield() }
+        catch(error) { expect(error).to.be.instanceOf(KoconutNoSuchElementException) }
+        
+    })
+
     it(KoconutMap.prototype.maxWithOrNull.name, async () => {
 
         const koconut = KoconutMap.of(

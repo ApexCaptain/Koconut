@@ -674,9 +674,9 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
         thisArg : any = null
     ) : KoconutEntry<KeyType, ValueType> {
         
-        const fromSuper = super.maxBy(selector, this)
+        const fromSuper = super.maxBy(selector, thisArg)
         const koconutToReturn = new KoconutEntry<KeyType, ValueType>();
-        (koconutToReturn as any as KoconutOpener<Entry<KeyType, ValueType> | null>)
+        (koconutToReturn as any as KoconutOpener<Entry<KeyType, ValueType>>)
             .setPrevYieldable(fromSuper['prevYieldable']!)
             .setProcessor(fromSuper['processor']!)
         return koconutToReturn
@@ -689,7 +689,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
         thisArg : any = null
     ) : KoconutEntry<KeyType, ValueType> {
 
-        const fromSuper = super.maxByOrNull(selector, this)
+        const fromSuper = super.maxByOrNull(selector, thisArg)
         const koconutToReturn = new KoconutEntry<KeyType, ValueType>();
         (koconutToReturn as any as KoconutOpener<Entry<KeyType, ValueType> | null>)
             .setPrevYieldable(fromSuper['prevYieldable']!)
@@ -699,79 +699,30 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
     }
 
 
-    maxOfWith<ResultDataType>(
-        selector : (element : Entry<KeyType, ValueType>) => ResultDataType | Promise<ResultDataType>,
-        comparator : (front : ResultDataType, rear : ResultDataType) => number | Promise<number>,
-        selectorThisArg : any = null,
-        comparatorThisArg : any = null
-    ) : KoconutPrimitive<ResultDataType> {
+    maxWith(
+        selector : (front : Entry<KeyType, ValueType>, rear : Entry<KeyType, ValueType>) => number | Promise<number>,
+        thisArg : any = null
+    ) : KoconutEntry<KeyType, ValueType> {
 
-        selector = selector.bind(selectorThisArg)
-        comparator = comparator.bind(comparatorThisArg)
-        const koconutToReturn = new KoconutPrimitive<ResultDataType>();
-        (koconutToReturn as any as KoconutOpener<ResultDataType>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data == null || this.mSize == 0) throw new KoconutNoSuchElementException(`Source data is null or empty`)
-                let lastComparableDatumToReturn : ResultDataType | null = null
-                for(const eachEntry of this.mEntries) {
-                    const eachComparableDatum = await selector(eachEntry)
-                    if(lastComparableDatumToReturn == null || await comparator(lastComparableDatumToReturn, eachComparableDatum) < 0)
-                        lastComparableDatumToReturn = eachComparableDatum
-                }
-                return lastComparableDatumToReturn!
-            })
+        const fromSuper = super.maxWith(selector, thisArg)
+        const koconutToReturn = new KoconutEntry<KeyType, ValueType>();
+        (koconutToReturn as any as KoconutOpener<Entry<KeyType, ValueType>>)
+            .setPrevYieldable(fromSuper['prevYieldable']!)
+            .setProcessor(fromSuper['processor']!)
         return koconutToReturn
 
     }
-
-
-    maxOfWithOrNull<ResultDataType>(
-        selector : (element : Entry<KeyType, ValueType>) => ResultDataType | Promise<ResultDataType>,
-        comparator : (front : ResultDataType, rear : ResultDataType) => number | Promise<number>,
-        selectorThisArg : any = null,
-        comparatorThisArg : any = null
-    ) : KoconutPrimitive<ResultDataType | null> {
-
-        selector = selector.bind(selectorThisArg)
-        comparator = comparator.bind(comparatorThisArg)
-        const koconutToReturn = new KoconutPrimitive<ResultDataType | null>();
-        (koconutToReturn as any as KoconutOpener<ResultDataType | null>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data == null || this.mSize == 0) return null
-                let lastComparableDatumToReturn : ResultDataType | null = null
-                for(const eachEntry of this.mEntries) {
-                    const eachComparableDatum = await selector(eachEntry)
-                    if(lastComparableDatumToReturn == null || await comparator(lastComparableDatumToReturn, eachComparableDatum) < 0)
-                        lastComparableDatumToReturn = eachComparableDatum
-                }
-                return lastComparableDatumToReturn
-            })
-        return koconutToReturn
-
-    }
-
-
 
     maxWithOrNull(
-        comparator : (front : Entry<KeyType, ValueType>, rear : Entry<KeyType, ValueType>) => number | Promise<number>,
+        selector : (front : Entry<KeyType, ValueType>, rear : Entry<KeyType, ValueType>) => number | Promise<number>,
         thisArg : any = null
-    ) : KoconutPrimitive<Entry<KeyType, ValueType> | null> {
+    ) : KoconutEntry<KeyType, ValueType> {
 
-        comparator = comparator.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<Entry<KeyType, ValueType> | null>();
+        const fromSuper = super.maxWithOrNull(selector, thisArg)
+        const koconutToReturn = new KoconutEntry<KeyType, ValueType>();
         (koconutToReturn as any as KoconutOpener<Entry<KeyType, ValueType> | null>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data == null || this.mSize == 0) return null
-                let dataToReturn : Entry<KeyType, ValueType> | null = null
-                for(const eachEntry of this.mEntries) {
-                    if(dataToReturn == null || await comparator(dataToReturn, eachEntry) < 0)
-                        dataToReturn = eachEntry
-                }
-                return dataToReturn
-            })
+            .setPrevYieldable(fromSuper['prevYieldable']!)
+            .setProcessor(fromSuper['processor']!)
         return koconutToReturn
 
     }

@@ -884,6 +884,126 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
             })
         return koconutToReturn
     }
+
+
+    /**
+     * Returns the largest value according to the provided ```comparator``` among all values
+     * producedby ```selector``` function applied to each element in the collection.
+     * 
+     * @param selector A callback function that accepts an argument. The method calls the ```selector``` one time for each element in object.
+     * @param comparator A callback function that accepts two arguements. The method calls the ```comparator``` to compare two selected values.
+     * In case the result is larger than 0, front is bigger than rear, and if it's less than 0 judge vice versa.
+     * @param selectorThisArg An object to which the ```this``` keyword can refer in the ```selector```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * @param comparatorThisArg An object to which the ```this``` keyword can refer in the ```comparator```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @category Calculator
+     * 
+     * @since 1.0.10
+     * 
+     * @example
+     * ```typescript
+     * ```
+     */
+    maxOfWith<ResultDataType>(
+        selector : (element : CombinedDataType) => ResultDataType | Promise<ResultDataType>,
+        comparator : (front : ResultDataType, rear : ResultDataType) => number | Promise<number>,
+        selectorThisArg : any = null,
+        comparatorThisArg : any = null
+    ) : KoconutPrimitive<ResultDataType> {
+
+        selector = selector.bind(selectorThisArg)
+        comparator = comparator.bind(comparatorThisArg)
+        const koconutToReturn = new KoconutPrimitive<ResultDataType>();
+        (koconutToReturn as any as KoconutOpener<ResultDataType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.combinedDataWrapper == null) throw new KoconutNoSuchElementException(`Source data is null`)
+                let lastComparableDatumToReturn : ResultDataType | null = null
+                for(const eachCombinedDatum of this.combinedDataWrapper) {
+                    const eachComparableDatum = await selector(eachCombinedDatum)
+                    if(lastComparableDatumToReturn == null || await comparator(lastComparableDatumToReturn, eachComparableDatum) < 0)
+                        lastComparableDatumToReturn = eachComparableDatum
+                }
+                if(lastComparableDatumToReturn == null) throw new KoconutNoSuchElementException(`Source data is empty`)
+                return lastComparableDatumToReturn
+            })
+        return koconutToReturn
+
+    }
+
+
+    maxOfWithOrNull<ResultDataType>(
+        selector : (element : CombinedDataType) => ResultDataType | Promise<ResultDataType>,
+        comparator : (front : ResultDataType, rear : ResultDataType) => number | Promise<number>,
+        selectorThisArg : any = null,
+        comparatorThisArg : any = null
+    ) : KoconutPrimitive<ResultDataType | null> {
+
+        selector = selector.bind(selectorThisArg)
+        comparator = comparator.bind(comparatorThisArg)
+        const koconutToReturn = new KoconutPrimitive<ResultDataType | null>();
+        (koconutToReturn as any as KoconutOpener<ResultDataType | null>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.combinedDataWrapper == null) return null
+                let lastComparableDatumToReturn : ResultDataType | null = null
+                for(const eachCombinedDatum of this.combinedDataWrapper) {
+                    const eachComparableDatum = await selector(eachCombinedDatum)
+                    if(lastComparableDatumToReturn == null || await comparator(lastComparableDatumToReturn, eachComparableDatum) < 0)
+                        lastComparableDatumToReturn = eachComparableDatum
+                }
+                return lastComparableDatumToReturn
+            })
+        return koconutToReturn
+
+    }
+
+
+    maxWith(
+        comparator : (front : CombinedDataType, rear : CombinedDataType) => number | Promise<number>,
+        thisArg : any = null
+    ) : KoconutPrimitive<CombinedDataType> {
+
+        comparator = comparator.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<CombinedDataType>();
+        (koconutToReturn as any as KoconutOpener<CombinedDataType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.combinedDataWrapper == null ) throw new KoconutNoSuchElementException(`Source data is null`)
+                let dataToReturn : CombinedDataType | null = null
+                for(const eachCombinedDatum of this.combinedDataWrapper) {
+                    if(dataToReturn == null || await comparator(dataToReturn, eachCombinedDatum) < 0)
+                        dataToReturn = eachCombinedDatum
+                }
+                if(dataToReturn == null) throw new KoconutNoSuchElementException(`Source data is empty`)
+                return dataToReturn
+            })
+        return koconutToReturn
+
+    }
+
+
+    maxWithOrNull(
+        comparator : (front : CombinedDataType, rear : CombinedDataType) => number | Promise<number>,
+        thisArg : any = null
+    ) : KoconutPrimitive<CombinedDataType | null> {
+
+        comparator = comparator.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<CombinedDataType | null>();
+        (koconutToReturn as any as KoconutOpener<CombinedDataType | null>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.combinedDataWrapper == null ) return null
+                let dataToReturn : CombinedDataType | null = null
+                for(const eachCombinedDatum of this.combinedDataWrapper) {
+                    if(dataToReturn == null || await comparator(dataToReturn, eachCombinedDatum) < 0)
+                        dataToReturn = eachCombinedDatum
+                }
+                return dataToReturn
+            })
+        return koconutToReturn
+
+    }
     
 
     // Iterator

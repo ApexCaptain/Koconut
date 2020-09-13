@@ -5,9 +5,6 @@ import {
 
 const sampleProcess = async () => {
 
-    const map = await KoconutMap.from<number, number>(
-    ).yield()
 
-    console.log(map)
 }
 sampleProcess()
