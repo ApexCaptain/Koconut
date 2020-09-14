@@ -1083,6 +1083,7 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
     }
 
 
+    /*
     isNotEmpty() : KoconutPrimitive<boolean> {
 
         const koconutToReturn = new KoconutPrimitive<boolean>();
@@ -1103,6 +1104,7 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
         return koconutToReturn
 
     }
+    */
 
 
     // joinTo
@@ -1410,185 +1412,6 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
     }
 
 
-    minByOrNull(
-        selector : (element : DataType) => number | string | KoconutComparable | Promise<number | string | KoconutComparable>,
-        thisArg : any = null
-    ) : KoconutPrimitive<DataType | null> {
-
-        selector = selector.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<DataType | null>();
-        (koconutToReturn as any as KoconutOpener<DataType | null>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data == null || this.mSize == 0) return null
-                let dataToReturn : DataType | null = null
-                let lastComparableDatum : number | string | KoconutComparable | null = null
-                for(const eachDatum of this.data) {
-                    const eachComparableDatum = await selector(eachDatum)
-                    if(lastComparableDatum == null
-                        || (KoconutTypeChecker.checkIsComparable(eachComparableDatum) && eachComparableDatum.compareTo(lastComparableDatum as any as KoconutComparable) < 0)
-                        || (!KoconutTypeChecker.checkIsComparable(eachComparableDatum) && lastComparableDatum > eachComparableDatum)) {
-                            dataToReturn = eachDatum
-                            lastComparableDatum = eachComparableDatum
-                        }
-                }
-                return dataToReturn
-            })
-        return koconutToReturn
-
-    }
-
-
-    minOf(
-        selector : (element : DataType) => number | Promise<number>,
-    ) : KoconutPrimitive<number>;
-    minOf(
-        selector : (element : DataType) => number | Promise<number>,
-        thisArg : any
-    ) : KoconutPrimitive<number>;
-    minOf(
-        selector : (element : DataType) => string | Promise<string>
-    ) : KoconutPrimitive<string>;
-    minOf(
-        selector : (element : DataType) => string | Promise<string>,
-        thisArg : any
-    ) : KoconutPrimitive<string>
-    minOf<ComparableType extends KoconutComparable>(
-        selector : (element : DataType) => ComparableType | Promise<ComparableType>
-    ) : KoconutPrimitive<ComparableType>;
-    minOf<ComparableType extends KoconutComparable>(
-        selector : (element : DataType) => ComparableType | Promise<ComparableType>,
-        thisArg : any
-    ) : KoconutPrimitive<ComparableType>;
-    minOf<ComparableType extends KoconutComparable>(
-        selector : (element : DataType) => number | string | ComparableType | Promise<number | string | ComparableType>,
-        thisArg : any = null
-    ) : KoconutPrimitive<number | string | ComparableType> {
-
-        selector = selector.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<number | string | ComparableType>();
-        (koconutToReturn as any as KoconutOpener<number | string | ComparableType>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data == null || this.mSize == 0) throw new KoconutNoSuchElementException(`Source data is null or empty`)
-                let lastComparableDatumToReturn : number | string | ComparableType | null = null
-                for(const eachDatum of this.data) {
-                    const eachComparableDatum = await selector(eachDatum)
-                    if(lastComparableDatumToReturn == null
-                        || (KoconutTypeChecker.checkIsComparable(eachComparableDatum) && (eachComparableDatum).compareTo(lastComparableDatumToReturn as any as KoconutComparable) < 0)
-                        || (!KoconutTypeChecker.checkIsComparable(eachComparableDatum) && lastComparableDatumToReturn > eachComparableDatum)) {
-                            lastComparableDatumToReturn = eachComparableDatum
-                        }
-                }
-                return lastComparableDatumToReturn!
-            })
-        return koconutToReturn
-
-    }
-
-
-    minOfOrNull(
-        selector : (element : DataType) => number | Promise<number>
-    ) : KoconutPrimitive<number | null>;
-    minOfOrNull(
-        selector : (element : DataType) => number | Promise<number>,
-        thisArg : any
-    ) : KoconutPrimitive<number | null>;
-    minOfOrNull(
-        selector : (element : DataType) => string | Promise<string>
-    ) : KoconutPrimitive<string | null>;
-    minOfOrNull(
-        selector : (element : DataType) => string | Promise<string>,
-        thisArg : any
-    ) : KoconutPrimitive<string | null>;
-    minOfOrNull<ComparableType extends KoconutComparable>(
-        selector : (element : DataType) => ComparableType | Promise<ComparableType>
-    ) : KoconutPrimitive<ComparableType | null>;
-    minOfOrNull<ComparableType extends KoconutComparable>(
-        selector : (element : DataType) => ComparableType | Promise<ComparableType>,
-        thisArg : any
-    ) : KoconutPrimitive<ComparableType | null>;
-    minOfOrNull<ComparableType extends KoconutComparable>(
-        selector : (element : DataType) => number | string | ComparableType | Promise<number | string | ComparableType>,
-        thisArg : any = null
-    ) : KoconutPrimitive<number | string | ComparableType | null> {
-
-        selector = selector.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<number | string | ComparableType | null>();
-        (koconutToReturn as any as KoconutOpener<number | string | ComparableType | null>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data == null || this.mSize == 0) return null
-                let lastComparableDatumToReturn : number | string | ComparableType | null = null
-                for(const eachDatum of this.data) {
-                    const eachComparableDatum = await selector(eachDatum)
-                    if(lastComparableDatumToReturn == null
-                        || (KoconutTypeChecker.checkIsComparable(eachComparableDatum) && (eachComparableDatum).compareTo(lastComparableDatumToReturn as any as KoconutComparable) < 0)
-                        || (!KoconutTypeChecker.checkIsComparable(eachComparableDatum) && lastComparableDatumToReturn > eachComparableDatum)) {
-                            lastComparableDatumToReturn = eachComparableDatum
-                        }
-                }
-                return lastComparableDatumToReturn
-            })
-        return koconutToReturn
-
-    }
-
-
-    minOfWith<ResultDataType>(
-        selector : (element : DataType) => ResultDataType | Promise<ResultDataType>,
-        comparator : (front : ResultDataType, rear : ResultDataType) => number | Promise<number>,
-        selectorThisArg : any = null,
-        comparatorThisArg : any = null
-    ) : KoconutPrimitive<ResultDataType> {
-
-        selector = selector.bind(selectorThisArg)
-        comparator = comparator.bind(comparatorThisArg)
-        const koconutToReturn = new KoconutPrimitive<ResultDataType>();
-        (koconutToReturn as any as KoconutOpener<ResultDataType>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data == null || this.mSize == 0) throw new KoconutNoSuchElementException(`Source data is null or empty`)
-                let lastComparableDatumToReturn : ResultDataType | null = null
-                for(const eachDatum of this.data) {
-                    const eachComparableDatum = await selector(eachDatum)
-                    if(lastComparableDatumToReturn == null || await comparator(lastComparableDatumToReturn, eachComparableDatum) > 0)
-                        lastComparableDatumToReturn = eachComparableDatum
-                }
-                return lastComparableDatumToReturn!
-            })
-        return koconutToReturn 
-
-    }
-
-
-    minOfWithOrNull<ResultDataType>(
-        selector : (element : DataType) => ResultDataType | Promise<ResultDataType>,
-        comparator : (front : ResultDataType, rear : ResultDataType) => number | Promise<number>,
-        selectorThisArg : any = null,
-        comparatorThisArg : any = null
-    ) : KoconutPrimitive<ResultDataType | null> {
-
-        selector = selector.bind(selectorThisArg)
-        comparator = comparator.bind(comparatorThisArg)
-        const koconutToReturn = new KoconutPrimitive<ResultDataType | null>();
-        (koconutToReturn as any as KoconutOpener<ResultDataType | null>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data == null || this.mSize == 0) return null
-                let lastComparableDatumToReturn : ResultDataType | null = null
-                for(const eachDatum of this.data) {
-                    const eachComparableDatum = await selector(eachDatum)
-                    if(lastComparableDatumToReturn == null || await comparator(lastComparableDatumToReturn, eachComparableDatum) > 0)
-                        lastComparableDatumToReturn = eachComparableDatum
-                }
-                return lastComparableDatumToReturn
-            })
-        return koconutToReturn 
-
-    }
-
-
     minus(
         elements : DataType | Iterable<DataType>
     ) : KoconutCollection<DataType, WrapperType> {
@@ -1620,29 +1443,6 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
     ) : KoconutCollection<DataType, WrapperType> {
 
         return this.minus(element)
-
-    }
-
-
-    minWithOrNull(
-        comparator : (front : DataType, rear : DataType) => number | Promise<number>,
-        thisArg : any = null
-    ) : KoconutPrimitive<DataType | null> {
-
-        comparator = comparator.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<DataType | null>();
-        (koconutToReturn as any as KoconutOpener<DataType | null>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data == null || this.mSize == 0) return null
-                let dataToReturn : DataType | null = null
-                for(const eachDatum of Array.from(this.data)) {
-                    if(dataToReturn == null || await comparator(dataToReturn, eachDatum) > 0)
-                        dataToReturn = eachDatum
-                }
-                return dataToReturn
-            })
-        return koconutToReturn
 
     }
 

@@ -16,23 +16,7 @@ import {
 
 export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<DataType>> {
     
-    static from<DataType>(
-        source : Iterable<DataType> | null = null
-    ) : KoconutArray<DataType> {
-
-        return new KoconutArray(source == null ? null : Array.from(source))
-
-    }
-
-    static of<DataType>(
-        ...data : DataType[]
-    ) : KoconutArray<DataType> {
-
-        return new KoconutArray(data)
-
-    }
-
-
+    // Private
     private static fromCollection<DataType>(
         collection : KoconutCollection<DataType, Array<DataType>>
     ) : KoconutArray<DataType> {
@@ -43,12 +27,140 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
         return koconutToReturn;
 
     }
+    
 
-    /* Koconut Primitive */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    // Koconut Primitive
+    /**
+     * Creates a new instance from ```iterable``` object.
+     * @param array An array-like ```iterable``` object to convert to a {@link KoconutArray}.
+     * 
+     * @since 1.0.10
+     * 
+     * @example
+     * ```typescript
+     * const numbers = Array.of(1,2,3,4,5)
+     * const koconutNumbers = new KoconutArray(numbers)
+     * // ↑ This is a Koconut number array consists of 1 to 5.
+     * 
+     * const emptyNumberArray = new KoconutArray<number>()
+     * // ↑ This is an empty Koconut number array.
+     * ```
+     */
     constructor(array : Iterable<DataType> | null = null) {
         super()
         this.data = array == null ? new Array() : Array.from(array)
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    // Creator
+    /**
+     * Creates a new instance from ```iterable``` object.
+     * @param source An array-like ```iterable``` object to convert to a {@link KoconutArray}.
+     * 
+     * @category Creator
+     * 
+     * @since 1.0.11
+     * 
+     * @example
+     * ```typescript
+     * const numbers = Array.of(1,2,3,4,5)
+     * const koconutNumbers = KoconutArray.from(numbers)
+     * // ↑ This is a Koconut number array consists of 1 to 5.
+     * 
+     * const emptyNumberArray = KoconutArray.from<number>()
+     * // ↑ This is an empty Koconut number array.
+     * ```
+     */
+    static from<DataType>(
+        source : Iterable<DataType> | null = null
+    ) : KoconutArray<DataType> {
+
+        return new KoconutArray(source == null ? null : Array.from(source))
+
+    }
+
+    /**
+     * Creates a new instance from variable number of arguments.
+     * @param data A set of elements to include in the new {@link KoconutArray} object.
+     * 
+     * @category Creator
+     * 
+     * @since 1.0.11
+     * 
+     * @example
+     * ```typescript
+     * const koconutNumbers = KoconutArray.of(1,2,3,4,5)
+     * // ↑ This is a Koconut number array consists of 1 to 5.
+     * 
+     * const emptyNumberArray = KoconutArray.of<number>()
+     * // ↑ This is an empty Koconut number array.
+     * ```
+     */
+    static of<DataType>(
+        ...data : DataType[]
+    ) : KoconutArray<DataType> {
+
+        return new KoconutArray(data)
+
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
 
 
     associateByTo<KeyType, ValueType = DataType>(

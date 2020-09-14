@@ -1,5 +1,6 @@
 `use strict`
 
+import { Key } from "readline"
 import {
     /* Tool */
     KoconutPrimitive, KoconutOpener, KoconutTypeChecker, 
@@ -22,24 +23,47 @@ import {
 
 export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, ValueType], Entry<KeyType, ValueType>, Map<KeyType, ValueType>, Set<Entry<KeyType, ValueType>>> {
 
-    static from<KeyType, ValueType>(
-        source : Iterable<[KeyType, ValueType] | Entry<KeyType, ValueType> | Pair<KeyType, ValueType>> | null = null
-    ) : KoconutMap<KeyType, ValueType> {
-
-        return new KoconutMap(source)
-
+    // Koconut Primitive
+    /**
+     * Creates a new instance from ```iterable``` object.
+     * Inner data type colud be an ```Array``` of two values([```Key```, ```Value```]), a Pair or an Entry.
+     * @param map An map-like ```iterable``` object to conver to a {@link KoconutMap}.
+     * 
+     * @since 1.0.11
+     * 
+     * @example
+     * ```typescript
+     * const stringAndNumberMap = new Map([
+     *  ["a", 1], ["b", 2], ["c", 3]
+     * ])
+     * const stringAndNumber1 = new KoconutMap(stringAndNumberMap)
+     * // ↑ This is a Koconut string - number paired map.
+     * 
+     * const stringAndNumber2 = new KoconutMap([
+     *  ["a", 1], new Pair("b", 2), new Entry("c", 3)
+     * ])
+     * // ↑ This is a Koconut string - number paired map, too.
+     * 
+     * const emptyStringAndNumberMap = new KoconutMap<string, number>()
+     * // ↑ This is an empty Koconut string - number paired map.
+     * ```
+     */
+    constructor(map : Iterable<[KeyType, ValueType] | Entry<KeyType, ValueType> | Pair<KeyType, ValueType>> |  null = null) {
+        
+        super()
+        const mapObject = new Map<KeyType, ValueType>()
+        if(map != null) {
+            for(const eachEntry of map) {
+                if(eachEntry instanceof Entry) mapObject.set(eachEntry.key, eachEntry.value)
+                else if(eachEntry instanceof Pair) mapObject.set(eachEntry.first, eachEntry.second)
+                else mapObject.set(eachEntry[0], eachEntry[1])
+            }
+        }
+        this.data = mapObject
+        
     }
 
-    static of<KeyType, ValueType>(
-        ...data : ([KeyType, ValueType] | Entry<KeyType, ValueType> | Pair<KeyType, ValueType>)[]
-    ) : KoconutMap<KeyType, ValueType> {
 
-        return new KoconutMap(data)
-
-    }
-
-
-    /* Koconut Primitive */
     async validate(data : Map<KeyType, ValueType> | null) {
     
         if(data != null) {
@@ -70,21 +94,86 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
         }
 
     }
+    
 
 
-    constructor(map : Iterable<[KeyType, ValueType] | Entry<KeyType, ValueType> | Pair<KeyType, ValueType>> |  null = null) {
-        
-        super()
-        const mapObject = new Map<KeyType, ValueType>()
-        if(map != null) {
-            for(const eachEntry of map) {
-                if(eachEntry instanceof Entry) mapObject.set(eachEntry.key, eachEntry.value)
-                else if(eachEntry instanceof Pair) mapObject.set(eachEntry.first, eachEntry.second)
-                else mapObject.set(eachEntry[0], eachEntry[1])
-            }
-        }
-        this.data = mapObject
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    // Creator
+    /**
+     * Creates a new instance from ```iterable``` object.
+     * Inner data type colud be an ```Array``` of two values([```Key```, ```Value```]), a Pair or an Entry.
+     * @param source An map-like ```iterable``` object to conver to a {@link KoconutMap}.
+     * 
+     * @since 1.0.11
+     * 
+     * @example
+     * ```typescript
+     * const stringAndNumberMap = new Map([
+     *  ["a", 1], ["b", 2], ["c", 3]
+     * ])
+     * const stringAndNumber1 = KoconutMap.from(stringAndNumberMap)
+     * // ↑ This is a Koconut string - number paired map.
+     * 
+     * const stringAndNumber2 = KoconutMap.from([
+     *  ["a", 1], new Pair("b", 2), new Entry("c", 3)
+     * ])
+     * // ↑ This is a Koconut string - number paired map, too.
+     * 
+     * const emptyStringAndNumberMap = KoconutMap.from<string, number>()
+     * // ↑ This is an empty Koconut string - number paired map.
+     * ```
+     */
+    static from<KeyType, ValueType>(
+        source : Iterable<[KeyType, ValueType] | Entry<KeyType, ValueType> | Pair<KeyType, ValueType>> | null = null
+    ) : KoconutMap<KeyType, ValueType> {
+
+        return new KoconutMap(source)
+
+    }
+
+
+    /**
+     * Creates a new instance from variable number of arguments. 
+     * Inner data type colud be an ```Array``` of two values([```Key```, ```Value```]), a Pair or an Entry.
+     * @param data A set of elements to include in the new {@link KoconutMap} object.
+     * 
+     * @category Creator
+     * 
+     * @since 1.0.11
+     * ```typescript
+     * const stringAndNumber = KoconutMap.of(
+     *  ["a", 1], new Pair("b", 2), new Entry("c", 3)
+     * )
+     * // ↑ This is a Koconut string - number paired map.
+     * 
+     * const emptyStringAndNumberMap = KoconutMap.of<string, number>()
+     * // ↑ This is an empty Koconut string - number paired map.
+     * ```
+     */
+    static of<KeyType, ValueType>(
+        ...data : ([KeyType, ValueType] | Entry<KeyType, ValueType> | Pair<KeyType, ValueType>)[]
+    ) : KoconutMap<KeyType, ValueType> {
+
+        return new KoconutMap(data)
+
     }
 
 
@@ -141,6 +230,692 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
 
 
     /* Functions */
+    // Calculator
+    /**
+     * Returns the first element yielding the largest value of the given function or 
+     * throws {@link KoconutNoSuchElementException} if there are no elements.
+     * @param selector A callback function that accepts an argument. The method calls the ```selector``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```selector```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @throws {@link KoconutNoSuchElementException}
+     * 
+     * @category Calculator
+     * 
+     * @since 1.0.10
+     * @deprecated Use {@link maxByOrNull} instead.
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const largestNumberOfArray = await koconutArray
+     *                               .maxBy(eachNumber => eachNumber)
+     *                               .yield()
+     * console.log(largestNumberOfArray)
+     * // ↑ 5
+     *
+     * try {
+     *   await koconutArray
+     *           .filter(eachNumber => eachNumber > 10)
+     *           .maxBy(eachNumber => eachNumber)
+     *           .yield()
+     * } catch(error) {
+     *   console.log(error.name)
+     *   // ↑ Koconut No Such Element Exception
+     *   // i.e. -- Array is filtered.
+     *   // No element in 1 to 5 is greater than 10.
+     * }
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of("a", "ab", "abc")
+     *
+     * const lognestStringOfSet = await koconutSet
+     *                               .maxBy(eachString => eachString.length)
+     *                               .yield()
+     * console.log(lognestStringOfSet)
+     * // ↑ abc
+     *
+     * // Case 3 -- KoconutMap
+     * const koconutMap = KoconutArray.of(1, 12, 123)
+     *                   .associateWith(eachNumber => eachNumber.toString())
+     *
+     * const longestDigitsEntryOfMap = await koconutMap
+     *                                       .maxBy(eachEntry => eachEntry.value.length)
+     *                                       .yield()
+     * console.log(longestDigitsEntryOfMap)
+     * // ↑ Entry { keyElement: 123, valueElement: '123' }
+     *
+     * // Case 4 -- You can also do it asynchronously
+     * const koconutArray2 = KoconutArray.of(19,27,32)
+     *
+     * const largestNumberOfArray2 = await koconutArray2
+     *                                   .maxBy(async eachNumber => eachNumber)
+     *                                   .yield()
+     * console.log(largestNumberOfArray2)
+     * // ↑ 32
+     *
+     * const largest1sDigitNumberOfArray2 = await koconutArray2
+     *                                       .maxBy(eachNumber => new Promise(resolve => {
+     *                                           resolve(eachNumber % 10)
+     *                                       }))
+     *                                       .yield()
+     * console.log(largest1sDigitNumberOfArray2)
+     * // ↑ 19
+     * ```
+     */
+    maxBy(
+        selector : (entry : Entry<KeyType, ValueType>) => number | string | KoconutComparable | Promise<number | string | KoconutComparable>,
+        thisArg : any = null
+    ) : KoconutEntry<KeyType, ValueType> {
+        
+        const fromSuper = super.maxBy(selector, thisArg)
+        const koconutToReturn = new KoconutEntry<KeyType, ValueType>();
+        (koconutToReturn as any as KoconutOpener<Entry<KeyType, ValueType>>)
+            .setPrevYieldable(fromSuper['prevYieldable']!)
+            .setProcessor(fromSuper['processor']!)
+        return koconutToReturn
+
+    }
+
+    /**
+     * Returns the first element yielding the largest value of the given function or null if there are no elements.
+     * @param selector A callback function that accepts an argument. The method calls the ```selector``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```selector```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @category Calculator
+     * 
+     * @since 1.0.10
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const largestNumberOfArray = await koconutArray
+     *                               .maxByOrNull(eachNumber => eachNumber)
+     *                               .yield()
+     * console.log(largestNumberOfArray)
+     * // ↑ 5
+     *
+     * 
+     * const largestNumberOfEmptyArray = await koconutArray
+     *                                 .filter(eachNumber => eachNumber > 10)
+     *                                 .maxByOrNull(eachNumber => eachNumber)
+     *                                 .yield()
+     * console.log(largestNumberOfEmptyArray)
+     * // ↑ null
+     * 
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of("a", "ab", "abc")
+     *
+     * const lognestStringOfSet = await koconutSet
+     *                               .maxByOrNull(eachString => eachString.length)
+     *                               .yield()
+     * console.log(lognestStringOfSet)
+     * // ↑ abc
+     *
+     * // Case 3 -- KoconutMap
+     * const koconutMap = KoconutArray.of(1, 12, 123)
+     *                   .associateWith(eachNumber => eachNumber.toString())
+     *
+     * const longestDigitsEntryOfMap = await koconutMap
+     *                                       .maxByOrNull(eachEntry => eachEntry.value.length)
+     *                                       .yield()
+     * console.log(longestDigitsEntryOfMap)
+     * // ↑ Entry { keyElement: 123, valueElement: '123' }
+     *
+     * // Case 4 -- You can also do it asynchronously
+     * const koconutArray2 = KoconutArray.of(19,27,32)
+     *
+     * const largestNumberOfArray2 = await koconutArray2
+     *                                   .maxByOrNull(async eachNumber => eachNumber)
+     *                                   .yield()
+     * console.log(largestNumberOfArray2)
+     * // ↑ 32
+     *
+     * const largest1sDigitNumberOfArray2 = await koconutArray2
+     *                                       .maxByOrNull(eachNumber => new Promise(resolve => {
+     *                                           resolve(eachNumber % 10)
+     *                                       }))
+     *                                       .yield()
+     * console.log(largest1sDigitNumberOfArray2)
+     * // ↑ 19
+     * ```
+     */
+    maxByOrNull(
+        selector : (entry : Entry<KeyType, ValueType>) => number | string | KoconutComparable | Promise<number | string | KoconutComparable>,
+        thisArg : any = null
+    ) : KoconutEntry<KeyType, ValueType> {
+
+        const fromSuper = super.maxByOrNull(selector, thisArg)
+        const koconutToReturn = new KoconutEntry<KeyType, ValueType>();
+        (koconutToReturn as any as KoconutOpener<Entry<KeyType, ValueType> | null>)
+            .setPrevYieldable(fromSuper['prevYieldable']!)
+            .setProcessor(fromSuper['processor']!)
+        return koconutToReturn
+
+    }
+
+
+    /**
+     * Returns the first element having the largest value according to the provided ```comparator``` or throws {@link KoconutNoSuchElementException}
+     * if elements are empty.
+     * @param comparator A callback function that accepts two arguements. The method calls the ```comparator``` to compare two selected values.
+     * In case the result is larger than 0, front is bigger than rear, and if it's less than 0 judge vice versa.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```comparator```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @throws {@link KoconutNoSuchElementException}
+     * 
+     * @category Calculator
+     * 
+     * @since 1.0.10
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const largestNumberOfArray = await koconutArray
+     *                                   .maxWith((front, rear) => front - rear)
+     *                                   .yield()
+     * console.log(largestNumberOfArray)
+     * // ↑ 5
+     *
+     * try {
+     *   await koconutArray
+     *           .filter(eachNumber => eachNumber > 10)
+     *           .maxWith((front, rear) => front - rear)
+     *           .yield()
+     * } catch(error) {
+     *   console.log(error.name)
+     *   // ↑ Koconut No Such Element Exception
+     *   // i.e. -- Array is filtered.
+     *   // No element in 1 to 5 is greater than 10.
+     * }
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of("a", "ab", "abc", "abcd")
+     *
+     * const longestStringLengthOfSet = await koconutSet
+     *                                       .maxWith((front, rear) => front.length - rear.length)
+     *                                       .yield()
+     * console.log(longestStringLengthOfSet)
+     * // ↑ abcd
+     *
+     * // Case 3
+     * const koconutMap = KoconutArray.of("a", "ab", "abc")
+     *                   .associate(eachString => [eachString.length, eachString])
+     *
+     * const longestStringLengthEntryOfMap = await koconutMap
+     *                                   .maxWith((front, rear) => front.key - rear.key)
+     *                                   .yield()
+     * console.log(longestStringLengthEntryOfMap)
+     * // ↑ Entry { keyElement: 3, valueElement: 'abc' }
+     *
+     * // Case 4 -- You can also do it asynchronously
+     * const koconutArray2 = KoconutArray.of(12,51,32,45,50)
+     *
+     * const largestNumberOfArray2 = await koconutArray2
+     *                     .maxWith(async (front, rear) => front - rear)
+     *                     .yield()
+     * console.log(largestNumberOfArray2)
+     * // ↑ 51
+     *
+     * const largest1sDigitNumberOfArray2 = await koconutArray2
+     *                       .maxWith((front, rear) => new Promise(resolve => {
+     *                           resolve(front % 10 - rear % 10)
+     *                       }))
+     *                       .yield()
+     * console.log(largest1sDigitNumberOfArray2)
+     * // ↑ 45
+     */
+    maxWith(
+        selector : (front : Entry<KeyType, ValueType>, rear : Entry<KeyType, ValueType>) => number | Promise<number>,
+        thisArg : any = null
+    ) : KoconutEntry<KeyType, ValueType> {
+
+        const fromSuper = super.maxWith(selector, thisArg)
+        const koconutToReturn = new KoconutEntry<KeyType, ValueType>();
+        (koconutToReturn as any as KoconutOpener<Entry<KeyType, ValueType>>)
+            .setPrevYieldable(fromSuper['prevYieldable']!)
+            .setProcessor(fromSuper['processor']!)
+        return koconutToReturn
+
+    }
+
+    /**
+     * Returns the first element having the largest value according to the provided ```comparator``` or null
+     * if elements are empty.
+     * @param comparator A callback function that accepts two arguements. The method calls the ```comparator``` to compare two selected values.
+     * In case the result is larger than 0, front is bigger than rear, and if it's less than 0 judge vice versa.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```comparator```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @category Calculator
+     * 
+     * @since 1.0.10
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const largestNumberOfArray = await koconutArray
+     *                                   .maxWithOrNull((front, rear) => front - rear)
+     *                                   .yield()
+     * console.log(largestNumberOfArray)
+     * // ↑ 5
+     * 
+     * const largestNumberOfEmptyArray = await koconutArray
+     *                                  .filter(eachNumber => eachNumber > 10)
+     *                                  .maxWithOrNull((front, rear) => front - rear)
+     *                                  .yield()
+     * console.log(largestNumberOfEmptyArray)
+     * // ↑ null
+     * 
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of("a", "ab", "abc", "abcd")
+     *
+     * const longestStringLengthOfSet = await koconutSet
+     *                                       .maxWithOrNull((front, rear) => front.length - rear.length)
+     *                                       .yield()
+     * console.log(longestStringLengthOfSet)
+     * // ↑ abcd
+     *
+     * // Case 3
+     * const koconutMap = KoconutArray.of("a", "ab", "abc")
+     *                   .associate(eachString => [eachString.length, eachString])
+     *
+     * const longestStringLengthEntryOfMap = await koconutMap
+     *                                   .maxWithOrNull((front, rear) => front.key - rear.key)
+     *                                   .yield()
+     * console.log(longestStringLengthEntryOfMap)
+     * // ↑ Entry { keyElement: 3, valueElement: 'abc' }
+     *
+     * // Case 4 -- You can also do it asynchronously
+     * const koconutArray2 = KoconutArray.of(12,51,32,45,50)
+     *
+     * const largestNumberOfArray2 = await koconutArray2
+     *                     .maxWithOrNull(async (front, rear) => front - rear)
+     *                     .yield()
+     * console.log(largestNumberOfArray2)
+     * // ↑ 51
+     *
+     * const largest1sDigitNumberOfArray2 = await koconutArray2
+     *                       .maxWithOrNull((front, rear) => new Promise(resolve => {
+     *                           resolve(front % 10 - rear % 10)
+     *                       }))
+     *                       .yield()
+     * console.log(largest1sDigitNumberOfArray2)
+     * // ↑ 45
+     */
+    maxWithOrNull(
+        selector : (front : Entry<KeyType, ValueType>, rear : Entry<KeyType, ValueType>) => number | Promise<number>,
+        thisArg : any = null
+    ) : KoconutEntry<KeyType, ValueType> {
+
+        const fromSuper = super.maxWithOrNull(selector, thisArg)
+        const koconutToReturn = new KoconutEntry<KeyType, ValueType>();
+        (koconutToReturn as any as KoconutOpener<Entry<KeyType, ValueType> | null>)
+            .setPrevYieldable(fromSuper['prevYieldable']!)
+            .setProcessor(fromSuper['processor']!)
+        return koconutToReturn
+
+    }
+
+
+    /**
+     * Returns the first element yielding the samllest value of the given function or 
+     * throws {@link KoconutNoSuchElementException} if there are no elements.
+     * @param selector A callback function that accepts an argument. The method calls the ```selector``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```selector```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @throws {@link KoconutNoSuchElementException}
+     * 
+     * @category Calculator
+     * 
+     * @since 1.0.10
+     * @deprecated Use {@link minByOrNull} instead.
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const smallestNumberOfArray = await koconutArray
+     *                           .minBy(eachNumber => eachNumber)
+     *                           .yield()
+     * console.log(smallestNumberOfArray)
+     * // ↑ 1
+     *
+     * try {
+     * await koconutArray
+     *       .filter(eachNumber => eachNumber > 10)
+     *       .minBy(eachNumber => eachNumber)
+     *       .yield()
+     * } catch(error) {
+     *   console.log(error.name)
+     *   // ↑ Koconut No Such Element Exception
+     *   // i.e. -- Array is filtered.
+     *   // No element in 1 to 5 is greater than 10.
+     * }
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of("a", "ab", "abc")
+     *
+     * const shortestStringOfSet = await koconutSet
+     *                           .minBy(eachString => eachString.length)
+     *                           .yield()
+     * console.log(shortestStringOfSet)
+     * // ↑ a
+     *
+     * // Case 3 -- KoconutMap
+     * const koconutMap = KoconutArray.of(1, 12, 123)
+     *               .associateWith(eachNumber => eachNumber.toString())
+     *
+     * const shortestDigitsEntryOfMap = await koconutMap
+     *                                   .minBy(eachEntry => eachEntry.value.length)
+     *                                   .yield()
+     * console.log(shortestDigitsEntryOfMap)
+     * // ↑ Entry { keyElement: 1, valueElement: '1' }
+     *
+     * // Case 4 -- You can also do it asynchronously
+     * const koconutArray2 = KoconutArray.of(19,27,32)
+     *
+     * const smallestNumberOfArray2 = await koconutArray2
+     *                               .minBy(async eachNumber => eachNumber)
+     *                               .yield()
+     * console.log(smallestNumberOfArray2)
+     * // ↑ 19
+     *
+     * const smallest1sDigitNumberOfArray2 = await koconutArray2
+     *                                   .minBy(eachNumber => new Promise(resolve => {
+     *                                       resolve(eachNumber % 10)
+     *                                   }))
+     *                                   .yield()
+     * console.log(smallest1sDigitNumberOfArray2)
+     * // ↑ 32
+     * ```
+     */
+    minBy(
+        selector : (entry : Entry<KeyType, ValueType>) => number | string | KoconutComparable | Promise<number | string | KoconutComparable>,
+        thisArg : any = null
+    ) : KoconutEntry<KeyType, ValueType> {
+
+        const fromSuper = super.minBy(selector, thisArg)
+        const koconutToReturn = new KoconutEntry<KeyType, ValueType>();
+        (koconutToReturn as any as KoconutOpener<Entry<KeyType, ValueType>>)
+            .setPrevYieldable(fromSuper['prevYieldable']!)
+            .setProcessor(fromSuper['processor']!)
+        return koconutToReturn
+
+    }
+
+
+    /**
+     * Returns the first element yielding the samllest value of the given function or ```null``` if there are no elements.
+     * @param selector A callback function that accepts an argument. The method calls the ```selector``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```selector```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @category Calculator
+     * 
+     * @since 1.0.10
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const smallestNumberOfArray = await koconutArray
+     *                           .minByOrNull(eachNumber => eachNumber)
+     *                           .yield()
+     * console.log(smallestNumberOfArray)
+     * // ↑ 1
+     *
+     * const smallestNumberOfEmptyArray = await koconutArray
+     *                       .filter(eachNumber => eachNumber > 10)
+     *                       .minByOrNull(eachNumber => eachNumber)
+     *                       .yield()
+     * console.log(smallestNumberOfEmptyArray)
+     * // ↑ null
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of("a", "ab", "abc")
+     *
+     * const shortestStringOfSet = await koconutSet
+     *                           .minByOrNull(eachString => eachString.length)
+     *                           .yield()
+     * console.log(shortestStringOfSet)
+     * // ↑ a
+     *
+     * // Case 3 -- KoconutMap
+     * const koconutMap = KoconutArray.of(1, 12, 123)
+     *               .associateWith(eachNumber => eachNumber.toString())
+     *
+     * const shortestDigitsEntryOfMap = await koconutMap
+     *                                   .minByOrNull(eachEntry => eachEntry.value.length)
+     *                                   .yield()
+     * console.log(shortestDigitsEntryOfMap)
+     * // ↑ Entry { keyElement: 1, valueElement: '1' }
+     *
+     * // Case 4 -- You can also do it asynchronously
+     * const koconutArray2 = KoconutArray.of(19,27,32)
+     *
+     * const samllestNumberOfArray2 = await koconutArray2
+     *                               .minByOrNull(async eachNumber => eachNumber)
+     *                               .yield()
+     * console.log(samllestNumberOfArray2)
+     * // ↑ 19
+     *
+     * const smallest1sDigitNumberOfArray2 = await koconutArray2
+     *                                   .minByOrNull(eachNumber => new Promise(resolve => {
+     *                                       resolve(eachNumber % 10)
+     *                                   }))
+     *                                   .yield()
+     * console.log(smallest1sDigitNumberOfArray2)
+     * // ↑ 32
+     * ```
+     */
+    minByOrNull(
+        selector : (entry : Entry<KeyType, ValueType>) => number | string | KoconutComparable | Promise<number | string | KoconutComparable>,
+        thisArg : any = null
+    ) : KoconutEntry<KeyType, ValueType> {
+
+        const fromSuper = super.minByOrNull(selector, thisArg)
+        const koconutToReturn = new KoconutEntry<KeyType, ValueType>();
+        (koconutToReturn as any as KoconutOpener<Entry<KeyType, ValueType> | null>)
+            .setPrevYieldable(fromSuper['prevYieldable']!)
+            .setProcessor(fromSuper['processor']!)
+        return koconutToReturn
+
+    }
+
+
+    /**
+     * Returns the first element having the smallest value according to the provided ```comparator``` or throws {@link KoconutNoSuchElementException}
+     * if elements are empty.
+     * @param comparator A callback function that accepts two arguements. The method calls the ```comparator``` to compare two selected values.
+     * In case the result is larger than 0, front is bigger than rear, and if it's less than 0 judge vice versa.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```comparator```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @throws {@link KoconutNoSuchElementException}
+     * 
+     * @category Calculator
+     * 
+     * @since 1.0.10
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const smallestNumberOfArray = await koconutArray
+     *                               .minWith((front, rear) => front - rear)
+     *                               .yield()
+     * console.log(smallestNumberOfArray)
+     * // ↑ 1
+     *
+     * try {
+     *   await koconutArray
+     *           .filter(eachNumber => eachNumber > 10)
+     *           .minWith((front, rear) => front - rear)
+     *           .yield()
+     * } catch(error) {
+     *   console.log(error.name)
+     *   // ↑ Koconut No Such Element Exception
+     *   // i.e. -- Array is filtered.
+     *   // No element in 1 to 5 is greater than 10.
+     * }
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of("a", "ab", "abc", "abcd")
+     *
+     * const shortestStringLengthOfSet = await koconutSet
+     *                                   .minWith((front, rear) => front.length - rear.length)
+     *                                   .yield()
+     * console.log(shortestStringLengthOfSet)
+     * // ↑ a
+     *
+     * // Case 3
+     * const koconutMap = KoconutArray.of("a", "ab", "abc")
+     *               .associate(eachString => [eachString.length, eachString])
+     *
+     * const shortestStringLengthEntryOfMap = await koconutMap
+     *                               .minWith((front, rear) => front.key - rear.key)
+     *                               .yield()
+     * console.log(shortestStringLengthEntryOfMap)
+     * // ↑ Entry { keyElement: 1, valueElement: 'a' }
+     *
+     * // Case 4 -- You can also do it asynchronously
+     * const koconutArray2 = KoconutArray.of(12,51,32,45,50)
+     *
+     * const smallestNumberOfArray2 = await koconutArray2
+     *                   .minWith(async (front, rear) => front - rear)
+     *                   .yield()
+     * console.log(smallestNumberOfArray2)
+     * // ↑ 12
+     *
+     * const smallest1sDigitNumberOfArray2 = await koconutArray2
+     *                   .minWith((front, rear) => new Promise(resolve => {
+     *                       resolve(front % 10 - rear % 10)
+     *                   }))
+     *                   .yield()
+     * console.log(smallest1sDigitNumberOfArray2)
+     * // ↑ 50
+     * ```
+     */
+    minWith(
+        selector : (front : Entry<KeyType, ValueType>, rear : Entry<KeyType, ValueType>) => number | Promise<number>,
+        thisArg : any = null
+    ) : KoconutEntry<KeyType, ValueType> {
+
+        const fromSuper = super.minWith(selector, thisArg)
+        const koconutToReturn = new KoconutEntry<KeyType, ValueType>();
+        (koconutToReturn as any as KoconutOpener<Entry<KeyType, ValueType>>)
+            .setPrevYieldable(fromSuper['prevYieldable']!)
+            .setProcessor(fromSuper['processor']!)
+        return koconutToReturn
+
+    }
+
+
+    /**
+     * Returns the first element having the smallest value according to the provided ```comparator``` or ```null```
+     * if elements are empty.
+     * @param comparator A callback function that accepts two arguements. The method calls the ```comparator``` to compare two selected values.
+     * In case the result is larger than 0, front is bigger than rear, and if it's less than 0 judge vice versa.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```comparator```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @category Calculator
+     * 
+     * @since 1.0.10
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const smallestNumberOfArray = await koconutArray
+     *                               .minWithOrNull((front, rear) => front - rear)
+     *                               .yield()
+     * console.log(smallestNumberOfArray)
+     * // ↑ 1
+     *
+     * const smallestNumberOfEmptyArray = await koconutArray
+     *                           .filter(eachNumber => eachNumber > 10)
+     *                           .minWithOrNull((front, rear) => front - rear)
+     *                           .yield()
+     * console.log(smallestNumberOfEmptyArray)
+     * // ↑ null
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of("a", "ab", "abc", "abcd")
+     *
+     * const shortestStringLengthOfSet = await koconutSet
+     *                                   .minWithOrNull((front, rear) => front.length - rear.length)
+     *                                   .yield()
+     * console.log(shortestStringLengthOfSet)
+     * // ↑ a
+     *
+     * // Case 3
+     * const koconutMap = KoconutArray.of("a", "ab", "abc")
+     *                .associate(eachString => [eachString.length, eachString])
+     *
+     * const shortestStringLengthEntryOfMap = await koconutMap
+     *                               .minWithOrNull((front, rear) => front.key - rear.key)
+     *                               .yield()
+     * console.log(shortestStringLengthEntryOfMap)
+     * // ↑ Entry { keyElement: 1, valueElement: 'a' }
+     *
+     * // Case 4 -- You can also do it asynchronously
+     * const koconutArray2 = KoconutArray.of(12,51,32,45,50)
+     *
+     * const smallestNumberOfArray2 = await koconutArray2
+     *                   .minWithOrNull(async (front, rear) => front - rear)
+     *                   .yield()
+     * console.log(smallestNumberOfArray2)
+     * // ↑ 12
+     *
+     * const smallest1sDigitNumberOfArray2 = await koconutArray2
+     *                   .minWithOrNull((front, rear) => new Promise(resolve => {
+     *                       resolve(front % 10 - rear % 10)
+     *                   }))
+     *                   .yield()
+     * console.log(smallest1sDigitNumberOfArray2)
+     * // ↑ 50
+     * ```
+     */
+    minWithOrNull(
+        selector : (front : Entry<KeyType, ValueType>, rear : Entry<KeyType, ValueType>) => number | Promise<number>,
+        thisArg : any = null
+    ) : KoconutEntry<KeyType, ValueType> {
+
+        const fromSuper = super.minWithOrNull(selector, thisArg)
+        const koconutToReturn = new KoconutEntry<KeyType, ValueType>();
+        (koconutToReturn as any as KoconutOpener<Entry<KeyType, ValueType> | null>)
+            .setPrevYieldable(fromSuper['prevYieldable']!)
+            .setProcessor(fromSuper['processor']!)
+        return koconutToReturn
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     asArray() : KoconutArray<Entry<KeyType, ValueType>> {
 
         const koconutToReturn = new KoconutArray<Entry<KeyType, ValueType>>();
@@ -449,6 +1224,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
     }
 
 
+    /*
     isEmpty() : KoconutPrimitive<boolean> {
 
         const koconutToReturn = new KoconutPrimitive<boolean>();
@@ -480,6 +1256,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
         return koconutToReturn
 
     }
+    */
 
 
     map<ResultDataType>(
@@ -669,242 +1446,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
     }
 
 
-    maxBy(
-        selector : (entry : Entry<KeyType, ValueType>) => number | string | KoconutComparable | Promise<number | string | KoconutComparable>,
-        thisArg : any = null
-    ) : KoconutEntry<KeyType, ValueType> {
-        
-        const fromSuper = super.maxBy(selector, thisArg)
-        const koconutToReturn = new KoconutEntry<KeyType, ValueType>();
-        (koconutToReturn as any as KoconutOpener<Entry<KeyType, ValueType>>)
-            .setPrevYieldable(fromSuper['prevYieldable']!)
-            .setProcessor(fromSuper['processor']!)
-        return koconutToReturn
 
-    }
-
-    
-    maxByOrNull(
-        selector : (entry : Entry<KeyType, ValueType>) => number | string | KoconutComparable | Promise<number | string | KoconutComparable>,
-        thisArg : any = null
-    ) : KoconutEntry<KeyType, ValueType> {
-
-        const fromSuper = super.maxByOrNull(selector, thisArg)
-        const koconutToReturn = new KoconutEntry<KeyType, ValueType>();
-        (koconutToReturn as any as KoconutOpener<Entry<KeyType, ValueType> | null>)
-            .setPrevYieldable(fromSuper['prevYieldable']!)
-            .setProcessor(fromSuper['processor']!)
-        return koconutToReturn
-
-    }
-
-
-    maxWith(
-        selector : (front : Entry<KeyType, ValueType>, rear : Entry<KeyType, ValueType>) => number | Promise<number>,
-        thisArg : any = null
-    ) : KoconutEntry<KeyType, ValueType> {
-
-        const fromSuper = super.maxWith(selector, thisArg)
-        const koconutToReturn = new KoconutEntry<KeyType, ValueType>();
-        (koconutToReturn as any as KoconutOpener<Entry<KeyType, ValueType>>)
-            .setPrevYieldable(fromSuper['prevYieldable']!)
-            .setProcessor(fromSuper['processor']!)
-        return koconutToReturn
-
-    }
-
-    maxWithOrNull(
-        selector : (front : Entry<KeyType, ValueType>, rear : Entry<KeyType, ValueType>) => number | Promise<number>,
-        thisArg : any = null
-    ) : KoconutEntry<KeyType, ValueType> {
-
-        const fromSuper = super.maxWithOrNull(selector, thisArg)
-        const koconutToReturn = new KoconutEntry<KeyType, ValueType>();
-        (koconutToReturn as any as KoconutOpener<Entry<KeyType, ValueType> | null>)
-            .setPrevYieldable(fromSuper['prevYieldable']!)
-            .setProcessor(fromSuper['processor']!)
-        return koconutToReturn
-
-    }
-
-
-    minByOrNull(
-        selector : (entry : Entry<KeyType, ValueType>) => number | string | KoconutComparable | Promise<number | string | KoconutComparable>,
-        thisArg : any = null
-    ) : KoconutEntry<KeyType, ValueType> {
-
-        selector = selector.bind(thisArg)
-        const koconutToReturn = new KoconutEntry<KeyType, ValueType>();
-        (koconutToReturn as any as KoconutOpener<Entry<KeyType, ValueType> | null>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data == null || this.mSize == 0) return null
-                let dataToReturn : Entry<KeyType, ValueType> | null = null
-                let lastComparableDatum : number | string | KoconutComparable | null = null
-                for(const eachEntry of this.mEntries) {
-                    const eachComparableDatum = await selector(eachEntry)
-                    if(lastComparableDatum == null
-                        || (KoconutTypeChecker.checkIsComparable(eachComparableDatum) && (eachComparableDatum).compareTo(lastComparableDatum as any as KoconutComparable) < 0)
-                        || (!KoconutTypeChecker.checkIsComparable(eachComparableDatum) && lastComparableDatum > eachComparableDatum)) {
-                            dataToReturn = eachEntry
-                            lastComparableDatum = eachComparableDatum
-                        }
-                }
-                return dataToReturn
-            })
-        return koconutToReturn
-
-    }
-
-
-    minOf(
-        selector : (entry : Entry<KeyType, ValueType>) => number | Promise<number>
-    ) : KoconutPrimitive<number>;
-    minOf(
-        selector : (entry : Entry<KeyType, ValueType>) => number | Promise<number>,
-        thisArg : any
-    ) : KoconutPrimitive<number>;
-    minOf(
-        selector : (entry : Entry<KeyType, ValueType>) => string | Promise<string>
-    ) : KoconutPrimitive<string>;
-    minOf(
-        selector : (entry : Entry<KeyType, ValueType>) => string | Promise<string>,
-        thisArg : any
-    ) : KoconutPrimitive<string>;
-    minOf<ComparableType extends KoconutComparable>(
-        selector : (entry : Entry<KeyType, ValueType>) => ComparableType | Promise<ComparableType>
-    ) : KoconutPrimitive<ComparableType>;
-    minOf<ComparableType extends KoconutComparable>(
-        selector : (entry : Entry<KeyType, ValueType>) => ComparableType | Promise<ComparableType>,
-        thisArg : any
-    ) : KoconutPrimitive<ComparableType>;
-    minOf<ComparableType extends KoconutComparable>(
-        selector : (entry : Entry<KeyType, ValueType>) => number | string | ComparableType | Promise<number | string | ComparableType>,
-        thisArg : any = null
-    ) : KoconutPrimitive<number | string | ComparableType> {
-
-        selector = selector.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<number | string | ComparableType>();
-        (koconutToReturn as any as KoconutOpener<number | string | ComparableType>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data == null || this.mSize == 0) throw new KoconutNoSuchElementException(`Source data is null or empty`)
-                let lastComparableDatumToReturn : number | string | ComparableType | null = null
-                for(const eachEntry of this.mEntries) {
-                    const eachComparableDatum = await selector(eachEntry)
-                    if(lastComparableDatumToReturn == null
-                        || (KoconutTypeChecker.checkIsComparable(eachComparableDatum) && (eachComparableDatum).compareTo(lastComparableDatumToReturn as any as KoconutComparable) < 0)
-                        || (!KoconutTypeChecker.checkIsComparable(eachComparableDatum) && lastComparableDatumToReturn > eachComparableDatum)) {
-                            lastComparableDatumToReturn = eachComparableDatum
-                        }
-                }
-                return lastComparableDatumToReturn!
-            })
-        return koconutToReturn
-
-    }
-
-
-    minOfOrNull(
-        selector : (entry : Entry<KeyType, ValueType>) => number | Promise<number>
-    ) : KoconutPrimitive<number | null>;
-    minOfOrNull(
-        selector : (entry : Entry<KeyType, ValueType>) => number | Promise<number>,
-        thisArg : any
-    ) : KoconutPrimitive<number | null>;
-    minOfOrNull(
-        selector : (entry : Entry<KeyType, ValueType>) => string | Promise<string>
-    ) : KoconutPrimitive<string | null>;
-    minOfOrNull(
-        selector : (entry : Entry<KeyType, ValueType>) => string | Promise<string>,
-        thisArg : any
-    ) : KoconutPrimitive<string | null>;
-    minOfOrNull<ComparableType extends KoconutComparable>(
-        selector : (entry : Entry<KeyType, ValueType>) => ComparableType | Promise<ComparableType>
-    ) : KoconutPrimitive<ComparableType | null>;
-    minOfOrNull<ComparableType extends KoconutComparable>(
-        selector : (entry : Entry<KeyType, ValueType>) => ComparableType | Promise<ComparableType>,
-        thisArg : any
-    ) : KoconutPrimitive<ComparableType | null>;
-    minOfOrNull<ComparableType extends KoconutComparable>(
-        selector : (entry : Entry<KeyType, ValueType>) => number | string | ComparableType | Promise<number | string | ComparableType>,
-        thisArg : any = null
-    ) : KoconutPrimitive<number | string | ComparableType | null> {
-
-        selector = selector.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<number | string | ComparableType | null>();
-        (koconutToReturn as any as KoconutOpener<number | string | ComparableType | null>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data == null || this.mSize == 0) return null
-                let lastComparableDatumToReturn : number | string | ComparableType | null = null
-                for(const eachEntry of this.mEntries) {
-                    const eachComparableDatum = await selector(eachEntry)
-                    if(lastComparableDatumToReturn == null
-                        || (KoconutTypeChecker.checkIsComparable(eachComparableDatum) && (eachComparableDatum).compareTo(lastComparableDatumToReturn as any as KoconutComparable) < 0)
-                        || (!KoconutTypeChecker.checkIsComparable(eachComparableDatum) && lastComparableDatumToReturn > eachComparableDatum)) {
-                            lastComparableDatumToReturn = eachComparableDatum
-                        }
-                }
-                return lastComparableDatumToReturn
-            })
-        return koconutToReturn
-
-    }
-
-
-    minOfWith<ResultDataType>(
-        selector : (element : Entry<KeyType, ValueType>) => ResultDataType | Promise<ResultDataType>,
-        comparator : (front : ResultDataType, rear : ResultDataType) => number | Promise<number>,
-        selectorThisArg : any = null,
-        comparatorThisArg : any = null
-    ) : KoconutPrimitive<ResultDataType> {
-
-        selector = selector.bind(selectorThisArg)
-        comparator = comparator.bind(comparatorThisArg)
-        const koconutToReturn = new KoconutPrimitive<ResultDataType>();
-        (koconutToReturn as any as KoconutOpener<ResultDataType>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data == null || this.mSize == 0) throw new KoconutNoSuchElementException(`Source data is null or empty`)
-                let lastComparableDatumToReturn : ResultDataType | null = null
-                for(const eachEntry of this.mEntries) {
-                    const eachComparableDatum = await selector(eachEntry)
-                    if(lastComparableDatumToReturn == null || await comparator(lastComparableDatumToReturn, eachComparableDatum) > 0)
-                        lastComparableDatumToReturn = eachComparableDatum
-                }
-                return lastComparableDatumToReturn!
-            })
-        return koconutToReturn
-
-    }
-
-
-    minOfWithOrNull<ResultDataType>(
-        selector : (element : Entry<KeyType, ValueType>) => ResultDataType | Promise<ResultDataType>,
-        comparator : (front : ResultDataType, rear : ResultDataType) => number | Promise<number>,
-        selectorThisArg : any = null,
-        comparatorThisArg : any = null
-    ) : KoconutPrimitive<ResultDataType | null> {
-
-        selector = selector.bind(selectorThisArg)
-        comparator = comparator.bind(comparatorThisArg)
-        const koconutToReturn = new KoconutPrimitive<ResultDataType | null>();
-        (koconutToReturn as any as KoconutOpener<ResultDataType | null>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data == null || this.mSize == 0) return null
-                let lastComparableDatumToReturn : ResultDataType | null = null
-                for(const eachEntry of this.mEntries) {
-                    const eachComparableDatum = await selector(eachEntry)
-                    if(lastComparableDatumToReturn == null || await comparator(lastComparableDatumToReturn, eachComparableDatum) > 0)
-                        lastComparableDatumToReturn = eachComparableDatum
-                }
-                return lastComparableDatumToReturn
-            })
-        return koconutToReturn
-
-    }
 
 
     minus(
@@ -931,27 +1473,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
     }
 
 
-    minWithOrNull(
-        comparator : (front : Entry<KeyType, ValueType>, rear : Entry<KeyType, ValueType>) => number | Promise<number>,
-        thisArg : any = null
-    ) : KoconutPrimitive<Entry<KeyType, ValueType> | null> {
 
-        comparator = comparator.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<Entry<KeyType, ValueType> | null>();
-        (koconutToReturn as any as KoconutOpener<Entry<KeyType, ValueType> | null>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data == null || this.mSize == 0) return null
-                let dataToReturn : Entry<KeyType, ValueType> | null = null
-                for(const eachEntry of this.mEntries) {
-                    if(dataToReturn == null || await comparator(dataToReturn, eachEntry) > 0)
-                        dataToReturn = eachEntry
-                }
-                return dataToReturn
-            })
-        return koconutToReturn
-
-    }
 
 
     none(

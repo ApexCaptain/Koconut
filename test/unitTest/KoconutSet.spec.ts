@@ -1735,6 +1735,39 @@ describe(`${KoconutSet.name} -- Function`, () => {
 
     })
 
+    it(KoconutSet.prototype.minBy.name, async () => {
+
+        const koconut = KoconutSet.from([
+                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
+                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
+                        new ProductInfo("A-3", "iPhone -- June", 1500)])
+
+        /* Case 1 */
+        const yieldableCase1 =
+                        koconut
+                        .minBy(eachElement => eachElement.name)
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).eqls(new ProductInfo("A-2", "Mac Book Air -- September", 1200))
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .minBy(eachElement => eachElement)
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).eqls(new ProductInfo("A-2", "Mac Book Air -- September", 1200))
+
+        /* Case 3 */
+        const yieldableCase3 =
+                        koconut
+                        .filter(eachElement => eachElement.price > 3000)
+                        .minBy(eachElement => eachElement)
+        try { await yieldableCase3.yield() }
+        catch(error) { expect(error).to.be.instanceOf(KoconutNoSuchElementException) }
+
+    })
+
     it(KoconutSet.prototype.minByOrNull.name, async () => {
 
         const koconut = KoconutSet.from([
@@ -1757,6 +1790,14 @@ describe(`${KoconutSet.name} -- Function`, () => {
         expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
         const resultCase2 = await yieldableCase2.yield()
         expect(resultCase2).eqls(new ProductInfo("A-2", "Mac Book Air -- September", 1200))
+
+        /* Case 3 */
+        const yieldableCase3 =
+                        koconut
+                        .filter(eachElement => eachElement.price > 3000)
+                        .minByOrNull(eachElement => eachElement)
+        const resultCase3 = await yieldableCase3.yield()
+        expect(resultCase3).equals(null)
 
     })
 
@@ -1953,6 +1994,36 @@ describe(`${KoconutSet.name} -- Function`, () => {
 
     })
 
+    it(KoconutSet.prototype.minWith.name, async () => {
+
+        const koconut = KoconutSet.from([
+            new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
+            new ProductInfo("A-2", "Mac Book Air -- September", 1200),
+            new ProductInfo("A-3", "iPhone -- June", 1500)])
+
+        /* Case 1 */
+        const yieldableCase1 =   
+                    koconut
+                    .minWith(
+                        (front, rear) => front.name.length - rear.name.length
+                    )
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).eqls(new ProductInfo("A-3", "iPhone -- June", 1500))
+
+        /* Case 2 */
+        const yieldableCase2 =
+                    koconut
+                    .filter(eachElement => eachElement.price > 3000)
+                    .minWith(
+                        (front, rear) => front.name.length - rear.name.length
+                    )
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        try { await yieldableCase2.yield() }
+        catch(error) { expect(error).to.be.instanceOf(KoconutNoSuchElementException) }
+
+    })
+
     it(KoconutSet.prototype.minWithOrNull.name, async () => {
 
         const koconut = KoconutSet.from([
@@ -1960,14 +2031,26 @@ describe(`${KoconutSet.name} -- Function`, () => {
                         new ProductInfo("A-2", "Mac Book Air -- September", 1200),
                         new ProductInfo("A-3", "iPhone -- June", 1500)])
 
-        const yieldable =   
+        /* Case 1 */
+        const yieldableCase1 =   
                         koconut
                         .minWithOrNull(
-                            (prev, rear) => prev.name.length - rear.name.length
+                            (front, rear) => front.name.length - rear.name.length
                         )
-        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
-        const result = await yieldable.yield()
-        expect(result).eqls(new ProductInfo("A-3", "iPhone -- June", 1500))
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).eqls(new ProductInfo("A-3", "iPhone -- June", 1500))
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .filter(eachElement => eachElement.price > 3000)
+                        .minWithOrNull(
+                            (front, rear) => front.name.length - rear.name.length
+                        )
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).equals(null)
 
     })
 

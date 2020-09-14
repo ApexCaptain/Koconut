@@ -15,30 +15,84 @@ import {
 } from "../../../../module.internal"
 
 export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataType>> {
- 
-    static from<DataType>(
-        source : Iterable<DataType> | null = null
+
+    // Private
+    private static fromCollection<DataType>(
+        collection : KoconutCollection<DataType, Set<DataType>>
     ) : KoconutSet<DataType> {
 
-        return new KoconutSet(new Set(source))
+        const koconutToReturn = new KoconutSet<DataType>(collection['data'])
+        koconutToReturn.processor = collection['processor'];
+        koconutToReturn.prevYieldable = collection['prevYieldable']
+        return koconutToReturn
 
     }
 
 
-    static of<DataType>(
-        ...data : DataType[]
-    ) : KoconutSet<DataType> {
 
-        return new KoconutSet(new Set(data))
 
-    }
 
-    /* Koconut Primitive */
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    // Koconut Primitive
+    /**
+     * Creates a new instance from ```iterable``` object.
+     * @param set An array-like ```iterable``` object to convert to a {@link KoconutSet}.
+     * 
+     * @since 1.0.10
+     * 
+     * @example
+     * ```typescript
+     * const numbers = Array.of(1,2,3,4,5)
+     * const koconutNumbers = new KoconutSet(numbers)
+     * // ↑ This is a Koconut number set consists of 1 to 5.
+     * 
+     * const emptyNumberSet = new KoconutSet<number>()
+     * // ↑ This is an empty Koconut number set.
+     * ```
+     */
     constructor(set : Iterable<DataType> | null = null) {
         super()
         this.data = set == null ? new Set() : new Set(set)
     }
+    
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    // Koconut Iterable
     async validate(data : Set<DataType> | null) {
         if(data != null) {
             let index = 0
@@ -65,18 +119,97 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
             this.combinedDataWrapper = data
         }
     }
+    
 
 
-    private static fromCollection<DataType>(
-        collection : KoconutCollection<DataType, Set<DataType>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    // Creator
+    /**
+     * Creates a new instance from ```iterable``` object.
+     * @param source An array-like ```iterable``` object to convert to a {@link KoconutSet}.
+     * 
+     * @category Creator
+     * 
+     * @since 1.0.11
+     * 
+     * @example
+     * ```typescript
+     * const numbers = Array.of(1,2,3,4,5)
+     * const koconutNumbers = KoconutSet.from(numbers)
+     * // ↑ This is a Koconut number set consists of 1 to 5.
+     * 
+     * const emptyNumberSet = KoconutSet.from<number>()
+     * // ↑ This is an empty Koconut number set.
+     * ```
+     */
+    static from<DataType>(
+        source : Iterable<DataType> | null = null
     ) : KoconutSet<DataType> {
 
-        const koconutToReturn = new KoconutSet<DataType>(collection['data'])
-        koconutToReturn.processor = collection['processor'];
-        koconutToReturn.prevYieldable = collection['prevYieldable']
-        return koconutToReturn
+        return new KoconutSet(new Set(source))
 
     }
+
+
+    /**
+     * Creates a new instance from variable number of arguments.
+     * @param data A set of elements to include in the new {@link KoconutSet} object.
+     * 
+     * @category Creator
+     * 
+     * @since 1.0.11
+     * 
+     * @example
+     * ```typescript
+     * const koconutNumbers = KoconutSet.of(1,2,3,4,5)
+     * // ↑ This is a Koconut number set consists of 1 to 5.
+     * 
+     * const emptyNumberSet = KoconutSet.of<number>()
+     * // ↑ This is an empty Koconut number set.
+     * ```
+     */
+    static of<DataType>(
+        ...data : DataType[]
+    ) : KoconutSet<DataType> {
+
+        return new KoconutSet(new Set(data))
+
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
 
 
     associateByTo<KeyType, ValueType = DataType>(
