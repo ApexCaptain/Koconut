@@ -6,14 +6,13 @@
 [![License][license-image]][license-url]
 [![Bundle Size][bundle-size-image]][bundle-size-url]
 [![Dev Dependencies][dev-dependencies-image]][dev-dependencies-url]
+[![Node.js Version][node-version-image]][node-version-url]
 
 # Installation
 
 This is a [Node.js](https://nodejs.org/en/) library available through the [npm registry](https://www.npmjs.com/).
 
 Before you install it, please [download and install Node.js](https://nodejs.org/en/download/).
-
-Currently, [Koconut] does not require specific node version, however it is recommended to be 0.8.x or higher since this library depends on [Promise] a lot.
 
 Installation is done by using [`npm install` command](https://docs.npmjs.com/getting-started/installing-npm-packages-locally)
 
@@ -568,20 +567,23 @@ There are three options you can change for `Depreation Warning`.
 <!-- Links -->
 
 <!-- IO Shields -->
-[npm-image]: https://img.shields.io/npm/v/koconut.svg?color=RED&label=npm&style=plastic&logo=npm
+[npm-image]: https://img.shields.io/npm/v/koconut.svg?color=CB0000&label=npm&style=plastic&logo=npm
 [npm-url]: https://www.npmjs.com/package/koconut
 
-[travis-image]: https://img.shields.io/travis/ApexCaptain/Koconut?color=success&label=Travis%20CI&logo=travis-ci&style=plastic
+[travis-image]: https://img.shields.io/travis/ApexCaptain/Koconut?color=3EAAAF&label=Travis%20CI&logo=travis-ci&style=plastic
 [travis-url]: https://travis-ci.org/github/ApexCaptain/Koconut
 
-[bundle-size-image]: https://img.shields.io/bundlephobia/min/koconut?label=Bundle&style=plastic&logo=node.js
+[bundle-size-image]: https://img.shields.io/bundlephobia/min/koconut?label=Bundle&style=plastic&color=EC983C&logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8%2F9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAbwAAAG8B8aLcQwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAGQSURBVDiNpZO9bhNBFIW%2F%2BfXsYlCcIGSMUiCgAimPQZd0lLQuUbq8Qh4ACWp4BB4gJUKiABqSHiFkASHOrnd3ZmcojDcyxIlEjnSkuXPOPTO6mhEpJa4CvVQd7K5B47r63XTALBhumoqH%2FROAZlpsBNv7kT9%2B%2BXU54P3YIOwXkHm397mASQP3c3h0A4Cy9FAGn4MFkJ152ijgrPkipKQWS3mRj%2ByP7Fbb9EoF4Mnw0stodnauI6Xi2Vp1qfscSGL8QGwP8fc2%2FydAA3eJCW4Nj%2BjdhvoE6mOojiHF1Z0fX11j3cXlGUgN2fqcqQVfQluDn0E56QJ1f0A04chPvmfnDtHXDQKBkBnC5gi3gRACim9koweowR05mxYjbcyLLmD26xSZHNoYTM%2F%2Bm9ofhZgNA7V3dVFhnN23W%2BO9LkAIQqi9DrVHCIFUkpTSnDEt5qUBjLN7dmu8D%2FOH9AY4cLuvc%2BvcU2X0WyFF04aW2EaAKKWqpFY%2FldaHOrPbi2aAs1P%2BYvnp%2BWZKSa7SFxRX%2Fc6%2FAU%2F%2FtkbCbCcQAAAAAElFTkSuQmCC
 [bundle-size-url]: https://bundlephobia.com/result?p=koconut
 
-[license-image]: https://img.shields.io/github/license/ApexCaptain/Koconut.svg?color=B82149&label=License&style=plastic&logo=Apache
+[license-image]: https://img.shields.io/github/license/ApexCaptain/Koconut.svg?color=E2AC00&label=License&style=plastic&logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8%2F9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAdgAAAHYBTnsmCAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAHSSURBVDiNpZLLa1NREMa%2FmXvzaG2lKDW2EdNqi6Ckxq5Kdy0UsnQTs1CrWxcidFPEnYumG%2FFfUHRloC5cBTU%2Bdi6Cr1QUYh9wqS3RWmqoNzf3zrgIN2DahkK%2B1Zw5v%2Flm5nCANkV%2BoC%2BiR6uQayHXeEBJa9N%2BdWKIHO85AGjQmApPWKVm5j%2BDWr5vxv1m3OOIQioE7hZImQEA3CuQP1zPrTOMM95McPLHfQBg32BuYXQxtxMtzOcTyY5pi7SHh7nfs7nfs%2FWwO9QxbdH8ywvJ3E60kFkY%2FeLXmX6wuNYzVdzoHFcJ3QWQC09YpUom9g4Aum6vft%2BLaUyQSl0dhKKUzWYdgqymL6ZPA0DgXC3uN9iPqa%2FgynU1nccAYDtdDz02rtSfmBor7sdQ9U0k%2Fmkpcicx8PO9z35YOZIYOVWew7b5tlY0PwbG7ZvF5d7Zkdjm52bGJJfHzsfKaVWkZYPhrRg4i22IBB0%2BJvVBXB6Ln%2Fx1WRXYxQQ49IgITwGq6V8CSEHdshZm45bf7SDMnqo%2Bi%2F6uZGKvWzHc6vIgatuAmhPV%2FPFLTDwIALKFlG7RkjGgBQAQleXQ5PqTlgZOvq8C4JB%2F9r42PiuU1Ou8YZnNNW3pH9Tv3ULkpzpnAAAAAElFTkSuQmCC
 [license-url]: https://github.com/ApexCaptain/Koconut/blob/master/LICENSE
 
-[dev-dependencies-image]: https://img.shields.io/librariesio/release/npm/koconut?label=devDependencies&style=plastic&logo=Dependabot
+[dev-dependencies-image]: https://img.shields.io/librariesio/release/npm/koconut?label=devDependencies&style=plastic&color=837F86&logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8%2F9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAdgAAAHYBTnsmCAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAJvSURBVDiNpZFPSBRxFMe%2Fv5nZf%2B6uM86s7q66VkZqaWqsIqXRUtQh8NAhENSozAgyCCKIINiLh4ggEKKDFzEj6qJ1k8DxEGqxKliUlumu%2F3bVdtXxz7qzM9Ohkl1asOh7eg%2Fe9%2FG%2Bnwf8p0hi09zcWs5a1Ccsy82lGs7I4HL8U2vXHjy6PrqzoLr6vnXPSc8wXCRMzQaEUnp4fxEX3DFpAIK6Cug2ZmErPIZXY5jccjpWNWZ7%2FtmF6lp6ZuaNfKiy3inHpVGEgootXS7ZQC4iih0RxY4VxQ6T1YIYLOAFDh%2FHw72SJA%2BYil1N2dThrqQIHo%2FXWHyQajCb0hdTRbCyafbJKV3n9NgHi6v1Umihe7CCSRwQRW9UFNG%2BGziP%2B5bld5204GLDveNZDkMHx3FLqYwCL2R%2BnVhuHOyfnyC%2F%2BBMApO7OgI%2FZZ7Rri37jgegwn28IJNgItoRKqJEAckpr0P2ZDkcznTKxaca5hz0O5kxtW6HOwpWvjPlaTOtLRVqe%2FkaEPZpgB3QUBYXLR1xWoUwvPN2KxT9R42u9ouiNMqrZZIKmaNLAyIvXPmu4sY7qmkI4lipChhDTdzxueYef3%2F2TAeBVO59jaDeIiWIYElNACKE5Iav%2BvNeTu5dpF3h%2BPeUFPG8Zeb9webnsyG3NRIZeXjlxk7jdV3UFp5v8dGGaE0E%2FSjbfglNDSRBJthvy9wDyymvQ88UAtaAAil7a9rX32xiOsfFBsfuc1geXlWWqImXmFlqoSGYgAdDnYSm0qV%2FpG2lTpY2z8Wj0myMwZyanqu7atzWNZWhNJSrYv8mtUViNK4QyELL6L7xS6gcvnuRUfygkSAAAAABJRU5ErkJggg%3D%3D
 [dev-dependencies-url]: http://npm.broofa.com/?q=koconut
+
+[node-version-image]: http://img.shields.io/node/v/koconut.svg?style=plastic&color=378C37&label=Node.js&logo=node.js
+[node-version-url]: https://nodejs.org/download/
 
 <!-- Basic -->
 [Koconut]: https://github.com/ApexCaptain/Koconut

@@ -1,6 +1,6 @@
 {
   "name": "koconut",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Promise-Friendly Kotlin style collection lib for nodejs.",
   "main": "dist/index.internal.js",
   "types": "dist/index.internal.d.ts",
@@ -9,7 +9,10 @@
     "typescript-library",
     "typescript",
     "collection",
-    "promise"
+    "promise",
+    "iteration-process",
+    "async-await",
+    "data-structures"
   ],
   "engines": {
     "node": ">= 7.0"
@@ -36,6 +39,9 @@
   "bugs": {
     "url": "https://github.com/ApexCaptain/Koconut/issues"
   },
+  "dependencies": {
+    "@babel/runtime": "^7.11.2"
+  },
   "homepage": "https://apexcaptain.github.io/Koconut/",
   "devDependencies": {
     "@babel/cli": "^7.11.6",
@@ -46,7 +52,6 @@
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-typescript": "^7.10.4",
     "@babel/register": "^7.11.5",
-    "@babel/runtime": "^7.11.2",
     "@octokit/rest": "^18.0.5",
     "@types/chai": "^4.2.12",
     "@types/mocha": "^8.0.3",

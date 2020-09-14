@@ -1,6 +1,10 @@
 # Koconut Release Note
 
 ## Release 1.0.11
+### Bug Fixes and Other Changes
+- Babel@runtime is now moved to common dependencies section. I'm sorry I didn't catch that.
+
+## Release 1.0.11
 
 ### Bug Fixes and Other Changes
 - Creation of container classes now allow `null` and also use it as default value. If the argument is omitted, it'll return an empty collection instance.
