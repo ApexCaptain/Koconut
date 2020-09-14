@@ -1,6 +1,6 @@
 # Koconut Release Note
 
-## Release 1.0.11
+## Release 1.0.12
 ### Bug Fixes and Other Changes
 - Babel@runtime is now moved to common dependencies section. I'm sorry I didn't catch that.
 
