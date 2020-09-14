@@ -18,6 +18,7 @@ import {
 export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Iterable<DataType>, CombinedWrapperType extends Iterable<CombinedDataType>> extends KoconutPrimitive<WrapperType> {
 
     protected combinedDataWrapper : CombinedWrapperType | null = null
+    protected mSize : number = 0
     
 
 
@@ -2145,17 +2146,160 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
     }
 
 
+    /**
+     * Returns ```true``` if the collection is empty (contains no elements), ```false``` otherwise.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Inspector
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const isNumberArrayEmpty = await koconutArray
+     *                           .isEmpty()
+     *                           .yield()
+     * console.log(isNumberArrayEmpty)
+     * // ↑ false
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of(1,2,3,4,5)
+     *
+     * const isFilteredNumberSetEmpty = await koconutSet
+     *                           .filter(eachNumber => eachNumber > 10)
+     *                           .isEmpty()
+     *                           .yield()
+     * console.log(isFilteredNumberSetEmpty)
+     * // ↑ true
+     *
+     * // Case 3 -- KoconutMap
+     * const koconutMap = new KoconutMap<number, number>()
+     *
+     * const isNumberPairedMapEmpty = await koconutMap
+     *                                   .isEmpty()
+     *                                   .yield()
+     * console.log(isNumberPairedMapEmpty)
+     * // ↑ true
+     * ```
+     */
     isEmpty() : KoconutPrimitive<boolean> {
 
         const koconutToReturn = new KoconutPrimitive<boolean>();
         (koconutToReturn as any as KoconutOpener<boolean>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
-                this.co
+                return this.combinedDataWrapper != null && this.mSize == 0
             })
         return koconutToReturn
 
     }
+
+
+    /**
+     * Returns ```true``` if the collection is not empty.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Inspector
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const isNumberArrayEmpty = await koconutArray
+     *                           .isNotEmpty()
+     *                           .yield()
+     * console.log(isNumberArrayEmpty)
+     * // ↑ true
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of(1,2,3,4,5)
+     *
+     * const isFilteredNumberSetEmpty = await koconutSet
+     *                           .filter(eachNumber => eachNumber > 10)
+     *                           .isNotEmpty()
+     *                           .yield()
+     * console.log(isFilteredNumberSetEmpty)
+     * // ↑ false
+     *
+     * // Case 3 -- KoconutMap
+     * const koconutMap = new KoconutMap<number, number>()
+     *
+     * const isNumberPairedMapEmpty = await koconutMap
+     *                                   .isNotEmpty()
+     *                                   .yield()
+     * console.log(isNumberPairedMapEmpty)
+     * // ↑ false
+     * ```
+     */
+    isNotEmpty() : KoconutPrimitive<boolean> {
+
+        const koconutToReturn = new KoconutPrimitive<boolean>();
+        (koconutToReturn as any as KoconutOpener<boolean>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                return this.mSize != 0
+            })
+        return koconutToReturn
+
+    }
+
+
+    /**
+     * Returns ```true``` if this nullable collection is either null or empty.
+     * 
+     * @since 1.0.10
+     * @deprecated Use {@link isEmpty} instead. 
+     * 
+     * @category Inspector
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const isNumberArrayEmpty = await koconutArray
+     *                           .isNullOrEmpty()
+     *                           .yield()
+     * console.log(isNumberArrayEmpty)
+     * // ↑ false
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of(1,2,3,4,5)
+     *
+     * const isFilteredNumberSetEmpty = await koconutSet
+     *                           .filter(eachNumber => eachNumber > 10)
+     *                           .isNullOrEmpty()
+     *                           .yield()
+     * console.log(isFilteredNumberSetEmpty)
+     * // ↑ true
+     *
+     * // Case 3 -- KoconutMap
+     * const koconutMap = new KoconutMap<number, number>()
+     *
+     * const isNumberPairedMapEmpty = await koconutMap
+     *                                   .isNullOrEmpty()
+     *                                   .yield()
+     * console.log(isNumberPairedMapEmpty)
+     * // ↑ true
+     * ``` 
+     */
+    isNullOrEmpty() : KoconutPrimitive<boolean> {
+
+        KoconutDeprecation.showDeprecationWarning("1.3.0", this.isEmpty)
+        const koconutToReturn = new KoconutPrimitive<boolean>();
+        (koconutToReturn as any as KoconutOpener<boolean>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                return this.combinedDataWrapper == null || this.mSize == 0
+            })
+        return koconutToReturn
+
+    }
+    
     
 
 

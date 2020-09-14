@@ -39,7 +39,6 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
 
 
     /* Properties */
-    protected mSize = 0
     size() : KoconutPrimitive<number> {
 
         const koconutToReturn = new KoconutPrimitive<number>();

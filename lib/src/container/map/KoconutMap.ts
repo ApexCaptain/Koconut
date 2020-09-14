@@ -180,8 +180,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
     /* Properties */
     private mKeys = new Set<KeyType>()
     private mEntries = new Set<Entry<KeyType, ValueType>>()
-    private mValues = new Array<ValueType>() 
-    private mSize = 0
+    private mValues = new Array<ValueType>()
 
 
     /* Properties Getter */
@@ -1222,42 +1221,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
         return koconutToReturn
 
     }
-
-
-    /*
-    isEmpty() : KoconutPrimitive<boolean> {
-
-        const koconutToReturn = new KoconutPrimitive<boolean>();
-        (koconutToReturn as any as KoconutOpener<boolean>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => this.mSize == 0)
-        return koconutToReturn
-
-    }
-
-
-    isNotEmpty() : KoconutPrimitive<boolean> {
-
-        const koconutToReturn = new KoconutPrimitive<boolean>();
-        (koconutToReturn as any as KoconutOpener<boolean>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => this.mSize != 0)
-        return koconutToReturn
-
-    }
-
-
-    isNullOrEmpty() : KoconutPrimitive<boolean> {
-
-        const koconutToReturn = new KoconutPrimitive<boolean>();
-        (koconutToReturn as any as KoconutOpener<boolean>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => this.data == null || this.mSize == 0)
-        return koconutToReturn
-
-    }
-    */
-
+    
 
     map<ResultDataType>(
         transform : (entry : Entry<KeyType, ValueType>) => ResultDataType | Promise<ResultDataType>,

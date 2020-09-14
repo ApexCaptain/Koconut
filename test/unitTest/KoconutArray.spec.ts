@@ -48,7 +48,520 @@ describe(`${KoconutArray.name} -- Property Getter`, () => {
 
 })
 
-describe(`${KoconutArray.name} -- Function`, () => {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+describe(`${KoconutArray.name} -- Calculator`, () => {
+
+    it(KoconutArray.prototype.count.name, async () => {
+
+        const koconut = KoconutArray.from([1,2,3,4,5])
+
+        /* Case 1 */
+        const yieldableCase1 =
+                        koconut
+                        .count()
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).to.equals(5)
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .count(eachElement => eachElement % 2 == 0)
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).to.equals(2)
+
+    })
+
+
+    it(KoconutArray.prototype.maxBy.name, async () => {
+
+        const koconut = KoconutArray.from([
+                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
+                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
+                        new ProductInfo("A-3", "iPhone -- June", 1500)])
+
+        /* Case 1 */
+        const yieldableCase1 =
+                        koconut
+                        .maxBy(eachElement => eachElement.name)
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).eqls(new ProductInfo("A-3", "iPhone -- June", 1500))
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .maxBy(eachElement => eachElement)
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).eqls(new ProductInfo("A-1", "Mac Book Pro -- May", 2000))
+
+        /* Case 3 */
+        const yieldableCase3 =
+                        koconut
+                        .filter(eachElement => eachElement.price > 3000)
+                        .maxBy(eachElement => eachElement)
+        try { await yieldableCase3.process() }
+        catch(error) { expect(error).to.be.instanceOf(KoconutNoSuchElementException) }
+
+    })
+
+    it(KoconutArray.prototype.maxByOrNull.name, async () => {
+
+        const koconut = KoconutArray.from([
+                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
+                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
+                        new ProductInfo("A-3", "iPhone -- June", 1500)])
+
+        /* Case 1 */
+        const yieldableCase1 =
+                        koconut
+                        .maxByOrNull(eachElement => eachElement.name)
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).eqls(new ProductInfo("A-3", "iPhone -- June", 1500))
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .maxByOrNull(eachElement => eachElement)
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).eqls(new ProductInfo("A-1", "Mac Book Pro -- May", 2000))
+
+        /* Case 3 */
+        const yieldableCase3 =
+                        koconut
+                        .filter(eachElement => eachElement.price > 3000)
+                        .maxByOrNull(eachElement => eachElement)
+        expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive)
+        const resultCase3 = await yieldableCase3.yield()
+        expect(resultCase3).equals(null)
+
+    })
+
+    it(KoconutArray.prototype.maxOf.name, async () => {
+
+        const koconut = KoconutArray.from([
+                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
+                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
+                        new ProductInfo("A-3", "iPhone -- June", 1500)])
+
+        /* Case 1 */
+        const yieldableCase1 =
+                        koconut
+                        .maxOf(eachElement => eachElement.name)
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).equals("iPhone -- June")
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .maxOf(eachElement => eachElement)
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).eqls(new ProductInfo("A-1", "Mac Book Pro -- May", 2000))
+
+    })
+
+    it(KoconutArray.prototype.maxOfOrNull.name, async () => {
+
+        const koconut = KoconutArray.from([
+                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
+                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
+                        new ProductInfo("A-3", "iPhone -- June", 1500)])
+
+        /* Case 1 */
+        const yieldableCase1 =
+                        koconut
+                        .maxOfOrNull(eachElement => eachElement.name)
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).equals("iPhone -- June")
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .maxOfOrNull(eachElement => eachElement)
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).eqls(new ProductInfo("A-1", "Mac Book Pro -- May", 2000))
+
+        /* Case 3 */
+        const yieldableCase3 =
+                        koconut
+                        .filter(eachElement => eachElement.price < 500)
+                        .maxOfOrNull(eachElement => eachElement.price)
+        expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive)
+        const resultCase3 = await yieldableCase3.yield()
+        expect(resultCase3).equals(null)
+
+    })
+
+    it(KoconutArray.prototype.maxOfWith.name, async () => {
+
+        const koconut = KoconutArray.from([
+                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
+                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
+                        new ProductInfo("A-3", "iPhone -- June", 1500)])
+                    
+        const yieldable =
+                        koconut
+                        .maxOfWith(
+                            eachElement => eachElement.name,
+                            (front, rear) => front.length - rear.length
+                        )
+        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
+        const result = await yieldable.yield()
+        expect(result).equals("Mac Book Air -- September")
+
+    })
+
+    it(KoconutArray.prototype.maxOfWithOrNull.name, async () => {
+
+        const koconut = KoconutArray.from([
+                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
+                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
+                        new ProductInfo("A-3", "iPhone -- June", 1500)])
+                    
+        const yieldable =
+                        koconut
+                        .maxOfWithOrNull(
+                            eachElement => eachElement.name,
+                            (front, rear) => front.length - rear.length
+                        )
+        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
+        const result = await yieldable.yield()
+        expect(result).equals("Mac Book Air -- September")
+
+    })
+
+    it(KoconutArray.prototype.maxWith.name, async () => {
+
+        const koconut = KoconutArray.from([
+            new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
+            new ProductInfo("A-2", "Mac Book Air -- September", 1200),
+            new ProductInfo("A-3", "iPhone -- June", 1500)])
+
+        /* Case 1 */
+        const yieldableCase1 =   
+                    koconut
+                    .maxWith(
+                        (front, rear) => front.name.length - rear.name.length
+                    )
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).eqls(new ProductInfo("A-2", "Mac Book Air -- September", 1200))
+
+        /* Case 2 */
+        const yieldableCase2 =
+                    koconut
+                    .filter(eachElement => eachElement.price > 3000)
+                    .maxWith(
+                        (front, rear) => front.name.length - rear.name.length
+                    )
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        try { await yieldableCase2.yield() }
+        catch(error) { expect(error).to.be.instanceOf(KoconutNoSuchElementException) }
+
+    })
+
+    it(KoconutArray.prototype.maxWithOrNull.name, async () => {
+
+        const koconut = KoconutArray.from([
+                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
+                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
+                        new ProductInfo("A-3", "iPhone -- June", 1500)])
+
+        /* Case 1 */
+        const yieldableCase1 =   
+                        koconut
+                        .maxWithOrNull(
+                            (front, rear) => front.name.length - rear.name.length
+                        )
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).eqls(new ProductInfo("A-2", "Mac Book Air -- September", 1200))
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .filter(eachElement => eachElement.price > 3000)
+                        .maxWithOrNull(
+                            (front, rear) => front.name.length - rear.name.length
+                        )
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).equals(null)
+
+    })
+
+    it(KoconutArray.prototype.minBy.name, async () => {
+
+        const koconut = KoconutArray.from([
+                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
+                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
+                        new ProductInfo("A-3", "iPhone -- June", 1500)])
+
+        /* Case 1 */
+        const yieldableCase1 =
+                        koconut
+                        .minBy(eachElement => eachElement.name)
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).eqls(new ProductInfo("A-2", "Mac Book Air -- September", 1200))
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .minBy(eachElement => eachElement)
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).eqls(new ProductInfo("A-2", "Mac Book Air -- September", 1200))
+
+        /* Case 3 */
+        const yieldableCase3 =
+                        koconut
+                        .filter(eachElement => eachElement.price > 3000)
+                        .minBy(eachElement => eachElement)
+        try { await yieldableCase3.yield() }
+        catch(error) { expect(error).to.be.instanceOf(KoconutNoSuchElementException) }
+
+    })
+
+    it(KoconutArray.prototype.minByOrNull.name, async () => {
+
+        const koconut = KoconutArray.from([
+                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
+                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
+                        new ProductInfo("A-3", "iPhone -- June", 1500)])
+
+        /* Case 1 */
+        const yieldableCase1 =
+                        koconut
+                        .minByOrNull(eachElement => eachElement.name)
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).eqls(new ProductInfo("A-2", "Mac Book Air -- September", 1200))
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .minByOrNull(eachElement => eachElement)
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).eqls(new ProductInfo("A-2", "Mac Book Air -- September", 1200))
+
+        /* Case 3 */
+        const yieldableCase3 =
+                        koconut
+                        .filter(eachElement => eachElement.price > 3000)
+                        .minByOrNull(eachElement => eachElement)
+        const resultCase3 = await yieldableCase3.yield()
+        expect(resultCase3).equals(null)
+
+    })
+
+    it(KoconutArray.prototype.minOf.name, async () => {
+
+        const koconut = KoconutArray.from([
+                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
+                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
+                        new ProductInfo("A-3", "iPhone -- June", 1500)])
+
+        /* Case 1 */
+        const yieldableCase1 =
+                        koconut
+                        .minOf(eachElement => eachElement.name)
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).equals("Mac Book Air -- September")
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .minOf(eachElement => eachElement)
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).eqls(new ProductInfo("A-2", "Mac Book Air -- September", 1200))
+
+    })
+
+    it(KoconutArray.prototype.minOfOrNull.name, async () => {
+
+        const koconut = KoconutArray.from([
+                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
+                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
+                        new ProductInfo("A-3", "iPhone -- June", 1500)])
+
+        /* Case 1 */
+        const yieldableCase1 =
+                        koconut
+                        .minOfOrNull(eachElement => eachElement.name)
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).equals("Mac Book Air -- September")
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .minOfOrNull(eachElement => eachElement)
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).eqls(new ProductInfo("A-2", "Mac Book Air -- September", 1200))
+
+        /* Case 3 */
+        const yieldableCase3 =
+                        koconut
+                        .filter(eachElement => eachElement.price < 500)
+                        .minOfOrNull(eachElement => eachElement.price)
+        expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive)
+        const resultCase3 = await yieldableCase3.yield()
+        expect(resultCase3).equals(null)
+
+    })
+
+    it(KoconutArray.prototype.minOfWith.name, async () => {
+
+        const koconut = KoconutArray.from([
+                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
+                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
+                        new ProductInfo("A-3", "iPhone -- June", 1500)])
+                    
+        const yieldable =
+                        koconut
+                        .minOfWith(
+                            eachElement => eachElement.name,
+                            (front, rear) => front.length - rear.length
+                        )
+        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
+        const result = await yieldable.yield()
+        expect(result).equals("iPhone -- June")
+
+    })
+
+    it(KoconutArray.prototype.minOfWithOrNull.name, async () => {
+
+        const koconut = KoconutArray.from([
+                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
+                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
+                        new ProductInfo("A-3", "iPhone -- June", 1500)])
+                    
+        const yieldable =
+                        koconut
+                        .minOfWithOrNull(
+                            eachElement => eachElement.name,
+                            (front, rear) => front.length - rear.length
+                        )
+        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
+        const result = await yieldable.yield()
+        expect(result).equals("iPhone -- June")
+
+    })
+
+    it(KoconutArray.prototype.minWith.name, async () => {
+
+        const koconut = KoconutArray.from([
+            new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
+            new ProductInfo("A-2", "Mac Book Air -- September", 1200),
+            new ProductInfo("A-3", "iPhone -- June", 1500)])
+
+        /* Case 1 */
+        const yieldableCase1 =   
+                    koconut
+                    .minWith(
+                        (front, rear) => front.name.length - rear.name.length
+                    )
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).eqls(new ProductInfo("A-3", "iPhone -- June", 1500))
+
+        /* Case 2 */
+        const yieldableCase2 =
+                    koconut
+                    .filter(eachElement => eachElement.price > 3000)
+                    .minWith(
+                        (front, rear) => front.name.length - rear.name.length
+                    )
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        try { await yieldableCase2.yield() }
+        catch(error) { expect(error).to.be.instanceOf(KoconutNoSuchElementException) }
+
+    })
+
+    it(KoconutArray.prototype.minWithOrNull.name, async () => {
+
+        const koconut = KoconutArray.from([
+                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
+                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
+                        new ProductInfo("A-3", "iPhone -- June", 1500)])
+
+        /* Case 1 */
+        const yieldableCase1 =   
+                        koconut
+                        .minWithOrNull(
+                            (front, rear) => front.name.length - rear.name.length
+                        )
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).eqls(new ProductInfo("A-3", "iPhone -- June", 1500))
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .filter(eachElement => eachElement.price > 3000)
+                        .minWithOrNull(
+                            (front, rear) => front.name.length - rear.name.length
+                        )
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).equals(null)
+
+    })
+
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+describe(`${KoconutArray.name} -- Inspector`, () => {
 
     it(KoconutArray.prototype.all.name, async () => {
 
@@ -94,6 +607,148 @@ describe(`${KoconutArray.name} -- Function`, () => {
 
     })
 
+    it(KoconutArray.prototype.isEmpty.name, async () => {
+
+        const koconut = KoconutArray.of(1,2,3,4,5)
+
+        /* Case 1 */
+        const yieldableCase1 =
+                        koconut
+                        .isEmpty()
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).equals(false)
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .filter(eachElement => eachElement > 10)
+                        .isEmpty()
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).equals(true)
+
+    })
+
+    it(KoconutArray.prototype.isNotEmpty.name, async () => {
+
+        const koconut = KoconutArray.of(1,2,3,4,5)
+
+        /* Case 1 */
+        const yieldableCase1 =
+                        koconut
+                        .isNotEmpty()
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).equals(true)
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .filter(eachElement => eachElement > 10)
+                        .isNotEmpty()
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).equals(false)
+
+    })
+
+    it(KoconutArray.prototype.isNullOrEmpty.name, async () => {
+
+        const koconut = KoconutArray.of(1,2,3,4,5)
+
+        /* Case 1 */
+        const yieldableCase1 =
+                        koconut
+                        .isNullOrEmpty()
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).equals(false)
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .filter(eachElement => eachElement > 10)
+                        .isNullOrEmpty()
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).equals(true)
+
+    })
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+describe(`${KoconutArray.name} -- Iterator`, () => {
+
+    it(KoconutArray.prototype.forEach.name, async () => {
+
+        const koconut = KoconutArray.from([1,2,3,4,5])
+
+        const yieldable =
+                        koconut
+                        .forEach(eachElement => {
+                            expect(eachElement).to.be.a("number")
+                        })
+        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
+        await yieldable.process()
+
+    })
+
+    it(KoconutArray.prototype.forEachIndexed.name, async () => {
+
+        const koconut = KoconutArray.from([1,2,3,4,5])
+
+        const yieldable =
+                        koconut
+                        .forEachIndexed((eachIndex, eachElement) => {
+                            expect(eachElement - eachIndex).equals(1)
+                        })
+        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
+        await yieldable.process()
+
+    })
+    
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+describe(`${KoconutArray.name} -- Function`, () => {
 
     it(KoconutArray.prototype.associate.name, async () =>{
 
@@ -424,29 +1079,6 @@ describe(`${KoconutArray.name} -- Function`, () => {
         expect(yieldableCase4).to.be.instanceOf(KoconutPrimitive)
         const resultCase4 = await yieldableCase4.yield()
         expect(resultCase4).to.equals(false)
-
-    })
-
-
-    it(KoconutArray.prototype.count.name, async () => {
-
-        const koconut = KoconutArray.from([1,2,3,4,5])
-
-        /* Case 1 */
-        const yieldableCase1 =
-                        koconut
-                        .count()
-        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
-        const resultCase1 = await yieldableCase1.yield()
-        expect(resultCase1).to.equals(5)
-
-        /* Case 2 */
-        const yieldableCase2 =
-                        koconut
-                        .count(eachElement => eachElement % 2 == 0)
-        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
-        const resultCase2 = await yieldableCase2.yield()
-        expect(resultCase2).to.equals(2)
 
     })
 
@@ -939,34 +1571,6 @@ describe(`${KoconutArray.name} -- Function`, () => {
         expect(yieldable).to.be.instanceOf(KoconutPrimitive)
         const result = await yieldable.yield()
         expect(result).equals(25)
-    })
-
-    it(KoconutArray.prototype.forEach.name, async () => {
-
-        const koconut = KoconutArray.from([1,2,3,4,5])
-
-        const yieldable =
-                        koconut
-                        .forEach(eachElement => {
-                            expect(eachElement).to.be.a("number")
-                        })
-        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
-        await yieldable.process()
-
-    })
-
-    it(KoconutArray.prototype.forEachIndexed.name, async () => {
-
-        const koconut = KoconutArray.from([1,2,3,4,5])
-
-        const yieldable =
-                        koconut
-                        .forEachIndexed((eachIndex, eachElement) => {
-                            expect(eachElement - eachIndex).equals(1)
-                        })
-        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
-        await yieldable.process()
-
     })
 
     it(KoconutArray.prototype.groupBy.name, async () => {
@@ -1505,392 +2109,6 @@ describe(`${KoconutArray.name} -- Function`, () => {
 
     })
 
-    it(KoconutArray.prototype.maxBy.name, async () => {
-
-        const koconut = KoconutArray.from([
-                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
-                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
-                        new ProductInfo("A-3", "iPhone -- June", 1500)])
-
-        /* Case 1 */
-        const yieldableCase1 =
-                        koconut
-                        .maxBy(eachElement => eachElement.name)
-        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
-        const resultCase1 = await yieldableCase1.yield()
-        expect(resultCase1).eqls(new ProductInfo("A-3", "iPhone -- June", 1500))
-
-        /* Case 2 */
-        const yieldableCase2 =
-                        koconut
-                        .maxBy(eachElement => eachElement)
-        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
-        const resultCase2 = await yieldableCase2.yield()
-        expect(resultCase2).eqls(new ProductInfo("A-1", "Mac Book Pro -- May", 2000))
-
-        /* Case 3 */
-        const yieldableCase3 =
-                        koconut
-                        .filter(eachElement => eachElement.price > 3000)
-                        .maxBy(eachElement => eachElement)
-        try { await yieldableCase3.process() }
-        catch(error) { expect(error).to.be.instanceOf(KoconutNoSuchElementException) }
-
-    })
-
-    it(KoconutArray.prototype.maxByOrNull.name, async () => {
-
-        const koconut = KoconutArray.from([
-                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
-                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
-                        new ProductInfo("A-3", "iPhone -- June", 1500)])
-
-        /* Case 1 */
-        const yieldableCase1 =
-                        koconut
-                        .maxByOrNull(eachElement => eachElement.name)
-        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
-        const resultCase1 = await yieldableCase1.yield()
-        expect(resultCase1).eqls(new ProductInfo("A-3", "iPhone -- June", 1500))
-
-        /* Case 2 */
-        const yieldableCase2 =
-                        koconut
-                        .maxByOrNull(eachElement => eachElement)
-        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
-        const resultCase2 = await yieldableCase2.yield()
-        expect(resultCase2).eqls(new ProductInfo("A-1", "Mac Book Pro -- May", 2000))
-
-        /* Case 3 */
-        const yieldableCase3 =
-                        koconut
-                        .filter(eachElement => eachElement.price > 3000)
-                        .maxByOrNull(eachElement => eachElement)
-        expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive)
-        const resultCase3 = await yieldableCase3.yield()
-        expect(resultCase3).equals(null)
-
-    })
-
-    it(KoconutArray.prototype.maxOf.name, async () => {
-
-        const koconut = KoconutArray.from([
-                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
-                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
-                        new ProductInfo("A-3", "iPhone -- June", 1500)])
-
-        /* Case 1 */
-        const yieldableCase1 =
-                        koconut
-                        .maxOf(eachElement => eachElement.name)
-        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
-        const resultCase1 = await yieldableCase1.yield()
-        expect(resultCase1).equals("iPhone -- June")
-
-        /* Case 2 */
-        const yieldableCase2 =
-                        koconut
-                        .maxOf(eachElement => eachElement)
-        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
-        const resultCase2 = await yieldableCase2.yield()
-        expect(resultCase2).eqls(new ProductInfo("A-1", "Mac Book Pro -- May", 2000))
-
-    })
-
-    it(KoconutArray.prototype.maxOfOrNull.name, async () => {
-
-        const koconut = KoconutArray.from([
-                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
-                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
-                        new ProductInfo("A-3", "iPhone -- June", 1500)])
-
-        /* Case 1 */
-        const yieldableCase1 =
-                        koconut
-                        .maxOfOrNull(eachElement => eachElement.name)
-        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
-        const resultCase1 = await yieldableCase1.yield()
-        expect(resultCase1).equals("iPhone -- June")
-
-        /* Case 2 */
-        const yieldableCase2 =
-                        koconut
-                        .maxOfOrNull(eachElement => eachElement)
-        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
-        const resultCase2 = await yieldableCase2.yield()
-        expect(resultCase2).eqls(new ProductInfo("A-1", "Mac Book Pro -- May", 2000))
-
-        /* Case 3 */
-        const yieldableCase3 =
-                        koconut
-                        .filter(eachElement => eachElement.price < 500)
-                        .maxOfOrNull(eachElement => eachElement.price)
-        expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive)
-        const resultCase3 = await yieldableCase3.yield()
-        expect(resultCase3).equals(null)
-
-    })
-
-    it(KoconutArray.prototype.maxOfWith.name, async () => {
-
-        const koconut = KoconutArray.from([
-                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
-                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
-                        new ProductInfo("A-3", "iPhone -- June", 1500)])
-                    
-        const yieldable =
-                        koconut
-                        .maxOfWith(
-                            eachElement => eachElement.name,
-                            (front, rear) => front.length - rear.length
-                        )
-        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
-        const result = await yieldable.yield()
-        expect(result).equals("Mac Book Air -- September")
-
-    })
-
-    it(KoconutArray.prototype.maxOfWithOrNull.name, async () => {
-
-        const koconut = KoconutArray.from([
-                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
-                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
-                        new ProductInfo("A-3", "iPhone -- June", 1500)])
-                    
-        const yieldable =
-                        koconut
-                        .maxOfWithOrNull(
-                            eachElement => eachElement.name,
-                            (front, rear) => front.length - rear.length
-                        )
-        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
-        const result = await yieldable.yield()
-        expect(result).equals("Mac Book Air -- September")
-
-    })
-
-    it(KoconutArray.prototype.maxWith.name, async () => {
-
-        const koconut = KoconutArray.from([
-            new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
-            new ProductInfo("A-2", "Mac Book Air -- September", 1200),
-            new ProductInfo("A-3", "iPhone -- June", 1500)])
-
-        /* Case 1 */
-        const yieldableCase1 =   
-                    koconut
-                    .maxWith(
-                        (front, rear) => front.name.length - rear.name.length
-                    )
-        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
-        const resultCase1 = await yieldableCase1.yield()
-        expect(resultCase1).eqls(new ProductInfo("A-2", "Mac Book Air -- September", 1200))
-
-        /* Case 2 */
-        const yieldableCase2 =
-                    koconut
-                    .filter(eachElement => eachElement.price > 3000)
-                    .maxWith(
-                        (front, rear) => front.name.length - rear.name.length
-                    )
-        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
-        try { await yieldableCase2.yield() }
-        catch(error) { expect(error).to.be.instanceOf(KoconutNoSuchElementException) }
-
-    })
-
-    it(KoconutArray.prototype.maxWithOrNull.name, async () => {
-
-        const koconut = KoconutArray.from([
-                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
-                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
-                        new ProductInfo("A-3", "iPhone -- June", 1500)])
-
-        /* Case 1 */
-        const yieldableCase1 =   
-                        koconut
-                        .maxWithOrNull(
-                            (front, rear) => front.name.length - rear.name.length
-                        )
-        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
-        const resultCase1 = await yieldableCase1.yield()
-        expect(resultCase1).eqls(new ProductInfo("A-2", "Mac Book Air -- September", 1200))
-
-        /* Case 2 */
-        const yieldableCase2 =
-                        koconut
-                        .filter(eachElement => eachElement.price > 3000)
-                        .maxWithOrNull(
-                            (front, rear) => front.name.length - rear.name.length
-                        )
-        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
-        const resultCase2 = await yieldableCase2.yield()
-        expect(resultCase2).equals(null)
-
-    })
-
-    it(KoconutArray.prototype.minBy.name, async () => {
-
-        const koconut = KoconutArray.from([
-                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
-                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
-                        new ProductInfo("A-3", "iPhone -- June", 1500)])
-
-        /* Case 1 */
-        const yieldableCase1 =
-                        koconut
-                        .minBy(eachElement => eachElement.name)
-        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
-        const resultCase1 = await yieldableCase1.yield()
-        expect(resultCase1).eqls(new ProductInfo("A-2", "Mac Book Air -- September", 1200))
-
-        /* Case 2 */
-        const yieldableCase2 =
-                        koconut
-                        .minBy(eachElement => eachElement)
-        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
-        const resultCase2 = await yieldableCase2.yield()
-        expect(resultCase2).eqls(new ProductInfo("A-2", "Mac Book Air -- September", 1200))
-
-        /* Case 3 */
-        const yieldableCase3 =
-                        koconut
-                        .filter(eachElement => eachElement.price > 3000)
-                        .minBy(eachElement => eachElement)
-        try { await yieldableCase3.yield() }
-        catch(error) { expect(error).to.be.instanceOf(KoconutNoSuchElementException) }
-
-    })
-
-    it(KoconutArray.prototype.minByOrNull.name, async () => {
-
-        const koconut = KoconutArray.from([
-                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
-                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
-                        new ProductInfo("A-3", "iPhone -- June", 1500)])
-
-        /* Case 1 */
-        const yieldableCase1 =
-                        koconut
-                        .minByOrNull(eachElement => eachElement.name)
-        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
-        const resultCase1 = await yieldableCase1.yield()
-        expect(resultCase1).eqls(new ProductInfo("A-2", "Mac Book Air -- September", 1200))
-
-        /* Case 2 */
-        const yieldableCase2 =
-                        koconut
-                        .minByOrNull(eachElement => eachElement)
-        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
-        const resultCase2 = await yieldableCase2.yield()
-        expect(resultCase2).eqls(new ProductInfo("A-2", "Mac Book Air -- September", 1200))
-
-        /* Case 3 */
-        const yieldableCase3 =
-                        koconut
-                        .filter(eachElement => eachElement.price > 3000)
-                        .minByOrNull(eachElement => eachElement)
-        const resultCase3 = await yieldableCase3.yield()
-        expect(resultCase3).equals(null)
-
-    })
-
-    it(KoconutArray.prototype.minOf.name, async () => {
-
-        const koconut = KoconutArray.from([
-                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
-                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
-                        new ProductInfo("A-3", "iPhone -- June", 1500)])
-
-        /* Case 1 */
-        const yieldableCase1 =
-                        koconut
-                        .minOf(eachElement => eachElement.name)
-        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
-        const resultCase1 = await yieldableCase1.yield()
-        expect(resultCase1).equals("Mac Book Air -- September")
-
-        /* Case 2 */
-        const yieldableCase2 =
-                        koconut
-                        .minOf(eachElement => eachElement)
-        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
-        const resultCase2 = await yieldableCase2.yield()
-        expect(resultCase2).eqls(new ProductInfo("A-2", "Mac Book Air -- September", 1200))
-
-    })
-
-    it(KoconutArray.prototype.minOfOrNull.name, async () => {
-
-        const koconut = KoconutArray.from([
-                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
-                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
-                        new ProductInfo("A-3", "iPhone -- June", 1500)])
-
-        /* Case 1 */
-        const yieldableCase1 =
-                        koconut
-                        .minOfOrNull(eachElement => eachElement.name)
-        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
-        const resultCase1 = await yieldableCase1.yield()
-        expect(resultCase1).equals("Mac Book Air -- September")
-
-        /* Case 2 */
-        const yieldableCase2 =
-                        koconut
-                        .minOfOrNull(eachElement => eachElement)
-        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
-        const resultCase2 = await yieldableCase2.yield()
-        expect(resultCase2).eqls(new ProductInfo("A-2", "Mac Book Air -- September", 1200))
-
-        /* Case 3 */
-        const yieldableCase3 =
-                        koconut
-                        .filter(eachElement => eachElement.price < 500)
-                        .minOfOrNull(eachElement => eachElement.price)
-        expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive)
-        const resultCase3 = await yieldableCase3.yield()
-        expect(resultCase3).equals(null)
-
-    })
-
-    it(KoconutArray.prototype.minOfWith.name, async () => {
-
-        const koconut = KoconutArray.from([
-                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
-                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
-                        new ProductInfo("A-3", "iPhone -- June", 1500)])
-                    
-        const yieldable =
-                        koconut
-                        .minOfWith(
-                            eachElement => eachElement.name,
-                            (front, rear) => front.length - rear.length
-                        )
-        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
-        const result = await yieldable.yield()
-        expect(result).equals("iPhone -- June")
-
-    })
-
-    it(KoconutArray.prototype.minOfWithOrNull.name, async () => {
-
-        const koconut = KoconutArray.from([
-                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
-                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
-                        new ProductInfo("A-3", "iPhone -- June", 1500)])
-                    
-        const yieldable =
-                        koconut
-                        .minOfWithOrNull(
-                            eachElement => eachElement.name,
-                            (front, rear) => front.length - rear.length
-                        )
-        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
-        const result = await yieldable.yield()
-        expect(result).equals("iPhone -- June")
-
-    })
 
     it(KoconutArray.prototype.minus.name, async () => {
 
@@ -1989,66 +2207,6 @@ describe(`${KoconutArray.name} -- Function`, () => {
 
     })
     
-    it(KoconutArray.prototype.minWith.name, async () => {
-
-        const koconut = KoconutArray.from([
-            new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
-            new ProductInfo("A-2", "Mac Book Air -- September", 1200),
-            new ProductInfo("A-3", "iPhone -- June", 1500)])
-
-        /* Case 1 */
-        const yieldableCase1 =   
-                    koconut
-                    .minWith(
-                        (front, rear) => front.name.length - rear.name.length
-                    )
-        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
-        const resultCase1 = await yieldableCase1.yield()
-        expect(resultCase1).eqls(new ProductInfo("A-3", "iPhone -- June", 1500))
-
-        /* Case 2 */
-        const yieldableCase2 =
-                    koconut
-                    .filter(eachElement => eachElement.price > 3000)
-                    .minWith(
-                        (front, rear) => front.name.length - rear.name.length
-                    )
-        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
-        try { await yieldableCase2.yield() }
-        catch(error) { expect(error).to.be.instanceOf(KoconutNoSuchElementException) }
-
-    })
-
-    it(KoconutArray.prototype.minWithOrNull.name, async () => {
-
-        const koconut = KoconutArray.from([
-                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
-                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
-                        new ProductInfo("A-3", "iPhone -- June", 1500)])
-
-        /* Case 1 */
-        const yieldableCase1 =   
-                        koconut
-                        .minWithOrNull(
-                            (front, rear) => front.name.length - rear.name.length
-                        )
-        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
-        const resultCase1 = await yieldableCase1.yield()
-        expect(resultCase1).eqls(new ProductInfo("A-3", "iPhone -- June", 1500))
-
-        /* Case 2 */
-        const yieldableCase2 =
-                        koconut
-                        .filter(eachElement => eachElement.price > 3000)
-                        .minWithOrNull(
-                            (front, rear) => front.name.length - rear.name.length
-                        )
-        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
-        const resultCase2 = await yieldableCase2.yield()
-        expect(resultCase2).equals(null)
-
-    })
-
     it(KoconutArray.prototype.none.name, async () => {
 
         const koconut = KoconutArray.from([1,2,3,4,5])
