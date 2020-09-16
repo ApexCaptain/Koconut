@@ -1119,21 +1119,6 @@ describe(`${KoconutMap.name} -- Iterator`, () => {
 
     })
 
-    it(KoconutMap.prototype.forEachIndexed.name, async () => {
-
-        const koconut = KoconutArray.of(1,2,3,4,5)
-                        .associate(eachElement => [eachElement, eachElement * 2])
-
-        const yieldable =
-                        koconut
-                        .forEachIndexed((eachIndex, eachEntry) => {
-                            expect(eachEntry.value / (eachIndex + 1)).equals(2)
-                        })
-        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
-        await yieldable.process()
-
-    })
-
 })
 
 
@@ -1173,19 +1158,21 @@ describe(`${KoconutMap.name} -- Transformer`, () => {
 
     })
 
-    it(KoconutMap.prototype.flatMapIndexed.name, async () => {
+    it(KoconutMap.prototype.flatMapTo.name, async () => {
 
         const koconut = KoconutArray.of(1,2,3,4,5)
                         .associate(eachElement => [eachElement, eachElement * 2])
 
+        const destination = new Array<number>()
         const yieldable =
                         koconut
-                        .flatMapIndexed((eachIndex, eachEntry) => [eachIndex, eachEntry.key, eachEntry.value])
-                        .distinct()
-                        .sortedBy(eachElement => eachElement)
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        const result = await yieldable.yield();
-        expect(result).eqls([0,1,2,3,4,5,6,8,10])
+                        .flatMapTo(
+                            destination,
+                            eachEntry => [eachEntry.key, eachEntry.value]
+                        )
+        expect(yieldable).to.be.instanceOf(KoconutMap)
+        await yieldable.process()
+        expect(destination).eqls([1,2,2,4,3,6,4,8,5,10])
 
     })
 
@@ -1326,24 +1313,6 @@ describe(`${KoconutMap.name} -- Function`, () => {
                                                             [5, 10]
                                                         ])
         expect(result).eqls(expectedResultMap)
-
-    })
-
-    it(KoconutMap.prototype.flatMapTo.name, async () => {
-
-        const koconut = KoconutArray.of(1,2,3,4,5)
-                        .associate(eachElement => [eachElement, eachElement * 2])
-
-        const destination = new Array<number>()
-        const yieldable =
-                        koconut
-                        .flatMapTo(
-                            destination,
-                            eachEntry => [eachEntry.key, eachEntry.value]
-                        )
-        expect(yieldable).to.be.instanceOf(KoconutMap)
-        await yieldable.process()
-        expect(destination).eqls([1,2,2,4,3,6,4,8,5,10])
 
     })
     
@@ -1745,22 +1714,6 @@ describe(`${KoconutMap.name} -- Function`, () => {
 
     })
 
-    it(KoconutMap.prototype.onEachIndexed.name, async () => {
-
-        const koconut = KoconutArray.of(1,2,3,4,5)
-                        .associate(eachElement => [eachElement, eachElement])
-
-        const yieldable =
-                        koconut
-                        .onEachIndexed(
-                            (index, eachEntry) => {
-                                expect(eachEntry.value - index).equals(1)
-                            }
-                        )
-        expect(yieldable).to.be.instanceOf(KoconutMap)
-        await yieldable.process()
-
-    })
 
     it(KoconutMap.prototype.plus.name, async () => {
 
@@ -1844,26 +1797,6 @@ describe(`${KoconutMap.name} -- Function`, () => {
         const resultCase8 = await yieldableCase8.yield()
         expect(resultCase8).eqls(expectedResultMap)
         
-    })
-
-    it(KoconutMap.prototype.toArray.name, async () => {
-
-        const koconut = KoconutArray.of(1,2,3,4,5)
-                        .associate(eachElement => [eachElement, eachElement])
-            
-        const yieldable =
-                        koconut
-                        .toArray()
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        const result = await yieldable.yield()
-        expect(result).eqls([
-                            new Entry(1, 1),
-                            new Entry(2, 2),
-                            new Entry(3, 3),
-                            new Entry(4, 4),
-                            new Entry(5, 5)
-                        ])
-
     })
 
 })

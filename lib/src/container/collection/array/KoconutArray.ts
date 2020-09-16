@@ -137,7 +137,130 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
         return new KoconutArray(data)
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
+
+
+
+
+
+    // Transformer
+    /**
+     * Appends all elements yielded from results of ```transform``` function being invoked
+     * on each element of original collection, to the given ```destination```.
+     * @param destination Iterable destinaion. ```Array``` or ```Set``` to be exact.
+     * @param transform A callback function that accepts an argument. The method calls the ```transform``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Transformer
+     * 
+     * @example
+     * ```typescript
+     * const koconutArray = KoconutArray.of("123", "456")
+     *
+     * const allNumbersInArray = new Array<number>()
+     * await koconutArray
+     *       .flatMapTo(
+     *           allNumbersInArray,
+     *           (eachString) => eachString
+     *                   .split('')
+     *                   .map(eachCharacter => parseInt(eachCharacter))
+     *       )
+     *       .process()
+     * console.log(allNumbersInArray)
+     * // ↑ [ 1, 2, 3, 4, 5, 6 ]
+     * ```
+     */
+    flatMapTo<ResultDataType>(
+        destination : Array<ResultDataType> | Set<ResultDataType>,
+        transform : (element : DataType) => Iterable<ResultDataType> | Promise<Iterable<ResultDataType>>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.flatMapTo(destination, transform, thisArg))
+    }
+
+
+    /**
+     * Appends all elements yielded from results of ```transform``` function being invoked
+     * on each element and its index in the original collection, to the given ```destination```.
+     * @param destination Iterable destinaion. ```Array``` or ```Set``` to be exact.
+     * @param transform A callback function that accepts two arguments. The method calls the ```transform``` one time for each index and element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Transformer
+     * 
+     * @example
+     * ```typescript
+     * const koconutArray = KoconutArray.of("123", "456")
+     *
+     * const allIndexAndNumbersInArray = new Array<number>()
+     * await koconutArray
+     *       .flatMapIndexedTo(
+     *           allIndexAndNumbersInArray,
+     *           (eachIndex, eachElement) => [
+     *               eachIndex,
+     *               ...eachElement
+     *                   .split('')
+     *                   .map(eachCharacter => parseInt(eachCharacter))
+     *           ]
+     *       )
+     *       .process()
+     * console.log(allIndexAndNumbersInArray)
+     * // ↑ [ 0, 1, 2, 3, 1, 4, 5, 6 ]
+     * ```
+     */
+    flatMapIndexedTo<ResultDataType>(
+        destination : Array<ResultDataType> | Set<ResultDataType>,
+        transform : (index : number, element : DataType) => Iterable<ResultDataType> | Promise<Iterable<ResultDataType>>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.flatMapIndexedTo(destination, transform, thisArg))
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -329,27 +452,6 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
 
         return KoconutArray.fromCollection(super.filterTo(destination, predicate, thisArg))
 
-    }
-
-
-    flatMapIndexedTo<ResultDataType>(
-        destination : Array<ResultDataType> | Set<ResultDataType>,
-        transform : (index : number, element : DataType) => Iterable<ResultDataType> | Promise<Iterable<ResultDataType>>,
-        thisArg : any = null
-    ) : KoconutArray<DataType> {
-
-        return KoconutArray.fromCollection(super.flatMapIndexedTo(destination, transform, thisArg))
-
-    }
-
-
-    flatMapTo<ResultDataType>(
-        destination : Array<ResultDataType> | Set<ResultDataType>,
-        transform : (element : DataType) => Iterable<ResultDataType> | Promise<Iterable<ResultDataType>>,
-        thisArg : any = null
-    ) : KoconutArray<DataType> {
-
-        return KoconutArray.fromCollection(super.flatMapTo(destination, transform, thisArg))
     }
 
 

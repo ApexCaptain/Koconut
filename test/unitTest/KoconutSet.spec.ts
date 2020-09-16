@@ -915,6 +915,42 @@ describe(`${KoconutSet.name} -- Transformer`, () => {
 
     })
 
+    it(KoconutSet.prototype.flatMapTo.name, async () => {
+
+        const koconut = KoconutSet.from(["abc", "de"])
+
+        const destination = new Array<string>()
+        const yieldable =
+                        koconut
+                        .flatMapTo(
+                            destination,
+                            eachElement => eachElement.split('')
+                        )
+        expect(yieldable).to.be.instanceOf(KoconutSet)
+        await yieldable.process()
+        expect(destination).eqls(['a','b','c','d','e'])
+
+    })
+
+    it(KoconutSet.prototype.flatMapIndexedTo.name, async () => {
+
+        const kocout = KoconutSet.from(["abc", "def", "ghi", "jkl"])
+
+        const destination = new Array<string>()
+        const yieldable =
+                        kocout
+                        .flatMapIndexedTo(
+                            destination,
+                            (eachIndex, eachElement) => {
+                                if(eachIndex % 2 == 0) return eachElement.split('')
+                                else return []
+                            }
+                        )
+        expect(yieldable).to.be.instanceOf(KoconutSet)
+        await yieldable.process()
+        expect(destination).eqls(['a','b','c','g','h','i'])
+    })
+
 })
 
 
@@ -1577,42 +1613,6 @@ describe(`${KoconutSet.name} -- Function`, () => {
         expect(yieldableCase4).to.be.instanceOf(KoconutPrimitive)
         const resultCase4 = await yieldableCase4.yield()
         expect(resultCase4).equals(3)
-
-    })
-
-    it(KoconutSet.prototype.flatMapIndexedTo.name, async () => {
-
-        const kocout = KoconutSet.from(["abc", "def", "ghi", "jkl"])
-
-        const destination = new Array<string>()
-        const yieldable =
-                        kocout
-                        .flatMapIndexedTo(
-                            destination,
-                            (eachIndex, eachElement) => {
-                                if(eachIndex % 2 == 0) return eachElement.split('')
-                                else return []
-                            }
-                        )
-        expect(yieldable).to.be.instanceOf(KoconutSet)
-        await yieldable.process()
-        expect(destination).eqls(['a','b','c','g','h','i'])
-    })
-
-    it(KoconutSet.prototype.flatMapTo.name, async () => {
-
-        const koconut = KoconutSet.from(["abc", "de"])
-
-        const destination = new Array<string>()
-        const yieldable =
-                        koconut
-                        .flatMapTo(
-                            destination,
-                            eachElement => eachElement.split('')
-                        )
-        expect(yieldable).to.be.instanceOf(KoconutSet)
-        await yieldable.process()
-        expect(destination).eqls(['a','b','c','d','e'])
 
     })
 

@@ -2653,113 +2653,38 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
 
     }
 
-    /**
-     * Performs the given ```action``` on each element, providing sequential index with the element.
-     * When you want to stop iteration in the meantime ```return``` ```false``` or {@link KoconutLoopSignal.BREAK}.
-     * @param action A callback function that accepts two arguments. The method calls the ```action``` one time for each index and element in object.
-     * @param thisArg An object to which the ```this``` keyword can refer in the ```action```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
-     * 
-     * @category Iterator
-     * 
-     * @example
-     * ```typescript
-     * // Case 1 -- KoconutArray
-     * const koconutArray = KoconutArray.of(1,2,3,4,5,6,7)
-     *
-     * await koconutArray
-     *       .forEachIndexed(console.log)
-     *       // ↑ 0 1
-     *       //   1 2
-     *       //   2 3
-     *       //   3 4
-     *       //   4 5
-     *       //   5 6
-     *       //   6 7
-     *       .process()
-     *
-     * await koconutArray
-     *       .forEachIndexed((eachIndex, eachNumber) => {
-     *           if(eachIndex == 3) return KoconutLoopSignal.BREAK
-     *           console.log(eachNumber) 
-     *       })
-     *       // ↑ 1 2 3 -- i.e. Since when the index is '3', the loop is interrupted.
-     *       // The last printed number(element) would be '3'.
-     *       .process()
-     *
-     * // Case 2 -- KoconutSet
-     * const koconutSet = KoconutSet.of(1,2,3,1,2,3)
-     *   
-     * await koconutSet
-     *       .forEachIndexed(console.log)
-     *       // ↑ 0 1
-     *       //   1 2
-     *       //   2 3
-     *       .process()
-     *
-     * await koconutSet
-     *       .forEachIndexed((eachIndex, eachNumber) => {
-     *           if(eachIndex != 0 && eachIndex % 2 == 0) return false
-     *           console.log(eachNumber)
-     *       })
-     *       // ↑ 1 2 -- i.e. Since when the index '2', it's an even number.
-     *       // So the loop is interrupted.
-     *       // The last printed number(element) would be '2'
-     *       .process()
-     *
-     * // Case 3 -- KoconutMap
-     * const koconutMap = KoconutArray.of(1,2,3)
-     *                   .associateWith(eachElement => eachElement)
-     *
-     * await koconutMap
-     *       .forEachIndexed(console.log)
-     *       // ↑
-     *       // 0 Entry { keyElement: 1, valueElement: 1 }
-     *       // 1 Entry { keyElement: 2, valueElement: 2 }
-     *       // 2 Entry { keyElement: 3, valueElement: 3 }
-     *       .process()
-     *
-     * // Case 4 -- You can also do it asynchronously
-     * const koconutArray2 = KoconutArray.of(1,2,3)
-     *
-     * await koconutArray2
-     *       .forEachIndexed(async (eachIndex, eachNumber) => 
-     *                       console.log(eachIndex, eachNumber))
-     *       // ↑ 0 1
-     *       //   1 2
-     *       //   2 3
-     *       .process()
-     *
-     * await koconutArray2
-     *       .forEachIndexed(async (eachIndex, eachNumber) => new Promise(resolve => {
-     *           resolve(console.log(eachIndex, eachNumber))
-     *       }))
-     *       // ↑ 0 1
-     *       //   1 2
-     *       //   2 3
-     *       .process()
-     * ```
-     */
-    forEachIndexed(
-        action : (index : number, element : CombinedDataType) => boolean | KoconutLoopSignal | void | Promise<boolean | KoconutLoopSignal | void>,
+
+    /*
+    onEach(
+        action : (element : CombinedDataType) => boolean | KoconutLoopSignal | void | Promise<boolean | KoconutLoopSignal | void>,
         thisArg : any = null
-    ) : KoconutPrimitive<void> {
+    ) : KoconutIterable<DataType, CombinedDataType, WrapperType, CombinedWrapperType> {
 
         action = action.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<void>();
-        (koconutToReturn as any as KoconutOpener<void>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.combinedDataWrapper != null) {
-                    let eachIndex = 0
-                    for(const eachCombinedDatum of this.combinedDataWrapper) {
-                        const signal = await action(eachIndex++, eachCombinedDatum)
-                        if(signal == false || signal == KoconutLoopSignal.BREAK) break
-                    }
-                }
-            })
-        return koconutToReturn
 
     }
+    */
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
 
 
@@ -2874,126 +2799,29 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
 
     }
 
-    
-    /**
-     * Returns a single of all elements yielded from results of ```transform``` function being invoked on each element of original collection.
-     * @param transform A callback function that accepts two arguments. The method calls the ```transform``` one time for each index and element in object.
-     * @param thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
-     * 
-     * @since 1.0.10
-     * 
-     * @category Transformer
-     * 
-     * @example
-     * ```typescript
-     * // Case 1 -- KoconutArray
-     * const koconutArray = KoconutArray.of(100, 101, 102)
-     *
-     * const allNumbersAndIndexOfArray = await koconutArray
-     *                           .flatMapIndexed((eachIndex, eachNumber) => 
-     *                               [eachIndex, eachNumber]
-     *                           )
-     *                           .yield()
-     * console.log(allNumbersAndIndexOfArray)
-     * // ↑ [ 0, 100, 1, 101, 2, 102 ]
-     *
-     * // Case 2 -- KoconutSet
-     * const koconutSet = KoconutSet.of(100, 101, 102)
-     *
-     * const allNumbersAndIndexOfSet = await koconutSet
-     *                           .flatMapIndexed((eachIndex, eachNumber) => 
-     *                               [eachIndex, eachNumber]
-     *                           )
-     *                           .yield()
-     * console.log(allNumbersAndIndexOfSet)
-     * // ↑ [ 0, 100, 1, 101, 2, 102 ]
-     *
-     * // Case 3 -- KoconutMap
-     * const kocountMap = KoconutSet.of(1,2,3,4,5)
-     *                   .associate(eachNumber => 
-     *                       [eachNumber, eachNumber * 2]    
-     *                   )
-     *
-     * const allKeyValueAndIndexOfMap = await kocountMap
-     *                           .flatMapIndexed((eachIndex, eachElement) =>
-     *                               [eachIndex, eachElement.key, eachElement.value]
-     *                           )
-     *                           .yield()
-     * console.log(allKeyValueAndIndexOfMap)
-     * // ↑ [
-     * //     0, 1, 2, 1, 2, 4,
-     * //     2, 3, 6, 3, 4, 8,
-     * //     4, 5, 10
-     * //   ]
-     *
-     * // Case 4 -- You can also do it asynchronously
-     * const koconutArray2 = KoconutArray.of(123, 987)
-     *
-     * const allDigitsAndIndexInArray = await koconutArray2
-     *                       .flatMapIndexed(async (eachIndex, eachNumber) => {
-     *                           const digits = new Array<number>()
-     *                           while(eachNumber != 0) {
-     *                               digits.unshift(eachNumber % 10)
-     *                               eachNumber = Math.floor(eachNumber / 10)
-     *                           }
-     *                           return [eachIndex, ...digits]
-     *                       })
-     *                       .yield()
-     * console.log(allDigitsAndIndexInArray)
-     * // ↑ [
-     * //     0, 1, 2, 3,
-     * //     1, 9, 8, 7
-     * //   ]
-     *
-     * const allNumberAndIndexCharactersInArray = await koconutArray2
-     *           .flatMapIndexed((eachInex, eachNumber) => new Promise<string>(resolve => {
-     *               resolve(`${eachInex}${eachNumber}`)
-     *           }))
-     *           .yield()
-     * console.log(allNumberAndIndexCharactersInArray)
-     * // ↑ [
-     * //     '0', '1', '2',
-     * //     '3', '1', '9',
-     * //     '8', '7'
-     * //   ]
-     * ```
-     */
-    flatMapIndexed<ResultDataType>(
-        transform : (index : number, element : CombinedDataType) => Iterable<ResultDataType> | Promise<Iterable<ResultDataType>>,
-        thisArg : any = null
-    ) : KoconutArray<ResultDataType> {
 
-        transform = transform.bind(thisArg)
-        const koconutToReturn = new KoconutArray<ResultDataType>();
-        (koconutToReturn as any as KoconutOpener<Array<ResultDataType>>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                const processedArray = new Array<ResultDataType>()
-                if(this.combinedDataWrapper != null) {
-                    let eachIndex = 0
-                    for(const eachDatum of this.combinedDataWrapper) 
-                        for(let eachSubElement of await transform(eachIndex++, eachDatum))
-                            processedArray.push(eachSubElement)
-                }
-                return processedArray
-            })
-        return koconutToReturn
-
-    }
-
-
-    /*
     flatMapTo<ResultDataType>(
         destination : Array<ResultDataType> | Set<ResultDataType>,
         transform : (element : CombinedDataType) => Iterable<ResultDataType> | Promise<Iterable<ResultDataType>>,
         thisArg : any = null
-    ) {
+    ) : KoconutIterable<DataType, CombinedDataType, WrapperType, CombinedWrapperType> {
+
+        transform = transform.bind(thisArg)
+        const koconutToReturn = new KoconutIterable<DataType, CombinedDataType, WrapperType, CombinedWrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.combinedDataWrapper != null) {
+                    for(const eachCombinedDatum of this.combinedDataWrapper)
+                        for(let eachSubElement of await transform(eachCombinedDatum))
+                            if(destination instanceof Array) destination.push(eachSubElement)
+                            else destination.add(eachSubElement)
+                }
+                return this.data!
+            })
+        return koconutToReturn
 
     }
-    */
-
-
-    
 
 
 

@@ -94,6 +94,18 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
         }
 
     }
+
+
+    private static fromIterable<KeyType, ValueType>(
+        iterable : KoconutIterable<[KeyType, ValueType], Entry<KeyType, ValueType>, Map<KeyType, ValueType>, Set<Entry<KeyType, ValueType>>>
+    ) : KoconutMap<KeyType, ValueType> {
+
+        const koconutToReturn = new KoconutMap<KeyType, ValueType>(iterable['data'])
+        koconutToReturn.processor = iterable['processor']
+        koconutToReturn.prevYieldable = iterable['prevYieldable']
+        return koconutToReturn
+
+    }
     
 
 
@@ -1041,7 +1053,83 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
         return koconutToReturn
 
     }
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Transformer
+    /**
+     * Appends all elements yielded from results of ```transform``` function being invoked
+     * on each element of original collection, to the given ```destination```.
+     * @param destination Iterable destinaion. ```Array``` or ```Set``` to be exact.
+     * @param transform A callback function that accepts an argument. The method calls the ```transform``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Transformer
+     * 
+     * @example
+     * ```typescript
+     * const koconutSet = KoconutSet.of("123", "456")
+     *
+     * const allNumbersInSet = new Array<number>()
+     * await koconutSet
+     *       .flatMapTo(
+     *           allNumbersInSet,
+     *           (eachString) => eachString
+     *                   .split('')
+     *                   .map(eachCharacter => parseInt(eachCharacter))
+     *       )
+     *       .process()
+     * console.log(allNumbersInSet)
+     * // ↑ [ 1, 2, 3, 4, 5, 6 ]
+     * ```
+     */
+    flatMapTo<ResultDataType>(
+        destination : Array<ResultDataType> | Set<ResultDataType>,
+        transform : (entry : Entry<KeyType, ValueType>) => Iterable<ResultDataType> | Promise<Iterable<ResultDataType>>,
+        thisArg : any = null
+    ) : KoconutMap<KeyType, ValueType> {
+
+        return KoconutMap.fromIterable(super.flatMapTo(destination, transform, thisArg))
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1199,30 +1287,44 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
     }
 
 
-    flatMapTo<ResultDataType>(
-        destination : Array<ResultDataType> | Set<ResultDataType>,
-        transform : (entry : Entry<KeyType, ValueType>) => Array<ResultDataType> | Promise<Array<ResultDataType>>,
-        thisArg : any = null
-    ) : KoconutMap<KeyType, ValueType> {
 
-        transform = transform.bind(thisArg)
-        const koconutToReturn = new KoconutMap<KeyType, ValueType>();
-        (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data != null) {
-                    for(const eachEntry of this.mEntries) {
-                        for(const eachResultData of await transform(eachEntry)) 
-                            if(destination instanceof Array) destination.push(eachResultData)
-                            else destination.add(eachResultData)
-                    }
-                }
-                return this.data!
-            })
-        return koconutToReturn
 
-    }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
     get(
         key : KeyType
@@ -1308,6 +1410,45 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
         return koconutToReturn
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
 
     map<ResultDataType>(
@@ -1500,6 +1641,42 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
     minus(
         keys : KeyType | Iterable<KeyType>
     ) : KoconutMap<KeyType, ValueType> {
@@ -1572,31 +1749,6 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
 
     }
 
-
-    onEachIndexed(
-        action : (index : number, entry : Entry<KeyType, ValueType>) => boolean | KoconutLoopSignal | void | Promise<boolean | KoconutLoopSignal | void>,
-        thisArg : any = null
-    ) : KoconutMap<KeyType, ValueType> {
-
-        action = action.bind(thisArg)
-        const koconutToReturn = new KoconutMap<KeyType, ValueType>();
-        (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data != null) {
-                    let eachIndex = 0
-                    for(const eachEntry of this.mEntries) {
-                        const signal = await action(eachIndex++, eachEntry)
-                        if(signal == false || signal == KoconutLoopSignal.BREAK) break
-                    }
-                }
-                return this.data!
-            })
-        return koconutToReturn
-
-    }
-
-
     // orEmpty
 
 
@@ -1637,22 +1789,5 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
 
     }
 
-
-    toArray() : KoconutArray<Entry<KeyType, ValueType>> {
-
-        const koconutToReturn = new KoconutArray<Entry<KeyType, ValueType>>();
-        (koconutToReturn as any as KoconutOpener<Array<Entry<KeyType, ValueType>>>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                const processedArray = new Array<Entry<KeyType, ValueType>>()
-                if(this.data != null) {
-                    for(const eachEntry of this.mEntries)
-                        processedArray.push(new Entry(eachEntry.key, eachEntry.value))
-                }
-                return processedArray
-            })
-        return koconutToReturn
-
-    }
 
 }
