@@ -739,6 +739,99 @@ describe(`${KoconutArray.name} -- Inspector`, () => {
 
     })
 
+    it(KoconutArray.prototype.contains.name, async () => {
+
+        const koconut = KoconutArray.from([1,2,3,4,5])
+
+        /* Case 1 */
+        const yieldableCase1 = 
+                        koconut
+                        .contains(3)
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).to.equals(true)
+
+        /* Case 2 */
+        const yieldableCase2 = 
+                        koconut
+                        .contains(6)
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).to.equals(false)
+
+        /* Case 3 */
+        const koconutCase3 = KoconutArray.from([
+                        new Person("Grace", "Hopper"), 
+                        new Person("Jacob", "Bernoulli"), 
+                        new Person("Johann", "Bernoulli"), 
+                        new Person("Jinyoung", "Luvya")])
+
+        const yieldableCase3 =
+                            koconutCase3
+                            .contains(new Person("Jinyoung", "Luvya"))
+        expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive)
+        const resultCase3 = await yieldableCase3.yield()
+        expect(resultCase3).to.equal(true)
+        
+
+    })
+
+    it(KoconutArray.prototype.containsAll.name, async () => {
+
+        const koconut = KoconutArray.from("abc")
+
+        /* Case 1 */
+        const yieldableCase1 = 
+                        koconut
+                        .containsAll("ab")
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).to.equals(true)
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .containsAll("abcd")
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).to.equals(false)
+
+        /* Case 3 */
+        const koconutCase3 = KoconutArray.from([
+                        new Person("Grace", "Hopper"), 
+                        new Person("Jacob", "Bernoulli"), 
+                        new Person("Johann", "Bernoulli"), 
+                        new Person("Jinyoung", "Luvya")])
+
+        const yieldableCase3 =
+                        koconutCase3
+                        .containsAll([
+                            new Person("Jacob", "Bernoulli"), 
+                            new Person("Johann", "Bernoulli"), 
+                        ])
+        expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive)
+        const resultCase3 = await yieldableCase3.yield()
+        expect(resultCase3).to.equals(true)
+
+        /* Case 4 */
+        const koconutCase4 = KoconutArray.from([
+            new Person("Grace", "Hopper"), 
+            new Person("Jacob", "Bernoulli"), 
+            new Person("Johann", "Bernoulli"), 
+            new Person("Jinyoung", "Luvya")])
+
+        const yieldableCase4 =
+                    koconutCase4
+                    .containsAll([
+                        new Person("Jacob", "Bernoulli"), 
+                        new Person("Steve", "Jobs"), 
+                    ])
+        expect(yieldableCase4).to.be.instanceOf(KoconutPrimitive)
+        const resultCase4 = await yieldableCase4.yield()
+        expect(resultCase4).to.equals(false)
+
+    })
+
 })
 
 
@@ -790,6 +883,58 @@ describe(`${KoconutArray.name} -- Iterator`, () => {
 
     })
     
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+describe(`${KoconutArray.name} -- Transformer`, () => {
+
+    it(KoconutArray.prototype.flatMap.name, async () => {
+
+        const koconut = KoconutArray.from(["abc", "de"])
+
+        const yieldable = 
+                        koconut
+                        .flatMap(eachElement => eachElement.split(''))
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        const result = await yieldable.yield()
+        expect(result).eqls(['a','b','c','d','e'])
+
+    })
+
+    it(KoconutArray.prototype.flatMapIndexed.name, async () => {
+
+        const kocout = KoconutArray.from(["abc", "def", "ghi", "jkl"])
+
+        const yieldable =
+                        kocout
+                        .flatMapIndexed((eachIndex, eachElement) => {
+                            if(eachIndex % 2 == 0) return eachElement.split('')
+                            else return []
+                        })
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        const result = await yieldable.yield()
+        expect(result).eqls(['a','b','c','g','h','i'])
+
+    })
+
 })
 
 
@@ -1049,99 +1194,6 @@ describe(`${KoconutArray.name} -- Function`, () => {
         const resultCase2 = await yieldableCase2.yield()
         const expectedResultarrayCase2 = [ 'one two three', 'four five six', 'seven eight nine', 'ten' ]
         expect(resultCase2).to.eql(expectedResultarrayCase2)
-
-    })
-
-    it(KoconutArray.prototype.contains.name, async () => {
-
-        const koconut = KoconutArray.from([1,2,3,4,5])
-
-        /* Case 1 */
-        const yieldableCase1 = 
-                        koconut
-                        .contains(3)
-        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
-        const resultCase1 = await yieldableCase1.yield()
-        expect(resultCase1).to.equals(true)
-
-        /* Case 2 */
-        const yieldableCase2 = 
-                        koconut
-                        .contains(6)
-        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
-        const resultCase2 = await yieldableCase2.yield()
-        expect(resultCase2).to.equals(false)
-
-        /* Case 3 */
-        const koconutCase3 = KoconutArray.from([
-                        new Person("Grace", "Hopper"), 
-                        new Person("Jacob", "Bernoulli"), 
-                        new Person("Johann", "Bernoulli"), 
-                        new Person("Jinyoung", "Luvya")])
-
-        const yieldableCase3 =
-                            koconutCase3
-                            .contains(new Person("Jinyoung", "Luvya"))
-        expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive)
-        const resultCase3 = await yieldableCase3.yield()
-        expect(resultCase3).to.equal(true)
-        
-
-    })
-
-    it(KoconutArray.prototype.containsAll.name, async () => {
-
-        const koconut = KoconutArray.from("abc")
-
-        /* Case 1 */
-        const yieldableCase1 = 
-                        koconut
-                        .containsAll("ab")
-        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
-        const resultCase1 = await yieldableCase1.yield()
-        expect(resultCase1).to.equals(true)
-
-        /* Case 2 */
-        const yieldableCase2 =
-                        koconut
-                        .containsAll("abcd")
-        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
-        const resultCase2 = await yieldableCase2.yield()
-        expect(resultCase2).to.equals(false)
-
-        /* Case 3 */
-        const koconutCase3 = KoconutArray.from([
-                        new Person("Grace", "Hopper"), 
-                        new Person("Jacob", "Bernoulli"), 
-                        new Person("Johann", "Bernoulli"), 
-                        new Person("Jinyoung", "Luvya")])
-
-        const yieldableCase3 =
-                        koconutCase3
-                        .containsAll([
-                            new Person("Jacob", "Bernoulli"), 
-                            new Person("Johann", "Bernoulli"), 
-                        ])
-        expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive)
-        const resultCase3 = await yieldableCase3.yield()
-        expect(resultCase3).to.equals(true)
-
-        /* Case 4 */
-        const koconutCase4 = KoconutArray.from([
-            new Person("Grace", "Hopper"), 
-            new Person("Jacob", "Bernoulli"), 
-            new Person("Johann", "Bernoulli"), 
-            new Person("Jinyoung", "Luvya")])
-
-        const yieldableCase4 =
-                    koconutCase4
-                    .containsAll([
-                        new Person("Jacob", "Bernoulli"), 
-                        new Person("Steve", "Jobs"), 
-                    ])
-        expect(yieldableCase4).to.be.instanceOf(KoconutPrimitive)
-        const resultCase4 = await yieldableCase4.yield()
-        expect(resultCase4).to.equals(false)
 
     })
 
@@ -1543,35 +1595,6 @@ describe(`${KoconutArray.name} -- Function`, () => {
         expect(yieldableCase4).to.be.instanceOf(KoconutPrimitive)
         const resultCase4 = await yieldableCase4.yield()
         expect(resultCase4).equals(3)
-
-    })
-
-    it(KoconutArray.prototype.flatMap.name, async () => {
-
-        const koconut = KoconutArray.from(["abc", "de"])
-
-        const yieldable = 
-                        koconut
-                        .flatMap(eachElement => eachElement.split(''))
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        const result = await yieldable.yield()
-        expect(result).eqls(['a','b','c','d','e'])
-
-    })
-
-    it(KoconutArray.prototype.flatMapIndexed.name, async () => {
-
-        const kocout = KoconutArray.from(["abc", "def", "ghi", "jkl"])
-
-        const yieldable =
-                        kocout
-                        .flatMapIndexed((eachIndex, eachElement) => {
-                            if(eachIndex % 2 == 0) return eachElement.split('')
-                            else return []
-                        })
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        const result = await yieldable.yield()
-        expect(result).eqls(['a','b','c','g','h','i'])
 
     })
 

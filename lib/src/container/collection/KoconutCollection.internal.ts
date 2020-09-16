@@ -80,6 +80,132 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
 
 
     
+    // Inspector
+    /**
+     * Checks if the specified element is contained in this collection.
+     * @param element The element to search for.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Inspector
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const doesArrayContain3 = await koconutArray
+     *                               .contains(3)
+     *                               .yield()
+     * console.log(doesArrayContain3)
+     * // ↑ true
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of(1,2,3,4,5)
+     *
+     * const doesSetContains6 = await koconutSet
+     *                               .contains(6)
+     *                               .yield()
+     * console.log(doesSetContains6)
+     * // ↑ false
+     * ```
+     */
+    contains(
+        element : DataType
+    ) : KoconutPrimitive<boolean> {
+
+        const koconutToReturn = new KoconutPrimitive<boolean>();
+        (koconutToReturn as any as KoconutOpener<boolean>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data == null) return false
+                for(let eachDatum of this.data) {
+                    if((KoconutTypeChecker.checkIsEquatable(eachDatum) && eachDatum.equalsTo(element as any as KoconutEquatable))
+                     || (!KoconutTypeChecker.checkIsEquatable(eachDatum) && element == eachDatum)) return true
+                }
+                return false
+            })
+        return koconutToReturn
+
+    }
+
+    /**
+     * Checks if all the elements are contained in this collection.
+     * @param elements The elements to search for.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Inspector
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const doesArrayContain1to3 = await koconutArray
+     *                               .containsAll([1,2,3])
+     *                               .yield()
+     * console.log(doesArrayContain1to3)
+     * // ↑ true
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of(1,2,3,4,5)
+     *
+     * const doesSetContains5to6 = await koconutSet
+     *                               .containsAll([5,6,7])
+     *                               .yield()
+     * console.log(doesSetContains5to6)
+     * // ↑ false
+     * ```
+     */
+    containsAll(
+        elements : Iterable<DataType>
+    ) : KoconutPrimitive<boolean> {
+
+        const koconutToReturn = new KoconutPrimitive<boolean>();
+        (koconutToReturn as any as KoconutOpener<boolean>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data == null) return false
+                const dataArray = Array.from(this.data)
+                for(const eachElementToCheck of elements) {
+                    if(KoconutTypeChecker.checkIsEquatable(eachElementToCheck)) {
+                        let isIncluded = false
+                        for(const eachDatum of dataArray) {
+                            if(eachElementToCheck.equalsTo(eachDatum as any as KoconutEquatable)) {
+                                isIncluded = true
+                                break
+                            }
+                        }
+                        if(!isIncluded) return false
+                    } else if(!dataArray.includes(eachElementToCheck)) return false
+                }
+                return true
+            })
+        return koconutToReturn
+
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     /* Funcions */
     associate<KeyType, ValueType>(
         transform : (element : DataType) => [KeyType, ValueType] | Pair<KeyType, ValueType> | KoconutPair<KeyType, ValueType> | Promise<[KeyType, ValueType] | Pair<KeyType, ValueType> | KoconutPair<KeyType, ValueType>>,
@@ -280,54 +406,6 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
                     return transformedArray
                 }
                 return processedArray
-            })
-        return koconutToReturn
-
-    }
-
-
-    contains(
-        element : DataType
-    ) : KoconutPrimitive<boolean> {
-
-        const koconutToReturn = new KoconutPrimitive<boolean>();
-        (koconutToReturn as any as KoconutOpener<boolean>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data == null) return false
-                for(let eachDatum of this.data) {
-                    if((KoconutTypeChecker.checkIsEquatable(eachDatum) && eachDatum.equalsTo(element as any as KoconutEquatable))
-                     || (!KoconutTypeChecker.checkIsEquatable(eachDatum) && element == eachDatum)) return true
-                }
-                return false
-            })
-        return koconutToReturn
-
-    }
-
-    containsAll(
-        elements : Iterable<DataType>
-    ) : KoconutPrimitive<boolean> {
-
-        const koconutToReturn = new KoconutPrimitive<boolean>();
-        (koconutToReturn as any as KoconutOpener<boolean>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data == null) return false
-                const dataArray = Array.from(this.data)
-                for(const eachElementToCheck of elements) {
-                    if(KoconutTypeChecker.checkIsEquatable(eachElementToCheck)) {
-                        let isIncluded = false
-                        for(const eachDatum of dataArray) {
-                            if(eachElementToCheck.equalsTo(eachDatum as any as KoconutEquatable)) {
-                                isIncluded = true
-                                break
-                            }
-                        }
-                        if(!isIncluded) return false
-                    } else if(!dataArray.includes(eachElementToCheck)) return false
-                }
-                return true
             })
         return koconutToReturn
 
@@ -827,29 +905,6 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
                     return null
                 }
                 return Array.from(this.data)[0]
-            })
-        return koconutToReturn
-
-    }
-
-
-    flatMapIndexed<ResultDataType>(
-        transform : (index : number, element : DataType) => Iterable<ResultDataType> | Promise<Iterable<ResultDataType>>,
-        thisArg : any = null
-    ) : KoconutArray<ResultDataType> {
-
-        transform = transform.bind(thisArg)
-        const koconutToReturn = new KoconutArray<ResultDataType>();
-        (koconutToReturn as any as KoconutOpener<Array<ResultDataType>>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                const processedArray = new Array<ResultDataType>()
-                if(this.data != null) {
-                    for(const [eachIndex, eachDatum] of Array.from(this.data).entries())
-                        for(let eachSubElement of await transform(eachIndex as number, eachDatum))
-                            processedArray.push(eachSubElement)
-                }
-                return processedArray
             })
         return koconutToReturn
 

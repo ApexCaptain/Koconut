@@ -2874,6 +2874,124 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
 
     }
 
+    
+    /**
+     * Returns a single of all elements yielded from results of ```transform``` function being invoked on each element of original collection.
+     * @param transform A callback function that accepts two arguments. The method calls the ```transform``` one time for each index and element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Transformer
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(100, 101, 102)
+     *
+     * const allNumbersAndIndexOfArray = await koconutArray
+     *                           .flatMapIndexed((eachIndex, eachNumber) => 
+     *                               [eachIndex, eachNumber]
+     *                           )
+     *                           .yield()
+     * console.log(allNumbersAndIndexOfArray)
+     * // ↑ [ 0, 100, 1, 101, 2, 102 ]
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of(100, 101, 102)
+     *
+     * const allNumbersAndIndexOfSet = await koconutSet
+     *                           .flatMapIndexed((eachIndex, eachNumber) => 
+     *                               [eachIndex, eachNumber]
+     *                           )
+     *                           .yield()
+     * console.log(allNumbersAndIndexOfSet)
+     * // ↑ [ 0, 100, 1, 101, 2, 102 ]
+     *
+     * // Case 3 -- KoconutMap
+     * const kocountMap = KoconutSet.of(1,2,3,4,5)
+     *                   .associate(eachNumber => 
+     *                       [eachNumber, eachNumber * 2]    
+     *                   )
+     *
+     * const allKeyValueAndIndexOfMap = await kocountMap
+     *                           .flatMapIndexed((eachIndex, eachElement) =>
+     *                               [eachIndex, eachElement.key, eachElement.value]
+     *                           )
+     *                           .yield()
+     * console.log(allKeyValueAndIndexOfMap)
+     * // ↑ [
+     * //     0, 1, 2, 1, 2, 4,
+     * //     2, 3, 6, 3, 4, 8,
+     * //     4, 5, 10
+     * //   ]
+     *
+     * // Case 4 -- You can also do it asynchronously
+     * const koconutArray2 = KoconutArray.of(123, 987)
+     *
+     * const allDigitsAndIndexInArray = await koconutArray2
+     *                       .flatMapIndexed(async (eachIndex, eachNumber) => {
+     *                           const digits = new Array<number>()
+     *                           while(eachNumber != 0) {
+     *                               digits.unshift(eachNumber % 10)
+     *                               eachNumber = Math.floor(eachNumber / 10)
+     *                           }
+     *                           return [eachIndex, ...digits]
+     *                       })
+     *                       .yield()
+     * console.log(allDigitsAndIndexInArray)
+     * // ↑ [
+     * //     0, 1, 2, 3,
+     * //     1, 9, 8, 7
+     * //   ]
+     *
+     * const allNumberAndIndexCharactersInArray = await koconutArray2
+     *           .flatMapIndexed((eachInex, eachNumber) => new Promise<string>(resolve => {
+     *               resolve(`${eachInex}${eachNumber}`)
+     *           }))
+     *           .yield()
+     * console.log(allNumberAndIndexCharactersInArray)
+     * // ↑ [
+     * //     '0', '1', '2',
+     * //     '3', '1', '9',
+     * //     '8', '7'
+     * //   ]
+     * ```
+     */
+    flatMapIndexed<ResultDataType>(
+        transform : (index : number, element : CombinedDataType) => Iterable<ResultDataType> | Promise<Iterable<ResultDataType>>,
+        thisArg : any = null
+    ) : KoconutArray<ResultDataType> {
+
+        transform = transform.bind(thisArg)
+        const koconutToReturn = new KoconutArray<ResultDataType>();
+        (koconutToReturn as any as KoconutOpener<Array<ResultDataType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedArray = new Array<ResultDataType>()
+                if(this.combinedDataWrapper != null) {
+                    let eachIndex = 0
+                    for(const eachDatum of this.combinedDataWrapper) 
+                        for(let eachSubElement of await transform(eachIndex++, eachDatum))
+                            processedArray.push(eachSubElement)
+                }
+                return processedArray
+            })
+        return koconutToReturn
+
+    }
+
+
+    /*
+    flatMapTo<ResultDataType>(
+        destination : Array<ResultDataType> | Set<ResultDataType>,
+        transform : (element : CombinedDataType) => Iterable<ResultDataType> | Promise<Iterable<ResultDataType>>,
+        thisArg : any = null
+    ) {
+
+    }
+    */
+
 
     
 

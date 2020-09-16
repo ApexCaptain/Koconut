@@ -1,3 +1,4 @@
+import { resolve } from "path"
 import {
     KoconutArray, KoconutSet, KoconutLoopSignal, KoconutFlow, Flow,
     KoconutLocale, KoconutOption, KoconutDeprecation, KoconutComparable, KoconutMap, Entry
@@ -6,55 +7,75 @@ import {
 const sampleProcess = async () => {
 
     // Case 1 -- KoconutArray
-    const koconutArray = KoconutArray.of(1,2,3,4,5)
+    const koconutArray = KoconutArray.of(100, 101, 102)
 
-    const arrToFlow = await koconutArray
-                                .asFlow()
+    const allNumbersAndIndexOfArray = await koconutArray
+                                .flatMapIndexed((eachIndex, eachNumber) => 
+                                    [eachIndex, eachNumber]
+                                )
                                 .yield()
-    console.log(arrToFlow.dataArray)
-    // ↑ [ 1, 2, 3, 4, 5 ]
+    console.log(allNumbersAndIndexOfArray)
+    // ↑ [ 0, 100, 1, 101, 2, 102 ]
 
     // Case 2 -- KoconutSet
-    const koconutSet = KoconutSet.of(1,1,2,2,3,3,4,4,5,5)
+    const koconutSet = KoconutSet.of(100, 101, 102)
 
-    const setToFlow = await koconutSet
-                                .asFlow()
+    const allNumbersAndIndexOfSet = await koconutSet
+                                .flatMapIndexed((eachIndex, eachNumber) => 
+                                    [eachIndex, eachNumber]
+                                )
                                 .yield()
-    console.log(setToFlow.dataArray)
-    // ↑ [ 1, 2, 3, 4, 5 ]
+    console.log(allNumbersAndIndexOfSet)
+    // ↑ [ 0, 100, 1, 101, 2, 102 ]
 
-    // Case 3 -- KoconutFlow
-    const koconutFlow = KoconutFlow.ofSimple(1,2,3,4,5)
+    // Case 3 -- KoconutMap
+    const kocountMap = KoconutSet.of(1,2,3,4,5)
+                        .associate(eachNumber => 
+                            [eachNumber, eachNumber * 2]    
+                        )
 
-    const flowToFlow = await koconutFlow
-                                .asFlow()
+    const allKeyValueAndIndexOfMap = await kocountMap
+                                .flatMapIndexed((eachIndex, eachElement) =>
+                                    [eachIndex, eachElement.key, eachElement.value]
+                                )
                                 .yield()
-    console.log(flowToFlow.dataArray)
-    // ↑ 
-    // [
-    //    Entry { keyElement: 0, valueElement: 1 },
-    //    Entry { keyElement: 1, valueElement: 2 },
-    //    Entry { keyElement: 2, valueElement: 3 },
-    //    Entry { keyElement: 3, valueElement: 4 },
-    //    Entry { keyElement: 4, valueElement: 5 }
-    // ]
+    console.log(allKeyValueAndIndexOfMap)
+    // ↑ [
+    //     0, 1, 2, 1, 2, 4,
+    //     2, 3, 6, 3, 4, 8,
+    //     4, 5, 10
+    //   ]
 
-    // Case 4 -- KoconutMap
-    const koconutMap = KoconutArray.of(1,2,3,4,5)
-                                .associate(eachNumber => [eachNumber, eachNumber])
+    // Case 4 -- You can also do it asynchronously
+    const koconutArray2 = KoconutArray.of(123, 987)
 
-    const mapToFlow = await koconutMap
-                                .asFlow()
-                                .yield()
-    console.log(mapToFlow.dataArray)
-    // ↑ 
-    // [
-    //    Entry { keyElement: 1, valueElement: 1 },
-    //    Entry { keyElement: 2, valueElement: 2 },
-    //    Entry { keyElement: 3, valueElement: 3 },
-    //    Entry { keyElement: 4, valueElement: 4 },
-    //    Entry { keyElement: 5, valueElement: 5 }
-    // ]
+    const allDigitsAndIndexInArray = await koconutArray2
+                            .flatMapIndexed(async (eachIndex, eachNumber) => {
+                                const digits = new Array<number>()
+                                while(eachNumber != 0) {
+                                    digits.unshift(eachNumber % 10)
+                                    eachNumber = Math.floor(eachNumber / 10)
+                                }
+                                return [eachIndex, ...digits]
+                            })
+                            .yield()
+    console.log(allDigitsAndIndexInArray)
+    // ↑ [
+    //     0, 1, 2, 3,
+    //     1, 9, 8, 7
+    //   ]
+
+    const allNumberAndIndexCharactersInArray = await koconutArray2
+                .flatMapIndexed((eachInex, eachNumber) => new Promise<string>(resolve => {
+                    resolve(`${eachInex}${eachNumber}`)
+                }))
+                .yield()
+    console.log(allNumberAndIndexCharactersInArray)
+    // ↑ [
+    //     '0', '1', '2',
+    //     '3', '1', '9',
+    //     '8', '7'
+    //   ]
 
 }
 sampleProcess()

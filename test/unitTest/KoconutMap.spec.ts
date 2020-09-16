@@ -991,82 +991,6 @@ describe(`${KoconutMap.name} -- Inspector`, () => {
 
     })
 
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-describe(`${KoconutMap.name} -- Iterator`, () => {
-
-    it(KoconutMap.prototype.forEach.name, async () => {
-
-        const koconut = KoconutArray.of(1,2,3,4,5)
-                        .associate(eachElement => [eachElement, eachElement * 2])
-
-        const yieldable =
-                        koconut
-                        .forEach(eachEntry => {
-                            expect(eachEntry.value / eachEntry.key).equals(2)
-                        })
-        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
-        await yieldable.process()
-
-    })
-
-    it(KoconutMap.prototype.forEachIndexed.name, async () => {
-
-        const koconut = KoconutArray.of(1,2,3,4,5)
-                        .associate(eachElement => [eachElement, eachElement * 2])
-
-        const yieldable =
-                        koconut
-                        .forEachIndexed((eachIndex, eachEntry) => {
-                            expect(eachEntry.value / (eachIndex + 1)).equals(2)
-                        })
-        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
-        await yieldable.process()
-
-    })
-
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-describe(`${KoconutMap.name} -- Function`, () => {
-
     it(KoconutMap.prototype.contains.name, async () => {
 
         /* Case 1 */
@@ -1156,6 +1080,137 @@ describe(`${KoconutMap.name} -- Function`, () => {
         expect(resultCase2).equals(true)
 
     })
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+describe(`${KoconutMap.name} -- Iterator`, () => {
+
+    it(KoconutMap.prototype.forEach.name, async () => {
+
+        const koconut = KoconutArray.of(1,2,3,4,5)
+                        .associate(eachElement => [eachElement, eachElement * 2])
+
+        const yieldable =
+                        koconut
+                        .forEach(eachEntry => {
+                            expect(eachEntry.value / eachEntry.key).equals(2)
+                        })
+        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
+        await yieldable.process()
+
+    })
+
+    it(KoconutMap.prototype.forEachIndexed.name, async () => {
+
+        const koconut = KoconutArray.of(1,2,3,4,5)
+                        .associate(eachElement => [eachElement, eachElement * 2])
+
+        const yieldable =
+                        koconut
+                        .forEachIndexed((eachIndex, eachEntry) => {
+                            expect(eachEntry.value / (eachIndex + 1)).equals(2)
+                        })
+        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
+        await yieldable.process()
+
+    })
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+describe(`${KoconutMap.name} -- Transformer`, () => {
+
+    it(KoconutMap.prototype.flatMap.name, async () => {
+
+        const koconut = KoconutArray.of(1,2,3,4,5)
+                        .associate(eachElement => [eachElement, eachElement * 2])
+
+        const yieldable =
+                        koconut
+                        .flatMap(eachEntry => [eachEntry.key, eachEntry.value])
+                        .distinct()
+                        .sortedBy(eachElement => eachElement)
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        const result = await yieldable.yield()
+        expect(result).eqls([1,2,3,4,5,6,8,10])
+
+    })
+
+    it(KoconutMap.prototype.flatMapIndexed.name, async () => {
+
+        const koconut = KoconutArray.of(1,2,3,4,5)
+                        .associate(eachElement => [eachElement, eachElement * 2])
+
+        const yieldable =
+                        koconut
+                        .flatMapIndexed((eachIndex, eachEntry) => [eachIndex, eachEntry.key, eachEntry.value])
+                        .distinct()
+                        .sortedBy(eachElement => eachElement)
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        const result = await yieldable.yield();
+        expect(result).eqls([0,1,2,3,4,5,6,8,10])
+
+    })
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+describe(`${KoconutMap.name} -- Function`, () => {
 
     it(KoconutMap.prototype.filter.name, async () => {
 
@@ -1271,22 +1326,6 @@ describe(`${KoconutMap.name} -- Function`, () => {
                                                             [5, 10]
                                                         ])
         expect(result).eqls(expectedResultMap)
-
-    })
-
-    it(KoconutMap.prototype.flatMap.name, async () => {
-
-        const koconut = KoconutArray.of(1,2,3,4,5)
-                        .associate(eachElement => [eachElement, eachElement * 2])
-
-        const yieldable =
-                        koconut
-                        .flatMap(eachEntry => [eachEntry.key, eachEntry.value])
-                        .distinct()
-                        .sortedBy(eachElement => eachElement)
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        const result = await yieldable.yield()
-        expect(result).eqls([1,2,3,4,5,6,8,10])
 
     })
 

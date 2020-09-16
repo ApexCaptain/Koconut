@@ -917,6 +917,33 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
 
 
 
+    // Inspector
+    /**
+     * Checks if this {@link KoconutMap} contains the given ```key```.
+     * @param key Key to search for.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Inspector
+     * 
+     * @example
+     * ```typescript
+     * const koconutMap = KoconutArray.of(1,2,3,4,5)
+     *           .associate(eachNumber => [eachNumber, eachNumber * 2])
+     *
+     * const doesKoconutMapContainsKey4 = await koconutMap
+     *                                           .contains(4)
+     *                                           .yield()
+     * console.log(doesKoconutMapContainsKey4)
+     * // ↑ true
+     *
+     * const doesKoconutMapContainsKey7 = await koconutMap
+     *                                           .contains(7)
+     *                                           .yield()
+     * console.log(doesKoconutMapContainsKey7)
+     * // ↑ false
+     * ```
+     */
     contains(
         key : KeyType
     ) : KoconutPrimitive<boolean> {
@@ -936,6 +963,32 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
     }
 
 
+    /**
+     * Checks if this {@link KoconutMap} contains the given ```key```.
+     * @param key Key to search for.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Inspector
+     * 
+     * @example
+     * ```typescript
+     * const koconutMap = KoconutArray.of(1,2,3,4,5)
+     *           .associate(eachNumber => [eachNumber, eachNumber * 2])
+     *
+     * const doesKoconutMapContainsKey4 = await koconutMap
+     *                                           .containsKey(4)
+     *                                           .yield()
+     * console.log(doesKoconutMapContainsKey4)
+     * // ↑ true
+     *
+     * const doesKoconutMapContainsKey7 = await koconutMap
+     *                                           .containsKey(7)
+     *                                           .yield()
+     * console.log(doesKoconutMapContainsKey7)
+     * // ↑ false
+     * ```
+     */
     containsKey(
         key : KeyType
     ) : KoconutPrimitive<boolean> {
@@ -945,6 +998,32 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
     }
 
 
+    /**
+     * Checks if this {@link KoconutMap} contains given ```value```.
+     * @param value Value to search for.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Inspector
+     * 
+     * @example
+     * ```typescript
+     * const koconutMap = KoconutArray.of(1,2,3,4,5)
+     *           .associate(eachNumber => [eachNumber, eachNumber * 2])
+     *
+     * const doesKoconutMapContainsValue2 = await koconutMap
+     *                                           .containsValue(2)
+     *                                           .yield()
+     * console.log(doesKoconutMapContainsValue2)
+     * // ↑ true
+     *
+     * const doesKoconutMapContainsValue12 = await koconutMap
+     *                                           .containsValue(12)
+     *                                           .yield()
+     * console.log(doesKoconutMapContainsValue12)
+     * // ↑ false
+     * ```
+     */
     containsValue(
         value : ValueType
     ) : KoconutPrimitive<boolean> {
@@ -962,6 +1041,24 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
         return koconutToReturn
 
     }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     filter(
