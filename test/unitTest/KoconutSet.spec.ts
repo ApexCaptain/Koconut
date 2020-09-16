@@ -7,7 +7,7 @@ import {
     Pair, KoconutPair, Entry,
 
     /* Container*/
-    KoconutIterable, KoconutArray, KoconutSet, KoconutMap,
+    KoconutArray, KoconutSet, KoconutMap, KoconutFlow, Flow,
 
     /* Exception */
     KoconutNoSuchElementException, KoconutConflictException
@@ -535,6 +535,69 @@ describe(`${KoconutSet.name} -- Calculator`, () => {
         expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
         const resultCase2 = await yieldableCase2.yield()
         expect(resultCase2).equals(null)
+
+    })
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+describe(`${KoconutSet.name} -- Caster`, () => {
+
+    it(KoconutSet.prototype.asArray.name, async () => {
+
+        const koconut = KoconutSet.of(1,2,3,4,5)
+
+        const yieldable =
+                        koconut
+                        .asArray()
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        const result = await yieldable.yield()
+        expect(result).eqls([1,2,3,4,5])
+
+    })
+
+    it(KoconutSet.prototype.asSet.name, async () => {
+
+        const koconut = KoconutSet.of(1,1,2,2,3,3)
+
+        const yieldable =
+                        koconut
+                        .asSet()
+        expect(yieldable).to.be.instanceOf(KoconutSet)
+        const result = await yieldable.yield()
+        expect(result).eqls(new Set([1,2,3]))
+
+    })
+
+    it(KoconutSet.prototype.asFlow.name, async () => {
+
+        const koconut = KoconutSet.of(1,2,3,4,5)
+
+        const yieldable = 
+                        koconut
+                        .asFlow()
+        expect(yieldable).to.be.instanceOf(KoconutFlow)
+        const result = await yieldable.yield()
+        expect(result).to.be.instanceOf(Flow)
+        expect(result.dataArray).eqls([1,2,3,4,5])
 
     })
 

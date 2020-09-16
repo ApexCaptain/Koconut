@@ -58,8 +58,28 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
         return koconutToReturn
 
     }
+    
+    
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     /* Funcions */
     associate<KeyType, ValueType>(
         transform : (element : DataType) => [KeyType, ValueType] | Pair<KeyType, ValueType> | KoconutPair<KeyType, ValueType> | Promise<[KeyType, ValueType] | Pair<KeyType, ValueType> | KoconutPair<KeyType, ValueType>>,

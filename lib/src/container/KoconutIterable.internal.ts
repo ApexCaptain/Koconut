@@ -3,7 +3,7 @@ import {
     KoconutPrimitive, KoconutOpener, KoconutDeprecation, KoconutTypeChecker,
 
     /* Container */
-    KoconutArray,
+    KoconutArray, KoconutSet, KoconutFlow, Flow, KoconutMap,
 
     /* Enum */
     KoconutLoopSignal,
@@ -1925,7 +1925,247 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
         return koconutToReturn
 
     }
+    
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Caster
+    /**
+     * Creates an {@link KoconutArray} instance that wraps original data.
+     * 
+     * @since 1.0.13
+     * 
+     * @category Caster
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const arrToArr = await koconutArray
+     *                           .asArray()
+     *                           .yield()
+     * console.log(arrToArr)
+     * // ↑ [ 1, 2, 3, 4, 5 ]
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of(1,1,2,2,3,3,4,4,5,5)
+     *
+     * const setToArr = await koconutSet
+     *                           .asArray()
+     *                           .yield()
+     * console.log(setToArr)
+     * // ↑ [ 1, 2, 3, 4, 5 ]
+     *
+     * // Case 3 -- KoconutFlow
+     * const koconutFlow = KoconutFlow.ofSimple(1,2,3,4,5)
+     *
+     * const flowToArr = await koconutFlow
+     *                           .asArray()
+     *                           .yield()
+     * console.log(flowToArr)
+     * // ↑ 
+     * // [
+     * //    Entry { keyElement: 0, valueElement: 1 },
+     * //    Entry { keyElement: 1, valueElement: 2 },
+     * //    Entry { keyElement: 2, valueElement: 3 },
+     * //    Entry { keyElement: 3, valueElement: 4 },
+     * //    Entry { keyElement: 4, valueElement: 5 }
+     * //  ]
+     *
+     * // Case 4 -- KoconutMap
+     * const koconutMap = KoconutArray.of(1,2,3,4,5)
+     *                           .associate(eachNumber => [eachNumber, eachNumber])
+     *
+     * const mapToArr = await koconutMap
+     *                           .asArray()
+     *                           .yield()
+     * console.log(mapToArr)
+     * // ↑ 
+     * // [
+     * //    Entry { keyElement: 1, valueElement: 1 },
+     * //    Entry { keyElement: 2, valueElement: 2 },
+     * //    Entry { keyElement: 3, valueElement: 3 },
+     * //    Entry { keyElement: 4, valueElement: 4 },
+     * //    Entry { keyElement: 5, valueElement: 5 }
+     * //  ]
+     * ```
+     */
+    asArray() : KoconutArray<CombinedDataType> {
+
+        const koconutToReturn = new KoconutArray<CombinedDataType>();
+        (koconutToReturn as any as KoconutOpener<Array<CombinedDataType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                return Array.from(this.combinedDataWrapper!)
+            })
+        return koconutToReturn
+
+    }
+
+
+    /**
+     * Creates an {@link KoconutSet} instance that wraps original data.
+     * 
+     * @since 1.0.13
+     * 
+     * @category Caster
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const arrToSet = await koconutArray
+     *                           .asSet()
+     *                           .yield()
+     * console.log(arrToSet)
+     * // ↑ Set { 1, 2, 3, 4, 5 }
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of(1,1,2,2,3,3,4,4,5,5)
+     *
+     * const setToSet = await koconutSet
+     *                           .asSet()
+     *                           .yield()
+     * console.log(setToSet)
+     * // ↑ Set { 1, 2, 3, 4, 5 }
+     *
+     * // Case 3 -- KoconutFlow
+     * const koconutFlow = KoconutFlow.ofSimple(1,2,3,4,5)
+     *
+     * const flowToSet = await koconutFlow
+     *                           .asSet()
+     *                           .yield()
+     * console.log(flowToSet)
+     * // ↑ 
+     * // Set {
+     * //    Entry { keyElement: 0, valueElement: 1 },
+     * //    Entry { keyElement: 1, valueElement: 2 },
+     * //    Entry { keyElement: 2, valueElement: 3 },
+     * //    Entry { keyElement: 3, valueElement: 4 },
+     * //    Entry { keyElement: 4, valueElement: 5 }
+     * //  }
+     *
+     * // Case 4 -- KoconutMap
+     * const koconutMap = KoconutArray.of(1,2,3,4,5)
+     *                           .associate(eachNumber => [eachNumber, eachNumber])
+     *
+     * const mapToSet = await koconutMap
+     *                           .asSet()
+     *                           .yield()
+     * console.log(mapToSet)
+     * // ↑ 
+     * // Set {
+     * //    Entry { keyElement: 1, valueElement: 1 },
+     * //    Entry { keyElement: 2, valueElement: 2 },
+     * //    Entry { keyElement: 3, valueElement: 3 },
+     * //    Entry { keyElement: 4, valueElement: 4 },
+     * //    Entry { keyElement: 5, valueElement: 5 }
+     * //  }
+     * ```
+     */
+    asSet() : KoconutSet<CombinedDataType> {
+
+        const koconutToReturn = new KoconutSet<CombinedDataType>();
+        (koconutToReturn as any as KoconutOpener<Set<CombinedDataType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                return new Set(this.combinedDataWrapper)
+            })
+        return koconutToReturn
+
+    }
+
+
+    /**
+     * Creats an {@link KoconutFlow} instance that wraps original data.
+     * 
+     * @since 1.0.13
+     * 
+     * @category Caster
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const arrToFlow = await koconutArray
+     *                           .asFlow()
+     *                           .yield()
+     * console.log(arrToFlow.dataArray)
+     * // ↑ [ 1, 2, 3, 4, 5 ]
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of(1,1,2,2,3,3,4,4,5,5)
+     *
+     * const setToFlow = await koconutSet
+     *                           .asFlow()
+     *                           .yield()
+     * console.log(setToFlow.dataArray)
+     * // ↑ [ 1, 2, 3, 4, 5 ]
+     *
+     * // Case 3 -- KoconutFlow
+     * const koconutFlow = KoconutFlow.ofSimple(1,2,3,4,5)
+     *
+     * const flowToFlow = await koconutFlow
+     *                           .asFlow()
+     *                           .yield()
+     * console.log(flowToFlow.dataArray)
+     * // ↑ 
+     * // [
+     * //    Entry { keyElement: 0, valueElement: 1 },
+     * //    Entry { keyElement: 1, valueElement: 2 },
+     * //    Entry { keyElement: 2, valueElement: 3 },
+     * //    Entry { keyElement: 3, valueElement: 4 },
+     * //    Entry { keyElement: 4, valueElement: 5 }
+     * // ]
+     *
+     * // Case 4 -- KoconutMap
+     * const koconutMap = KoconutArray.of(1,2,3,4,5)
+     *                           .associate(eachNumber => [eachNumber, eachNumber])
+     *
+     * const mapToFlow = await koconutMap
+     *                           .asFlow()
+     *                           .yield()
+     * console.log(mapToFlow.dataArray)
+     * // ↑ 
+     * // [
+     * //    Entry { keyElement: 1, valueElement: 1 },
+     * //    Entry { keyElement: 2, valueElement: 2 },
+     * //    Entry { keyElement: 3, valueElement: 3 },
+     * //    Entry { keyElement: 4, valueElement: 4 },
+     * //    Entry { keyElement: 5, valueElement: 5 }
+     * // ]
+     * ```
+     */
+    asFlow() : KoconutFlow<CombinedDataType> {
+
+        const koconutToReturn = new KoconutFlow<CombinedDataType>();
+        (koconutToReturn as any as KoconutOpener<Flow<CombinedDataType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                return Flow.fromSimple(this.combinedDataWrapper)
+            })
+        return koconutToReturn
+
+    }
 
 
 
@@ -2633,7 +2873,6 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
         return koconutToReturn
 
     }
-    // asSequence
 
 
     

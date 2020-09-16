@@ -897,6 +897,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
         return koconutToReturn
 
     }
+    
 
 
 
@@ -915,17 +916,6 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
 
 
 
-    asArray() : KoconutArray<Entry<KeyType, ValueType>> {
-
-        const koconutToReturn = new KoconutArray<Entry<KeyType, ValueType>>();
-        (koconutToReturn as any as KoconutOpener<Array<Entry<KeyType, ValueType>>>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                return Array.from(this.mEntries)
-            })
-        return koconutToReturn
-
-    }
 
     contains(
         key : KeyType

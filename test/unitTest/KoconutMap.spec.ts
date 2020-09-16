@@ -7,7 +7,7 @@ import {
     Entry, KoconutEntry, Pair, KoconutPair,
 
     /* Container */
-    KoconutIterable, KoconutArray, KoconutSet, KoconutMap,
+    KoconutArray, KoconutSet, KoconutMap, KoconutFlow, Flow,
 
     /* Exception */
     KoconutNoSuchElementException
@@ -792,6 +792,82 @@ describe(`${KoconutMap.name} -- Calculator`, () => {
 
 
 
+describe(`${KoconutMap.name} -- Caster`, () => {
+
+    it(KoconutMap.prototype.asArray.name, async () => {
+
+        const koconut = KoconutArray.of(1,2,3)
+                        .associate(eachElement => new Pair(eachElement, eachElement))
+
+        const yieldable =
+                        koconut
+                        .asArray()
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        const result = await yieldable.yield()
+        expect(result).eqls([
+                                new Entry(1, 1),
+                                new Entry(2, 2),
+                                new Entry(3, 3)
+                            ])
+
+    })
+
+    it(KoconutMap.prototype.asSet.name, async () => {
+
+        const koconut = KoconutArray.of(1, 1, 2, 2, 3, 3)
+                        .associate(eachElement => new Pair(eachElement, eachElement))
+
+        const yieldable =
+                        koconut
+                        .asSet()
+        expect(yieldable).to.be.instanceOf(KoconutSet)
+        const result = await yieldable.yield()
+        expect(result).eqls(new Set([
+                                new Entry(1, 1),
+                                new Entry(2, 2),
+                                new Entry(3, 3)
+                            ]))
+
+    })
+
+    it(KoconutMap.prototype.asFlow.name, async () => {
+
+        const koconut = KoconutArray.of(1,2,3)
+                        .associate(eachElement => new Pair(eachElement, eachElement))
+
+        const yieldable =
+                        koconut
+                        .asFlow()
+        expect(yieldable).to.be.instanceOf(KoconutFlow)
+        const result = await yieldable.yield()
+        expect(result).to.be.instanceOf(Flow)
+        expect(result.dataArray).eqls([
+                                        new Entry(1, 1),
+                                        new Entry(2, 2),
+                                        new Entry(3, 3)
+                                    ])
+
+    })
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 describe(`${KoconutMap.name} -- Inspector`, () => {
 
@@ -990,24 +1066,6 @@ describe(`${KoconutMap.name} -- Iterator`, () => {
 
 
 describe(`${KoconutMap.name} -- Function`, () => {
-
-    it(KoconutMap.prototype.asArray.name, async () => {
-
-        const koconut = KoconutArray.of(1,2,3)
-                        .associate(eachElement => new Pair(eachElement, eachElement))
-
-        const yieldable =
-                        koconut
-                        .asArray()
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        const result = await yieldable.yield()
-        expect(result).eqls([
-                                new Entry(1, 1),
-                                new Entry(2, 2),
-                                new Entry(3, 3)
-                            ])
-
-    })
 
     it(KoconutMap.prototype.contains.name, async () => {
 
