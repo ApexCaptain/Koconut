@@ -1,9 +1,10 @@
+import { sign } from "crypto";
 import {
     /* Tool */
     KoconutPrimitive, KoconutOpener, KoconutDeprecation, KoconutTypeChecker,
 
     /* Container */
-    KoconutArray, KoconutSet, KoconutFlow, Flow, KoconutMap,
+    KoconutArray, KoconutSet, KoconutFlow, Flow, KoconutMap, Entry,
 
     /* Enum */
     KoconutLoopSignal,
@@ -2539,6 +2540,88 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
         return koconutToReturn
 
     }
+
+
+    /**
+     * ```predicate``` callback function is optional. If it's omitted the method returns ```true``` if the collection has no elements.
+     * Otherwise, returns ```true``` if no elements match the given ```predicate```.
+     * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Inspector
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = new KoconutArray<number>()
+     *
+     * const isNoneOfAnEmptyArray = await koconutArray
+     *                                   .none()
+     *                                   .yield()
+     * console.log(isNoneOfAnEmptyArray)
+     * // ↑ true
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of(1,2,3,4,5)
+     *
+     * const isNoneOfSetElementGreaterThan10 = await koconutSet
+     *                                       .none(eachNumber => eachNumber >= 10)
+     *                                       .yield()
+     * console.log(isNoneOfSetElementGreaterThan10)
+     * // ↑ true
+     *
+     * // Case 3 -- KoconutMap
+     * const koconutMap = KoconutArray.of(1,2,3,4,5)
+     *                   .associateWith(eachNumber => eachNumber * 2)
+     *
+     * const isNoneOfEntryOfMapHasLessThan3DifferenceBetweenKeyAndValue
+     *                       = await koconutMap
+     *                           .none(eachEntry => eachEntry.value - eachEntry.key <= 3)
+     *                           .yield()
+     * console.log(isNoneOfEntryOfMapHasLessThan3DifferenceBetweenKeyAndValue)
+     * // ↑ false
+     *
+     * // Case 4 -- You can also do it asynchronously
+     * const koconutArray2 = KoconutArray.of(1,2,3,4,5)
+     *
+     * const isNoneOfArrayElementGreaterThan3 = await koconutArray2
+     *                                   .none(async eachNumber => eachNumber >= 3)
+     *                                   .yield()
+     * console.log(isNoneOfArrayElementGreaterThan3)
+     * // ↑ false
+     *
+     * const isNoneOfArrayelementLessThan0 = await koconutArray2
+     *                   .none(eachNumber => new Promise(resolve => {
+     *                       resolve(eachNumber <= 0)
+     *                   }))
+     *                   .yield()
+     * console.log(isNoneOfArrayelementLessThan0)
+     * // ↑ true
+     * ```
+     */
+    none(
+        predicate : ((element : CombinedDataType) => boolean | Promise<boolean>) | null = null,
+        thisArg : any = null
+    ) : KoconutPrimitive<boolean> {
+
+        if(predicate) predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<boolean>();
+        (koconutToReturn as any as KoconutOpener<boolean>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.combinedDataWrapper == null || this.mSize == 0) return true
+                if(predicate) {
+                    for(const eachCombinedDatum of this.combinedDataWrapper)
+                        if(await predicate(eachCombinedDatum)) return false
+                    return true
+                }
+                return false
+            })
+        return koconutToReturn
+
+    }
     
     
 
@@ -2654,18 +2737,28 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
     }
 
 
-    /*
+    // No Comment - KoconutArray/KoconutSet/KoconutMap
     onEach(
         action : (element : CombinedDataType) => boolean | KoconutLoopSignal | void | Promise<boolean | KoconutLoopSignal | void>,
         thisArg : any = null
     ) : KoconutIterable<DataType, CombinedDataType, WrapperType, CombinedWrapperType> {
 
         action = action.bind(thisArg)
+        const koconutToReturn = new KoconutIterable<DataType, CombinedDataType, WrapperType, CombinedWrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.combinedDataWrapper != null) {
+                    for(const eachCombinedDatum of this.combinedDataWrapper) {
+                        const signal = await action(eachCombinedDatum)
+                        if(signal == false || signal == KoconutLoopSignal.BREAK) break
+                    }
+                }
+                return this.data!
+            })
+        return koconutToReturn
 
     }
-    */
-
-
     
 
 
@@ -2685,7 +2778,70 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
 
 
 
+
+    // Manipulator
+    // No Comment - KoconutArray/KoconutSet/KoconutMap
+    filter(
+        predicate : (element : CombinedDataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutIterable<DataType, CombinedDataType, WrapperType, CombinedWrapperType> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutIterable<DataType, CombinedDataType, WrapperType, CombinedWrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedArray = new Array<CombinedDataType>()
+                if(this.combinedDataWrapper != null) {
+                    for(const eachCombinedDatum of this.combinedDataWrapper) 
+                        if(await predicate(eachCombinedDatum)) processedArray.push(eachCombinedDatum)
+                }
+                if(this.data instanceof Array) return processedArray as any as WrapperType
+                else if(this.data instanceof Set) return new Set(processedArray) as any as WrapperType
+                else {
+                    const processedMap = new Map()
+                    processedArray.forEach(eachProcessedDatum => {
+                        const eachEntry =  eachProcessedDatum as any as Entry<any, any>
+                        processedMap.set(eachEntry.key, eachEntry.value)
+                    })
+                    return processedMap as any as WrapperType
+                }
+            })
+        return koconutToReturn
+
+    }
+
     
+    // No Comment - KoconutArray/KoconutSet/KoconutMap
+    filterNot(
+        predicate : (element : CombinedDataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutIterable<DataType, CombinedDataType, WrapperType, CombinedWrapperType> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutIterable<DataType, CombinedDataType, WrapperType, CombinedWrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedArray = new Array<CombinedDataType>()
+                if(this.combinedDataWrapper != null) {
+                    for(const eachCombinedDatum of this.combinedDataWrapper) 
+                        if(!await predicate(eachCombinedDatum)) processedArray.push(eachCombinedDatum)
+                }
+                if(this.data instanceof Array) return processedArray as any as WrapperType
+                else if(this.data instanceof Set) return new Set(processedArray) as any as WrapperType
+                else {
+                    const processedMap = new Map()
+                    processedArray.forEach(eachProcessedDatum => {
+                        const eachEntry =  eachProcessedDatum as any as Entry<any, any>
+                        processedMap.set(eachEntry.key, eachEntry.value)
+                    })
+                    return processedMap as any as WrapperType
+                }
+            })
+        return koconutToReturn
+
+    }
 
 
 
@@ -2707,7 +2863,6 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
 
     
     // Transformer
-    // asIterable
     /**
      * Returns a single list of all elements yielded from results of ```transform``` function being invoked on each element of original collection.
      * @param transform A callback function that accepts an argument. The method calls the ```transform``` one time for each element in object.
@@ -2800,6 +2955,7 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
     }
 
 
+    // No Comment - KoconutArray/KoconutSet/KoconutMap
     flatMapTo<ResultDataType>(
         destination : Array<ResultDataType> | Set<ResultDataType>,
         transform : (element : CombinedDataType) => Iterable<ResultDataType> | Promise<Iterable<ResultDataType>>,
@@ -2816,6 +2972,241 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
                         for(let eachSubElement of await transform(eachCombinedDatum))
                             if(destination instanceof Array) destination.push(eachSubElement)
                             else destination.add(eachSubElement)
+                }
+                return this.data!
+            })
+        return koconutToReturn
+
+    }
+
+
+    /**
+     * Returns a list containing the results of applying the given ```transform``` function
+     * to each element in the original collection.
+     * @param transform A callback function that accepts an argument. The method calls the ```transform``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Transformer
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const doubledNumbersInArray = await koconutArray
+     *                           .map(eachNumber => eachNumber * 2)
+     *                           .yield()
+     * console.log(doubledNumbersInArray)
+     * // ↑ [ 2, 4, 6, 8, 10 ]
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of(1,2,3,4,5)
+     *
+     * const doubledNumbersInSet = await koconutSet
+     *                           .map(eachNumber => eachNumber * 2)
+     *                           .yield()
+     * console.log(doubledNumbersInSet)
+     * // ↑ [ 2, 4, 6, 8, 10 ]
+     *
+     * // Case 3 -- KoconutMap
+     * const koconutMap = KoconutArray.of(1,2,3,4,5)
+     *                   .associate(eachNumber => [eachNumber, eachNumber * 2])
+     *
+     * const keyValueSumOfMap = await koconutMap
+     *                       .map(eachEntry => eachEntry.key + eachEntry.value)
+     *                       .yield()
+     * console.log(keyValueSumOfMap)
+     * // ↑ [ 3, 6, 9, 12, 15 ]
+     *
+     * // Case 4 -- You can also do it asynchronously
+     * const koconutArray2 = KoconutArray.of(1,2,3,4,5)
+     *
+     * const squaredNumberInArray = await koconutArray2
+     *                           .map(async eachNumber => eachNumber * eachNumber)
+     *                           .yield()
+     * console.log(squaredNumberInArray)
+     * // ↑ [ 1, 4, 9, 16, 25 ]
+     *
+     * const trippledNumbersInArray = await koconutArray2
+     *                               .map(eachNumber => new Promise(resolve => {
+     *                                   resolve(eachNumber * 3)
+     *                               }))
+     *                               .yield()
+     * console.log(trippledNumbersInArray)
+     * // ↑ [ 3, 6, 9, 12, 15 ]
+     * ```
+     */
+    map<ResultDataType>(
+        transform : (element : CombinedDataType) => ResultDataType | Promise<ResultDataType>,
+        thisArg : any = null
+    ) : KoconutArray<ResultDataType> {
+
+        transform = transform.bind(thisArg)
+        const koconutToReturn = new KoconutArray<ResultDataType>();
+        (koconutToReturn as any as KoconutOpener<Array<ResultDataType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedArray = new Array<ResultDataType>()
+                if(this.combinedDataWrapper != null) {
+                    for(const eachCombinedDatum of this.combinedDataWrapper) {
+                        processedArray.push(await transform(eachCombinedDatum))
+                    }
+                }
+                return processedArray
+            })
+        return koconutToReturn
+
+    }
+
+
+    // No Comment -- KoconutArray/KoconutSet/KoconutMap
+    mapTo<ResultDataType>(
+        destination : Array<ResultDataType> | Set<ResultDataType>,
+        transform : (element : CombinedDataType) => ResultDataType | Promise<ResultDataType>,
+        thisArg : any = null
+    ) : KoconutIterable<DataType, CombinedDataType, WrapperType, CombinedWrapperType> {
+
+        transform = transform.bind(thisArg)
+        const koconutToReturn = new KoconutIterable<DataType, CombinedDataType, WrapperType, CombinedWrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.combinedDataWrapper != null) {
+                    for(const eachCombinedDatum of this.combinedDataWrapper) {
+                        const dataToAdd = await transform(eachCombinedDatum)
+                        if(destination instanceof Array) destination.push(dataToAdd)
+                        else destination.add(dataToAdd)
+                    }
+                }
+                return this.data!
+            })
+        return koconutToReturn
+
+    }
+
+
+    /**
+     * Returns a list containing results that are not ```null``` nor ```undefined``` of applying
+     * the given ```transfrom``` function to each element in the original collection. You can use this method as ```filter``` then ```map```.
+     * @param transform A callback function that accepts an argument. The method calls the ```transform``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Transformer
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const squaredOddNumbersInArray = await koconutArray
+     *                       .mapNotNull(eachNumber => {
+     *                           if(eachNumber % 2 == 1)
+     *                               return eachNumber * eachNumber
+     *                           // return
+     *                           // return null
+     *                           // return undefined
+     *                           // ↑ You can use any one of
+     *                           //   them or just omit it.
+     *                       })
+     *                       .yield()
+     * console.log(squaredOddNumbersInArray)
+     * // ↑ [ 1, 9, 25 ]
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of("1", "54", "26", "5")
+     *
+     * const twoDigitsNumbersInSet = await koconutSet
+     *                       .mapNotNull(eachString => {
+     *                           if(eachString.length == 2)
+     *                               return parseInt(eachString)
+     *                       })
+     *                       .yield()
+     * console.log(twoDigitsNumbersInSet)
+     * // ↑ [ 54, 26 ]
+     *
+     * // Case 3 -- KoconutMap
+     * const KoconutMap = KoconutArray.of(1,2,3,4,5)
+     *               .associate(eachNumber => [eachNumber, eachNumber * 2])
+     *
+     * const oddKeyKeyValueSumInMap = await KoconutMap
+     *                       .mapNotNull(eachEntry => {
+     *                           if(eachEntry.key % 2 == 1)
+     *                               return eachEntry.key + eachEntry.value
+     *                       })
+     *                       .yield()
+     * console.log(oddKeyKeyValueSumInMap)
+     * // ↑ [ 3, 9, 15 ]
+     *
+     * // Case 4 -- You can also do it asynchronously
+     * const koocnutArray2 = KoconutArray.of(1,2,3,4,5)
+     *
+     * const squaredEvenNumbersInArray = await koocnutArray2
+     *                           .mapNotNull(async eachNumber => {
+     *                               if(eachNumber % 2 == 0)
+     *                                   return eachNumber * eachNumber
+     *                           })
+     *                           .yield()
+     * console.log(squaredEvenNumbersInArray)
+     * // ↑ [ 4, 16 ]
+     *
+     * const doubledOddNumbersInArray = await koocnutArray2
+     *                       .mapNotNull(eachNumber => new Promise<number | null>(resolve => {
+     *                           if(eachNumber % 2 == 1)
+     *                               resolve(eachNumber * 2)
+     *                           else resolve(null)
+     *                       }))
+     *                       .yield()
+     * console.log(doubledOddNumbersInArray)
+     * // ↑ [ 2, 6, 10 ]
+     * ```
+     */
+    mapNotNull<ResultDataType>(
+        transform : (element : CombinedDataType) => ResultDataType | void | null | undefined | Promise<ResultDataType | void | null | undefined>,
+        thisArg : any = null 
+    ) : KoconutArray<ResultDataType> {
+
+        transform = transform.bind(thisArg)
+        const koconutToReturn = new KoconutArray<ResultDataType>();
+        (koconutToReturn as any as KoconutOpener<Array<ResultDataType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedArray = new Array<ResultDataType>()
+                if(this.combinedDataWrapper != null) {
+                    for(const eachCombinedDatum of this.combinedDataWrapper) {
+                        const dataToAdd = await transform(eachCombinedDatum)
+                        if(dataToAdd != null && dataToAdd != undefined) processedArray.push(dataToAdd)
+                    }
+                }
+                return processedArray
+            })
+        return koconutToReturn
+
+    }
+
+
+    // No Comment -- KoconutArray/KoconutSet/KoconutMap
+    mapNotNullTo<ResultDataType>(
+        destination : Array<ResultDataType> | Set<ResultDataType>,
+        transform : (element : CombinedDataType) => ResultDataType | void | null | undefined | Promise<ResultDataType | void | null | undefined>,
+        thisArg : any = null
+    ) : KoconutIterable<DataType, CombinedDataType, WrapperType, CombinedWrapperType> {
+
+        transform = transform.bind(thisArg)
+        const koconutToReturn = new KoconutIterable<DataType, CombinedDataType, WrapperType, CombinedWrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.combinedDataWrapper != null) {
+                    for(const eachCombinedDatum of this.combinedDataWrapper) {
+                        const dataToAdd = await transform(eachCombinedDatum)
+                        if(dataToAdd != null && dataToAdd != undefined)
+                            if(destination instanceof Array) destination.push(dataToAdd)
+                            else destination.add(dataToAdd)
+                    }
                 }
                 return this.data!
             })

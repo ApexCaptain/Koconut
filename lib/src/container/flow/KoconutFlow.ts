@@ -158,7 +158,7 @@ export class KoconutFlow<DataType> extends KoconutIterable<Entry<number, DataTyp
 
     }
 
-    map<ResultDataType>(
+    mapFlow<ResultDataType>(
         transform : (element : DataType) => ResultDataType | Promise<ResultDataType>,
         thisArg : any = null
     ) : KoconutFlow<ResultDataType> {

@@ -1081,6 +1081,30 @@ describe(`${KoconutMap.name} -- Inspector`, () => {
 
     })
 
+    it(KoconutMap.prototype.none.name, async () => {
+
+        const koconut = KoconutArray.of(1,2,3,4,5)
+                            .associate(eachElement => [eachElement, eachElement])
+
+        /* Case 1 */
+        const yieldableCase1 = 
+                        koconut
+                        .filter(eachEntry => eachEntry.key > 10)
+                        .none()
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).equals(true)
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .none(eachEntry => eachEntry.key > 10)
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).equals(true)
+
+    })
+
 })
 
 
@@ -1176,6 +1200,164 @@ describe(`${KoconutMap.name} -- Transformer`, () => {
 
     })
 
+    it(KoconutMap.prototype.map.name, async () => {
+
+        const koconut = KoconutArray.of(1,2,3,4,5)
+                        .associate(eachElement => [eachElement, eachElement * 2])
+
+        const yieldable =
+                        koconut
+                        .map(eachEntry => eachEntry.key + eachEntry.value)
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        const result = await yieldable.yield()
+        expect(result).eqls([3,6,9,12,15])
+
+    })
+
+    it(KoconutMap.prototype.mapKeys.name, async () => {
+
+        const koconut = KoconutMap.of(
+                                        ["beer", 2.7],
+                                        ["bisquit", 5.8]
+                                    )
+
+        const yieldable =
+                        koconut
+                        .mapKeys(eachEntry => eachEntry.key.length)
+        expect(yieldable).to.be.instanceOf(KoconutMap)
+        const result = await yieldable.yield()
+        const expectedResultMap = new Map<number, number>([
+                                                            [4, 2.7],
+                                                            [7, 5.8]
+                                                        ])
+        expect(result).eqls(expectedResultMap)
+
+    })
+
+    it(KoconutMap.prototype.mapKeysTo.name, async () => {
+
+        const koconut = KoconutMap.of(
+                                        ["beer", 2.7],
+                                        ["bisquit", 5.8]
+                                    )
+
+        const destination = new Map<number, number>()
+        const yieldable =
+                        koconut
+                        .mapKeysTo(
+                            destination,
+                            eachEntry => eachEntry.key.length
+                        )
+        expect(yieldable).to.be.instanceOf(KoconutMap)
+        await yieldable.process()
+        const expectedResultMap = new Map<number, number>([
+                                                            [4, 2.7],
+                                                            [7, 5.8]
+                                                        ])
+        expect(destination).eqls(expectedResultMap)
+
+    })
+
+    it(KoconutMap.prototype.mapNotNull.name, async () => {
+
+        const koconut = KoconutArray.of(1,2,3,4,5)
+                        .associate(eachElement => [eachElement, eachElement * 2])
+
+        const yieldable =
+                        koconut
+                        .mapNotNull(
+                            eachEntry => {
+                                if(eachEntry.key > 3) return eachEntry.key + eachEntry.value
+                            }
+                        )
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        const result = await yieldable.yield()
+        expect(result).eqls([12, 15])
+
+    })
+
+    it(KoconutMap.prototype.mapNotNullTo.name, async () => {
+
+        const koconut = KoconutArray.of(1,2,3,4,5)
+                        .associate(eachElement => [eachElement, eachElement * 2])
+
+        const destination = new Array<number>()
+        const yieldable =
+                        koconut
+                        .mapNotNullTo(
+                            destination,
+                            eachEntry => {
+                                if(eachEntry.key > 3) return eachEntry.key + eachEntry.value
+                            }
+                        )
+        expect(yieldable).to.be.instanceOf(KoconutMap)
+        await yieldable.process()
+        expect(destination).eqls([12, 15])
+
+    })
+
+    it(KoconutMap.prototype.mapTo.name, async () => {
+
+        const koconut = KoconutArray.of(1,2,3,4,5)
+                        .associate(eachElement => [eachElement, eachElement * 2])
+
+        const destination = new Array<number>()
+        const yieldable =
+                        koconut
+                        .mapTo(
+                            destination,
+                            eachEntry => eachEntry.key + eachEntry.value
+                        )
+        expect(yieldable).to.be.instanceOf(KoconutMap)
+        await yieldable.process()
+        expect(destination).eqls([3,6,9,12,15])
+
+    })
+
+    it(KoconutMap.prototype.mapVaues.name, async () => {
+
+        const koconut = KoconutMap.of(
+                                        ["beverage", 2.7],
+                                        ["meal", 12.4]
+                                    )
+
+        const yieldable =
+                        koconut
+                        .mapVaues(eachEntry => `${eachEntry.value}$`)
+        expect(yieldable).to.be.instanceOf(KoconutMap)
+        const result = await yieldable.yield()
+        const expectedResultMap = new Map<string, string>([
+                                                            ["beverage", "2.7$"],
+                                                            ["meal", "12.4$"]
+                                                        ])
+        expect(result).eqls(expectedResultMap)
+        
+    })
+
+    it(KoconutMap.prototype.mapValuesTo.name, async () => {
+
+        const koconut = KoconutMap.of(
+                                        ["beverage", 2.7],
+                                        ["meal", 12.4]
+                                    )
+
+        const destination = new Map<string, string>()
+        const yieldable =
+                        koconut
+                        .mapValuesTo(
+                            destination,
+                            eachEntry => `${eachEntry.value}$`
+                        )
+        expect(yieldable).to.be.instanceOf(KoconutMap)
+        await yieldable.process()
+        const expectedResultMap = new Map<string, string>([
+                                                            ["beverage", "2.7$"],
+                                                            ["meal", "12.4$"]
+                                                        ])
+        expect(destination).eqls(expectedResultMap)
+        
+    })
+
 })
 
 
@@ -1196,8 +1378,7 @@ describe(`${KoconutMap.name} -- Transformer`, () => {
 
 
 
-
-describe(`${KoconutMap.name} -- Function`, () => {
+describe(`${KoconutMap.name} -- Manipulator`, () => {
 
     it(KoconutMap.prototype.filter.name, async () => {
 
@@ -1212,23 +1393,6 @@ describe(`${KoconutMap.name} -- Function`, () => {
         const expectedResultMap = new Map<number, number>([
                                                             [2, 4],
                                                             [4, 8]
-                                                        ])
-        expect(result).eqls(expectedResultMap)
-
-    })
-
-    it(KoconutMap.prototype.filterKeys.name, async () => {
-
-        const koconut = KoconutArray.of(1,2,3,4,5)
-                            .associate(eachElement => [eachElement, eachElement * 2])
-
-        const yieldable =
-                        koconut
-                        .filterKeys(eachKey => eachKey % 3 == 0)
-        expect(yieldable).to.be.instanceOf(KoconutMap)
-        const result = await yieldable.yield()
-        const expectedResultMap = new Map<number, number>([
-                                                            [3, 6]
                                                         ])
         expect(result).eqls(expectedResultMap)
 
@@ -1250,6 +1414,28 @@ describe(`${KoconutMap.name} -- Function`, () => {
                                                             [5, 10]
                                                         ])
         expect(result).eqls(expectedResultMap)
+
+    })
+
+    it(KoconutMap.prototype.filterTo.name, async () => {
+
+        const koconut = KoconutArray.of(1,2,3,4,5)
+                            .associate(eachElement => [eachElement, eachElement * 2])
+            
+        const destination = new Map<number, number>()
+        const yieldable =
+                        koconut
+                        .filterTo(
+                            destination,
+                            eachEntry => eachEntry.key % 2 == 0
+                        )
+        expect(yieldable).to.be.instanceOf(KoconutMap)
+        await yieldable.process()
+        const expectedResultMap = new Map<number, number>([
+                                                            [2, 4],
+                                                            [4, 8]
+                                                        ])
+        expect(destination).eqls(expectedResultMap)
 
     })
 
@@ -1276,25 +1462,20 @@ describe(`${KoconutMap.name} -- Function`, () => {
 
     })
 
-    it(KoconutMap.prototype.filterTo.name, async () => {
+    it(KoconutMap.prototype.filterKeys.name, async () => {
 
         const koconut = KoconutArray.of(1,2,3,4,5)
                             .associate(eachElement => [eachElement, eachElement * 2])
-            
-        const destination = new Map<number, number>()
+
         const yieldable =
                         koconut
-                        .filterTo(
-                            destination,
-                            eachEntry => eachEntry.key % 2 == 0
-                        )
+                        .filterKeys(eachKey => eachKey % 3 == 0)
         expect(yieldable).to.be.instanceOf(KoconutMap)
-        await yieldable.process()
+        const result = await yieldable.yield()
         const expectedResultMap = new Map<number, number>([
-                                                            [2, 4],
-                                                            [4, 8]
+                                                            [3, 6]
                                                         ])
-        expect(destination).eqls(expectedResultMap)
+        expect(result).eqls(expectedResultMap)
 
     })
 
@@ -1315,6 +1496,28 @@ describe(`${KoconutMap.name} -- Function`, () => {
         expect(result).eqls(expectedResultMap)
 
     })
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+describe(`${KoconutMap.name} -- Function`, () => {
     
     it(KoconutMap.prototype.get.name, async () => {
 
@@ -1484,164 +1687,6 @@ describe(`${KoconutMap.name} -- Function`, () => {
 
     })
 
-    it(KoconutMap.prototype.map.name, async () => {
-
-        const koconut = KoconutArray.of(1,2,3,4,5)
-                        .associate(eachElement => [eachElement, eachElement * 2])
-
-        const yieldable =
-                        koconut
-                        .map(eachEntry => eachEntry.key + eachEntry.value)
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        const result = await yieldable.yield()
-        expect(result).eqls([3,6,9,12,15])
-
-    })
-
-    it(KoconutMap.prototype.mapKeys.name, async () => {
-
-        const koconut = KoconutMap.of(
-                                        ["beer", 2.7],
-                                        ["bisquit", 5.8]
-                                    )
-
-        const yieldable =
-                        koconut
-                        .mapKeys(eachEntry => eachEntry.key.length)
-        expect(yieldable).to.be.instanceOf(KoconutMap)
-        const result = await yieldable.yield()
-        const expectedResultMap = new Map<number, number>([
-                                                            [4, 2.7],
-                                                            [7, 5.8]
-                                                        ])
-        expect(result).eqls(expectedResultMap)
-
-    })
-
-    it(KoconutMap.prototype.mapKeysTo.name, async () => {
-
-        const koconut = KoconutMap.of(
-                                        ["beer", 2.7],
-                                        ["bisquit", 5.8]
-                                    )
-
-        const destination = new Map<number, number>()
-        const yieldable =
-                        koconut
-                        .mapKeysTo(
-                            destination,
-                            eachEntry => eachEntry.key.length
-                        )
-        expect(yieldable).to.be.instanceOf(KoconutMap)
-        await yieldable.process()
-        const expectedResultMap = new Map<number, number>([
-                                                            [4, 2.7],
-                                                            [7, 5.8]
-                                                        ])
-        expect(destination).eqls(expectedResultMap)
-
-    })
-
-    it(KoconutMap.prototype.mapNotNull.name, async () => {
-
-        const koconut = KoconutArray.of(1,2,3,4,5)
-                        .associate(eachElement => [eachElement, eachElement * 2])
-
-        const yieldable =
-                        koconut
-                        .mapNotNull(
-                            eachEntry => {
-                                if(eachEntry.key > 3) return eachEntry.key + eachEntry.value
-                            }
-                        )
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        const result = await yieldable.yield()
-        expect(result).eqls([12, 15])
-
-    })
-
-    it(KoconutMap.prototype.mapNotNullTo.name, async () => {
-
-        const koconut = KoconutArray.of(1,2,3,4,5)
-                        .associate(eachElement => [eachElement, eachElement * 2])
-
-        const destination = new Array<number>()
-        const yieldable =
-                        koconut
-                        .mapNotNullTo(
-                            destination,
-                            eachEntry => {
-                                if(eachEntry.key > 3) return eachEntry.key + eachEntry.value
-                            }
-                        )
-        expect(yieldable).to.be.instanceOf(KoconutMap)
-        await yieldable.process()
-        expect(destination).eqls([12, 15])
-
-    })
-
-    it(KoconutMap.prototype.mapTo.name, async () => {
-
-        const koconut = KoconutArray.of(1,2,3,4,5)
-                        .associate(eachElement => [eachElement, eachElement * 2])
-
-        const destination = new Array<number>()
-        const yieldable =
-                        koconut
-                        .mapTo(
-                            destination,
-                            eachEntry => eachEntry.key + eachEntry.value
-                        )
-        expect(yieldable).to.be.instanceOf(KoconutMap)
-        await yieldable.process()
-        expect(destination).eqls([3,6,9,12,15])
-
-    })
-
-    it(KoconutMap.prototype.mapVaues.name, async () => {
-
-        const koconut = KoconutMap.of(
-                                        ["beverage", 2.7],
-                                        ["meal", 12.4]
-                                    )
-
-        const yieldable =
-                        koconut
-                        .mapVaues(eachEntry => `${eachEntry.value}$`)
-        expect(yieldable).to.be.instanceOf(KoconutMap)
-        const result = await yieldable.yield()
-        const expectedResultMap = new Map<string, string>([
-                                                            ["beverage", "2.7$"],
-                                                            ["meal", "12.4$"]
-                                                        ])
-        expect(result).eqls(expectedResultMap)
-        
-    })
-
-    it(KoconutMap.prototype.mapValuesTo.name, async () => {
-
-        const koconut = KoconutMap.of(
-                                        ["beverage", 2.7],
-                                        ["meal", 12.4]
-                                    )
-
-        const destination = new Map<string, string>()
-        const yieldable =
-                        koconut
-                        .mapValuesTo(
-                            destination,
-                            eachEntry => `${eachEntry.value}$`
-                        )
-        expect(yieldable).to.be.instanceOf(KoconutMap)
-        await yieldable.process()
-        const expectedResultMap = new Map<string, string>([
-                                                            ["beverage", "2.7$"],
-                                                            ["meal", "12.4$"]
-                                                        ])
-        expect(destination).eqls(expectedResultMap)
-        
-    })
-
     it(KoconutMap.prototype.minus.name, async () => {
 
         /* Case 1 */
@@ -1675,29 +1720,7 @@ describe(`${KoconutMap.name} -- Function`, () => {
 
     })
 
-    it(KoconutMap.prototype.none.name, async () => {
 
-        const koconut = KoconutArray.of(1,2,3,4,5)
-                            .associate(eachElement => [eachElement, eachElement])
-
-        /* Case 1 */
-        const yieldableCase1 = 
-                        koconut
-                        .filter(eachEntry => eachEntry.key > 10)
-                        .none()
-        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
-        const resultCase1 = await yieldableCase1.yield()
-        expect(resultCase1).equals(true)
-
-        /* Case 2 */
-        const yieldableCase2 =
-                        koconut
-                        .none(eachEntry => eachEntry.key > 10)
-        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
-        const resultCase2 = await yieldableCase2.yield()
-        expect(resultCase2).equals(true)
-
-    })
 
     it(KoconutMap.prototype.onEach.name, async () => {
 

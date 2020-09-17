@@ -9,5 +9,6 @@
         "@babel/syntax-dynamic-import",
         "@babel/plugin-transform-runtime",
         "@babel/transform-async-to-generator"
-    ]
+    ],
+    "comments": false
 }
