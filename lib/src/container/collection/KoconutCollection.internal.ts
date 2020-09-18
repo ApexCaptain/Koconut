@@ -567,13 +567,9 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
         (koconutToReturn as any as KoconutOpener<WrapperType>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
-                if(this.data != null) {
-                    for(const eachDatum of this.data) {
-                        const eachKey = await keySelector(eachDatum)
-                        const eachValue = valueTransform ? await valueTransform(eachDatum) : eachDatum
-                        destination.set(eachKey, eachValue as ValueType)
-                    }
-                }
+                await this.associateBy(keySelector, valueTransform, keySelectorThisArg, valueTransformThisArg)
+                            .forEach(eachEntry => {destination.set(eachEntry.key, eachEntry.value)})
+                            .process()
                 return this.data!
             })
         return koconutToReturn
@@ -605,21 +601,9 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
         (koconutToReturn as any as KoconutOpener<WrapperType>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
-                if(this.data != null) {
-                    for(const eachDatum of this.data) {
-                        const eachTransformResult = await transform(eachDatum)
-                        if(eachTransformResult instanceof KoconutPair) {
-                            const eachPair = await eachTransformResult.yield()
-                            if(eachPair != null) destination.set(eachPair.first, eachPair.second)
-                        } else if(eachTransformResult instanceof Pair) destination.set(eachTransformResult.first, eachTransformResult.second) 
-                        else if(eachTransformResult instanceof KoconutEntry) {
-                            const eachEntry = await eachTransformResult.yield()
-                            if(eachEntry != null) destination.set(eachEntry.key, eachEntry.value)
-                        }
-                        else if(eachTransformResult instanceof Entry) destination.set(eachTransformResult.key, eachTransformResult.value)
-                        else destination.set(eachTransformResult[0], eachTransformResult[1])
-                    }
-                }
+                await this.associate(transform, thisArg)
+                            .forEach(eachEntry => {destination.set(eachEntry.key, eachEntry.value)})
+                            .process()
                 return this.data!
             })
         return koconutToReturn
@@ -631,7 +615,7 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
      * Returns a {@link KoconutMap} where keys are original elements of the current object and values
      * are produced by the ```valueSelector``` function applied to each element.
      * @param valueSelector A callback function that accepts an argument. The method calls the ```valueSelector``` one time for each element in object.
-     * @param thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```valueSelector```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
      * 
      * @since 1.0.10
      * 
@@ -711,12 +695,9 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
         (koconutToReturn as any as KoconutOpener<WrapperType>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
-                if(this.data != null) {
-                    for(const eachDatum of this.data) {
-                        const eachValue = await valueSelector(eachDatum)
-                        destination.set(eachDatum, eachValue)
-                    }
-                }
+                await this.associateWith(valueSelector, thisArg)
+                            .forEach(eachEntry => {destination.set(eachEntry.key, eachEntry.value)})
+                            .process()
                 return this.data!
             })
         return koconutToReturn
@@ -1274,102 +1255,118 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // No Comment - KoconutArray/KoconutSet
+    sortedBy(
+        selector : (element : DataType) => number | string | KoconutComparable | Promise<number | string | KoconutComparable>,
+        thisArg : any = null
+    ) : KoconutCollection<DataType, WrapperType> {
+
+        selector = selector.bind(thisArg)
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedArray = new Array<DataType>()
+                if(this.data != null) {
+                    const dataArray = Array.from(this.data)
+                    for(let eachIndex in dataArray) {
+                        const currentComparable = await selector(dataArray[eachIndex])
+                        let startIndex = 0
+                        let middleIndex : number
+                        let endIndex = processedArray.length
+                        while(startIndex < endIndex) {
+                            middleIndex = Math.floor((startIndex + endIndex) / 2)
+                            const targetComparable = await selector(processedArray[middleIndex])
+                            if(
+                                (KoconutTypeChecker.checkIsComparable(currentComparable) && (currentComparable).compareTo(targetComparable as any as KoconutComparable) >= 0)
+                                || (!KoconutTypeChecker.checkIsComparable(currentComparable) && currentComparable >= targetComparable)
+                            ) startIndex = middleIndex + 1
+                            else endIndex = middleIndex
+                        }
+                        processedArray.splice(endIndex, 0, dataArray[eachIndex])
+                        
+                    }
+                }
+                if(this.data instanceof Array) return processedArray as WrapperType
+                else return new Set(processedArray) as WrapperType
+            })
+        return koconutToReturn
+
+    }
+
+
+    // No Comment - KoconutArray/KoconutSet
+    sortedByDescending(
+        selector : (element : DataType) => number | string | KoconutComparable | Promise<number | string | KoconutComparable>,
+        thisArg : any = null
+    ) : KoconutCollection<DataType, WrapperType> {
+
+        selector = selector.bind(thisArg)
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedArray = new Array<DataType>()
+                if(this.data != null) {
+                    const dataArray = Array.from(this.data)
+                    for(let eachIndex in dataArray) {
+                        const currentComparable = await selector(dataArray[eachIndex])
+                        let startIndex = 0
+                        let middleIndex : number
+                        let endIndex = processedArray.length
+                        while(startIndex < endIndex) {
+                            middleIndex = Math.floor((startIndex + endIndex) / 2)
+                            const targetComparable = await selector(processedArray[middleIndex])
+                            if(
+                                (KoconutTypeChecker.checkIsComparable(currentComparable) && (currentComparable).compareTo(targetComparable as any as KoconutComparable) <= 0)
+                                || (!KoconutTypeChecker.checkIsComparable(currentComparable) && currentComparable <= targetComparable)
+                            ) startIndex = middleIndex + 1
+                            else endIndex = middleIndex
+                        }
+                        processedArray.splice(endIndex, 0, dataArray[eachIndex])
+                        
+                    }
+                }
+                if(this.data instanceof Array) return processedArray as WrapperType
+                else return new Set(processedArray) as WrapperType
+            })
+        return koconutToReturn
+
+    }
+
+
+    // No Comment - KoconutArray/KoconutSet
+    sortedWith(
+        comparator : (front : DataType, rear : DataType) => number | Promise<number>,
+        thisArg : any = null
+    ) : KoconutCollection<DataType, WrapperType> {
+
+        comparator = comparator.bind(thisArg)
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedArray = new Array<DataType>()
+                if(this.data != null) {
+                    const dataArray = Array.from(this.data)
+                    for(let eachIndex in dataArray) {
+                        let startIndex = 0
+                        let middleIndex : number
+                        let endIndex = processedArray.length
+                        while(startIndex < endIndex) {
+                            middleIndex = Math.floor((startIndex + endIndex) / 2)
+                            if(await comparator(dataArray[eachIndex], processedArray[middleIndex]) >= 0) startIndex = middleIndex + 1
+                            else endIndex = middleIndex
+                        }
+                        processedArray.splice(endIndex, 0, dataArray[eachIndex])
+                    }
+                }
+                if(this.data instanceof Array) return processedArray as WrapperType
+                else return new Set(processedArray) as WrapperType
+            })
+        return koconutToReturn
+
+    }
 
 
 
@@ -2693,117 +2690,6 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
                     }
                     return dataToReturn
                 } else return Array.from(this.data)[0]
-            })
-        return koconutToReturn
-
-    }
-
-
-    sortedBy(
-        selector : (element : DataType) => number | string | KoconutComparable | Promise<number | string | KoconutComparable>,
-        thisArg : any = null
-    ) : KoconutCollection<DataType, WrapperType> {
-
-        selector = selector.bind(thisArg)
-        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
-        (koconutToReturn as any as KoconutOpener<WrapperType>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                const processedArray = new Array<DataType>()
-                if(this.data != null) {
-                    const dataArray = Array.from(this.data)
-                    for(let eachIndex in dataArray) {
-                        const currentComparable = await selector(dataArray[eachIndex])
-                        let startIndex = 0
-                        let middleIndex : number
-                        let endIndex = processedArray.length
-                        while(startIndex < endIndex) {
-                            middleIndex = Math.floor((startIndex + endIndex) / 2)
-                            const targetComparable = await selector(processedArray[middleIndex])
-                            if(
-                                (KoconutTypeChecker.checkIsComparable(currentComparable) && (currentComparable).compareTo(targetComparable as any as KoconutComparable) >= 0)
-                                || (!KoconutTypeChecker.checkIsComparable(currentComparable) && currentComparable >= targetComparable)
-                            ) startIndex = middleIndex + 1
-                            else endIndex = middleIndex
-                        }
-                        processedArray.splice(endIndex, 0, dataArray[eachIndex])
-                        
-                    }
-                }
-                if(this.data instanceof Array) return processedArray as WrapperType
-                else return new Set(processedArray) as WrapperType
-            })
-        return koconutToReturn
-
-    }
-
-
-    sortedByDescending(
-        selector : (element : DataType) => number | string | KoconutComparable | Promise<number | string | KoconutComparable>,
-        thisArg : any = null
-    ) : KoconutCollection<DataType, WrapperType> {
-
-        selector = selector.bind(thisArg)
-        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
-        (koconutToReturn as any as KoconutOpener<WrapperType>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                const processedArray = new Array<DataType>()
-                if(this.data != null) {
-                    const dataArray = Array.from(this.data)
-                    for(let eachIndex in dataArray) {
-                        const currentComparable = await selector(dataArray[eachIndex])
-                        let startIndex = 0
-                        let middleIndex : number
-                        let endIndex = processedArray.length
-                        while(startIndex < endIndex) {
-                            middleIndex = Math.floor((startIndex + endIndex) / 2)
-                            const targetComparable = await selector(processedArray[middleIndex])
-                            if(
-                                (KoconutTypeChecker.checkIsComparable(currentComparable) && (currentComparable).compareTo(targetComparable as any as KoconutComparable) <= 0)
-                                || (!KoconutTypeChecker.checkIsComparable(currentComparable) && currentComparable <= targetComparable)
-                            ) startIndex = middleIndex + 1
-                            else endIndex = middleIndex
-                        }
-                        processedArray.splice(endIndex, 0, dataArray[eachIndex])
-                        
-                    }
-                }
-                if(this.data instanceof Array) return processedArray as WrapperType
-                else return new Set(processedArray) as WrapperType
-            })
-        return koconutToReturn
-
-    }
-
-
-    sortedWith(
-        comparator : (front : DataType, rear : DataType) => number | Promise<number>,
-        thisArg : any = null
-    ) : KoconutCollection<DataType, WrapperType> {
-
-        comparator = comparator.bind(thisArg)
-        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
-        (koconutToReturn as any as KoconutOpener<WrapperType>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                const processedArray = new Array<DataType>()
-                if(this.data != null) {
-                    const dataArray = Array.from(this.data)
-                    for(let eachIndex in dataArray) {
-                        let startIndex = 0
-                        let middleIndex : number
-                        let endIndex = processedArray.length
-                        while(startIndex < endIndex) {
-                            middleIndex = Math.floor((startIndex + endIndex) / 2)
-                            if(await comparator(dataArray[eachIndex], processedArray[middleIndex]) >= 0) startIndex = middleIndex + 1
-                            else endIndex = middleIndex
-                        }
-                        processedArray.splice(endIndex, 0, dataArray[eachIndex])
-                    }
-                }
-                if(this.data instanceof Array) return processedArray as WrapperType
-                else return new Set(processedArray) as WrapperType
             })
         return koconutToReturn
 

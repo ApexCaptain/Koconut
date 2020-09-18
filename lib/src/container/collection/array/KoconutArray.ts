@@ -431,6 +431,53 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
     }
 
 
+    /**
+     * Populates the given ```destination``` map with entries for each element of the
+     * given collection, where key is the element itslef and value is provided by ```valueSelector``` function
+     * applied to that key.
+     * @param destination Iterable destinaion. ```Map``` to be exact.
+     * @param valueSelector A callback function that accepts an argument. The method calls the ```valueSelector``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```valueSelector```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @note This method has different functionality with Kotlin. It'll return the original collection instance.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Transformer
+     * 
+     * @example
+     * ```typescript
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const doubledValueMap = new Map<number, number>()
+     * const stringifiedValueMap = new Map<number, string>()
+     * const squaredValueMap = new Map<number, number>()
+     * const originalData = await koconutArray
+     *                   .associateWithTo(
+     *                       doubledValueMap,
+     *                       eachNumber => eachNumber * 2
+     *                   )
+     *                   .associateWithTo(
+     *                       stringifiedValueMap,
+     *                       async eachNumber => eachNumber.toString()
+     *                   )
+     *                   .associateWithTo(
+     *                       squaredValueMap,
+     *                       eachNumber => new Promise(resolve => {
+     *                           resolve(eachNumber * eachNumber)
+     *                       })
+     *                   )
+     *                   .yield()
+     * console.log(doubledValueMap)
+     * // ↑ Map { 1 => 2, 2 => 4, 3 => 6, 4 => 8, 5 => 10 }
+     * console.log(stringifiedValueMap)
+     * // ↑ Map { 1 => '1', 2 => '2', 3 => '3', 4 => '4', 5 => '5' }
+     * console.log(squaredValueMap)
+     * // ↑ Map { 1 => 1, 2 => 4, 3 => 9, 4 => 16, 5 => 25 }
+     * console.log(originalData)
+     * // ↑ [ 1, 2, 3, 4, 5 ]
+     * ```
+     */
     associateWithTo<ValueType>(
         destination : Map<DataType, ValueType>,
         valueSelector : (element : DataType) => ValueType | Promise<ValueType>,
@@ -965,6 +1012,7 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
 
     /**
      * Appends all elements that are not ```null``` to the given destination.
+     * 
      * @since 1.0.10
      * 
      * @category Manipulator
@@ -988,6 +1036,224 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
     ) : KoconutArray<DataType> {
 
         return KoconutArray.fromCollection(super.filterNotNullTo(destination))
+
+    }
+
+
+    /**
+     * Returns a {@link KoconutArray} of all elements sorted according to natural sort order
+     * of the value returned by specified ```selector``` function. It could be either a ```number```, ```string```, or custom class
+     * that inherits {@link KoconutComparable}.
+     * @param selector A callback function that accepts an argument. The method calls the ```selector``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```selector```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value 
+     * 
+     * @since 1.0.10
+     * 
+     * @category Manipulator
+     * 
+     * @example
+     * ```typescript
+     * const stringKoconutArray = KoconutArray.of("abcd", "ab", "a", "abc")
+     *
+     * const sortedStringByItsLength = await stringKoconutArray
+     *                                   .sortedBy(eachString => eachString.length)
+     *                                   .yield()
+     * console.log(sortedStringByItsLength)
+     * // ↑ [ 'a', 'ab', 'abc', 'abcd' ]
+     *
+     * class Person implements KoconutComparable {
+     *   name : string
+     *   age : number
+     *   constructor(name : string, age : number) {
+     *       this.name = name
+     *       this.age = age
+     *   }
+     *   compareTo(other : Person) : number {
+     *       return this.name.length - other.name.length
+     *   }
+     * }
+     * const personKoconutArray = KoconutArray.of(
+     *   new Person("Keanu Reeves", 56),
+     *   new Person("Robert Downey Jr.", 55),
+     *   new Person("Christian Bale", 46)
+     * )
+     *
+     * // You can do it by async function.
+     * const sortedPeopleByWhoseAge = await personKoconutArray
+     *                                   .sortedBy(async eachPerson => eachPerson.age)
+     *                                   .yield()
+     * console.log(sortedPeopleByWhoseAge)
+     * // ↑ [
+     * //        Person { name: 'Christian Bale', age: 46 },
+     * //        Person { name: 'Robert Downey Jr.', age: 55 },
+     * //        Person { name: 'Keanu Reeves', age: 56 }
+     * //   ]
+     *
+     * // And of course, by returning Promise.
+     * const sortedPeopleByWhoseName = await personKoconutArray
+     *                                   .sortedBy(eachPerson => new Promise(resolve => {
+     *                                       resolve(eachPerson.name)
+     *                                   }))
+     *                                   .yield()
+     * console.log(sortedPeopleByWhoseName)
+     * // ↑ [
+     * //        Person { name: 'Christian Bale', age: 46 },
+     * //        Person { name: 'Keanu Reeves', age: 56 },
+     * //        Person { name: 'Robert Downey Jr.', age: 55 }
+     * //   ]
+     *
+     * // The class Person itself implements KoconutComparable.
+     * // So, it is a Comparable Type.
+     * // If you're using JavaScript you can do something similar as following
+     * // by extending KoconutComparable or simply adding method 'compareTo' to your custom class.
+     * const sortedPeople = await personKoconutArray
+     *                           .sortedBy(eachPerson => eachPerson)
+     *                           .yield()
+     * console.log(sortedPeople)
+     * // ↑ [
+     * //        Person { name: 'Keanu Reeves', age: 56 },
+     * //        Person { name: 'Christian Bale', age: 46 },
+     * //        Person { name: 'Robert Downey Jr.', age: 55 }
+     * //   ]
+     * ```
+     */
+    sortedBy(
+        selector : (element : DataType) => number | string | KoconutComparable | Promise<number | string | KoconutComparable>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.sortedBy(selector, thisArg))
+
+    }
+
+
+    /**
+     * Returns a {@link KoconutArray} of all elements sorted descending according to natural sort order
+     * of the value returned by specified ```selector``` function. It could be either a ```number```, ```string```, or custom class
+     * that inherits {@link KoconutComparable}.
+     * @param selector A callback function that accepts an argument. The method calls the ```selector``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```selector```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value 
+     * 
+     * @since 1.0.10
+     * 
+     * @category Manipulator
+     * 
+     * @example
+     * ```typescript
+     * const stringKoconutArray = KoconutArray.of("abcd", "ab", "a", "abc")
+     *
+     * const descSortedStringByItsLength = await stringKoconutArray
+     *                                   .sortedByDescending(eachString => eachString.length)
+     *                                   .yield()
+     * console.log(descSortedStringByItsLength)
+     * // ↑ [ 'abcd', 'abc', 'ab', 'a' ]
+     *
+     * class Person implements KoconutComparable {
+     *   name : string
+     *   age : number
+     *   constructor(name : string, age : number) {
+     *       this.name = name
+     *       this.age = age
+     *   }
+     *   compareTo(other : Person) : number {
+     *       return this.name.length - other.name.length
+     *   }
+     * }
+     * const personKoconutArray = KoconutArray.of(
+     *   new Person("Keanu Reeves", 56),
+     *   new Person("Robert Downey Jr.", 55),
+     *   new Person("Christian Bale", 46)
+     * )
+     *
+     * // You can do it by async function.
+     * const descSortedPeopleByWhoseAge = await personKoconutArray
+     *                                   .sortedByDescending(async eachPerson => eachPerson.age)
+     *                                   .yield()
+     * console.log(descSortedPeopleByWhoseAge)
+     * // ↑ [
+     * //        Person { name: 'Keanu Reeves', age: 56 },
+     * //        Person { name: 'Robert Downey Jr.', age: 55 },
+     * //        Person { name: 'Christian Bale', age: 46 }
+     * //   ]
+     *
+     * // And of course, by returning Promise.
+     * const descSortedPeopleByWhoseName = await personKoconutArray
+     *                                   .sortedByDescending(eachPerson => new Promise(resolve => {
+     *                                       resolve(eachPerson.name)
+     *                                   }))
+     *                                   .yield()
+     * console.log(descSortedPeopleByWhoseName)
+     * // ↑ [
+     * //        Person { name: 'Robert Downey Jr.', age: 55 },
+     * //        Person { name: 'Keanu Reeves', age: 56 },
+     * //        Person { name: 'Christian Bale', age: 46 }
+     * //   ]
+     *
+     * // The class Person itself implements KoconutComparable.
+     * // So, it is a Comparable Type.
+     * // If you're using JavaScript you can do something similar as following
+     * // by extending KoconutComparable or simply adding method 'compareTo' to your custom class.
+     * const descSortedPeople = await personKoconutArray
+     *                           .sortedByDescending(eachPerson => eachPerson)
+     *                           .yield()
+     * console.log(descSortedPeople)
+     * // ↑ [
+     * //        Person { name: 'Robert Downey Jr.', age: 55 },
+     * //        Person { name: 'Christian Bale', age: 46 },
+     * //        Person { name: 'Keanu Reeves', age: 56 }
+     * //   ]
+     * ```
+     */
+    sortedByDescending(
+        selector : (element : DataType) => number | string | KoconutComparable | Promise<number | string | KoconutComparable>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.sortedByDescending(selector, thisArg))
+
+    }
+
+
+    /**
+     * Returns a {@link KoconutArray} of all elements sorted according to the
+     * specified ```comparator```.
+     * @param comparator A callback function that accepts two arguements. The method calls the ```comparator``` to compare two selected values.
+     * In case the result is larger than 0, front is bigger than rear, and if it's less than 0 judge vice versa.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```comparator```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value 
+     * 
+     * @since 1.0.10
+     * 
+     * @category Manipulator
+     * 
+     * @example
+     * ```typescript
+     * const koconutArray = KoconutArray.of(15, 4, 33)
+     *
+     * const sortedNumbers = await koconutArray
+     *                       .sortedWith((front, rear) => front - rear)
+     *                       .yield()
+     * console.log(sortedNumbers)
+     * // ↑ [ 4, 15, 33 ]
+     *
+     * const descSortedNumbers = await koconutArray
+     *                           .sortedWith((front, rear) => rear - front)
+     *                           .yield()
+     * console.log(descSortedNumbers)
+     * // ↑ [ 33, 15, 4 ]
+     *
+     * const sortedNumbersBy1sDigit = await koconutArray
+     *                       .sortedWith((front, rear) => front % 10 - rear % 10)
+     *                       .yield()
+     * console.log(sortedNumbersBy1sDigit)
+     * // ↑ [ 33, 4, 15 ]
+     * ```
+     */
+    sortedWith(
+        comparator : (front : DataType, rear : DataType) => number | Promise<number>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.sortedWith(comparator, thisArg))
 
     }
 
@@ -1193,36 +1459,6 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
     shuffled() : KoconutArray<DataType> {
 
         return KoconutArray.fromCollection(super.shuffled())
-
-    }
-
-
-    sortedBy(
-        selector : (element : DataType) => number | string | KoconutComparable | Promise<number | string | KoconutComparable>,
-        thisArg : any = null
-    ) : KoconutArray<DataType> {
-
-        return KoconutArray.fromCollection(super.sortedBy(selector, thisArg))
-
-    }
-
-
-    sortedByDescending(
-        selector : (element : DataType) => number | string | KoconutComparable | Promise<number | string | KoconutComparable>,
-        thisArg : any = null
-    ) : KoconutArray<DataType> {
-
-        return KoconutArray.fromCollection(super.sortedByDescending(selector, thisArg))
-
-    }
-
-
-    sortedWith(
-        comparator : (front : DataType, rear : DataType) => number | Promise<number>,
-        thisArg : any = null
-    ) : KoconutArray<DataType> {
-
-        return KoconutArray.fromCollection(super.sortedWith(comparator, thisArg))
 
     }
 
