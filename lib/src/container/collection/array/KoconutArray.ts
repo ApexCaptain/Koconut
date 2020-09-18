@@ -783,6 +783,95 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
     
     // Manipulator
     /**
+     * Returns a {@link KoconutArray} containing only distinct elements from this collection.
+     * If the type of data is a simple number or string, the method will check equality by using '==' operator, but if it's not,
+     * you'd better make your custom class inherits {@link KoconutEquatable}.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Manipulator
+     * 
+     * @example
+     * ```typescript
+     * const numberKoconutArray = KoconutArray.of(1,1,2,2,3,3)
+     *
+     * const distinctNumbers = await numberKoconutArray
+     *                               .distinct()
+     *                               .yield()
+     * console.log(distinctNumbers)
+     * // ↑ [ 1, 2, 3 ]
+     *
+     * class SomeInfo {
+     *   info : string
+     *   constructor(info : string) {
+     *       this.info = info
+     *   }
+     * }
+     * const someInfoKoconutArray = KoconutArray.of(
+     *   new SomeInfo("A"),
+     *   new SomeInfo("A"),
+     *   new SomeInfo("B"),
+     *   new SomeInfo("B"),
+     *   new SomeInfo("C"),
+     *   new SomeInfo("C"),
+     * )
+     * const distinctSomeInfos = await someInfoKoconutArray
+     *                           .distinct()
+     *                           .yield()
+     * console.log(distinctSomeInfos)
+     * // ↑ [
+     * //        SomeInfo { info: 'A' },
+     * //        SomeInfo { info: 'A' },
+     * //        SomeInfo { info: 'B' },
+     * //        SomeInfo { info: 'B' },
+     * //        SomeInfo { info: 'C' },
+     * //        SomeInfo { info: 'C' }
+     * //   ]
+     *
+     * class SomeEquatableInfo implements KoconutEquatable {
+     *   info : string
+     *   constructor(info : string) {
+     *       this.info = info
+     *   }
+     *   equalsTo(other : SomeEquatableInfo) : boolean {
+     *       return this.info == other.info
+     *   }
+     * }
+     * const someEquatableInfoKoconutArray = KoconutArray.of(
+     *   new SomeEquatableInfo("A"),
+     *   new SomeEquatableInfo("A"),
+     *   new SomeEquatableInfo("B"),
+     *   new SomeEquatableInfo("B"),
+     *   new SomeEquatableInfo("C"),
+     *   new SomeEquatableInfo("C")
+     * )
+     * const distinctSomeEquatableInfos = await someEquatableInfoKoconutArray
+     *                                   .distinct()
+     *                                   .yield()
+     * console.log(distinctSomeEquatableInfos)
+     * // ↑ [
+     * //        SomeEquatableInfo { info: 'A' },
+     * //        SomeEquatableInfo { info: 'B' },
+     * //        SomeEquatableInfo { info: 'C' }
+     * //   ]
+     * ```
+     */
+    distinct() : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.distinct())
+
+    }
+
+
+    distinctBy<KeyType, EquatableKeyType extends KoconutEquatable>(
+        selector : (element : DataType) => KeyType | EquatableKeyType | Promise<KeyType>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.distinctBy(selector, thisArg))
+
+    }
+    /**
      * Returns a {@link KoconutArray} containing only elements matching the given ```predicate```.
      * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
      * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
@@ -1302,21 +1391,7 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
 
 
 
-    distinct() : KoconutArray<DataType> {
 
-        return KoconutArray.fromCollection(super.distinct())
-
-    }
-
-
-    distinctBy<KeyType, EquatableKeyType extends KoconutEquatable>(
-        selector : (element : DataType) => KeyType | EquatableKeyType | Promise<KeyType>,
-        thisArg : any = null
-    ) : KoconutArray<DataType> {
-
-        return KoconutArray.fromCollection(super.distinctBy(selector, thisArg))
-
-    }
 
 
     drop(

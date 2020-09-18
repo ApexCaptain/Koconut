@@ -1165,139 +1165,6 @@ describe(`${KoconutSet.name} -- Transformer`, () => {
 
 describe(`${KoconutSet.name} -- Manupulator`, () => {
     
-    it(KoconutSet.prototype.filter.name, async () => {
-
-        const koconut = KoconutSet.from([1,2,3,4,5,6,7])
-
-        const yieldable =
-                        koconut
-                        .filter(eachElement => eachElement % 2 == 0)
-
-        expect(yieldable).to.be.instanceOf(KoconutSet)
-        const result = await yieldable.yield()
-        expect(result).eqls(new Set([2,4,6]))
-
-    })
-
-    it(KoconutSet.prototype.filterNot.name, async () => {
-
-        const koconut = KoconutSet.from([1,2,3,4,5,6,7])
-
-        const yieldable =
-                        koconut
-                        .filterNot(eachElement => eachElement % 3 == 0)
-        expect(yieldable).to.be.instanceOf(KoconutSet)
-        const result = await yieldable.yield()
-        expect(result).eqls(new Set([1,2,4,5,7]))
-
-    })
-
-    it(KoconutSet.prototype.filterTo.name, async () => {
-
-        const koconut = KoconutSet.from([1,2,3,4,5,6,7])
-
-        const destination = new Set<number>()
-        const yieldable =
-                        koconut
-                        .filterTo(destination, eachElement => eachElement % 2 == 0)
-        expect(yieldable).to.be.instanceOf(KoconutSet)
-        await yieldable.process()
-        expect(destination).eqls(new Set([2,4,6]))
-
-    })
-
-
-    it(KoconutSet.prototype.filterNotTo.name, async () => {
-
-        const koconut = KoconutSet.from([1,2,3,4,5,6,7])
-
-        const destination = new Set<number>()
-        const yieldable =
-                        koconut
-                        .filterNotTo(destination, eachElement => eachElement % 3 == 0)
-        expect(yieldable).to.be.instanceOf(KoconutSet)
-        await yieldable.process()
-        expect(destination).eqls(new Set([1,2,4,5,7]))
-
-    })
-
-    it(KoconutSet.prototype.filterIndexed.name, async () => {
-
-        const koconut = KoconutSet.from([0,1,2,3,4,8,6])
-
-        const yieldable =
-                        koconut
-                        .filterIndexed((eachIndex, eachElement) => eachIndex == eachElement)
-        expect(yieldable).to.be.instanceOf(KoconutSet)
-        const result = await yieldable.yield()
-        expect(result).eqls(new Set([0,1,2,3,4,6]))
-
-    })
-
-
-    it(KoconutSet.prototype.filterIndexedTo.name, async () => {
-
-        const koconut = KoconutSet.from([0,1,2,3,4,8,6])
-
-        const destination = new Set<number>()
-        const yieldable =
-                        koconut
-                        .filterIndexedTo(destination, (eachIndex, eachElement) => eachIndex == eachElement)
-        expect(yieldable).to.be.instanceOf(KoconutSet)
-        await yieldable.process()
-        expect(destination).eqls(new Set([0,1,2,3,4,6]))
-
-    })
-
-    it(KoconutSet.prototype.filterNotNull.name, async () => {
-
-        const koconut = KoconutSet.from([1,2,null,4])
-        
-        const yieldable = 
-                        koconut
-                        .filterNotNull()
-        expect(yieldable).to.be.instanceOf(KoconutSet)
-        const result = await yieldable.yield()
-        expect(result).eqls(new Set([1,2,4]))
-
-    })
-
-    it(KoconutSet.prototype.filterNotNullTo.name, async () => {
-
-        const koconut = KoconutSet.from([1,2,null,4])
-
-        const destination = new Set<number>()
-        const yieldable =
-                        koconut
-                        .filterNotNullTo(destination)
-        expect(yieldable).to.be.instanceOf(KoconutSet)
-        await yieldable.process()
-        expect(destination).eqls(new Set([1,2,4]))
-
-    })
-
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-describe(`${KoconutSet.name} -- Function`, () => {
-
     it(KoconutSet.prototype.associate.name, async () =>{
 
         const koconut = KoconutSet.from(["Grace Hopper", "Jacob Bernoulli", "Johann Bernoulli", "Jinyoung Luvya"])
@@ -1536,6 +1403,143 @@ describe(`${KoconutSet.name} -- Function`, () => {
         expect(resultCase2).to.eql(expectedResultArrayCase2)
 
     })
+
+    it(KoconutSet.prototype.filter.name, async () => {
+
+        const koconut = KoconutSet.from([1,2,3,4,5,6,7])
+
+        const yieldable =
+                        koconut
+                        .filter(eachElement => eachElement % 2 == 0)
+
+        expect(yieldable).to.be.instanceOf(KoconutSet)
+        const result = await yieldable.yield()
+        expect(result).eqls(new Set([2,4,6]))
+
+    })
+
+    it(KoconutSet.prototype.filterNot.name, async () => {
+
+        const koconut = KoconutSet.from([1,2,3,4,5,6,7])
+
+        const yieldable =
+                        koconut
+                        .filterNot(eachElement => eachElement % 3 == 0)
+        expect(yieldable).to.be.instanceOf(KoconutSet)
+        const result = await yieldable.yield()
+        expect(result).eqls(new Set([1,2,4,5,7]))
+
+    })
+
+    it(KoconutSet.prototype.filterTo.name, async () => {
+
+        const koconut = KoconutSet.from([1,2,3,4,5,6,7])
+
+        const destination = new Set<number>()
+        const yieldable =
+                        koconut
+                        .filterTo(destination, eachElement => eachElement % 2 == 0)
+        expect(yieldable).to.be.instanceOf(KoconutSet)
+        await yieldable.process()
+        expect(destination).eqls(new Set([2,4,6]))
+
+    })
+
+
+    it(KoconutSet.prototype.filterNotTo.name, async () => {
+
+        const koconut = KoconutSet.from([1,2,3,4,5,6,7])
+
+        const destination = new Set<number>()
+        const yieldable =
+                        koconut
+                        .filterNotTo(destination, eachElement => eachElement % 3 == 0)
+        expect(yieldable).to.be.instanceOf(KoconutSet)
+        await yieldable.process()
+        expect(destination).eqls(new Set([1,2,4,5,7]))
+
+    })
+
+    it(KoconutSet.prototype.filterIndexed.name, async () => {
+
+        const koconut = KoconutSet.from([0,1,2,3,4,8,6])
+
+        const yieldable =
+                        koconut
+                        .filterIndexed((eachIndex, eachElement) => eachIndex == eachElement)
+        expect(yieldable).to.be.instanceOf(KoconutSet)
+        const result = await yieldable.yield()
+        expect(result).eqls(new Set([0,1,2,3,4,6]))
+
+    })
+
+
+    it(KoconutSet.prototype.filterIndexedTo.name, async () => {
+
+        const koconut = KoconutSet.from([0,1,2,3,4,8,6])
+
+        const destination = new Set<number>()
+        const yieldable =
+                        koconut
+                        .filterIndexedTo(destination, (eachIndex, eachElement) => eachIndex == eachElement)
+        expect(yieldable).to.be.instanceOf(KoconutSet)
+        await yieldable.process()
+        expect(destination).eqls(new Set([0,1,2,3,4,6]))
+
+    })
+
+    it(KoconutSet.prototype.filterNotNull.name, async () => {
+
+        const koconut = KoconutSet.from([1,2,null,4])
+        
+        const yieldable = 
+                        koconut
+                        .filterNotNull()
+        expect(yieldable).to.be.instanceOf(KoconutSet)
+        const result = await yieldable.yield()
+        expect(result).eqls(new Set([1,2,4]))
+
+    })
+
+    it(KoconutSet.prototype.filterNotNullTo.name, async () => {
+
+        const koconut = KoconutSet.from([1,2,null,4])
+
+        const destination = new Set<number>()
+        const yieldable =
+                        koconut
+                        .filterNotNullTo(destination)
+        expect(yieldable).to.be.instanceOf(KoconutSet)
+        await yieldable.process()
+        expect(destination).eqls(new Set([1,2,4]))
+
+    })
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+describe(`${KoconutSet.name} -- Function`, () => {
+
+
+
+
 
     it(KoconutSet.prototype.distinct.name, async () => {
 
@@ -2992,32 +2996,6 @@ describe(`${KoconutSet.name} -- Function`, () => {
         expect(yieldable).to.be.instanceOf(KoconutSet)
         const result = await yieldable.yield()
         expect(result).eqls(new Set(['a','b','c','d','e']))
-
-    })
-
-    it(KoconutSet.prototype.toArray.name, async () => {
-
-        const koconut = KoconutSet.from([1,2,3,4,5])
-
-        const yieldable =
-                        koconut
-                        .toArray()
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        const result = await yieldable.yield()
-        expect(result).eqls([1,2,3,4,5])
-
-    })
-
-    it(KoconutSet.prototype.toSet.name, async() => {
-
-        const koconut = KoconutSet.from([1,1,2,2,3,3])
-
-        const yieldable =
-                        koconut
-                        .toSet()
-        expect(yieldable).to.be.instanceOf(KoconutSet)
-        const result = await yieldable.yield()
-        expect(result).eqls(new Set([1,2,3]))
 
     })
 

@@ -1,6 +1,5 @@
 `use strict`
 
-import { Key } from "readline"
 import {
     /* Tool */
     KoconutPrimitive, KoconutOpener, KoconutTypeChecker, 
@@ -22,6 +21,49 @@ import {
 } from "../../../module.internal"
 
 export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, ValueType], Entry<KeyType, ValueType>, Map<KeyType, ValueType>, Set<Entry<KeyType, ValueType>>> {
+
+
+    protected async validate(data : Map<KeyType, ValueType> | null) {
+    
+        if(data != null) {
+            this.combinedDataWrapper = new Set()
+            for(const [key, value] of data.entries()) {
+                if(KoconutTypeChecker.checkIsEquatable(key)) {
+                    let isConflict = false
+                    for(const eachPrevEquatableKey of this.mKeys) {
+                        if(key.equalsTo(eachPrevEquatableKey as any as KoconutEquatable)) {
+                            isConflict = true
+                            break
+                        }
+                    }
+                    if(!isConflict) {
+                        this.mKeys.add(key)
+                        this.combinedDataWrapper.add(new Entry(key, value))
+                        this.mValues.push(value)
+                    } else this.data?.delete(key)
+                } else {
+                    this.mKeys.add(key)
+                    this.combinedDataWrapper.add(new Entry(key, value))
+                    this.mValues.push(value)
+                }
+            }
+            this.mSize = data.size
+        }
+
+    }
+
+
+    private static fromIterable<KeyType, ValueType>(
+        iterable : KoconutIterable<[KeyType, ValueType], Entry<KeyType, ValueType>, Map<KeyType, ValueType>, Set<Entry<KeyType, ValueType>>>
+    ) : KoconutMap<KeyType, ValueType> {
+
+        const koconutToReturn = new KoconutMap<KeyType, ValueType>(iterable['data'])
+        koconutToReturn.processor = iterable['processor']
+        koconutToReturn.prevYieldable = iterable['prevYieldable']
+        return koconutToReturn
+
+    }
+
 
     // Koconut Primitive
     /**
@@ -64,48 +106,129 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
     }
 
 
-    async validate(data : Map<KeyType, ValueType> | null) {
-    
-        if(data != null) {
-            this.combinedDataWrapper = new Set()
-            for(const [key, value] of data.entries()) {
-                if(KoconutTypeChecker.checkIsEquatable(key)) {
-                    let isConflict = false
-                    for(const eachPrevEquatableKey of this.mKeys) {
-                        if(key.equalsTo(eachPrevEquatableKey as any as KoconutEquatable)) {
-                            isConflict = true
-                            break
-                        }
-                    }
-                    if(!isConflict) {
-                        this.mKeys.add(key)
-                        this.combinedDataWrapper.add(new Entry(key, value))
-                        this.mEntries.add(new Entry(key, value))
-                        this.mValues.push(value)
-                    } else this.data?.delete(key)
-                } else {
-                    this.mKeys.add(key)
-                    this.combinedDataWrapper.add(new Entry(key, value))
-                    this.mEntries.add(new Entry(key, value))
-                    this.mValues.push(value)
-                }
-            }
-            this.mSize = data.size
-        }
-
-    }
+    // Properties
+    private mKeys = new Set<KeyType>()
+    private mValues = new Array<ValueType>()
 
 
-    private static fromIterable<KeyType, ValueType>(
-        iterable : KoconutIterable<[KeyType, ValueType], Entry<KeyType, ValueType>, Map<KeyType, ValueType>, Set<Entry<KeyType, ValueType>>>
-    ) : KoconutMap<KeyType, ValueType> {
+    // Accessor
+    /**
+     * Returns a {@link KoconutSet} contains every {@link Entry}.
+     * 
+     * @since 1.0.10
+     * 
+     * @example
+     * ```typescript
+     * const koconutMap = KoconutArray.of(1,2,3,4,5)
+     *               .associateWith(eachNumber => eachNumber * 2)
+     *
+     * const entries = await koconutMap
+     *                   .entries
+     *                   .yield()
+     * console.log(entries)
+     * // ↑ Set {
+     * //        Entry { keyElement: 1, valueElement: 2 },
+     * //        Entry { keyElement: 2, valueElement: 4 },
+     * //        Entry { keyElement: 3, valueElement: 6 },
+     * //        Entry { keyElement: 4, valueElement: 8 },
+     * //        Entry { keyElement: 5, valueElement: 10 }
+     * //       }
+     * ```
+     */
+    get entries() : KoconutSet<Entry<KeyType, ValueType>> {
 
-        const koconutToReturn = new KoconutMap<KeyType, ValueType>(iterable['data'])
-        koconutToReturn.processor = iterable['processor']
-        koconutToReturn.prevYieldable = iterable['prevYieldable']
+        const koconutToReturn = new KoconutSet<Entry<KeyType, ValueType>>();
+        (koconutToReturn as any as KoconutOpener<Set<Entry<KeyType, ValueType>>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => this.combinedDataWrapper!)
         return koconutToReturn
 
     }
+
+
+    /**
+     * Returns a {@link KoconutSet} contains all keys.
+     * 
+     * @since 1.0.10
+     * 
+     * @example
+     * ```typescript
+     * const koconutMap = KoconutArray.of(1,2,3,4,5)
+     *               .associateWith(eachNumber => eachNumber * 2)
+     *
+     * const keys = await koconutMap
+     *                   .keys
+     *                   .yield()
+     * console.log(keys)
+     * // ↑ Set { 1, 2, 3, 4, 5 }
+     * ```
+     */
+    get keys() : KoconutSet<KeyType> {
+
+        const koconutToReturn = new KoconutSet<KeyType>();
+        (koconutToReturn as any as KoconutOpener<Set<KeyType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => this.mKeys)
+        return koconutToReturn
+
+    }
+
+
+    /**
+     * Returns the number of {@link Entry} in this {@link KoconutMap}.
+     * 
+     * @since 1.0.10
+     * 
+     * @example
+     * ```typescript
+     * const koconutMap = KoconutArray.of(1,2,3,4,5)
+     *               .associateWith(eachNumber => eachNumber * 2)
+     *
+     * const size = await koconutMap
+     *                   .size
+     *                   .yield()
+     * console.log(size)
+     * // ↑ 5
+     * ```
+     */
+    get size() : KoconutPrimitive<number>{
+
+        const koconutToReturn = new KoconutPrimitive<number>();
+        (koconutToReturn as any as KoconutOpener<number>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => this.mSize)
+        return koconutToReturn
+
+    }
+
+
+    /**
+     * Returns a {@link KoconutArray} contains all values in this {@link KoconutMap}.
+     * 
+     * @since 1.0.10
+     * 
+     * @example
+     * ```typescript
+     * const koconutMap = KoconutArray.of(1,2,3,4,5)
+     *               .associateWith(eachNumber => eachNumber * 2)
+     *
+     * const values = await koconutMap
+     *                   .values
+     *                   .yield()
+     * console.log(values)
+     * // ↑ [ 2, 4, 6, 8, 10 ]
+     * ```
+     */
+    get values() : KoconutArray<ValueType> {
+
+        const koconutToReturn = new KoconutArray<ValueType>();
+        (koconutToReturn as any as KoconutOpener<Array<ValueType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => this.mValues)
+        return koconutToReturn
+
+    }
+
     
 
 
@@ -191,60 +314,26 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
         return new KoconutMap(data)
 
     }
+    
 
 
-    /* Properties */
-    private mKeys = new Set<KeyType>()
-    private mEntries = new Set<Entry<KeyType, ValueType>>()
-    private mValues = new Array<ValueType>()
 
 
-    /* Properties Getter */
-    keys() : KoconutSet<KeyType> {
-
-        const koconutToReturn = new KoconutSet<KeyType>();
-        (koconutToReturn as any as KoconutOpener<Set<KeyType>>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => this.mKeys)
-        return koconutToReturn
-
-    }
 
 
-    entries() : KoconutSet<Entry<KeyType, ValueType>> {
-
-        const koconutToReturn = new KoconutSet<Entry<KeyType, ValueType>>();
-        (koconutToReturn as any as KoconutOpener<Set<Entry<KeyType, ValueType>>>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => this.mEntries)
-        return koconutToReturn
-
-    }
 
 
-    values() : KoconutArray<ValueType> {
-
-        const koconutToReturn = new KoconutArray<ValueType>();
-        (koconutToReturn as any as KoconutOpener<Array<ValueType>>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => this.mValues)
-        return koconutToReturn
-
-    }
 
 
-    size() : KoconutPrimitive<number>{
-
-        const koconutToReturn = new KoconutPrimitive<number>();
-        (koconutToReturn as any as KoconutOpener<number>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => this.mSize)
-        return koconutToReturn
-
-    }
 
 
-    /* Functions */
+
+
+
+
+
+
+
     // Calculator
     /**
      * Returns the first entry yielding the largest value of the given function or 
@@ -1127,6 +1216,624 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
         return KoconutMap.fromIterable(super.onEach(action, thisArg))
 
     }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Manipulator
+    /**
+     * Returns a map containing only entries matching the given ```predicate```.
+     * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each entry in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Manipulator
+     * 
+     * @example
+     * ```typescript
+     * const koconutMap = KoconutArray.of(1,2,3,4,5)
+     *           .associate(eachNumber => [eachNumber, eachNumber * 2])
+     *
+     * const evenKeyEntries = await koconutMap
+     *                       .filter(eachEntry => eachEntry.key % 2 == 0)
+     *                       .yield()
+     * console.log(evenKeyEntries)
+     * // ↑ Map { 2 => 4, 4 => 8 }
+     * ```
+     */
+    filter(
+        predicate : (entry : Entry<KeyType, ValueType>) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutMap<KeyType, ValueType> {
+
+        return KoconutMap.fromIterable(super.filter(predicate, thisArg))
+
+    }
+
+
+    /**
+     * Returns a map containing only entries not matching the given ```predicate```.
+     * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each entry in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Manipulator
+     * 
+     * @example
+     * ```typescript
+     * const koconutMap = KoconutArray.of(1,2,3,4,5)
+     *           .associate(eachNumber => [eachNumber, eachNumber * 2])
+     *
+     * const oddKeyEntries = await koconutMap
+     *                       .filterNot(eachEntry => eachEntry.key % 2 == 0)
+     *                       .yield()
+     * console.log(oddKeyEntries)
+     * // ↑ Map { 1 => 2, 3 => 6, 5 => 10 }
+     * ```
+     */
+    filterNot(
+        predicate : (entry : Entry<KeyType, ValueType>) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutMap<KeyType, ValueType> {
+
+        return KoconutMap.fromIterable(super.filterNot(predicate, thisArg))
+
+    }
+    
+
+    /**
+     * Appends all entries matching the given ```predicate``` to the given destination.
+     * @param destination Iterable destinaion. ```Map``` to be exact.
+     * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each entry in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Manipulator
+     * 
+     * @example
+     * ```typescript
+     * const koconutMap = KoconutArray.of(1,2,3,4,5)
+     *               .associate(eachNumber => [eachNumber, eachNumber * 2])
+     *
+     * const evenKeyMap = new Map<number, number>()
+     * const originalMap = await koconutMap
+     *                       .filterTo(
+     *                           evenKeyMap,
+     *                           eachEntry => eachEntry.key % 2 == 0
+     *                       )
+     *                       .yield()
+     * console.log(evenKeyMap)
+     * // ↑ Map { 2 => 4, 4 => 8 }
+     * console.log(originalMap)
+     * // ↑ Map { 1 => 2, 2 => 4, 3 => 6, 4 => 8, 5 => 10 }
+     * ```
+     */
+    filterTo(
+        destination : Map<KeyType, ValueType>,
+        predicate : (entry : Entry<KeyType, ValueType>) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutMap<KeyType, ValueType> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutMap<KeyType, ValueType>();
+        (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.combinedDataWrapper != null) {
+                    for(const eachEntry of this.combinedDataWrapper)
+                        if(await predicate(eachEntry))
+                            destination.set(eachEntry.key, eachEntry.value)
+                }
+                return this.data!
+            })
+        return koconutToReturn
+
+    }
+
+    /**
+     * Appends all entries not matching the given ```predicate``` to the given destination.
+     * @param destination Iterable destinaion. ```Map``` to be exact.
+     * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each entry in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Manipulator
+     * 
+     * @example
+     * ```typescript
+     * const koconutMap = KoconutArray.of(1,2,3,4,5)
+     *               .associate(eachNumber => [eachNumber, eachNumber * 2])
+     *
+     * const oddKeyMap = new Map<number, number>()
+     * const originalMap = await koconutMap
+     *                       .filterNotTo(
+     *                           oddKeyMap,
+     *                           eachEntry => eachEntry.key % 2 == 0
+     *                       )
+     *                       .yield()
+     * console.log(oddKeyMap)
+     * // ↑ Map { 1 => 2, 3 => 6, 5 => 10 }
+     * console.log(originalMap)
+     * // ↑ Map { 1 => 2, 2 => 4, 3 => 6, 4 => 8, 5 => 10 }
+     * ```
+     */
+    filterNotTo(
+        destination : Map<KeyType, ValueType>,
+        predicate : (entry : Entry<KeyType, ValueType>) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutMap<KeyType, ValueType> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutMap<KeyType, ValueType>();
+        (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.combinedDataWrapper != null) {
+                    for(const eachEntry of this.combinedDataWrapper)
+                        if(!await predicate(eachEntry))
+                            destination.set(eachEntry.key, eachEntry.value)
+                }
+                return this.data!
+            })
+        return koconutToReturn
+
+    }
+
+
+    /**
+     * Returns a map containing all entries with key matching the given ```predicate```.
+     * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each entry in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Manipulator
+     * 
+     * @example
+     * ```typescript
+     * const koconutMap = KoconutArray.of(1,2,3,4,5)
+     *           .associate(eachNumber => [eachNumber, eachNumber * 2])
+     *
+     * const evenKeyMap = await koconutMap
+     *                   .filterKeys(eachKey => eachKey % 2 == 0)
+     *                   .yield()
+     * console.log(evenKeyMap)
+     * // ↑ Map { 2 => 4, 4 => 8 }
+     * ```
+     */
+    filterKeys(
+        predicate : (key : KeyType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutMap<KeyType, ValueType> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutMap<KeyType, ValueType>();
+        (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedMap = new Map<KeyType, ValueType>();
+                if(this.combinedDataWrapper != null) {
+                    for(const eachEntry of this.combinedDataWrapper)
+                        if(await predicate(eachEntry.key))
+                            processedMap.set(eachEntry.key, eachEntry.value)
+                } 
+                return processedMap
+            })
+        return koconutToReturn
+
+    }
+
+    
+    /**
+     * Returns a map containing all entries with value matching the given ```predicate```.
+     * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each entry in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Manipulator
+     * 
+     * @example
+     * ```typescript
+     * const koconutMap = KoconutArray.of(1,2,3,4,5)
+     *           .associate(eachNumber => [eachNumber, eachNumber * 2])
+     *
+     * const valueGreaterThan5Map = await koconutMap
+     *                   .filterValues(eachValue => eachValue > 5)
+     *                   .yield()
+     * console.log(valueGreaterThan5Map)
+     * // ↑ Map { 3 => 6, 4 => 8, 5 => 10 }
+     * ```
+     */
+    filterValues(
+        predicate : (value : ValueType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutMap<KeyType, ValueType> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutMap<KeyType, ValueType>();
+        (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedMap = new Map<KeyType, ValueType>()
+                if(this.combinedDataWrapper != null) {
+                    for(const eachEntry of this.combinedDataWrapper)
+                        if(await predicate(eachEntry.value))
+                            processedMap.set(eachEntry.key, eachEntry.value)
+                }
+                return processedMap
+            })
+        return koconutToReturn
+
+    }
+
+
+    /**
+     * Returns a {@link KoconutMap} containing all entires of the original map except
+     * the entries the keys of which are contained in ```keys```. 
+     * @param keys Key data to except. It could be plural or singular.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Manipulator
+     * 
+     * @example
+     * ```typescript
+     * const koconutMap = KoconutArray.of(1,2,3,4,5)
+     *               .associateWith(eachNumber => eachNumber * 2)
+     *
+     * const key1ExceptedMap = await koconutMap
+     *                       .minus(1)
+     *                       .yield()
+     * console.log(key1ExceptedMap)
+     * // ↑ Map { 2 => 4, 3 => 6, 4 => 8, 5 => 10 }
+     *
+     * const key3And4ExcpetedMap = await koconutMap
+     *                           .minus(3, 4)
+     *                           .yield()
+     * console.log(key3And4ExcpetedMap)
+     * // ↑ Map { 1 => 2, 2 => 4, 5 => 10 }
+     * ```
+     */
+    minus(
+        ...keys : KeyType[]
+    ) : KoconutMap<KeyType, ValueType> {
+        
+        const koconutToReturn = new KoconutMap<KeyType, ValueType>();
+        (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedMap = new Map<KeyType, ValueType>()
+                if(this.combinedDataWrapper != null) {
+                    const koconutKeysToExceptArray = KoconutArray.from(keys)
+                    for(const eachEntry of this.combinedDataWrapper)
+                        if(!await koconutKeysToExceptArray.contains(eachEntry.key).yield())
+                            processedMap.set(eachEntry.key, eachEntry.value)
+
+                }
+                return processedMap
+            })
+        return koconutToReturn
+
+    }
+
+
+    /**
+     * Returns a {@link KoconutMap} by replacing or adding entries from given ```entries```.
+     * @param entries Entires to add or replace. It could be plural or singular.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Manipulator
+     * 
+     * @example
+     * ```typescript
+     * const koconutMap = KoconutArray.of(1,2,3,4,5)
+     *               .associateWith(eachNumber => eachNumber * 2)
+     *
+     * const key5ReplacedWith20Map = await koconutMap    
+     *                           .plus(
+     *                               [5, 20]
+     *                               // ↑ Also can be
+     *                               //   new Pair(5, 20)
+     *                               //   Pair.from([5, 20])
+     *                               //   new KoconutPair(5, 20)
+     *                               //   new Entry(5, 20)
+     *                               //   Entry.from([5, 20])
+     *                               //   new KoconutEntry(5, 20)
+     *                           )
+     *                           .yield()
+     * console.log(key5ReplacedWith20Map)
+     * // ↑ Map { 1 => 2, 2 => 4, 3 => 6, 4 => 8, 5 => 20 }
+     *
+     * const key6And7AddedMap = await koconutMap
+     *                           .plus(
+     *                               [6, 12],
+     *                               [7, 14]
+     *                           )
+     *                           .yield()
+     * console.log(key6And7AddedMap)
+     * // ↑ Map { 1 => 2, 2 => 4, 3 => 6, 4 => 8, 5 => 10, 6 => 12, 7 => 14 } 
+     * ```
+     */
+    plus(
+        ...entries : (
+            [KeyType, ValueType]
+            | Pair<KeyType, ValueType>
+            | KoconutPair<KeyType, ValueType>
+            | Entry<KeyType, ValueType>
+            | KoconutEntry<KeyType, ValueType>
+            )[]
+    ) : KoconutMap<KeyType, ValueType> {
+
+            const koconutToReturn = new KoconutMap<KeyType, ValueType>();
+            (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
+                .setPrevYieldable(this)
+                .setProcessor(async () => {
+                    const processedMap = this.data == null ? new Map<KeyType, ValueType>() : new Map(this.data)
+                    for(const eachElement of entries) {
+                        if(eachElement instanceof Pair) processedMap.set(eachElement.first, eachElement.second)
+                        else if(eachElement instanceof KoconutPair) {
+                            const eachPair = await eachElement.yield()
+                            if(eachPair != null) processedMap.set(eachPair.first, eachPair.second)
+                        }
+                        else if(eachElement instanceof Entry) processedMap.set(eachElement.key, eachElement.value)
+                        else if(eachElement instanceof KoconutEntry) {
+                            const eachEntry = await eachElement.yield()
+                            if(eachEntry != null) processedMap.set(eachEntry.key, eachEntry.value)
+                        }
+                        else processedMap.set(eachElement[0], eachElement[1])
+                    }
+                    return processedMap
+                })
+            return koconutToReturn
+
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Selector
+    /**
+     * Returns the value corresponding to the given ```key```, or ```null``` if such a key is not
+     * present in this {@link KoconutMap}.
+     * @param key Key to search for.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Selector
+     * 
+     * @example
+     * ```typescript
+     * const koconutMap = KoconutArray.of(1,2,3,4,5)
+     *               .associateWith(eachNumber => eachNumber * 2)
+     *
+     * const valueOfKey3 = await koconutMap
+     *                       .get(3)
+     *                       .yield()
+     * console.log(valueOfKey3)
+     * // ↑ 6
+     *
+     * const valueOfKey6 = await koconutMap
+     *                       .get(6)
+     *                       .yield()
+     * console.log(valueOfKey6)
+     * // ↑ null
+     * ```
+     */
+    get(
+        key : KeyType
+    ) : KoconutPrimitive<ValueType | null> {
+
+        const koconutToReturn = new KoconutPrimitive<ValueType | null>();
+        (koconutToReturn as any as KoconutOpener<ValueType | null>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.combinedDataWrapper != null) {
+                    for(const eachEntry of this.combinedDataWrapper) {
+                        if((KoconutTypeChecker.checkIsEquatable(eachEntry.key) && eachEntry.key.equalsTo(key as any as KoconutEquatable))
+                        || (!KoconutTypeChecker.checkIsEquatable(eachEntry.key) && eachEntry.key == key)) return eachEntry.value
+                    }
+                }
+                return null
+            })
+        return koconutToReturn
+
+    }
+
+
+    /**
+     * Returns the value to which the specified key is mapped, or ```defaultValue``` if the map contains
+     * no mapping for key.
+     * @param key Key to search for.
+     * @param defaultValue Default value if no entry is found.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Selector
+     * 
+     * @example
+     * ```typescript
+     * const koconutMap = KoconutArray.of(1,2,3,4,5)
+     *               .associateWith(eachNumber => eachNumber * 2)
+     *
+     * const valueOfKey3 = await koconutMap
+     *                       .getOrDefault(3, 100)
+     *                       .yield()
+     * console.log(valueOfKey3)
+     * // ↑ 6
+     *
+     * const valueOfKey6 = await koconutMap
+     *                       .getOrDefault(6, 100)
+     *                       .yield()
+     * console.log(valueOfKey6)
+     * // ↑ 100
+     * ```
+     */
+    getOrDefault(
+        key : KeyType,
+        defaultValue : ValueType
+    ) : KoconutPrimitive<ValueType> {
+
+        const koconutToReturn = new KoconutPrimitive<ValueType>();
+        (koconutToReturn as any as KoconutOpener<ValueType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.combinedDataWrapper != null) {
+                    for(const eachEntry of this.combinedDataWrapper) {
+                        if((KoconutTypeChecker.checkIsEquatable(eachEntry.key) && eachEntry.key.equalsTo(key as any as KoconutEquatable))
+                        || (!KoconutTypeChecker.checkIsEquatable(eachEntry.key) && eachEntry.key == key)) return eachEntry.value
+                    }
+                }
+                return defaultValue
+            })
+        return koconutToReturn
+
+    }
+
+
+    /**
+     * Returns the value for the given ```key```, or the reuslt of the
+     * ```defaultValue``` function if there was no entry from the given key.
+     * @param key Key to search for.
+     * @param defaultValue Callback function that generates default value. The method will call ```defaultValue``` if no entry is found.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Selector
+     * 
+     * @example
+     * ```typescript
+     * const koconutMap = KoconutArray.of(1,2,3,4,5)
+     *               .associateWith(eachNumber => eachNumber * 2)
+     *
+     * const valueOfKey3 = await koconutMap
+     *                       .getOrElse(3, () => 100)
+     *                       .yield()
+     * console.log(valueOfKey3)
+     * // ↑ 6
+     *
+     * const valueOfKey6 = await koconutMap
+     *                       .getOrElse(6, async () => 100)
+     *                       .yield()
+     * console.log(valueOfKey6)
+     * // ↑ 100
+     *
+     * const valueOfKey7 = await koconutMap
+     *                       .getOrElse(7, () => new Promise(resolve => {
+     *                           resolve(100)
+     *                       }))
+     *                       .yield()
+     * console.log(valueOfKey7)
+     * // ↑ 100
+     * ```
+     */
+    getOrElse(
+        key : KeyType,
+        defaultValue : () => ValueType | Promise<ValueType>
+    ) : KoconutPrimitive<ValueType> {
+
+        const koconutToReturn = new KoconutPrimitive<ValueType>();
+        (koconutToReturn as any as KoconutOpener<ValueType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.combinedDataWrapper != null) {
+                    for(const eachEntry of this.combinedDataWrapper) {
+                        if((KoconutTypeChecker.checkIsEquatable(eachEntry.key) && eachEntry.key.equalsTo(key as any as KoconutEquatable))
+                        || (!KoconutTypeChecker.checkIsEquatable(eachEntry.key) && eachEntry.key == key)) return eachEntry.value
+                    }
+                }
+                return await defaultValue()
+            })
+        return koconutToReturn
+
+    }
+
+
+    /**
+     * Returns the value of the given key. If no entry is found, it throws {@link KoconutNoSuchElementException}.
+     * @param key Key to search for.
+     * 
+     * @throws {@link KoconutNoSuchElementException}
+     * 
+     * @since 1.0.10
+     * 
+     * @category Selector
+     * 
+     * @example
+     * ```typescript
+     * const koconutMap = KoconutArray.of(1,2,3,4,5)
+     *               .associateWith(eachNumber => eachNumber * 2)
+     *
+     * const valueOfKey3 = await koconutMap
+     *                       .getValue(3)
+     *                       .yield()
+     * console.log(valueOfKey3)
+     * // ↑ 6
+     *
+     * try {
+     *   await koconutMap
+     *       .getValue(6)
+     *       .yield()
+     * } catch(error) {
+     *   console.log(error.name)
+     *   // ↑ Koconut No Such Element Exception
+     * }
+     * ```
+     */
+    getValue(
+        key : KeyType
+    ) : KoconutPrimitive<ValueType> {
+
+        const koconutToReturn = new KoconutPrimitive<ValueType>();
+        (koconutToReturn as any as KoconutOpener<ValueType>)
+        .setPrevYieldable(this)
+        .setProcessor(async () => {
+            if(this.combinedDataWrapper != null) {
+                for(const eachEntry of this.combinedDataWrapper) {
+                    if((KoconutTypeChecker.checkIsEquatable(eachEntry.key) && eachEntry.key.equalsTo(key as any as KoconutEquatable))
+                    || (!KoconutTypeChecker.checkIsEquatable(eachEntry.key) && eachEntry.key == key)) return eachEntry.value
+                }
+            }
+            throw new KoconutNoSuchElementException(`No such element mathces given key ${key} is found`) 
+        })
+        return koconutToReturn
+
+    }
 
 
 
@@ -1322,8 +2029,8 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
             .setPrevYieldable(this)
             .setProcessor(async () => {
                 const processedMap = new Map<ResultDataType, ValueType>()
-                if(this.data != null) {
-                    for(const eachEntry of this.mEntries)
+                if(this.combinedDataWrapper != null) {
+                    for(const eachEntry of this.combinedDataWrapper)
                         processedMap.set(await transform(eachEntry), eachEntry.value)
                 }
                 return processedMap
@@ -1390,8 +2097,8 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
         (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
-                if(this.data != null) {
-                    for(const eachEntry of this.mEntries)
+                if(this.combinedDataWrapper != null) {
+                    for(const eachEntry of this.combinedDataWrapper)
                         destination.set(await transform(eachEntry), eachEntry.value)
                 }
                 return this.data!
@@ -1448,8 +2155,8 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
             .setPrevYieldable(this)
             .setProcessor(async () => {
                 const processedMap = new Map<KeyType, ResultDataType>()
-                if(this.data != null) {
-                    for(const eachEntry of this.mEntries) {
+                if(this.combinedDataWrapper != null) {
+                    for(const eachEntry of this.combinedDataWrapper) {
                         processedMap.set(eachEntry.key, await transform(eachEntry))
                     }
                 }
@@ -1516,839 +2223,12 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
         (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
-                if(this.data != null) {
-                    for(const eachEntry of this.mEntries) {
+                if(this.combinedDataWrapper != null) {
+                    for(const eachEntry of this.combinedDataWrapper) {
                         destination.set(eachEntry.key, await transform(eachEntry))
                     }
                 }
                 return this.data!
-            })
-        return koconutToReturn
-
-    }
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // Manipulator
-    /**
-     * Returns a map containing only entries matching the given ```predicate```.
-     * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each entry in object.
-     * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
-     * 
-     * @since 1.0.10
-     * 
-     * @category Manipulator
-     * 
-     * @example
-     * ```typescript
-     * const koconutMap = KoconutArray.of(1,2,3,4,5)
-     *           .associate(eachNumber => [eachNumber, eachNumber * 2])
-     *
-     * const evenKeyEntries = await koconutMap
-     *                       .filter(eachEntry => eachEntry.key % 2 == 0)
-     *                       .yield()
-     * console.log(evenKeyEntries)
-     * // ↑ Map { 2 => 4, 4 => 8 }
-     * ```
-     */
-    filter(
-        predicate : (entry : Entry<KeyType, ValueType>) => boolean | Promise<boolean>,
-        thisArg : any = null
-    ) : KoconutMap<KeyType, ValueType> {
-
-        return KoconutMap.fromIterable(super.filter(predicate, thisArg))
-
-    }
-
-
-    /**
-     * Returns a map containing only entries not matching the given ```predicate```.
-     * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each entry in object.
-     * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
-     * 
-     * @since 1.0.10
-     * 
-     * @category Manipulator
-     * 
-     * @example
-     * ```typescript
-     * const koconutMap = KoconutArray.of(1,2,3,4,5)
-     *           .associate(eachNumber => [eachNumber, eachNumber * 2])
-     *
-     * const oddKeyEntries = await koconutMap
-     *                       .filterNot(eachEntry => eachEntry.key % 2 == 0)
-     *                       .yield()
-     * console.log(oddKeyEntries)
-     * // ↑ Map { 1 => 2, 3 => 6, 5 => 10 }
-     * ```
-     */
-    filterNot(
-        predicate : (entry : Entry<KeyType, ValueType>) => boolean | Promise<boolean>,
-        thisArg : any = null
-    ) : KoconutMap<KeyType, ValueType> {
-
-        return KoconutMap.fromIterable(super.filterNot(predicate, thisArg))
-
-    }
-    
-
-    /**
-     * Appends all entries matching the given ```predicate``` to the given destination.
-     * @param destination Iterable destinaion. ```Map``` to be exact.
-     * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each entry in object.
-     * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
-     * 
-     * @since 1.0.10
-     * 
-     * @category Manipulator
-     * 
-     * @example
-     * ```typescript
-     * const koconutMap = KoconutArray.of(1,2,3,4,5)
-     *               .associate(eachNumber => [eachNumber, eachNumber * 2])
-     *
-     * const evenKeyMap = new Map<number, number>()
-     * const originalMap = await koconutMap
-     *                       .filterTo(
-     *                           evenKeyMap,
-     *                           eachEntry => eachEntry.key % 2 == 0
-     *                       )
-     *                       .yield()
-     * console.log(evenKeyMap)
-     * // ↑ Map { 2 => 4, 4 => 8 }
-     * console.log(originalMap)
-     * // ↑ Map { 1 => 2, 2 => 4, 3 => 6, 4 => 8, 5 => 10 }
-     * ```
-     */
-    filterTo(
-        destination : Map<KeyType, ValueType>,
-        predicate : (entry : Entry<KeyType, ValueType>) => boolean | Promise<boolean>,
-        thisArg : any = null
-    ) : KoconutMap<KeyType, ValueType> {
-
-        predicate = predicate.bind(thisArg)
-        const koconutToReturn = new KoconutMap<KeyType, ValueType>();
-        (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data != null) {
-                    for(const eachEntry of this.mEntries)
-                        if(await predicate(eachEntry))
-                            destination.set(eachEntry.key, eachEntry.value)
-                }
-                return this.data!
-            })
-        return koconutToReturn
-
-    }
-
-    /**
-     * Appends all entries not matching the given ```predicate``` to the given destination.
-     * @param destination Iterable destinaion. ```Map``` to be exact.
-     * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each entry in object.
-     * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
-     * 
-     * @since 1.0.10
-     * 
-     * @category Manipulator
-     * 
-     * @example
-     * ```typescript
-     * const koconutMap = KoconutArray.of(1,2,3,4,5)
-     *               .associate(eachNumber => [eachNumber, eachNumber * 2])
-     *
-     * const oddKeyMap = new Map<number, number>()
-     * const originalMap = await koconutMap
-     *                       .filterNotTo(
-     *                           oddKeyMap,
-     *                           eachEntry => eachEntry.key % 2 == 0
-     *                       )
-     *                       .yield()
-     * console.log(oddKeyMap)
-     * // ↑ Map { 1 => 2, 3 => 6, 5 => 10 }
-     * console.log(originalMap)
-     * // ↑ Map { 1 => 2, 2 => 4, 3 => 6, 4 => 8, 5 => 10 }
-     * ```
-     */
-    filterNotTo(
-        destination : Map<KeyType, ValueType>,
-        predicate : (entry : Entry<KeyType, ValueType>) => boolean | Promise<boolean>,
-        thisArg : any = null
-    ) : KoconutMap<KeyType, ValueType> {
-
-        predicate = predicate.bind(thisArg)
-        const koconutToReturn = new KoconutMap<KeyType, ValueType>();
-        (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data != null) {
-                    for(const eachEntry of this.mEntries)
-                        if(!await predicate(eachEntry))
-                            destination.set(eachEntry.key, eachEntry.value)
-                }
-                return this.data!
-            })
-        return koconutToReturn
-
-    }
-
-
-    /**
-     * Returns a map containing all entries with key matching the given ```predicate```.
-     * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each entry in object.
-     * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
-     * 
-     * @since 1.0.10
-     * 
-     * @category Manipulator
-     * 
-     * @example
-     * ```typescript
-     * const koconutMap = KoconutArray.of(1,2,3,4,5)
-     *           .associate(eachNumber => [eachNumber, eachNumber * 2])
-     *
-     * const evenKeyMap = await koconutMap
-     *                   .filterKeys(eachKey => eachKey % 2 == 0)
-     *                   .yield()
-     * console.log(evenKeyMap)
-     * // ↑ Map { 2 => 4, 4 => 8 }
-     * ```
-     */
-    filterKeys(
-        predicate : (key : KeyType) => boolean | Promise<boolean>,
-        thisArg : any = null
-    ) : KoconutMap<KeyType, ValueType> {
-
-        predicate = predicate.bind(thisArg)
-        const koconutToReturn = new KoconutMap<KeyType, ValueType>();
-        (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                const processedMap = new Map<KeyType, ValueType>();
-                if(this.data != null) {
-                    for(const eachEntry of this.mEntries)
-                        if(await predicate(eachEntry.key))
-                            processedMap.set(eachEntry.key, eachEntry.value)
-                } 
-                return processedMap
-            })
-        return koconutToReturn
-
-    }
-
-    
-    /**
-     * Returns a map containing all entries with value matching the given ```predicate```.
-     * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each entry in object.
-     * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
-     * 
-     * @since 1.0.10
-     * 
-     * @category Manipulator
-     * 
-     * @example
-     * ```typescript
-     * const koconutMap = KoconutArray.of(1,2,3,4,5)
-     *           .associate(eachNumber => [eachNumber, eachNumber * 2])
-     *
-     * const valueGreaterThan5Map = await koconutMap
-     *                   .filterValues(eachValue => eachValue > 5)
-     *                   .yield()
-     * console.log(valueGreaterThan5Map)
-     * // ↑ Map { 3 => 6, 4 => 8, 5 => 10 }
-     * ```
-     */
-    filterValues(
-        predicate : (value : ValueType) => boolean | Promise<boolean>,
-        thisArg : any = null
-    ) : KoconutMap<KeyType, ValueType> {
-
-        predicate = predicate.bind(thisArg)
-        const koconutToReturn = new KoconutMap<KeyType, ValueType>();
-        (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                const processedMap = new Map<KeyType, ValueType>()
-                if(this.data != null) {
-                    for(const eachEntry of this.mEntries)
-                        if(await predicate(eachEntry.value))
-                            processedMap.set(eachEntry.key, eachEntry.value)
-                }
-                return processedMap
-            })
-        return koconutToReturn
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-    get(
-        key : KeyType
-    ) : KoconutPrimitive<ValueType | null> {
-
-        const koconutToReturn = new KoconutPrimitive<ValueType | null>();
-        (koconutToReturn as any as KoconutOpener<ValueType | null>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data != null) {
-                    for(const eachEntry of this.mEntries) {
-                        if((KoconutTypeChecker.checkIsEquatable(eachEntry.key) && eachEntry.key.equalsTo(key as any as KoconutEquatable))
-                        || (!KoconutTypeChecker.checkIsEquatable(eachEntry.key) && eachEntry.key == key)) return eachEntry.value
-                    }
-                }
-                return null
-            })
-        return koconutToReturn
-
-    }
-
-
-    getOrDefault(
-        key : KeyType,
-        defaultValue : ValueType
-    ) : KoconutPrimitive<ValueType> {
-
-        const koconutToReturn = new KoconutPrimitive<ValueType>();
-        (koconutToReturn as any as KoconutOpener<ValueType>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data != null) {
-                    for(const eachEntry of this.mEntries) {
-                        if((KoconutTypeChecker.checkIsEquatable(eachEntry.key) && eachEntry.key.equalsTo(key as any as KoconutEquatable))
-                        || (!KoconutTypeChecker.checkIsEquatable(eachEntry.key) && eachEntry.key == key)) return eachEntry.value
-                    }
-                }
-                return defaultValue
-            })
-        return koconutToReturn
-
-    }
-
-
-    getOrElse(
-        key : KeyType,
-        defaultValue : () => ValueType | Promise<ValueType>
-    ) : KoconutPrimitive<ValueType> {
-
-        const koconutToReturn = new KoconutPrimitive<ValueType>();
-        (koconutToReturn as any as KoconutOpener<ValueType>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data != null) {
-                    for(const eachEntry of this.mEntries) {
-                        if((KoconutTypeChecker.checkIsEquatable(eachEntry.key) && eachEntry.key.equalsTo(key as any as KoconutEquatable))
-                        || (!KoconutTypeChecker.checkIsEquatable(eachEntry.key) && eachEntry.key == key)) return eachEntry.value
-                    }
-                }
-                return await defaultValue()
-            })
-        return koconutToReturn
-
-    }
-
-
-    getValue(
-        key : KeyType
-    ) : KoconutPrimitive<ValueType> {
-
-        const koconutToReturn = new KoconutPrimitive<ValueType>();
-        (koconutToReturn as any as KoconutOpener<ValueType>)
-        .setPrevYieldable(this)
-        .setProcessor(async () => {
-            if(this.data != null) {
-                for(const eachEntry of this.mEntries) {
-                    if((KoconutTypeChecker.checkIsEquatable(eachEntry.key) && eachEntry.key.equalsTo(key as any as KoconutEquatable))
-                    || (!KoconutTypeChecker.checkIsEquatable(eachEntry.key) && eachEntry.key == key)) return eachEntry.value
-                }
-            }
-            throw new KoconutNoSuchElementException(`No such element mathces given key ${key} is found`) 
-        })
-        return koconutToReturn
-
-    }
-
-    
-    minus(
-        keys : KeyType | Iterable<KeyType>
-    ) : KoconutMap<KeyType, ValueType> {
-
-        const koconutToReturn = new KoconutMap<KeyType, ValueType>();
-        (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                const processedMap = new Map<KeyType, ValueType>();
-                if(this.data != null) {
-                    let dataToExcept = new Array<KeyType>()
-                    if(typeof (keys as any)[Symbol.iterator] === 'function') dataToExcept = Array.from(keys as Iterable<KeyType>)
-                    else dataToExcept.push(keys as KeyType)
-                    const koconutKeysToExceptArray = KoconutArray.from(dataToExcept)
-                    for(const eachEntry of this.mEntries)
-                        if(!await koconutKeysToExceptArray.contains(eachEntry.key).yield()) processedMap.set(eachEntry.key, eachEntry.value)
-                }
-                return processedMap
-            })
-        return koconutToReturn
-
-    }
-
-
-    // orEmpty
-
-
-    plus(
-        element : 
-            | Pair<KeyType, ValueType> 
-            | KoconutPair<KeyType, ValueType> 
-            | Entry<KeyType, ValueType> 
-            | KoconutEntry<KeyType, ValueType> 
-            | Iterable<
-                | Pair<KeyType, ValueType>
-                | KoconutPair<KeyType, ValueType>
-                | Entry<KeyType, ValueType> 
-                | KoconutEntry<KeyType, ValueType>>
-    ) : KoconutMap<KeyType, ValueType> {
-
-        const koconutToReturn = new KoconutMap<KeyType, ValueType>();
-        (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                const processedMap = this.data == null ? new Map<KeyType, ValueType>() : new Map(this.data)
-                let dataToAdd = new Array<any>()
-                if(typeof (element as any)[Symbol.iterator] == 'function') dataToAdd = Array.from(element as Iterable<any>)
-                else dataToAdd.push(element as any)
-                for(const eachDatum of dataToAdd) {
-                    if(eachDatum instanceof KoconutEntry) {
-                        const entry = await eachDatum.yield()
-                        if(entry != null) processedMap.set(entry.key, entry.value)
-                    } else if(eachDatum instanceof Entry) processedMap.set(eachDatum.key, eachDatum.value)
-                    else if(eachDatum instanceof KoconutPair) {
-                        const pair = await eachDatum.yield()
-                        if(pair != null) processedMap.set(pair.first, pair.second)
-                    } else if(eachDatum instanceof Pair) processedMap.set(eachDatum.first, eachDatum.second)
-                }
-                return processedMap
             })
         return koconutToReturn
 

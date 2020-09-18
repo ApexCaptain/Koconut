@@ -705,6 +705,134 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
     }
 
 
+    /** @ignore */
+    chunked<ResultDataType>(
+        size : number,
+        transform : (elements : Array<DataType>) => ResultDataType | Promise<ResultDataType>
+    ) : KoconutArray<ResultDataType>;
+    /**
+     * Splits this collection into a {@link KoconutArray} of ```Arrays```
+     * each not exceeding the given ```size```.
+     * @param size The number of elements to take in each ```Array```, must be positive and can be greater than the number of elements in this collection.
+     * @param transform A callback function that accepts an argument. The method calls the ```transform``` with chunked data ```array``` when it's not omitted.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @throws {@link KoconutInvalidArgumentException}
+     * -- When ```size``` is not greater than 0.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Transformer
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const chunkedArray = await koconutArray
+     *                       .chunked(3)
+     *                       .yield()
+     * console.log(chunkedArray)
+     * // ↑ [ [ 1, 2, 3 ], [ 4, 5 ] ]
+     *
+     * try {
+     *   await koconutArray
+     *       .chunked(0)
+     *       .yield()
+     * } catch(error) {
+     *   console.log(error.name)
+     *   // ↑ Koconut Invalid Argument Exception
+     * }
+     *
+     * // Case 2 -- Koconutset
+     * const koconutSet = KoconutSet.of(1,2,3,4,5)
+     *
+     * const chunkedSum = await koconutSet
+     *       .chunked(
+     *           3,
+     *           numbers => numbers
+     *                       .reduce(
+     *                           (acc, eachNumber) => acc + eachNumber, 0
+     *                       )
+     *       )
+     *       .yield()
+     * console.log(chunkedSum)
+     * // ↑ [ 6, 9 ]
+     *
+     * // Case 3 -- You can also do it asynchronously
+     * const koconutArray2 = KoconutArray.of(1,2,3,4,5)
+     *
+     * const chunkedMax = await koconutArray2
+     *       .chunked(
+     *           2,
+     *           async numbers => await KoconutArray
+     *                                   .from(numbers)
+     *                                   .maxByOrNull(
+     *                                       eachNumber => eachNumber
+     *                                   )
+     *                                   .yield()
+     *       )
+     *       .yield()
+     * console.log(chunkedMax)
+     * // ↑ [ 2, 4, 5 ]
+     *
+     * const chunkedMin = await koconutArray2
+     *       .chunked(
+     *           2,
+     *           numbers => KoconutArray
+     *                       .from(numbers)
+     *                       .minByOrNull(
+     *                           eachNumber => eachNumber
+     *                       )
+     *                       .yield()
+     *       )
+     *       .yield()
+     * console.log(chunkedMin)
+     * // ↑ [ 1, 3, 5 ]
+     * ```
+     */
+    chunked<ResultDataType>(
+        size : number,
+        transform : (elements : Array<DataType>) => ResultDataType | Promise<ResultDataType>,
+        thisArg : any
+    ) : KoconutArray<ResultDataType>;
+    chunked(
+        size : number
+    ) : KoconutArray<Array<DataType>>;
+    chunked<ResultDataType>(
+        size : number,
+        transform : ((elements : Array<DataType>) => ResultDataType | Promise<ResultDataType>) | null = null,
+        thisArg : any = null
+    ) : KoconutArray<Array<DataType> | ResultDataType> {
+
+        if(transform) transform = transform.bind(thisArg)
+        const koconutToReturn = new KoconutArray<Array<DataType> | ResultDataType>();
+        (koconutToReturn as any as KoconutOpener<Array<Array<DataType>> | Array<ResultDataType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(size <= 0) throw new KoconutInvalidArgumentException(`Size must be greater than 0. Given size : ${size}.`)
+                const processedArray = new Array<Array<DataType>>()
+                if(this.data != null) {
+                    let currentIndex = 0
+                    let dataArray = Array.from(this.data)
+                    while(currentIndex < dataArray.length) {
+                        processedArray.push(dataArray.slice(currentIndex, currentIndex + size))
+                        currentIndex += size
+                    }
+                }
+                if(transform) {
+                    const transformedArray = new Array<ResultDataType>()
+                    for(let eachProcessedIndex in processedArray)
+                        transformedArray.push(await transform(processedArray[eachProcessedIndex]))
+                    return transformedArray
+                }
+                return processedArray
+            })
+        return koconutToReturn
+
+    }
+
+
 
     /**
      * Returns a {@link KoconutArray} of all elements yielded from results of ```transform``` function being invoked on each element of original collection.
@@ -1087,6 +1215,84 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
 
     
     // Manipulator
+    // No Comment - KoconutArray/KoconutSet
+    distinct() : KoconutCollection<DataType, WrapperType> {
+
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                let processedArray = new Array<DataType>()
+                if(this.data != null) {
+                    for(const eachDatum of this.data) {
+                        if(KoconutTypeChecker.checkIsEquatable(eachDatum)) {
+                            let isConflict = false
+                            for(const eachPrevEquatableDatum of processedArray) {
+                                if((eachPrevEquatableDatum as any as KoconutEquatable).equalsTo(eachDatum)) {
+                                    isConflict = true
+                                    break
+                                }
+                            }
+                            if(!isConflict) processedArray.push(eachDatum)
+                        } else  {
+                            processedArray = Array.from(new Set(this.data))
+                            break
+                        }
+                    }
+                }
+                if(this.data instanceof Array) return processedArray as WrapperType
+                else return new Set(processedArray) as WrapperType
+            })
+        return koconutToReturn
+
+    }
+
+
+    // No Comment - KoconutArray/KoconutSet
+    distinctBy<KeyType, EuqatableKeyType extends KoconutEquatable>(
+        selector : (element : DataType) => KeyType | EuqatableKeyType | Promise<KeyType | EuqatableKeyType>,
+        thisArg : any = null
+    ) : KoconutCollection<DataType, WrapperType> {
+
+        selector = selector.bind(thisArg)
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedArray = new Array<DataType>();
+                if(this.data != null) {
+                    const keyArray = new Array<KeyType>()
+                    const equatableKeyArray = new Array<EuqatableKeyType>()
+                    for(const eachDatum of this.data) {
+                        const eachKey = await selector(eachDatum)
+                        if(KoconutTypeChecker.checkIsEquatable(eachKey)) {
+                            let isConflict = false
+                            for(const eachPrevEquatableKey of equatableKeyArray) {
+                                if(eachPrevEquatableKey.equalsTo(eachKey)) {
+                                    isConflict = true
+                                    break
+                                }
+                            }
+                            if(!isConflict) {
+                                equatableKeyArray.push(eachKey)
+                                processedArray.push(eachDatum)
+                            }
+                        } else {
+                            if(!keyArray.includes(eachKey)) {
+                                keyArray.push(eachKey)
+                                processedArray.push(eachDatum)
+                            }
+                        }
+                    }
+                }
+                if(this.data instanceof Array) return processedArray as WrapperType
+                else return new Set(processedArray) as WrapperType
+            })
+        return koconutToReturn
+
+    }
+
+
     // No Comment - KoconutArray/KoconutSet
     filter(
         predicate : (element : DataType) => boolean | Promise<boolean>,
@@ -1493,125 +1699,6 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
     /* Funcions */
 
 
-    chunked(
-        size : number
-    ) : KoconutArray<Array<DataType>>;
-    chunked<ResultDataType>(
-        size : number,
-        transform : (elements : Array<DataType>) => ResultDataType | Promise<ResultDataType>
-    ) : KoconutArray<ResultDataType>;
-    chunked<ResultDataType>(
-        size : number,
-        transform : (elements : Array<DataType>) => ResultDataType | Promise<ResultDataType>,
-        thisArg : any
-    ) : KoconutArray<ResultDataType>;
-    chunked<ResultDataType>(
-        size : number,
-        transform : ((elements : Array<DataType>) => ResultDataType | Promise<ResultDataType>) | null = null,
-        thisArg : any = null
-    ) : KoconutArray<Array<DataType> | ResultDataType> {
-
-        if(transform) transform = transform.bind(thisArg)
-        const koconutToReturn = new KoconutArray<Array<DataType> | ResultDataType>();
-        (koconutToReturn as any as KoconutOpener<Array<Array<DataType>> | Array<ResultDataType>>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                const processedArray = new Array<Array<DataType>>()
-                if(this.data != null) {
-                    let currentIndex = 0
-                    let dataArray = Array.from(this.data)
-                    while(currentIndex < dataArray.length) {
-                        processedArray.push(dataArray.slice(currentIndex, currentIndex + size))
-                        currentIndex += size
-                    }
-                }
-                if(transform) {
-                    const transformedArray = new Array<ResultDataType>()
-                    for(let eachProcessedIndex in processedArray)
-                        transformedArray.push(await transform(processedArray[eachProcessedIndex]))
-                    return transformedArray
-                }
-                return processedArray
-            })
-        return koconutToReturn
-
-    }
-
-
-    distinct() : KoconutCollection<DataType, WrapperType> {
-
-        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
-        (koconutToReturn as any as KoconutOpener<WrapperType>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                let processedArray = new Array<DataType>()
-                if(this.data != null) {
-                    for(const eachDatum of this.data) {
-                        if(KoconutTypeChecker.checkIsEquatable(eachDatum)) {
-                            let isConflict = false
-                            for(const eachPrevEquatableDatum of processedArray) {
-                                if((eachPrevEquatableDatum as any as KoconutEquatable).equalsTo(eachDatum)) {
-                                    isConflict = true
-                                    break
-                                }
-                            }
-                            if(!isConflict) processedArray.push(eachDatum)
-                        } else  {
-                            processedArray = Array.from(new Set(this.data))
-                            break
-                        }
-                    }
-                }
-                if(this.data instanceof Array) return processedArray as WrapperType
-                else return new Set(processedArray) as WrapperType
-            })
-        return koconutToReturn
-
-    }
-
-
-    distinctBy<KeyType, EuqatableKeyType extends KoconutEquatable>(
-        selector : (element : DataType) => KeyType | EuqatableKeyType | Promise<KeyType | EuqatableKeyType>,
-        thisArg : any = null
-    ) : KoconutCollection<DataType, WrapperType> {
-
-        selector = selector.bind(thisArg)
-        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
-        (koconutToReturn as any as KoconutOpener<WrapperType>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                const processedArray = new Array<DataType>();
-                if(this.data != null) {
-                    const keyArray = new Array<KeyType>()
-                    const equatableKeyArray = new Array<EuqatableKeyType>()
-                    for(const eachDatum of this.data) {
-                        const eachKey = await selector(eachDatum)
-                        if(KoconutTypeChecker.checkIsEquatable(eachKey)) {
-                            let isConflict = false
-                            for(const eachPrevEquatableKey of equatableKeyArray) {
-                                if(eachPrevEquatableKey.equalsTo(eachKey)) {
-                                    isConflict = true
-                                    break
-                                }
-                            }
-                            if(!isConflict) {
-                                equatableKeyArray.push(eachKey)
-                                processedArray.push(eachDatum)
-                            }
-                        } else {
-                            if(!keyArray.includes(eachKey)) {
-                                keyArray.push(eachKey)
-                                processedArray.push(eachDatum)
-                            }
-                        }
-                    }
-                }
-                if(this.data instanceof Array) return processedArray as WrapperType
-                else return new Set(processedArray) as WrapperType
-            })
-        return koconutToReturn
-
-    }
 
 
     drop(
@@ -1848,9 +1935,6 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
         return koconutToReturn
 
     }
-
-
-    // flatten
 
 
     fold<ResultDataType>(
@@ -2158,87 +2242,6 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
 
     minus(
         elements : DataType | Iterable<DataType>
@@ -2828,52 +2831,6 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
         return koconutToReturn
 
     }
-
-    // toBooleanArray
-    // toByteArray
-    // toCharArray
-    // toCollection
-    // toDoubleArray
-    // toFloatArray
-    // toHashSet
-    // toIntArray
-    // toList
-    // toLongArray
-    // toMap
-    // toMutableList
-    // toMutableSet
-
-    toArray() : KoconutArray<DataType> {
-
-        const koconutToReturn = new KoconutArray<DataType>();
-        (koconutToReturn as any as KoconutOpener<Array<DataType>>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                return this.data ? Array.from(this.data) : new Array()
-            })
-        return koconutToReturn
-
-    }
-    
-    
-    toSet() : KoconutSet<DataType> {
-
-        const koconutToReturn = new KoconutSet<DataType>();
-        (koconutToReturn as any as KoconutOpener<Set<DataType>>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                return new Set(this.data)
-            })
-        return koconutToReturn
-
-    }
-
-    // toShortArray
-    // toSortedSet
-    // toUByteArray
-    // toUIntArray
-    // toULongArray
-    // toUShortArray
 
 
     union(

@@ -829,6 +829,95 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
 
     
     // Manipulator
+        /**
+     * Returns a {@link KoconutSet} containing only distinct elements from this collection.
+     * If the type of data is a simple number or string, the method will check equality by using '==' operator, but if it's not,
+     * you'd better make your custom class inherits {@link KoconutEquatable}.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Manipulator
+     * 
+     * @example
+     * ```typescript
+     * const numberKoconutSet = KoconutSet.of(1,1,2,2,3,3)
+     *
+     * const distinctNumbers = await numberKoconutSet
+     *                               .distinct()
+     *                               .yield()
+     * console.log(distinctNumbers)
+     * // ↑ Set { 1, 2, 3 }
+     *
+     * class SomeInfo {
+     *   info : string
+     *   constructor(info : string) {
+     *       this.info = info
+     *   }
+     * }
+     * const someInfoKoconutSet = KoconutSet.of(
+     *   new SomeInfo("A"),
+     *   new SomeInfo("A"),
+     *   new SomeInfo("B"),
+     *   new SomeInfo("B"),
+     *   new SomeInfo("C"),
+     *   new SomeInfo("C"),
+     * )
+     * const distinctSomeInfos = await someInfoKoconutSet
+     *                           .distinct()
+     *                           .yield()
+     * console.log(distinctSomeInfos)
+     * // ↑ Set {
+     * //        SomeInfo { info: 'A' },
+     * //        SomeInfo { info: 'A' },
+     * //        SomeInfo { info: 'B' },
+     * //        SomeInfo { info: 'B' },
+     * //        SomeInfo { info: 'C' },
+     * //        SomeInfo { info: 'C' }
+     * //       }
+     *
+     * class SomeEquatableInfo implements KoconutEquatable {
+     *   info : string
+     *   constructor(info : string) {
+     *       this.info = info
+     *   }
+     *   equalsTo(other : SomeEquatableInfo) : boolean {
+     *       return this.info == other.info
+     *   }
+     * }
+     * const someEquatableInfoKoconutSet = KoconutSet.of(
+     *   new SomeEquatableInfo("A"),
+     *   new SomeEquatableInfo("A"),
+     *   new SomeEquatableInfo("B"),
+     *   new SomeEquatableInfo("B"),
+     *   new SomeEquatableInfo("C"),
+     *   new SomeEquatableInfo("C")
+     * )
+     * const distinctSomeEquatableInfos = await someEquatableInfoKoconutSet
+     *                                   .distinct()
+     *                                   .yield()
+     * console.log(distinctSomeEquatableInfos)
+     * // ↑ Set {
+     * //        SomeEquatableInfo { info: 'A' },
+     * //        SomeEquatableInfo { info: 'B' },
+     * //        SomeEquatableInfo { info: 'C' }
+     * //       }
+     * ```
+     */
+    distinct() : KoconutSet<DataType> {
+
+        return KoconutSet.fromCollection(super.distinct())
+
+    }
+
+    
+    distinctBy<KeyType, EuqatableKeyType extends KoconutEquatable>(
+        selector : (element : DataType) => KeyType | EuqatableKeyType | Promise<KeyType>,
+        thisArg : any = null
+    ) : KoconutSet<DataType> {
+
+        return KoconutSet.fromCollection(super.distinctBy(selector, thisArg))
+
+    }
     /**
      * Returns a {@link KoconutSet} containing only elements matching the given ```predicate```.
      * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
@@ -1345,21 +1434,7 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
 
 
 
-    distinct() : KoconutSet<DataType> {
 
-        return KoconutSet.fromCollection(super.distinct())
-
-    }
-
-    
-    distinctBy<KeyType, EuqatableKeyType extends KoconutEquatable>(
-        selector : (element : DataType) => KeyType | EuqatableKeyType | Promise<KeyType>,
-        thisArg : any = null
-    ) : KoconutSet<DataType> {
-
-        return KoconutSet.fromCollection(super.distinctBy(selector, thisArg))
-
-    }
 
 
     drop(
