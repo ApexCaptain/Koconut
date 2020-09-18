@@ -66,6 +66,28 @@
 				<a href="#release-1012" id="release-1012" style="color: inherit; text-decoration: none;">
 					<h2>Release 1.0.12</h2>
 				</a>
+				<a href="#currently-working-on" id="currently-working-on" style="color: inherit; text-decoration: none;">
+					<h3>Currently Working on...</h3>
+				</a>
+				<ul>
+					<li>I&#39;m planning to design 2 new data container classes for sequential and parallel promise chain. Those are quite similar to <code>Sequence</code> or <code>Stream</code> in <code>Java</code> and <code>Kotlin</code>. </li>
+				</ul>
+				<a href="#known-caveats" id="known-caveats" style="color: inherit; text-decoration: none;">
+					<h3>Known Caveats</h3>
+				</a>
+				<ul>
+					<li><code>indexed</code> methods of <code>KoconutMap</code> are deprecated. It is not appropriate to let it be possible to use in <code>Map</code> data structure. They&#39;ll remain until version <code>1.0.15</code>.</li>
+					<li>Common caster methods <code>toArray</code> and <code>toSet</code> are deprecated. Instead, you can use <code>asArray</code> or <code>asSet</code>. Those have the same functionality. They&#39;ll remain until version <code>1.0.15</code>.</li>
+				</ul>
+				<a href="#repository" id="repository" style="color: inherit; text-decoration: none;">
+					<h3>Repository</h3>
+				</a>
+				<ul>
+					<li>API documentation of <code>KoconutMap</code> is completed.</li>
+				</ul>
+				<a href="#release-1012-1" id="release-1012-1" style="color: inherit; text-decoration: none;">
+					<h2>Release 1.0.12</h2>
+				</a>
 				<a href="#bug-fixes-and-other-changes" id="bug-fixes-and-other-changes" style="color: inherit; text-decoration: none;">
 					<h3>Bug Fixes and Other Changes</h3>
 				</a>
@@ -94,7 +116,7 @@
 						<p>  If you&#39;re using TypeScript, it is recommended to declare generic type explicitly.</p>
 					</li>
 				</ul>
-				<a href="#repository" id="repository" style="color: inherit; text-decoration: none;">
+				<a href="#repository-1" id="repository-1" style="color: inherit; text-decoration: none;">
 					<h3>Repository</h3>
 				</a>
 				<ul>
@@ -109,13 +131,13 @@
 				<ul>
 					<li>Iterative functions, such as <code>forEach</code>, <code>forEachIndexed</code>, <code>onEach</code> and <code>onEachIndexed</code> now can be interrupted with <code>KoconutLoopSignal.BREAK</code>. Of course it is still available by simple <code>boolean</code>. To stop the iteration in the mean time, you can simply <code>return false</code> or <code>return KoconutLoopSignal.BREAK</code>. You can check <a href="https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#foreach">example</a> if you want to.</li>
 				</ul>
-				<a href="#known-caveats" id="known-caveats" style="color: inherit; text-decoration: none;">
+				<a href="#known-caveats-1" id="known-caveats-1" style="color: inherit; text-decoration: none;">
 					<h3>Known Caveats</h3>
 				</a>
 				<ul>
 					<li><a href="https://github.com/ApexCaptain/Koconut/blob/master/README.md#Deprecation-Warning">Deprecation Warning</a> functionality is now available</li>
 				</ul>
-				<a href="#repository-1" id="repository-1" style="color: inherit; text-decoration: none;">
+				<a href="#repository-2" id="repository-2" style="color: inherit; text-decoration: none;">
 					<h3>Repository</h3>
 				</a>
 				<ul>

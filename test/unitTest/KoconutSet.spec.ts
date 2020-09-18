@@ -587,6 +587,7 @@ describe(`${KoconutSet.name} -- Caster`, () => {
 
     })
 
+    /*
     it(KoconutSet.prototype.asFlow.name, async () => {
 
         const koconut = KoconutSet.of(1,2,3,4,5)
@@ -600,6 +601,7 @@ describe(`${KoconutSet.name} -- Caster`, () => {
         expect(result.dataArray).eqls([1,2,3,4,5])
 
     })
+    */
 
 })
 
