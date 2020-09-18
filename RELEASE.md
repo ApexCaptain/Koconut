@@ -1,6 +1,18 @@
 # Koconut Release Note
 
 ## Release 1.0.12
+
+### Currently Working on...
+- I'm planning to design 2 new data container classes for sequential and parallel promise chain. Those are quite similar to `Sequence` or `Stream` in `Java` and `Kotlin`. 
+
+### Known Caveats
+- `indexed` methods of `KoconutMap` are deprecated. It is not appropriate to let it be possible to use in `Map` data structure. They'll remain until version `1.0.15`.
+- Common caster methods `toArray` and `toSet` are deprecated. Instead, you can use `asArray` or `asSet`. Those have the same functionality. They'll remain until version `1.0.15`.
+
+### Repository
+- API documentation of `KoconutMap` is completed.
+
+## Release 1.0.12
 ### Bug Fixes and Other Changes
 - Babel@runtime is now moved to common dependencies section. I'm sorry I didn't catch that.
 

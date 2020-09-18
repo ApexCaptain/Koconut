@@ -218,7 +218,7 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
 
     
     // Iterator
-        /**
+    /**
      * Performs the given ```action``` on each element, providing sequential index with the element.
      * When you want to stop iteration in the meantime ```return``` ```false``` or {@link KoconutLoopSignal.BREAK}.
      * @param action A callback function that accepts two arguments. The method calls the ```action``` one time for each index and element in object.

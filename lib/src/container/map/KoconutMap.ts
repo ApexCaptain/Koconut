@@ -2,7 +2,7 @@
 
 import {
     /* Tool */
-    KoconutPrimitive, KoconutOpener, KoconutTypeChecker, 
+    KoconutPrimitive, KoconutOpener, KoconutTypeChecker, KoconutDeprecation,
 
     /* Base */
     Entry, Pair, KoconutPair, KoconutEntry,
@@ -17,7 +17,7 @@ import {
     KoconutNoSuchElementException,
 
     /* Protocol */
-    KoconutEquatable, KoconutComparable
+    KoconutEquatable, KoconutComparable 
 } from "../../../module.internal"
 
 export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, ValueType], Entry<KeyType, ValueType>, Map<KeyType, ValueType>, Set<Entry<KeyType, ValueType>>> {
@@ -1168,6 +1168,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
     // Iterator
     /**
      * Perfroms the given ```action``` on each entry and returns the original collection itself afterwards.
+     * When you want to stop iteration in the meantime ```return``` ```false``` or {@link KoconutLoopSignal.BREAK}.
      * @param action A callback function that accepts an argument. The method calls the ```action``` one time for each entry in object.
      * @param thisArg An object to which the ```this``` keyword can refer in the ```action```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
      * 
@@ -1214,6 +1215,79 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
     ) : KoconutMap<KeyType, ValueType> {
 
         return KoconutMap.fromIterable(super.onEach(action, thisArg))
+
+    }
+
+
+    /**
+     * Performs the given ```action``` on each entry, providing sequential index with the entry.
+     * When you want to stop iteration in the meantime ```return``` ```false``` or {@link KoconutLoopSignal.BREAK}.
+     * @param action A callback function that accepts two arguments. The method calls the ```action``` one time for each index and entry in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```action```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * @deprecated
+     * @until 1.0.15
+     * 
+     * @category Iterator
+     */
+    forEachIndexed(
+        action : (index : number, entry : Entry<KeyType, ValueType>) => boolean | KoconutLoopSignal | void  | Promise<boolean | KoconutLoopSignal | void>,
+        thisArg : any = null
+    ) : KoconutPrimitive<void> {
+
+        KoconutDeprecation.showDeprecationWarning("1.0.15")
+        action = action.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<void>();
+        (koconutToReturn as any as KoconutOpener<void>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.combinedDataWrapper != null) {
+                    let eachIndex = 0
+                    for(const eachEntry of this.combinedDataWrapper) {
+                        const signal = await action(eachIndex++, eachEntry)
+                        if(signal == false || signal == KoconutLoopSignal.BREAK) break
+                    }
+                }
+            })
+        return koconutToReturn
+
+    }
+
+
+    /**
+     * Performs the given ```action``` on each entry, providing sequential index with the entry, and returns the collection itself afterwards.
+     * When you want to stop iteration in the meantime ```return``` ```false``` or {@link KoconutLoopSignal.BREAK}.
+     * @param action A callback function that accepts two arguments. The method calls the ```action``` one time for each index and entry in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```action```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * @deprecated
+     * @until 1.0.15
+     * 
+     * @category Iterator
+     */
+    onEachIndexed(
+        action : (index : number, entry : Entry<KeyType, ValueType>) => boolean | KoconutLoopSignal | void  | Promise<boolean | KoconutLoopSignal | void>,
+        thisArg : any = null
+    ) : KoconutMap<KeyType, ValueType> {
+
+        KoconutDeprecation.showDeprecationWarning("1.0.15")
+        action = action.bind(thisArg)
+        const koconutToReturn = new KoconutMap<KeyType, ValueType>();
+        (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.combinedDataWrapper != null) {
+                    let eachIndex = 0
+                    for(const eachEntry of this.combinedDataWrapper) {
+                        const signal = await action(eachIndex++, eachEntry)
+                        if(signal == false || signal == KoconutLoopSignal.BREAK) break
+                    }
+                }
+                return this.data!
+            })
+        return koconutToReturn
 
     }
     
