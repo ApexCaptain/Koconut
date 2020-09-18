@@ -1,6 +1,6 @@
 # Koconut Release Note
 
-## Release 1.0.12
+## Release 1.0.13
 
 ### Currently Working on...
 - I'm planning to design 2 new data container classes for sequential and parallel promise chain. Those are quite similar to `Sequence` or `Stream` in `Java` and `Kotlin`. 
