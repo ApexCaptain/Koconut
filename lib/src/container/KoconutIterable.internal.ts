@@ -2019,29 +2019,6 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
         return koconutToReturn
 
     }
-    
-    
-    /**
-     * Creates an {@link KoconutArray} instance that wraps original data.
-     * 
-     * @since 1.0.10
-     * @deprecated Use {@link asArray} instead. 
-     * @until 1.0.15
-     * 
-     * @category Caster 
-     */
-    toArray() : KoconutArray<CombinedDataType> {
-
-        KoconutDeprecation.showDeprecationWarning("1.0.15", this.asArray)
-        const koconutToReturn = new KoconutArray<CombinedDataType>();
-        (koconutToReturn as any as KoconutOpener<Array<CombinedDataType>>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                return Array.from(this.combinedDataWrapper!)
-            })
-        return koconutToReturn
-
-    }
 
 
     /**
@@ -2119,27 +2096,6 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
 
 
     /**
-     * Creates an {@link KoconutSet} instance that wraps original data.
-     * 
-     * @since 1.0.10
-     * @deprecated Use {@link toSet} instead. 
-     * @until 1.0.15
-     */
-    toSet() : KoconutSet<CombinedDataType> {
-
-        KoconutDeprecation.showDeprecationWarning("1.0.15", this.toSet)
-        const koconutToReturn = new KoconutSet<CombinedDataType>();
-        (koconutToReturn as any as KoconutOpener<Set<CombinedDataType>>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                return new Set(this.combinedDataWrapper)
-            })
-        return koconutToReturn
-
-    }
-
-
-    /**
      * Creats an {@link KoconutFlow} instance that wraps original data.
      * 
      * @since 1.0.13
@@ -2200,8 +2156,7 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
      * // ]
      * ```
      */
-    /*
-     asFlow() : KoconutFlow<CombinedDataType> {
+    asFlow() : KoconutFlow<CombinedDataType> {
 
         const koconutToReturn = new KoconutFlow<CombinedDataType>();
         (koconutToReturn as any as KoconutOpener<Flow<CombinedDataType>>)
@@ -2212,7 +2167,6 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
         return koconutToReturn
 
     }
-    */
 
 
 
@@ -2540,7 +2494,6 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
      * 
      * @since 1.0.10
      * @deprecated Use {@link isEmpty} instead. 
-     * @until 1.3.0
      * 
      * @category Inspector
      * 

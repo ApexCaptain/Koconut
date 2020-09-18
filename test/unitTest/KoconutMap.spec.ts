@@ -830,7 +830,6 @@ describe(`${KoconutMap.name} -- Caster`, () => {
 
     })
 
-    /*
     it(KoconutMap.prototype.asFlow.name, async () => {
 
         const koconut = KoconutArray.of(1,2,3)
@@ -849,7 +848,6 @@ describe(`${KoconutMap.name} -- Caster`, () => {
                                     ])
 
     })
-    */
 
 })
 
@@ -1145,21 +1143,6 @@ describe(`${KoconutMap.name} -- Iterator`, () => {
 
     })
 
-    it(KoconutMap.prototype.forEachIndexed.name, async () => {
-
-        const koconut = KoconutArray.of(1,2,3,4,5)
-                        .associate(eachElement => [eachElement, eachElement * 2])
-
-        const yieldable =
-                        koconut
-                        .forEachIndexed((eachIndex, eachEntry) => {
-                            expect(eachIndex + (eachEntry.value / eachEntry.key)).equals(eachIndex + 2)
-                        })
-        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
-        await yieldable.process()
-
-    })
-
     it(KoconutMap.prototype.onEach.name, async () => {
 
         const koconut = KoconutArray.of(1,2,3,4,5)
@@ -1169,21 +1152,6 @@ describe(`${KoconutMap.name} -- Iterator`, () => {
                         koconut
                         .onEach(eachEntry => {
                             expect(eachEntry.value - eachEntry.key).equals(0)
-                        })
-        expect(yieldable).to.be.instanceOf(KoconutMap)
-        await yieldable.process()
-
-    })
-
-    it(KoconutMap.prototype.onEachIndexed.name, async () => {
-
-        const koconut = KoconutArray.of(1,2,3,4,5)
-                        .associate(eachElement => [eachElement, eachElement])
-        
-        const yieldable =
-                        koconut
-                        .onEachIndexed((eachIndex, eachEntry) => {
-                            expect(eachIndex + eachEntry.value - eachEntry.key).equals(eachIndex)
                         })
         expect(yieldable).to.be.instanceOf(KoconutMap)
         await yieldable.process()

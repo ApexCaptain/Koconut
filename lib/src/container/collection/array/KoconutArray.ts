@@ -166,7 +166,6 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
     // Iterator
     /**
      * Perfroms the given ```action``` on each element and returns the original collection itself afterwards.
-     * When you want to stop iteration in the meantime ```return``` ```false``` or {@link KoconutLoopSignal.BREAK}.
      * @param action A callback function that accepts an argument. The method calls the ```action``` one time for each element in object.
      * @param thisArg An object to which the ```this``` keyword can refer in the ```action```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
      * 
@@ -216,7 +215,6 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
 
     /**
      * Performs the given ```action``` on each element, providing sequential index with the element, and returns the collection itself afterwards.
-     * When you want to stop iteration in the meantime ```return``` ```false``` or {@link KoconutLoopSignal.BREAK}.
      * @param action A callback function that accepts two arguments. The method calls the ```action``` one time for each index and element in object.
      * @param thisArg An object to which the ```this``` keyword can refer in the ```action```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
      * 
