@@ -865,6 +865,132 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
     }
 
 
+    /**
+     * Returns a {@link KoconutArray} containing only elements from the given collection having
+     * distinct keys returned by the given ```selector``` function.
+     * @param selector A callback function that accepts an argument. The method calls the ```selector``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```selector```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value 
+     * 
+     * @since 1.0.10
+     * 
+     * @category Manipulator
+     * 
+     * @example
+     * ```typescript
+     * const numberKoconutArray = KoconutArray.of(1,1,2,2,3,3)
+     *
+     * const distinctNumbers = await numberKoconutArray
+     *                         .distinctBy(eachNumber => eachNumber)
+     *                         .yield()
+     * console.log(distinctNumbers)
+     * // ↑ [ 1, 2, 3 ]
+
+     * class SomeInfo {
+     *     info : string
+     *     constructor(info : string) {
+     *         this.info = info
+     *     }
+     * }
+     * const someInfoKoconutArray = KoconutArray.of(
+     *     new SomeInfo("A"),
+     *     new SomeInfo("A"),
+     *     new SomeInfo("B"),
+     *     new SomeInfo("B"),
+     *     new SomeInfo("C"),
+     *     new SomeInfo("C")
+     * )
+     * const distinctSomeInfos = await someInfoKoconutArray
+     *                     .distinctBy(eachSomeInfo => eachSomeInfo.info)
+     *                     .yield()
+     * console.log(distinctSomeInfos)
+     * // ↑ [
+     * //   SomeInfo { info: 'A' },
+     * //   SomeInfo { info: 'B' },
+     * //   SomeInfo { info: 'C' }
+     * //  ]
+     *
+     * class SomeEquatableInfo implements KoconutEquatable {
+     *     info : string
+     *     constructor(info : string) {
+     *         this.info = info
+     *     }
+     *     equalsTo(other : SomeEquatableInfo) : boolean {
+     *         return this.info == other.info
+     *     }
+     * }
+     * class SomeEquatableInfoContainer {
+     *     someEquatableInfo : SomeEquatableInfo
+     *     additionalInfo : string
+     *     constructor(someEquatableInfo : SomeEquatableInfo, additionalInfo : string) {
+     *         this.someEquatableInfo = someEquatableInfo
+     *         this.additionalInfo = additionalInfo
+     *     }
+     * }
+     * const someEquatableInfoContainerKoconutArray = KoconutArray.of(
+     *     new SomeEquatableInfoContainer(
+     *         new SomeEquatableInfo("A"),
+     *         "First"
+     *     ),
+     *     new SomeEquatableInfoContainer(
+     *         new SomeEquatableInfo("A"),
+     *         "Second"
+     *     ),
+     *     new SomeEquatableInfoContainer(
+     *         new SomeEquatableInfo("B"),
+     *         "First"
+     *     ),
+     *     new SomeEquatableInfoContainer(
+     *         new SomeEquatableInfo("B"),
+     *         "Second"
+     *     ),
+     *     new SomeEquatableInfoContainer(
+     *         new SomeEquatableInfo("C"),
+     *         "First"
+     *     ),
+     *     new SomeEquatableInfoContainer(
+     *         new SomeEquatableInfo("C"),
+     *         "Second"
+     *     )
+     * )
+     * const distinctSomeEquatableInfoContainersByEquatableInfo =
+     *                 await someEquatableInfoContainerKoconutArray
+     *                 .distinctBy(async eachContainer => eachContainer.someEquatableInfo)
+     *                 .yield()
+     * console.log(distinctSomeEquatableInfoContainersByEquatableInfo)
+     * // ↑ [
+     * //   SomeEquatableInfoContainer {
+     * //     someEquatableInfo: SomeEquatableInfo { info: 'A' },
+     * //     additionalInfo: 'First'
+     * //   },
+     * //   SomeEquatableInfoContainer {
+     * //     someEquatableInfo: SomeEquatableInfo { info: 'B' },
+     * //     additionalInfo: 'First'
+     * //   },
+     * //   SomeEquatableInfoContainer {
+     * //     someEquatableInfo: SomeEquatableInfo { info: 'C' },
+     * //     additionalInfo: 'First'
+     * //   }
+     * // ]
+     *
+     * const distinctSomeEquatableInfoContainersByAdditionalInfo =
+     *                 await someEquatableInfoContainerKoconutArray
+     *                 .distinctBy(eachContainer => new Promise(resolve => {
+     *                     resolve(eachContainer.additionalInfo)
+     *                 }))
+     *                 .yield()
+     * console.log(distinctSomeEquatableInfoContainersByAdditionalInfo)
+     * // ↑ [
+     * //   SomeEquatableInfoContainer {
+     * //     someEquatableInfo: SomeEquatableInfo { info: 'A' },
+     * //     additionalInfo: 'First'
+     * //   },
+     * //   SomeEquatableInfoContainer {
+     * //     someEquatableInfo: SomeEquatableInfo { info: 'A' },
+     * //     additionalInfo: 'Second'
+     * //   }
+     * // ]
+     * ```
+     */
     distinctBy<KeyType, EquatableKeyType extends KoconutEquatable>(
         selector : (element : DataType) => KeyType | EquatableKeyType | Promise<KeyType>,
         thisArg : any = null
@@ -873,6 +999,128 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
         return KoconutArray.fromCollection(super.distinctBy(selector, thisArg))
 
     }
+
+
+    /**
+     * Returns a {@link KoconutArray} containing all elements except first ```n``` elements.
+     * @param n Elements number to except.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Manipulator
+     * 
+     * @example
+     * ```typescript
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const fisrt3ElementsDroppedArray = await koconutArray
+     *                                         .drop(3)
+     *                                         .yield()
+     * console.log(fisrt3ElementsDroppedArray)
+     * // ↑ [ 4, 5 ]
+     * ```
+     */
+    drop(
+        n : number
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.drop(n))
+        
+    }
+
+
+    /**
+     * Returns a {@link KoconutArray} containg all elements except last ```n``` elements.
+     * @param n Elements number to except.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Manipulator
+     * 
+     * @example
+     * ```typescript
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const last3ElementsDroppedArray = await koconutArray
+     *                                         .dropLast(3)
+     *                                         .yield()
+     * console.log(last3ElementsDroppedArray)
+     * // ↑ [ 1, 2 ]
+     * ```
+     */
+    dropLast(
+        n : number
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.dropLast(n))
+        
+    }
+
+
+    /**
+     * Returns a {@link KoconutArray} containing all elements except last elements that satisfy the given ```predicate```.
+     * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Manipulator
+     * 
+     * @example
+     * ```typescript
+     * const koconutArray = KoconutArray.of(
+     *     1,2,3,4,5,6,7,8,9,10
+     * )
+     *
+     * const greaterThan5DroppedArray = await koconutArray
+     *                 .dropLastWhile(eachNumber => eachNumber > 5)
+     *                 .yield()
+     * console.log(greaterThan5DroppedArray)
+     * // ↑ [ 1, 2, 3, 4, 5 ]
+     * ``` 
+     */
+    dropLastWhile(
+        predicate : (element : DataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.dropLastWhile(predicate, thisArg))
+
+    }
+
+
+    /**
+     * Returns a {@link KoconutArray} containing all elements except first elements that satisfy the given ```predicate```.
+     * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Manipulator
+     * 
+     * @example
+     * ```typescript
+     * const koconutArray = KoconutArray.of(
+     *     1,2,3,4,5,6,7,8,9,10
+     * )
+     *
+     * const lessThan5DroppedArray = await koconutArray
+     *                 .dropWhile(eachNumber => eachNumber < 5)
+     *                 .yield()
+     * console.log(lessThan5DroppedArray)
+     * // ↑ [ 5, 6, 7, 8, 9, 10 ]
+     * ``` 
+     */
+    dropWhile(
+        predicate : (element : DataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.dropWhile(predicate, thisArg))
+
+    }
+
+
     /**
      * Returns a {@link KoconutArray} containing only elements matching the given ```predicate```.
      * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
@@ -1349,6 +1597,76 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
     }
 
 
+    /**
+     * Returns a {@link KoconutArray} containing first ```n``` elements.
+     * @param n Elements number to take.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Manipulator
+     * 
+     * @example
+     * ```typescript
+     * const koconutArray = KoconutArray.of(
+     *     1,2,3,4,5,6,7,8,9,10
+     * )
+     *
+     * const first3ElementsOfArray = await koconutArray
+     *                                 .take(3)
+     *                                 .yield()
+     * console.log(first3ElementsOfArray)
+     * // ↑ [ 1, 2, 3 ]
+     * ```
+     */
+    take(
+        n : number
+    ) : KoconutArray<DataType>{
+
+        return KoconutArray.fromCollection(super.take(n))
+
+    }
+
+    /**
+     * Returns a {@link KoconutArray} containg last ```n``` elements.
+     * @param n Elements number to take.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Manipulator
+     * 
+     * @example
+     * ```typescript
+     * ```
+     */
+    takeLast(
+        n : number
+    ) : KoconutArray<DataType>{
+
+        return KoconutArray.fromCollection(super.takeLast(n))
+
+    }
+
+
+    takeLastWhile(
+        predicate : (element : DataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.takeLastWhile(predicate, thisArg))
+
+    }
+
+
+    takeWhile(
+        predicate : (element : DataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.takeWhile(predicate, thisArg))
+
+    }
+
+
 
 
 
@@ -1396,42 +1714,7 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
 
 
 
-    drop(
-        n : number
-    ) : KoconutArray<DataType> {
 
-        return KoconutArray.fromCollection(super.drop(n))
-        
-    }
-
-
-    dropLast(
-        n : number
-    ) : KoconutArray<DataType> {
-
-        return KoconutArray.fromCollection(super.dropLast(n))
-        
-    }
-
-
-    dropLastWhile(
-        predicate : (element : DataType) => boolean | Promise<boolean>,
-        thisArg : any = null
-    ) : KoconutArray<DataType> {
-
-        return KoconutArray.fromCollection(super.dropLastWhile(predicate, thisArg))
-
-    }
-
-
-    dropWhile(
-        predicate : (element : DataType) => boolean | Promise<boolean>,
-        thisArg : any = null
-    ) : KoconutArray<DataType> {
-
-        return KoconutArray.fromCollection(super.dropWhile(predicate, thisArg))
-
-    }
 
 
 
@@ -1540,41 +1823,6 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
     }
 
 
-    take(
-        n : number
-    ) : KoconutArray<DataType>{
 
-        return KoconutArray.fromCollection(super.take(n))
-
-    }
-
-
-    takeLast(
-        n : number
-    ) : KoconutArray<DataType>{
-
-        return KoconutArray.fromCollection(super.takeLast(n))
-
-    }
-
-
-    takeLastWhile(
-        predicate : (element : DataType) => boolean | Promise<boolean>,
-        thisArg : any = null
-    ) : KoconutArray<DataType> {
-
-        return KoconutArray.fromCollection(super.takeLastWhile(predicate, thisArg))
-
-    }
-
-
-    takeWhile(
-        predicate : (element : DataType) => boolean | Promise<boolean>,
-        thisArg : any = null
-    ) : KoconutArray<DataType> {
-
-        return KoconutArray.fromCollection(super.takeWhile(predicate, thisArg))
-
-    }
 
 }

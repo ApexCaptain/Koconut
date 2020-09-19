@@ -831,7 +831,7 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
 
     
     // Manipulator
-        /**
+    /**
      * Returns a {@link KoconutSet} containing only distinct elements from this collection.
      * If the type of data is a simple number or string, the method will check equality by using '==' operator, but if it's not,
      * you'd better make your custom class inherits {@link KoconutEquatable}.
@@ -911,7 +911,133 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
 
     }
 
-    
+
+    /**
+     * Returns a {@link KoconutSet} containing only elements from the given collection having
+     * distinct keys returned by the given ```selector``` function.
+     * @param selector A callback function that accepts an argument. The method calls the ```selector``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```selector```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value 
+     * 
+     * @since 1.0.10
+     * 
+     * @category Manipulator
+     * 
+     * @example
+     * ```typescript
+     * const numberKoconutSet = KoconutSet.of(1,1,2,2,3,3)
+     * 
+     * const distinctNumbers = await numberKoconutSet
+     *                         .distinctBy(eachNumber => eachNumber)
+     *                         .yield()
+     * console.log(distinctNumbers)
+     * // ↑ Set { 1, 2, 3 }
+     *
+     * class SomeInfo {
+     *     info : string
+     *     constructor(info : string) {
+     *         this.info = info
+     *     }
+     * }
+     * const someInfoKoconutSet = KoconutSet.of(
+     *     new SomeInfo("A"),
+     *     new SomeInfo("A"),
+     *     new SomeInfo("B"),
+     *     new SomeInfo("B"),
+     *     new SomeInfo("C"),
+     *     new SomeInfo("C")
+     * )
+     * const distinctSomeInfos = await someInfoKoconutSet
+     *                     .distinctBy(eachSomeInfo => eachSomeInfo.info)
+     *                     .yield()
+     * console.log(distinctSomeInfos)
+     * // ↑ Set {
+     * //        SomeInfo { info: 'A' },
+     * //        SomeInfo { info: 'B' },
+     * //        SomeInfo { info: 'C' }
+     * //       }
+     *
+     * class SomeEquatableInfo implements KoconutEquatable {
+     *     info : string
+     *     constructor(info : string) {
+     *         this.info = info
+     *     }
+     *     equalsTo(other : SomeEquatableInfo) : boolean {
+     *         return this.info == other.info
+     *     }
+     * }
+     * class SomeEquatableInfoContainer {
+     *     someEquatableInfo : SomeEquatableInfo
+     *     additionalInfo : string
+     *     constructor(someEquatableInfo : SomeEquatableInfo, additionalInfo : string) {
+     *         this.someEquatableInfo = someEquatableInfo
+     *         this.additionalInfo = additionalInfo
+     *     }
+     * }
+     * const someEquatableInfoContainerKoconutSet = KoconutSet.of(
+     *     new SomeEquatableInfoContainer(
+     *         new SomeEquatableInfo("A"),
+     *         "First"
+     *     ),
+     *     new SomeEquatableInfoContainer(
+     *         new SomeEquatableInfo("A"),
+     *         "Second"
+     *     ),
+     *     new SomeEquatableInfoContainer(
+     *         new SomeEquatableInfo("B"),
+     *         "First"
+     *     ),
+     *     new SomeEquatableInfoContainer(
+     *         new SomeEquatableInfo("B"),
+     *         "Second"
+     *     ),
+     *     new SomeEquatableInfoContainer(
+     *         new SomeEquatableInfo("C"),
+     *         "First"
+     *     ),
+     *     new SomeEquatableInfoContainer(
+     *         new SomeEquatableInfo("C"),
+     *         "Second"
+     *     )
+     * )
+     * const distinctSomeEquatableInfoContainersByEquatableInfo =
+     *                 await someEquatableInfoContainerKoconutSet
+     *                 .distinctBy(async eachContainer => eachContainer.someEquatableInfo)
+     *                 .yield()
+     * console.log(distinctSomeEquatableInfoContainersByEquatableInfo)
+     * // ↑ Set {
+     * //            SomeEquatableInfoContainer {
+     * //                someEquatableInfo: SomeEquatableInfo { info: 'A' },
+     * //                additionalInfo: 'First'
+     * //            },
+     * //            SomeEquatableInfoContainer {
+     * //                someEquatableInfo: SomeEquatableInfo { info: 'B' },
+     * //                additionalInfo: 'First'
+     * //            },
+     * //            SomeEquatableInfoContainer {
+     * //                someEquatableInfo: SomeEquatableInfo { info: 'C' },
+     * //                additionalInfo: 'First'
+     * //            }
+     * //       }
+     *
+     * const distinctSomeEquatableInfoContainersByAdditionalInfo =
+     *                 await someEquatableInfoContainerKoconutSet
+     *                 .distinctBy(eachContainer => new Promise(resolve => {
+     *                     resolve(eachContainer.additionalInfo)
+     *                 }))
+     *                 .yield()
+     * console.log(distinctSomeEquatableInfoContainersByAdditionalInfo)
+     * // ↑ Set {
+     * //            SomeEquatableInfoContainer {
+     * //                someEquatableInfo: SomeEquatableInfo { info: 'A' },
+     * //                additionalInfo: 'First'
+     * //            },
+     * //            SomeEquatableInfoContainer {
+     * //                someEquatableInfo: SomeEquatableInfo { info: 'A' },
+     * //                additionalInfo: 'Second'
+     * //            }
+     * //       }
+     * ```
+     */
     distinctBy<KeyType, EuqatableKeyType extends KoconutEquatable>(
         selector : (element : DataType) => KeyType | EuqatableKeyType | Promise<KeyType>,
         thisArg : any = null
@@ -920,6 +1046,128 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
         return KoconutSet.fromCollection(super.distinctBy(selector, thisArg))
 
     }
+
+
+    /**
+     * Returns a {@link KoconutSet} containing all elements except first ```n``` elements.
+     * @param n Elements number to except.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Manipulator
+     * 
+     * @example
+     * ```typescript
+     * const koconutSet = KoconutSet.of(1,2,3,4,5)
+     *
+     * const fisrt3ElementsDroppedSet = await koconutSet
+     *                                         .drop(3)
+     *                                         .yield()
+     * console.log(fisrt3ElementsDroppedSet)
+     * // ↑ Set { 4, 5 }
+     * ```
+     */
+    drop(
+        n : number
+    ) : KoconutSet<DataType> {
+
+        return KoconutSet.fromCollection(super.drop(n))
+
+    }
+
+
+    /**
+     * Returns a {@link KoconutSet} containg all elements except last ```n``` elements.
+     * @param n Elements number to except.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Manipulator
+     * 
+     * @example
+     * ```typescript
+     * const koconutSet = KoconutSet.of(1,2,3,4,5)
+     *
+     * const last3ElementsDroppedSet = await koconutSet
+     *                                         .dropLast(3)
+     *                                         .yield()
+     * console.log(last3ElementsDroppedSet)
+    // ↑ Set  { 1, 2 }
+     * ```
+     */
+    dropLast(
+        n : number
+    ) : KoconutSet<DataType> {
+
+        return KoconutSet.fromCollection(super.dropLast(n))
+
+    }
+
+
+    /**
+     * Returns a {@link KoconutSet} containing all elements except last elements that satisfy the given ```predicate```.
+     * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Manipulator
+     * 
+     * @example
+     * ```typescript
+     * const koconutSet = KoconutSet.of(
+     *     1,2,3,4,5,6,7,8,9,10
+     * )
+     *
+     * const greaterThan5DroppedSet = await koconutSet
+     *                 .dropLastWhile(eachNumber => eachNumber > 5)
+     *                 .yield()
+     * console.log(greaterThan5DroppedSet)
+     * // ↑ Set { 1, 2, 3, 4, 5 }
+     * ``` 
+     */
+    dropLastWhile(
+        predicate : (element : DataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutSet<DataType> {
+
+        return KoconutSet.fromCollection(super.dropLastWhile(predicate, thisArg))
+
+    }
+
+
+    /**
+     * Returns a {@link KoconutSet} containing all elements except first elements that satisfy the given ```predicate```.
+     * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Manipulator
+     * 
+     * @example
+     * ```typescript
+     * const koconutSet = KoconutSet.of(
+     *     1,2,3,4,5,6,7,8,9,10
+     * )
+     *
+     * const lessThan5DroppedSet = await koconutSet
+     *                 .dropWhile(eachNumber => eachNumber < 5)
+     *                 .yield()
+     * console.log(lessThan5DroppedSet)
+     * // ↑ Set { 5, 6, 7, 8, 9, 10 }
+     * ``` 
+     */
+    dropWhile(
+        predicate : (element : DataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutSet<DataType> {
+
+        return KoconutSet.fromCollection(super.dropWhile(predicate, thisArg))
+
+    }
+
+
     /**
      * Returns a {@link KoconutSet} containing only elements matching the given ```predicate```.
      * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
@@ -1397,6 +1645,65 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
     }
 
 
+    /**
+     * Returns a {@link KoconutSet} containing first ```n``` elements.
+     * @param n Elements number to take.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Manipulator
+     * 
+     * @example
+     * ```typescript
+     * const koconutSet = KoconutSet.of(
+     *     1,2,3,4,5,6,7,8,9,10
+     * )
+     *
+     * const first3ElementsOfSet = await koconutSet
+     *                                 .take(3)
+     *                                 .yield()
+     * console.log(first3ElementsOfSet)
+     * // ↑ Set { 1, 2, 3 }
+     * ```
+     */
+    take(
+        n : number
+    ) : KoconutSet<DataType> {
+
+        return KoconutSet.fromCollection(super.take(n))
+
+    }
+
+
+    takeLast(
+        n : number
+    ) : KoconutSet<DataType>{
+
+        return KoconutSet.fromCollection(super.takeLast(n))
+
+    }
+
+
+    takeLastWhile(
+        predicate : (element : DataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutSet<DataType> {
+
+        return KoconutSet.fromCollection(super.takeLastWhile(predicate, thisArg))
+
+    }
+
+
+    takeWhile(
+        predicate : (element : DataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutSet<DataType> {
+
+        return KoconutSet.fromCollection(super.takeWhile(predicate, thisArg))
+
+    }
+
+
 
 
 
@@ -1439,42 +1746,7 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
 
 
 
-    drop(
-        n : number
-    ) : KoconutSet<DataType> {
 
-        return KoconutSet.fromCollection(super.drop(n))
-
-    }
-
-
-    dropLast(
-        n : number
-    ) : KoconutSet<DataType> {
-
-        return KoconutSet.fromCollection(super.dropLast(n))
-
-    }
-
-
-    dropLastWhile(
-        predicate : (element : DataType) => boolean | Promise<boolean>,
-        thisArg : any = null
-    ) : KoconutSet<DataType> {
-
-        return KoconutSet.fromCollection(super.dropLastWhile(predicate, thisArg))
-
-    }
-
-
-    dropWhile(
-        predicate : (element : DataType) => boolean | Promise<boolean>,
-        thisArg : any = null
-    ) : KoconutSet<DataType> {
-
-        return KoconutSet.fromCollection(super.dropWhile(predicate, thisArg))
-
-    }
 
 
 
@@ -1582,40 +1854,5 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
     }
 
 
-    take(
-        n : number
-    ) : KoconutSet<DataType> {
 
-        return KoconutSet.fromCollection(super.take(n))
-
-    }
-
-
-    takeLast(
-        n : number
-    ) : KoconutSet<DataType>{
-
-        return KoconutSet.fromCollection(super.takeLast(n))
-
-    }
-
-
-    takeLastWhile(
-        predicate : (element : DataType) => boolean | Promise<boolean>,
-        thisArg : any = null
-    ) : KoconutSet<DataType> {
-
-        return KoconutSet.fromCollection(super.takeLastWhile(predicate, thisArg))
-
-    }
-
-
-    takeWhile(
-        predicate : (element : DataType) => boolean | Promise<boolean>,
-        thisArg : any = null
-    ) : KoconutSet<DataType> {
-
-        return KoconutSet.fromCollection(super.takeWhile(predicate, thisArg))
-
-    }
 }

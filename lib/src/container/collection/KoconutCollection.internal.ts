@@ -1294,6 +1294,107 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
 
 
     // No Comment - KoconutArray/KoconutSet
+    drop(
+        n : number
+    ) : KoconutCollection<DataType, WrapperType> {
+        if(n < 0) throw new KoconutInvalidArgumentException(`Given argument ${n} is invalid, 'n' must be larger than 0.`)
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                let processedArray = new Array<DataType>()
+                if(this.data != null) processedArray = Array.from(this.data).slice(n)
+                if(this.data instanceof Array) return processedArray as WrapperType
+                else return new Set(processedArray) as WrapperType
+            })
+        return koconutToReturn
+
+    }
+
+
+    // No Comment - KoconutArray/KoconutSet
+    dropLast(
+        n : number
+    ) : KoconutCollection<DataType, WrapperType> {
+
+        if(n < 0) throw new KoconutInvalidArgumentException(`Given argument ${n} is invalid, 'n' must be larger than 0.`)
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                let processedArray = new Array<DataType>()
+                if(this.data != null) processedArray = Array.from(this.data).slice(0, -n)
+                if(this.data instanceof Array) return processedArray as WrapperType
+                else return new Set(processedArray) as WrapperType
+            })
+        return koconutToReturn
+
+    }
+
+
+    // No Comment - KoconutArray/KoconutSet
+    dropLastWhile(
+        predicate : (element : DataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutCollection<DataType, WrapperType> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                let processedArray = new Array<DataType>()
+                if(this.data != null) {
+                    const dataArray = Array.from(this.data)
+                    let indexNumber = 0
+                    for(let eachIndex = dataArray.length - 1 ; eachIndex >= 0 ; eachIndex--) {
+                        if(!await predicate(dataArray[eachIndex])) {
+                            indexNumber = eachIndex
+                            break
+                        }
+                    }
+                    processedArray = dataArray.slice(0, indexNumber + 1)
+                }
+                if(this.data instanceof Array) return processedArray as WrapperType
+                else return new Set(processedArray) as WrapperType
+            })
+        return koconutToReturn
+
+    }
+
+
+    // No Comment - KoconutArray/KoconutSet
+    dropWhile(
+        predicate : (element : DataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutCollection<DataType, WrapperType> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                let processedArray = new Array<DataType>()
+                if(this.data != null) {
+                    const dataArray = Array.from(this.data)
+                    let indexNumber = dataArray.length
+                    for(let eachIndex in dataArray) {
+                        if(!await predicate(dataArray[eachIndex])) {
+                            indexNumber = parseInt(eachIndex)
+                            break
+                        }
+                    }
+                    processedArray = dataArray.slice(indexNumber)
+                }
+                if(this.data instanceof Array) return processedArray as WrapperType
+                else return new Set(processedArray) as WrapperType
+            })
+        return koconutToReturn
+
+    }
+
+
+    // No Comment - KoconutArray/KoconutSet
     filter(
         predicate : (element : DataType) => boolean | Promise<boolean>,
         thisArg : any = null
@@ -1575,6 +1676,98 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
     }
 
 
+    // No Comment - KoconutArray/KoconutSet
+    take(
+        n : number
+    ) : KoconutCollection<DataType, WrapperType> {
+
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedArray = this.data ? Array.from(this.data).slice(0, n) : new Array<DataType>();
+                if(this.data instanceof Array) return processedArray as WrapperType
+                else return new Set(processedArray) as WrapperType
+            })
+        return koconutToReturn
+
+    }
+
+
+    // No Comment - KoconutArray/KoconutSet
+    takeLast(
+        n : number
+    ) : KoconutCollection<DataType, WrapperType> {
+
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedArray = this.data ? Array.from(this.data).slice(this.mSize - n, this.mSize) : new Array<DataType>()
+                if(this.data instanceof Array) return processedArray as WrapperType
+                else return new Set(processedArray) as WrapperType
+            })
+        return koconutToReturn
+
+    }
+    
+
+    // No Comment - KoconutArray/KoconutSet
+    takeLastWhile(
+        predicate : (element : DataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutCollection<DataType, WrapperType> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                let processedArray = new Array<DataType>();
+                if(this.data != null) {
+                    const dataArray = Array.from(this.data)
+                    let targetIndex = this.mSize - 1
+                    for(; targetIndex >= 0 ; targetIndex--) {
+                        if(!await predicate(dataArray[targetIndex])) break
+                    }
+                    processedArray = dataArray.slice(targetIndex + 1, this.mSize)
+                }
+                if(this.data instanceof Array) return processedArray as WrapperType
+                else return new Set(processedArray) as WrapperType
+            })
+        return koconutToReturn
+
+    }
+
+
+    // No Comment - KoconutArray/KoconutSet
+    takeWhile(
+        predicate : (element : DataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutCollection<DataType, WrapperType> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                let processedArray = new Array<DataType>();
+                if(this.data != null) {
+                    let predicateIndex = 0
+                    for(const eachDatum of this.data) {
+                        if(!await predicate(eachDatum)) break
+                        predicateIndex++
+                    }
+                    processedArray = Array.from(this.data).slice(0, predicateIndex)
+                }
+                if(this.data instanceof Array) return processedArray as WrapperType
+                else return new Set(processedArray) as WrapperType
+            })
+        return koconutToReturn
+
+    }
+
+
 
 
 
@@ -1701,102 +1894,7 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
 
 
 
-    drop(
-        n : number
-    ) : KoconutCollection<DataType, WrapperType> {
-        if(n < 0) throw new KoconutInvalidArgumentException(`Given argument ${n} is invalid, 'n' must be larger than 0.`)
-        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
-        (koconutToReturn as any as KoconutOpener<WrapperType>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                let processedArray = new Array<DataType>()
-                if(this.data != null) processedArray = Array.from(this.data).slice(n)
-                if(this.data instanceof Array) return processedArray as WrapperType
-                else return new Set(processedArray) as WrapperType
-            })
-        return koconutToReturn
 
-    }
-
-
-    dropLast(
-        n : number
-    ) : KoconutCollection<DataType, WrapperType> {
-
-        if(n < 0) throw new KoconutInvalidArgumentException(`Given argument ${n} is invalid, 'n' must be larger than 0.`)
-        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
-        (koconutToReturn as any as KoconutOpener<WrapperType>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                let processedArray = new Array<DataType>()
-                if(this.data != null) processedArray = Array.from(this.data).slice(0, -n)
-                if(this.data instanceof Array) return processedArray as WrapperType
-                else return new Set(processedArray) as WrapperType
-            })
-        return koconutToReturn
-
-    }
-
-
-    // 추후 문제 발생 가능성 있음
-    dropLastWhile(
-        predicate : (element : DataType) => boolean | Promise<boolean>,
-        thisArg : any = null
-    ) : KoconutCollection<DataType, WrapperType> {
-
-        predicate = predicate.bind(thisArg)
-        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
-        (koconutToReturn as any as KoconutOpener<WrapperType>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                let processedArray = new Array<DataType>()
-                if(this.data != null) {
-                    const dataArray = Array.from(this.data)
-                    let indexNumber = 0
-                    for(let eachIndex = dataArray.length - 1 ; eachIndex >= 0 ; eachIndex--) {
-                        if(!await predicate(dataArray[eachIndex])) {
-                            indexNumber = eachIndex
-                            break
-                        }
-                    }
-                    processedArray = dataArray.slice(0, indexNumber + 1)
-                }
-                if(this.data instanceof Array) return processedArray as WrapperType
-                else return new Set(processedArray) as WrapperType
-            })
-        return koconutToReturn
-
-    }
-
-
-    dropWhile(
-        predicate : (element : DataType) => boolean | Promise<boolean>,
-        thisArg : any = null
-    ) : KoconutCollection<DataType, WrapperType> {
-
-        predicate = predicate.bind(thisArg)
-        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
-        (koconutToReturn as any as KoconutOpener<WrapperType>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                let processedArray = new Array<DataType>()
-                if(this.data != null) {
-                    const dataArray = Array.from(this.data)
-                    let indexNumber = dataArray.length
-                    for(let eachIndex in dataArray) {
-                        if(!await predicate(dataArray[eachIndex])) {
-                            indexNumber = parseInt(eachIndex)
-                            break
-                        }
-                    }
-                    processedArray = dataArray.slice(indexNumber)
-                }
-                if(this.data instanceof Array) return processedArray as WrapperType
-                else return new Set(processedArray) as WrapperType
-            })
-        return koconutToReturn
-
-    }
 
 
     elementAt(
@@ -2748,89 +2846,7 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
     // sumOf
 
 
-    take(
-        n : number
-    ) : KoconutCollection<DataType, WrapperType> {
 
-        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
-        (koconutToReturn as any as KoconutOpener<WrapperType>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                const processedArray = this.data ? Array.from(this.data).slice(0, n) : new Array<DataType>();
-                if(this.data instanceof Array) return processedArray as WrapperType
-                else return new Set(processedArray) as WrapperType
-            })
-        return koconutToReturn
-
-    }
-
-    takeLast(
-        n : number
-    ) : KoconutCollection<DataType, WrapperType> {
-
-        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
-        (koconutToReturn as any as KoconutOpener<WrapperType>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                const processedArray = this.data ? Array.from(this.data).slice(this.mSize - n, this.mSize) : new Array<DataType>()
-                if(this.data instanceof Array) return processedArray as WrapperType
-                else return new Set(processedArray) as WrapperType
-            })
-        return koconutToReturn
-
-    }
-    
-    takeLastWhile(
-        predicate : (element : DataType) => boolean | Promise<boolean>,
-        thisArg : any = null
-    ) : KoconutCollection<DataType, WrapperType> {
-
-        predicate = predicate.bind(thisArg)
-        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
-        (koconutToReturn as any as KoconutOpener<WrapperType>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                let processedArray = new Array<DataType>();
-                if(this.data != null) {
-                    const dataArray = Array.from(this.data)
-                    let targetIndex = this.mSize - 1
-                    for(; targetIndex >= 0 ; targetIndex--) {
-                        if(!await predicate(dataArray[targetIndex])) break
-                    }
-                    processedArray = dataArray.slice(targetIndex + 1, this.mSize)
-                }
-                if(this.data instanceof Array) return processedArray as WrapperType
-                else return new Set(processedArray) as WrapperType
-            })
-        return koconutToReturn
-
-    }
-
-    takeWhile(
-        predicate : (element : DataType) => boolean | Promise<boolean>,
-        thisArg : any = null
-    ) : KoconutCollection<DataType, WrapperType> {
-
-        predicate = predicate.bind(thisArg)
-        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
-        (koconutToReturn as any as KoconutOpener<WrapperType>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                let processedArray = new Array<DataType>();
-                if(this.data != null) {
-                    let predicateIndex = 0
-                    for(const eachDatum of this.data) {
-                        if(!await predicate(eachDatum)) break
-                        predicateIndex++
-                    }
-                    processedArray = Array.from(this.data).slice(0, predicateIndex)
-                }
-                if(this.data instanceof Array) return processedArray as WrapperType
-                else return new Set(processedArray) as WrapperType
-            })
-        return koconutToReturn
-
-    }
 
 
     union(

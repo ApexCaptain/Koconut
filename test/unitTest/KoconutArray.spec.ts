@@ -1429,140 +1429,6 @@ describe(`${KoconutArray.name} -- Transformer`, () => {
 
 describe(`${KoconutArray.name} -- Manipulator`, () => {
 
-    it(KoconutArray.prototype.filter.name, async () => {
-
-        const koconut = KoconutArray.from([1,2,3,4,5,6,7])
-
-        const yieldable =
-                        koconut
-                        .filter(eachElement => eachElement % 2 == 0)
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        const result = await yieldable.yield()
-        expect(result).eqls([2,4,6])
-
-    })
-
-    it(KoconutArray.prototype.filterNot.name, async () => {
-
-        const koconut = KoconutArray.from([1,2,3,4,5,6,7])
-
-        const yieldable =
-                        koconut
-                        .filterNot(eachElement => eachElement % 3 == 0)
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        const result = await yieldable.yield()
-        expect(result).eqls([1,2,4,5,7])
-
-    })
-
-    it(KoconutArray.prototype.filterTo.name, async () => {
-
-        const koconut = KoconutArray.from([1,2,3,4,5,6,7])
-
-        const destination = new Array<number>()
-        const yieldable =
-                        koconut
-                        .filterTo(destination, eachElement => eachElement % 2 == 0)
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        await yieldable.process()
-        expect(destination).eqls([2,4,6])
-
-    })
-
-    it(KoconutArray.prototype.filterNotTo.name, async () => {
-
-        const koconut = KoconutArray.from([1,2,3,4,5,6,7])
-
-        const destination = new Array<number>()
-        const yieldable =
-                        koconut
-                        .filterNotTo(destination, eachElement => eachElement % 3 == 0)
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        await yieldable.process()
-        expect(destination).eqls([1,2,4,5,7])
-
-    })
-
-    it(KoconutArray.prototype.filterIndexed.name, async () => {
-
-        const koconut = KoconutArray.from([0,1,2,3,4,8,6])
-
-        const yieldable =
-                        koconut
-                        .filterIndexed((eachIndex, eachElement) => eachIndex == eachElement)
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        const result = await yieldable.yield()
-        expect(result).eqls([0,1,2,3,4,6])
-
-    })
-
-    it(KoconutArray.prototype.filterIndexedTo.name, async () => {
-
-        const koconut = KoconutArray.from([0,1,2,3,4,8,6])
-
-        const destination = new Array<number>()
-        const yieldable =
-                        koconut
-                        .filterIndexedTo(destination, (eachIndex, eachElement) => eachIndex == eachElement)
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        await yieldable.process()
-        expect(destination).eqls([0,1,2,3,4,6])
-
-    })
-
-    it(KoconutArray.prototype.filterNotNull.name, async () => {
-
-        const koconut = KoconutArray.from([1,2,null,4])
-        
-        const yieldable = 
-                        koconut
-                        .filterNotNull()
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        const result = await yieldable.yield()
-        expect(result).eqls([1,2,4])
-
-    })
-
-    it(KoconutArray.prototype.filterNotNullTo.name, async () => {
-
-        const koconut = KoconutArray.from([1,2,null,4])
-
-        const destination = new Array<number>()
-        const yieldable =
-                        koconut
-                        .filterNotNullTo(destination)
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        await yieldable.process()
-        expect(destination).eqls([1,2,4])
-
-    })
-
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-describe(`${KoconutArray.name} -- Function`, () => {
-
-
-
-
-
     it(KoconutArray.prototype.distinct.name, async () => {
 
         /* Case 1 */
@@ -1681,6 +1547,306 @@ describe(`${KoconutArray.name} -- Function`, () => {
         expect(result!.join("")).equals("DEFG")
 
     })
+
+    it(KoconutArray.prototype.filter.name, async () => {
+
+        const koconut = KoconutArray.from([1,2,3,4,5,6,7])
+
+        const yieldable =
+                        koconut
+                        .filter(eachElement => eachElement % 2 == 0)
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        const result = await yieldable.yield()
+        expect(result).eqls([2,4,6])
+
+    })
+
+    it(KoconutArray.prototype.filterNot.name, async () => {
+
+        const koconut = KoconutArray.from([1,2,3,4,5,6,7])
+
+        const yieldable =
+                        koconut
+                        .filterNot(eachElement => eachElement % 3 == 0)
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        const result = await yieldable.yield()
+        expect(result).eqls([1,2,4,5,7])
+
+    })
+
+    it(KoconutArray.prototype.filterTo.name, async () => {
+
+        const koconut = KoconutArray.from([1,2,3,4,5,6,7])
+
+        const destination = new Array<number>()
+        const yieldable =
+                        koconut
+                        .filterTo(destination, eachElement => eachElement % 2 == 0)
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        await yieldable.process()
+        expect(destination).eqls([2,4,6])
+
+    })
+
+    it(KoconutArray.prototype.filterNotTo.name, async () => {
+
+        const koconut = KoconutArray.from([1,2,3,4,5,6,7])
+
+        const destination = new Array<number>()
+        const yieldable =
+                        koconut
+                        .filterNotTo(destination, eachElement => eachElement % 3 == 0)
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        await yieldable.process()
+        expect(destination).eqls([1,2,4,5,7])
+
+    })
+
+    it(KoconutArray.prototype.filterIndexed.name, async () => {
+
+        const koconut = KoconutArray.from([0,1,2,3,4,8,6])
+
+        const yieldable =
+                        koconut
+                        .filterIndexed((eachIndex, eachElement) => eachIndex == eachElement)
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        const result = await yieldable.yield()
+        expect(result).eqls([0,1,2,3,4,6])
+
+    })
+
+    it(KoconutArray.prototype.filterIndexedTo.name, async () => {
+
+        const koconut = KoconutArray.from([0,1,2,3,4,8,6])
+
+        const destination = new Array<number>()
+        const yieldable =
+                        koconut
+                        .filterIndexedTo(destination, (eachIndex, eachElement) => eachIndex == eachElement)
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        await yieldable.process()
+        expect(destination).eqls([0,1,2,3,4,6])
+
+    })
+
+    it(KoconutArray.prototype.filterNotNull.name, async () => {
+
+        const koconut = KoconutArray.from([1,2,null,4])
+        
+        const yieldable = 
+                        koconut
+                        .filterNotNull()
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        const result = await yieldable.yield()
+        expect(result).eqls([1,2,4])
+
+    })
+
+    it(KoconutArray.prototype.filterNotNullTo.name, async () => {
+
+        const koconut = KoconutArray.from([1,2,null,4])
+
+        const destination = new Array<number>()
+        const yieldable =
+                        koconut
+                        .filterNotNullTo(destination)
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        await yieldable.process()
+        expect(destination).eqls([1,2,4])
+
+    })
+
+    it(KoconutArray.prototype.sortedBy.name, async () => {
+
+        /* Case 1 */
+        const koconutCase1 = KoconutArray.from(["aaa", "cc", "bbbb"])
+
+        const yieldableCase1 =
+                        koconutCase1
+                        .sortedBy(eachElement => eachElement.length)
+        expect(yieldableCase1).to.be.instanceOf(KoconutArray)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).eqls(["cc", "aaa", "bbbb"])
+        
+
+        /* Case 2 */
+        const koconutCase2 = KoconutArray.from("dcba")
+
+        const yieldableCase2 =
+                        koconutCase2
+                        .sortedBy(eachElement => eachElement)
+        expect(yieldableCase2).to.be.instanceOf(KoconutArray)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).eqls(["a", "b", "c", "d"])
+        
+
+        /* Case 3 */
+        const koconutCase3 = KoconutArray.from([
+                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
+                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
+                        new ProductInfo("A-3", "iPhone -- June", 1500)])
+        const yieldableCase3 =
+                        koconutCase3
+                        .sortedBy(eachElement => eachElement)
+        expect(yieldableCase3).to.be.instanceOf(KoconutArray)
+        const resultCase3 = await yieldableCase3.yield()
+        const expectedResultArrayCase3 = [
+                                            new ProductInfo("A-2", "Mac Book Air -- September", 1200),
+                                            new ProductInfo("A-3", "iPhone -- June", 1500),
+                                            new ProductInfo("A-1", "Mac Book Pro -- May", 2000)
+                                        ]
+        expect(resultCase3).eqls(expectedResultArrayCase3)
+
+    })
+
+    it(KoconutArray.prototype.sortedByDescending.name, async () => {
+
+        /* Case 1 */
+        const koconutCase1 = KoconutArray.from(["aaa", "cc", "bbbb"])
+
+        const yieldableCase1 =
+                        koconutCase1
+                        .sortedByDescending(eachElement => eachElement.length)
+        expect(yieldableCase1).to.be.instanceOf(KoconutArray)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).eqls(["bbbb", "aaa", "cc"])
+        
+
+        /* Case 2 */
+        const koconutCase2 = KoconutArray.from("dcba")
+
+        const yieldableCase2 =
+                        koconutCase2
+                        .sortedByDescending(eachElement => eachElement)
+        expect(yieldableCase2).to.be.instanceOf(KoconutArray)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).eqls(["d", "c", "b", "a"])
+        
+
+        /* Case 3 */
+        const koconutCase3 = KoconutArray.from([
+                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
+                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
+                        new ProductInfo("A-3", "iPhone -- June", 1500)])
+        const yieldableCase3 =
+                        koconutCase3
+                        .sortedByDescending(eachElement => eachElement)
+        expect(yieldableCase3).to.be.instanceOf(KoconutArray)
+        const resultCase3 = await yieldableCase3.yield()
+        const expectedResultArrayCase3 = [
+                                            new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
+                                            new ProductInfo("A-3", "iPhone -- June", 1500),
+                                            new ProductInfo("A-2", "Mac Book Air -- September", 1200)
+                                        ]
+        expect(resultCase3).eqls(expectedResultArrayCase3)
+        
+    })
+
+    it(KoconutArray.prototype.sortedWith.name, async () => {
+
+        /* Case 1 */
+        const koconutCase1 = KoconutArray.from(["aaa", "cc", "bbbb"])
+
+        const yieldableCase1 =
+                        koconutCase1
+                        .sortedWith((front, rear) => front.length - rear.length)
+        expect(yieldableCase1).to.be.instanceOf(KoconutArray)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).eqls(["cc", "aaa", "bbbb"])
+        
+        /* Case 2 */
+        const koconutCase2 = KoconutArray.from([
+                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
+                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
+                        new ProductInfo("A-3", "iPhone -- June", 1500)])
+        const yieldableCase2 =
+                        koconutCase2
+                        .sortedWith((front, rear) => front.name.length - rear.name.length)
+        expect(yieldableCase2).to.be.instanceOf(KoconutArray)
+        const resultCase2 = await yieldableCase2.yield()
+        const expectedResultArrayCase2 = [
+                                            new ProductInfo("A-3", "iPhone -- June", 1500),
+                                            new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
+                                            new ProductInfo("A-2", "Mac Book Air -- September", 1200)
+                                        ]
+        expect(resultCase2).eqls(expectedResultArrayCase2)
+
+    })
+
+    it(KoconutArray.prototype.take.name, async () => {
+
+        const koconut = KoconutArray.from("abcdefg")
+
+        const yieldable =
+                        koconut
+                        .take(3)
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        const result = await yieldable.yield()
+        expect(result).eqls(['a','b','c'])
+
+    })
+
+    it(KoconutArray.prototype.takeLast.name, async () => {
+
+        const koconut = KoconutArray.from("abcdefg")
+
+        const yieldable =
+                        koconut
+                        .takeLast(3)
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        const result = await yieldable.yield()
+        expect(result).eqls(['e','f','g'])
+
+    })
+
+    it(KoconutArray.prototype.takeLastWhile.name, async () => {
+
+        const koconut = KoconutArray.from("abcdefg")
+
+        const yieldable =
+                        koconut
+                        .takeLastWhile(eachElement => eachElement > 'c')
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        const result = await yieldable.yield()
+        expect(result).eqls(['d','e','f','g'])
+
+    })
+
+    it(KoconutArray.prototype.takeWhile.name, async () => {
+
+        const koconut = KoconutArray.from("abcdefg")
+
+        const yieldable =
+                        koconut
+                        .takeWhile(eachElement => eachElement < 'f')
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        const result = await yieldable.yield()
+        expect(result).eqls(['a','b','c','d','e'])
+
+    })
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+describe(`${KoconutArray.name} -- Function`, () => {
+
 
     it(KoconutArray.prototype.elementAt.name, async () => {
 
@@ -2799,122 +2965,7 @@ describe(`${KoconutArray.name} -- Function`, () => {
 
     })
 
-    it(KoconutArray.prototype.sortedBy.name, async () => {
 
-        /* Case 1 */
-        const koconutCase1 = KoconutArray.from(["aaa", "cc", "bbbb"])
-
-        const yieldableCase1 =
-                        koconutCase1
-                        .sortedBy(eachElement => eachElement.length)
-        expect(yieldableCase1).to.be.instanceOf(KoconutArray)
-        const resultCase1 = await yieldableCase1.yield()
-        expect(resultCase1).eqls(["cc", "aaa", "bbbb"])
-        
-
-        /* Case 2 */
-        const koconutCase2 = KoconutArray.from("dcba")
-
-        const yieldableCase2 =
-                        koconutCase2
-                        .sortedBy(eachElement => eachElement)
-        expect(yieldableCase2).to.be.instanceOf(KoconutArray)
-        const resultCase2 = await yieldableCase2.yield()
-        expect(resultCase2).eqls(["a", "b", "c", "d"])
-        
-
-        /* Case 3 */
-        const koconutCase3 = KoconutArray.from([
-                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
-                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
-                        new ProductInfo("A-3", "iPhone -- June", 1500)])
-        const yieldableCase3 =
-                        koconutCase3
-                        .sortedBy(eachElement => eachElement)
-        expect(yieldableCase3).to.be.instanceOf(KoconutArray)
-        const resultCase3 = await yieldableCase3.yield()
-        const expectedResultArrayCase3 = [
-                                            new ProductInfo("A-2", "Mac Book Air -- September", 1200),
-                                            new ProductInfo("A-3", "iPhone -- June", 1500),
-                                            new ProductInfo("A-1", "Mac Book Pro -- May", 2000)
-                                        ]
-        expect(resultCase3).eqls(expectedResultArrayCase3)
-
-    })
-
-    it(KoconutArray.prototype.sortedByDescending.name, async () => {
-
-        /* Case 1 */
-        const koconutCase1 = KoconutArray.from(["aaa", "cc", "bbbb"])
-
-        const yieldableCase1 =
-                        koconutCase1
-                        .sortedByDescending(eachElement => eachElement.length)
-        expect(yieldableCase1).to.be.instanceOf(KoconutArray)
-        const resultCase1 = await yieldableCase1.yield()
-        expect(resultCase1).eqls(["bbbb", "aaa", "cc"])
-        
-
-        /* Case 2 */
-        const koconutCase2 = KoconutArray.from("dcba")
-
-        const yieldableCase2 =
-                        koconutCase2
-                        .sortedByDescending(eachElement => eachElement)
-        expect(yieldableCase2).to.be.instanceOf(KoconutArray)
-        const resultCase2 = await yieldableCase2.yield()
-        expect(resultCase2).eqls(["d", "c", "b", "a"])
-        
-
-        /* Case 3 */
-        const koconutCase3 = KoconutArray.from([
-                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
-                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
-                        new ProductInfo("A-3", "iPhone -- June", 1500)])
-        const yieldableCase3 =
-                        koconutCase3
-                        .sortedByDescending(eachElement => eachElement)
-        expect(yieldableCase3).to.be.instanceOf(KoconutArray)
-        const resultCase3 = await yieldableCase3.yield()
-        const expectedResultArrayCase3 = [
-                                            new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
-                                            new ProductInfo("A-3", "iPhone -- June", 1500),
-                                            new ProductInfo("A-2", "Mac Book Air -- September", 1200)
-                                        ]
-        expect(resultCase3).eqls(expectedResultArrayCase3)
-        
-    })
-
-    it(KoconutArray.prototype.sortedWith.name, async () => {
-
-        /* Case 1 */
-        const koconutCase1 = KoconutArray.from(["aaa", "cc", "bbbb"])
-
-        const yieldableCase1 =
-                        koconutCase1
-                        .sortedWith((front, rear) => front.length - rear.length)
-        expect(yieldableCase1).to.be.instanceOf(KoconutArray)
-        const resultCase1 = await yieldableCase1.yield()
-        expect(resultCase1).eqls(["cc", "aaa", "bbbb"])
-        
-        /* Case 2 */
-        const koconutCase2 = KoconutArray.from([
-                        new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
-                        new ProductInfo("A-2", "Mac Book Air -- September", 1200),
-                        new ProductInfo("A-3", "iPhone -- June", 1500)])
-        const yieldableCase2 =
-                        koconutCase2
-                        .sortedWith((front, rear) => front.name.length - rear.name.length)
-        expect(yieldableCase2).to.be.instanceOf(KoconutArray)
-        const resultCase2 = await yieldableCase2.yield()
-        const expectedResultArrayCase2 = [
-                                            new ProductInfo("A-3", "iPhone -- June", 1500),
-                                            new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
-                                            new ProductInfo("A-2", "Mac Book Air -- September", 1200)
-                                        ]
-        expect(resultCase2).eqls(expectedResultArrayCase2)
-
-    })
 
     it(KoconutArray.prototype.substarct.name, async () => {
 
@@ -2976,57 +3027,7 @@ describe(`${KoconutArray.name} -- Function`, () => {
 
     })
 
-    it(KoconutArray.prototype.take.name, async () => {
 
-        const koconut = KoconutArray.from("abcdefg")
-
-        const yieldable =
-                        koconut
-                        .take(3)
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        const result = await yieldable.yield()
-        expect(result).eqls(['a','b','c'])
-
-    })
-
-    it(KoconutArray.prototype.takeLast.name, async () => {
-
-        const koconut = KoconutArray.from("abcdefg")
-
-        const yieldable =
-                        koconut
-                        .takeLast(3)
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        const result = await yieldable.yield()
-        expect(result).eqls(['e','f','g'])
-
-    })
-
-    it(KoconutArray.prototype.takeLastWhile.name, async () => {
-
-        const koconut = KoconutArray.from("abcdefg")
-
-        const yieldable =
-                        koconut
-                        .takeLastWhile(eachElement => eachElement > 'c')
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        const result = await yieldable.yield()
-        expect(result).eqls(['d','e','f','g'])
-
-    })
-
-    it(KoconutArray.prototype.takeWhile.name, async () => {
-
-        const koconut = KoconutArray.from("abcdefg")
-
-        const yieldable =
-                        koconut
-                        .takeWhile(eachElement => eachElement < 'f')
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        const result = await yieldable.yield()
-        expect(result).eqls(['a','b','c','d','e'])
-
-    })
 
 
     it(KoconutArray.prototype.union.name, async () => {
