@@ -1,5 +1,52 @@
 # Koconut Release Note
 
+## Release 1.0.14
+
+### Major Features and Improvements
+- New static creator method `generate` is added to container classes. It creates a new container instance with given `count` as number of elements and the values are provided by following `generator` function block with given ordered index as an argument . Please, have a check following example.
+    ```typescript
+
+    const evenNumberArray = await KoconutArray.generate(5, i => i*2)
+                                                        .yield()
+    console.log(evenNumberArray)
+    // ↑ [ 0, 2, 4, 6, 8 ]
+
+    const evenNumberSet = await KoconutSet.generate(5, i => i*2)
+                                                    .yield()
+    console.log(evenNumberSet)
+    // ↑ Set { 0, 2, 4, 6, 8 }
+
+    const numberKeyStringValueMap = await KoconutMap.generate(
+                                        5, i => [i, i.toString()]
+                                                // ↑ Also can be
+                                                //   new Pair(i, i.toString())
+                                                //   Pair.from([i, i.toString()])
+                                                //   new KoconutPair(i, i.toString())
+                                                //   new Entry(i, i.toString())
+                                                //   Entry.from([i, i.toString()])
+                                                //   new KoconutEntry(i, i.toString())
+                                    )
+                                    .yield()
+    console.log(numberKeyStringValueMap)
+    // ↑ Map { 0 => '0', 1 => '1', 2 => '2', 3 => '3', 4 => '4' }
+    ```
+
+### Bug Fixes and Other Changes
+- Mapping and filtering methods of collections with specified target destination is now propery applied to `Set` when the value is instance of
+your custom class that inherits `KoconutEquatable`.
+    
+    Applied Methods
+    - `flatMapTo`
+    - `mapTo`
+    - `mapNotNullTo`
+    - `flatMapIndexedTo`
+    - `mapIndexedTo`
+    - `mapIndexedNotNullTo`
+    - `filterTo`
+    - `filterNotTo`
+    - `filterIndexedTo`
+    - `filterNotNullTo`
+
 ## Release 1.0.13
 
 ### Currently Working on...

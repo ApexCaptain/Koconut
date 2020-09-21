@@ -63,6 +63,61 @@
 				<a href="#koconut-release-note" id="koconut-release-note" style="color: inherit; text-decoration: none;">
 					<h1>Koconut Release Note</h1>
 				</a>
+				<a href="#release-1014" id="release-1014" style="color: inherit; text-decoration: none;">
+					<h2>Release 1.0.14</h2>
+				</a>
+				<a href="#major-features-and-improvements" id="major-features-and-improvements" style="color: inherit; text-decoration: none;">
+					<h3>Major Features and Improvements</h3>
+				</a>
+				<ul>
+					<li><p>New static creator method <code>generate</code> is added to container classes. It creates a new container instance with given <code>count</code> as number of elements and the values are provided by following <code>generator</code> function block with given ordered index as an argument . Please, have a check following example.</p>
+						<pre><code class="language-typescript">
+<span class="hljs-keyword">const</span> evenNumberArray = <span class="hljs-keyword">await</span> KoconutArray.generate(<span class="hljs-number">5</span>, <span class="hljs-function"><span class="hljs-params">i</span> =&gt;</span> i*<span class="hljs-number">2</span>)
+                                                    .yield()
+<span class="hljs-built_in">console</span>.log(evenNumberArray)
+<span class="hljs-comment">// ↑ [ 0, 2, 4, 6, 8 ]</span>
+
+<span class="hljs-keyword">const</span> evenNumberSet = <span class="hljs-keyword">await</span> KoconutSet.generate(<span class="hljs-number">5</span>, <span class="hljs-function"><span class="hljs-params">i</span> =&gt;</span> i*<span class="hljs-number">2</span>)
+                                                .yield()
+<span class="hljs-built_in">console</span>.log(evenNumberSet)
+<span class="hljs-comment">// ↑ Set { 0, 2, 4, 6, 8 }</span>
+
+<span class="hljs-keyword">const</span> numberKeyStringValueMap = <span class="hljs-keyword">await</span> KoconutMap.generate(
+                                    <span class="hljs-number">5</span>, <span class="hljs-function"><span class="hljs-params">i</span> =&gt;</span> [i, i.toString()]
+                                            <span class="hljs-comment">// ↑ Also can be</span>
+                                            <span class="hljs-comment">//   new Pair(i, i.toString())</span>
+                                            <span class="hljs-comment">//   Pair.from([i, i.toString()])</span>
+                                            <span class="hljs-comment">//   new KoconutPair(i, i.toString())</span>
+                                            <span class="hljs-comment">//   new Entry(i, i.toString())</span>
+                                            <span class="hljs-comment">//   Entry.from([i, i.toString()])</span>
+                                            <span class="hljs-comment">//   new KoconutEntry(i, i.toString())</span>
+                                )
+                                .yield()
+<span class="hljs-built_in">console</span>.log(numberKeyStringValueMap)
+<span class="hljs-comment">// ↑ Map { 0 =&gt; &#x27;0&#x27;, 1 =&gt; &#x27;1&#x27;, 2 =&gt; &#x27;2&#x27;, 3 =&gt; &#x27;3&#x27;, 4 =&gt; &#x27;4&#x27; }</span></code></pre>
+					</li>
+				</ul>
+				<a href="#bug-fixes-and-other-changes" id="bug-fixes-and-other-changes" style="color: inherit; text-decoration: none;">
+					<h3>Bug Fixes and Other Changes</h3>
+				</a>
+				<ul>
+					<li><p>Mapping and filtering methods of collections with specified target destination is now propery applied to <code>Set</code> when the value is instance of
+						your custom class that inherits <code>KoconutEquatable</code>.</p>
+						<p>  Applied Methods</p>
+						<ul>
+							<li><code>flatMapTo</code></li>
+							<li><code>mapTo</code></li>
+							<li><code>mapNotNullTo</code></li>
+							<li><code>flatMapIndexedTo</code></li>
+							<li><code>mapIndexedTo</code></li>
+							<li><code>mapIndexedNotNullTo</code></li>
+							<li><code>filterTo</code></li>
+							<li><code>filterNotTo</code></li>
+							<li><code>filterIndexedTo</code></li>
+							<li><code>filterNotNullTo</code></li>
+						</ul>
+					</li>
+				</ul>
 				<a href="#release-1013" id="release-1013" style="color: inherit; text-decoration: none;">
 					<h2>Release 1.0.13</h2>
 				</a>
@@ -88,7 +143,7 @@
 				<a href="#release-1012" id="release-1012" style="color: inherit; text-decoration: none;">
 					<h2>Release 1.0.12</h2>
 				</a>
-				<a href="#bug-fixes-and-other-changes" id="bug-fixes-and-other-changes" style="color: inherit; text-decoration: none;">
+				<a href="#bug-fixes-and-other-changes-1" id="bug-fixes-and-other-changes-1" style="color: inherit; text-decoration: none;">
 					<h3>Bug Fixes and Other Changes</h3>
 				</a>
 				<ul>
@@ -97,7 +152,7 @@
 				<a href="#release-1011" id="release-1011" style="color: inherit; text-decoration: none;">
 					<h2>Release 1.0.11</h2>
 				</a>
-				<a href="#bug-fixes-and-other-changes-1" id="bug-fixes-and-other-changes-1" style="color: inherit; text-decoration: none;">
+				<a href="#bug-fixes-and-other-changes-2" id="bug-fixes-and-other-changes-2" style="color: inherit; text-decoration: none;">
 					<h3>Bug Fixes and Other Changes</h3>
 				</a>
 				<ul>
@@ -125,7 +180,7 @@
 				<a href="#release-1010" id="release-1010" style="color: inherit; text-decoration: none;">
 					<h2>Release 1.0.10</h2>
 				</a>
-				<a href="#major-features-and-improvements" id="major-features-and-improvements" style="color: inherit; text-decoration: none;">
+				<a href="#major-features-and-improvements-1" id="major-features-and-improvements-1" style="color: inherit; text-decoration: none;">
 					<h3>Major Features and Improvements</h3>
 				</a>
 				<ul>

@@ -14,7 +14,7 @@ import {
     KoconutLoopSignal,
 
     /* Exception */
-    KoconutNoSuchElementException,
+    KoconutNoSuchElementException, KoconutInvalidArgumentException,
 
     /* Protocol */
     KoconutEquatable, KoconutComparable 
@@ -312,6 +312,80 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
     ) : KoconutMap<KeyType, ValueType> {
 
         return new KoconutMap(data)
+
+    }
+
+
+    /**
+     * Creates a new instance with given ```count``` as number of entries. ```count``` cannot be negative number.
+     * Each entry is provided from ```generator``` with given ordered index. 
+     * @param count Number of values.
+     * @param generator A callback function that accepts an argument. The method calls the ```action``` one time for each ordered index.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```generator```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @throws {@link KoconutInvalidArgumentException}
+     * -- When ```count``` is less than 0.
+     * 
+     * @since 1.0.14
+     * 
+     * @category Creator
+     * 
+     * @example
+     * ```typescript
+     * const numberKeyStringValueMap = await KoconutMap.generate(
+     *                                         5, i => [i, i.toString()]
+     *                                                 // ↑ Also can be
+     *                                                 //   new Pair(i, i.toString())
+     *                                                 //   Pair.from([i, i.toString()])
+     *                                                 //   new KoconutPair(i, i.toString())
+     *                                                 //   new Entry(i, i.toString())
+     *                                                 //   Entry.from([i, i.toString()])
+     *                                                 //   new KoconutEntry(i, i.toString())      
+     *                                     )
+     *                                     .yield()
+     * console.log(numberKeyStringValueMap)
+     * // ↑ Map { 0 => '0', 1 => '1', 2 => '2', 3 => '3', 4 => '4' }
+     * ```
+     */
+    static generate<KeyType, ValueType>(
+        count : number,
+        generator : (index : number) =>     
+                                [KeyType, ValueType]
+                                | Pair<KeyType, ValueType>
+                                | KoconutPair<KeyType, ValueType>
+                                | Entry<KeyType, ValueType>
+                                | KoconutEntry<KeyType, ValueType>
+                                | Promise<
+                                    [KeyType, ValueType]
+                                    | Pair<KeyType, ValueType>
+                                    | KoconutPair<KeyType, ValueType>
+                                    | Entry<KeyType, ValueType>
+                                    | KoconutEntry<KeyType, ValueType>>,
+        thisArg : any = null
+    ) : KoconutMap<KeyType, ValueType> {
+
+        if(count < 0) throw new KoconutInvalidArgumentException(`Count must be larger than 0. Given value : ${count}`)
+        generator = generator.bind(thisArg)
+        const koconutToReturn = new KoconutMap<KeyType, ValueType>();
+        (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
+            .setProcessor(async () => {
+                const processedMap = new Map<KeyType, ValueType>()
+                for(let eachIndex = 0 ; eachIndex < count ; eachIndex++) {
+                    const generatedValue = await generator(eachIndex)
+                    if(generatedValue instanceof Pair) processedMap.set(generatedValue.first, generatedValue.second)
+                    else if(generatedValue instanceof KoconutPair) {
+                        const eachPair = await generatedValue.yield()
+                        processedMap.set(eachPair.first, eachPair.second)
+                    }
+                    else if(generatedValue instanceof Entry) processedMap.set(generatedValue.key, generatedValue.value)
+                    else if(generatedValue instanceof KoconutEntry) {
+                        const eachEntry = await generatedValue.yield()
+                        processedMap.set(eachEntry.key, eachEntry.value)
+                    } else processedMap.set(generatedValue[0], generatedValue[1])
+                }
+                return processedMap
+            })
+        return koconutToReturn
 
     }
     

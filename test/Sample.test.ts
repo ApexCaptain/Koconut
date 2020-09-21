@@ -6,19 +6,19 @@ import {
 } from "../lib/module.internal" // Same as -- from 'koconut'
 
 const sampleProcess = async () => {
-
-    const koconutArray = KoconutArray.of(
-        1,2,3,4,5,6,7,8,9,10
-    )
-
-    const last3ElementsOfArray = await koconutArray
-                                    .takeLast(3)
-                                    .yield()
-    console.log(last3ElementsOfArray)
-    // ↑ [ 8, 9, 10 ]
-
-
-
     
+    const numberKeyStringValueMap = await KoconutMap.generate(
+                                            5, i => [i, i.toString()]
+                                                    // ↑ Also can be
+                                                    //   new Pair(i, i.toString())
+                                                    //   Pair.from([i, i.toString()])
+                                                    //   new KoconutPair(i, i.toString())
+                                                    //   new Entry(i, i.toString())
+                                                    //   Entry.from([i, i.toString()])
+                                                    //   new KoconutEntry(i, i.toString())      
+                                        )
+                                        .yield()
+    console.log(numberKeyStringValueMap)
+    // ↑ Map { 0 => '0', 1 => '1', 2 => '2', 3 => '3', 4 => '4' }
+
 }
-sampleProcess()

@@ -191,7 +191,7 @@ const mainProcess = async () => {
             validResults.push(eachResult)
     }
 
-    console.log(validResults) // --- [1] : Valid results match the given condition
+    console.log(validResults) // --- [1] : Valid results matches the given condition
     console.log("Nailed it!") 
 
 }
@@ -364,7 +364,7 @@ Methods start with `on` return the original collection itself.
     }
     mainProcess()
 ```
-And of course, methods of which names end with `indexed` have action block given with two arguments.
+And of course, methods of which name end with `indexed` have action block given with two arguments.
 
  One is index, and the other is element.
 

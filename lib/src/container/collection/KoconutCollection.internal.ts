@@ -947,12 +947,20 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
         (koconutToReturn as any as KoconutOpener<WrapperType>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
-                if(this.data != null) {
-                    let eachIndex = 0
-                    for(const eachCombinedDatum of this.data)
-                        for(let eachSubElement of await transform(eachIndex++, eachCombinedDatum))
-                            if(destination instanceof Array) destination.push(eachSubElement)
-                            else destination.add(eachSubElement)
+                const flattenCollection = this.flatMapIndexed(transform, thisArg)
+                if(destination instanceof Array) {
+                    await flattenCollection
+                            .forEach(eachElement => {
+                                destination.push(eachElement)
+                            })
+                            .process()
+                } else {
+                    await flattenCollection
+                            .asSet()
+                            .forEach(eachElement => {
+                                destination.add(eachElement)
+                            })
+                            .process()
                 }
                 return this.data!
             })
@@ -1067,12 +1075,20 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
         (koconutToReturn as any as KoconutOpener<WrapperType>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
-                if(this.data != null) {
-                    for(const [eachIndex, eachDatum] of Array.from(this.data).entries()) {
-                        const eachResultData = await transform(eachIndex as number, eachDatum)
-                        if(destination instanceof Array) destination.push(eachResultData)
-                        else destination.add(eachResultData)
-                    }
+                const mappedCollection = this.mapIndexed(transform, thisArg)
+                if(destination instanceof Array) {
+                    await mappedCollection
+                            .forEach(eachElement => {
+                                destination.push(eachElement)
+                            })
+                            .process()
+                } else {
+                    await mappedCollection
+                            .asSet()
+                            .forEach(eachElement => {
+                                destination.add(eachElement)
+                            })
+                            .process()
                 }
                 return this.data!
             })
@@ -1181,13 +1197,20 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
         (koconutToReturn as any as KoconutOpener<WrapperType>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
-                if(this.data != null) {
-                    for(const [eachIndex, eachDatum] of Array.from(this.data).entries()) {
-                        const eachResultData = await transform(eachIndex as number, eachDatum)
-                        if(eachResultData != null && eachResultData != undefined) 
-                            if(destination instanceof Array) destination.push(eachResultData)
-                            else destination.add(eachResultData)
-                    }
+                const mappedCollection = this.mapIndexedNotNull(transform, thisArg)
+                if(destination instanceof Array) {
+                    await mappedCollection
+                            .forEach(eachElement => {
+                                destination.push(eachElement)
+                            })
+                            .process()
+                } else {
+                    await mappedCollection
+                            .asSet()
+                            .forEach(eachElement => {
+                                destination.add(eachElement)
+                            })
+                            .process()
                 }
                 return this.data!
             })
@@ -1428,11 +1451,20 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
         (koconutToReturn as any as KoconutOpener<WrapperType>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
-                if(this.data != null) {
-                    for(const eachDatum of this.data)
-                        if(await predicate(eachDatum))
-                            if(destination instanceof Array) destination.push(eachDatum)
-                            else destination.add(eachDatum)
+                const filteredCollection = this.filter(predicate, thisArg)
+                if(destination instanceof Array) {
+                    await filteredCollection
+                            .forEach(eachElement => {
+                                destination.push(eachElement)
+                            })
+                            .process()
+                } else {
+                    await filteredCollection
+                            .asSet()
+                            .forEach(eachElement => {
+                                destination.add(eachElement)
+                            })
+                            .process()
                 }
                 return this.data!
             })
@@ -1453,11 +1485,20 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
         (koconutToReturn as any as KoconutOpener<WrapperType>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
-                if(this.data != null) {
-                    for(const eachDatum of this.data)
-                        if(!await predicate(eachDatum))
-                            if(destination instanceof Array) destination.push(eachDatum)
-                            else destination.add(eachDatum)
+                const filteredCollection = this.filterNot(predicate, thisArg)
+                if(destination instanceof Array) {
+                    await filteredCollection
+                            .forEach(eachElement => {
+                                destination.push(eachElement)
+                            })
+                            .process()
+                } else {
+                    await filteredCollection
+                            .asSet()
+                            .forEach(eachElement => {
+                                destination.add(eachElement)
+                            })
+                            .process()
                 }
                 return this.data!
             })
@@ -1502,12 +1543,20 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
         (koconutToReturn as any as KoconutOpener<WrapperType>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
-                if(this.data != null) {
-                    for(const [eachIndex, eachDatum] of Array.from(this.data).entries()) {
-                        if(await predicate(eachIndex as number, eachDatum))
-                            if(destination instanceof Array) destination.push(eachDatum)
-                            else destination.add(eachDatum)
-                    }
+                const filteredCollection = this.filterIndexed(predicate, thisArg)
+                if(destination instanceof Array) {
+                    await filteredCollection
+                            .forEach(eachElement => {
+                                destination.push(eachElement)
+                            })
+                            .process()
+                } else {
+                    await filteredCollection
+                            .asSet()
+                            .forEach(eachElement => {
+                                destination.add(eachElement)
+                            })
+                            .process()
                 }
                 return this.data!
             })
@@ -1549,11 +1598,20 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
         (koconutToReturn as any as KoconutOpener<WrapperType>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
-                if(this.data != null) {
-                    for(let eachDatum of this.data)
-                        if(eachDatum != null)
-                            if(destination instanceof Array) destination.push(eachDatum)
-                            else destination.add(eachDatum)
+                const filteredCollection = this.filterNotNull()
+                if(destination instanceof Array) {
+                    await filteredCollection
+                            .forEach(eachElement => {
+                                destination.push(eachElement)
+                            })
+                            .process()
+                } else {
+                    await filteredCollection
+                            .asSet()
+                            .forEach(eachElement => {
+                                destination.add(eachElement)
+                            })
+                            .process()
                 }
                 return this.data!
             })

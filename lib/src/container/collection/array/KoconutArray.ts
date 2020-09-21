@@ -10,9 +10,13 @@ import {
     /* Enum */
     KoconutLoopSignal,
 
+    /* Exception */
+    KoconutInvalidArgumentException,
+
     /* Protocol */
     KoconutEquatable, KoconutComparable
 } from "../../../../module.internal"
+import { KoconutOpener } from "../../../tool/KoconutOpener.internal";
 
 export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<DataType>> {
     
@@ -135,6 +139,49 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
     ) : KoconutArray<DataType> {
 
         return new KoconutArray(data)
+
+    }
+
+
+    /**
+     * Creates a new instance with given ```count``` as number of values. ```count``` cannot be negative number.
+     * Each value is provided from ```generator``` with given ordered index. 
+     * @param count Number of values.
+     * @param generator A callback function that accepts an argument. The method calls the ```action``` one time for each ordered index.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```generator```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @throws {@link KoconutInvalidArgumentException}
+     * -- When ```count``` is less than 0.
+     * 
+     * @since 1.0.14
+     * 
+     * @category Creator
+     * 
+     * @example
+     * ```typescript
+     * const evenNumberArray = await KoconutArray.generate(5, i => i*2)
+     *                                                        .yield()
+     * console.log(evenNumberArray)
+     * // ↑ [ 0, 2, 4, 6, 8 ]
+     * ```
+     */
+    static generate<DataType>(
+        count : number,
+        generator : (index : number) => DataType | Promise<DataType>,
+        thisArg : any = null
+    ) : KoconutArray<DataType> {
+
+        if(count < 0) throw new KoconutInvalidArgumentException(`Count must be larger than 0. Given value : ${count}`)
+        generator = generator.bind(thisArg)
+        const koconutToReturn = new KoconutArray<DataType>();
+        (koconutToReturn as any as KoconutOpener<Array<DataType>>)
+            .setProcessor(async () => {
+                const processedArray = new Array<DataType>()
+                for(let eachIndex = 0 ; eachIndex < count ; eachIndex++)
+                    processedArray.push(await generator(eachIndex))
+                return processedArray
+            })
+        return koconutToReturn 
 
     }
     

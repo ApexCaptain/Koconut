@@ -3014,11 +3014,20 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
         (koconutToReturn as any as KoconutOpener<WrapperType>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
-                if(this.combinedDataWrapper != null) {
-                    for(const eachCombinedDatum of this.combinedDataWrapper)
-                        for(let eachSubElement of await transform(eachCombinedDatum))
-                            if(destination instanceof Array) destination.push(eachSubElement)
-                            else destination.add(eachSubElement)
+                const flattenIterable = this.flatMap(transform, thisArg)
+                if(destination instanceof Array) {
+                    await flattenIterable
+                            .forEach(eachElement => {
+                                destination.push(eachElement)
+                            })
+                            .process()
+                } else {
+                    await flattenIterable
+                            .asSet()
+                            .forEach(eachElement => {
+                                destination.add(eachElement)
+                            })
+                            .process()
                 }
                 return this.data!
             })
@@ -3120,12 +3129,21 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
         (koconutToReturn as any as KoconutOpener<WrapperType>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
-                if(this.combinedDataWrapper != null) {
-                    for(const eachCombinedDatum of this.combinedDataWrapper) {
-                        const dataToAdd = await transform(eachCombinedDatum)
-                        if(destination instanceof Array) destination.push(dataToAdd)
-                        else destination.add(dataToAdd)
-                    }
+                const mappedIterable = this.map(transform, thisArg)
+                if(destination instanceof Array) {
+                    await mappedIterable
+                            .forEach(eachElement => {
+                                destination.push(eachElement)
+                            })
+                            .process()
+                }
+                else {
+                    await mappedIterable
+                            .asSet()
+                            .forEach(eachElement => {
+                                destination.add(eachElement)
+                            })
+                            .process()
                 }
                 return this.data!
             })
@@ -3247,13 +3265,20 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
         (koconutToReturn as any as KoconutOpener<WrapperType>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
-                if(this.combinedDataWrapper != null) {
-                    for(const eachCombinedDatum of this.combinedDataWrapper) {
-                        const dataToAdd = await transform(eachCombinedDatum)
-                        if(dataToAdd != null && dataToAdd != undefined)
-                            if(destination instanceof Array) destination.push(dataToAdd)
-                            else destination.add(dataToAdd)
-                    }
+                const mappedIterable = this.mapNotNull(transform, thisArg)
+                if(destination instanceof Array) {
+                    await mappedIterable
+                            .forEach(eachElement => {
+                                destination.push(eachElement)
+                            })
+                            .process()
+                } else {
+                    await mappedIterable
+                            .asSet()
+                            .forEach(eachElement => {
+                                destination.add(eachElement)
+                            })
+                            .process()
                 }
                 return this.data!
             })
