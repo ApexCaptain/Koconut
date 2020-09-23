@@ -1722,6 +1722,27 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
     }
 
 
+    /**
+     * Returns a {@link KoconutSet} containg last ```n``` elements.
+     * @param n Elements number to take.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Manipulator
+     * 
+     * @example
+     * ```typescript
+     * const koconutSet = KoconutSet.of(
+     *     1,2,3,4,5,6,7,8,9,10
+     * )
+     *
+     * const last3ElementsOfSet = await koconutSet
+     *                                 .takeLast(3)
+     *                                 .yield()
+     * console.log(last3ElementsOfSet)
+     * // ↑ Set { 8, 9, 10 }
+     * ```
+     */
     takeLast(
         n : number
     ) : KoconutSet<DataType>{
@@ -1731,6 +1752,28 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
     }
 
 
+    /**
+     * Returns a {@link KoconutSet} containing last elements satisfying the given ```predicate```.
+     * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Manipulator
+     * 
+     * @example
+     * ```typescript
+     * const koconutSet = KoconutSet.of(
+     *     1,2,3,4,5,6,7,8,9,10
+     * )
+     *
+     * const lastNumbersWhileGreaterThan7 = await koconutSet
+     *                     .takeLastWhile(eachNumber => eachNumber >7)
+     *                     .yield()
+     * console.log(lastNumbersWhileGreaterThan7)
+     * // ↑ Set { 8, 9, 10 }
+     * ```
+     */
     takeLastWhile(
         predicate : (element : DataType) => boolean | Promise<boolean>,
         thisArg : any = null
@@ -1741,6 +1784,28 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
     }
 
 
+    /**     
+     * Returns a {@link KoconutSet} containing first elements satisfying the given ```predicate```.
+     * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Manipulator
+     * 
+     * @example
+     * ```typescript
+     * const koconutSet = KoconutSet.of(
+     *     1,2,3,4,5,6,7,8,9,10
+     * )
+     *
+     * const numbersWhileLessThan5 = await koconutSet
+     *                     .takeWhile(eachNumber => eachNumber < 5)
+     *                     .yield()
+     * console.log(numbersWhileLessThan5)
+     * // ↑ Set { 1, 2, 3, 4 }
+     * ```
+     */
     takeWhile(
         predicate : (element : DataType) => boolean | Promise<boolean>,
         thisArg : any = null
