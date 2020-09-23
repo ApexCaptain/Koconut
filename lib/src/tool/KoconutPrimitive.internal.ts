@@ -59,6 +59,13 @@ export class KoconutPrimitive<DataType> implements KoconutYieldable<DataType> {
     }
 
 
+    // No Commecnt -- All the classes inheriting this. 
+    async retrieve() : Promise<KoconutPrimitive<DataType>> {
+        await this.process()
+        return this
+    }
+
+
     /**
      * Processes all the chained objects and return the result.
      * 

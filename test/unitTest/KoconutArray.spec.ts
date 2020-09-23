@@ -576,18 +576,6 @@ describe(`${KoconutArray.name} -- Caster`, () => {
 
     })
 
-    it(KoconutArray.prototype.toArray.name, async () => {
-
-        const koconut = KoconutArray.of(1,2,3,4,5)
-
-        const yieldable =
-                        koconut
-                        .toArray()
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        const result = await yieldable.yield()
-        expect(result).eqls([1,2,3,4,5])
-
-    })
 
     it(KoconutArray.prototype.asSet.name, async () => {
 
@@ -602,18 +590,6 @@ describe(`${KoconutArray.name} -- Caster`, () => {
 
     })
 
-    it(KoconutArray.prototype.toSet.name, async () => {
-
-        const koconut = KoconutArray.of(1,1,2,2,3,3)
-
-        const yieldable =
-                        koconut
-                        .toSet()
-        expect(yieldable).to.be.instanceOf(KoconutSet)
-        const result = await yieldable.yield()
-        expect(result).eqls(new Set([1,2,3]))
-
-    })
 
     /*
     it(KoconutArray.prototype.asFlow.name, async () => {

@@ -198,6 +198,31 @@ export class KoconutPair<FirstType, SecondType> extends KoconutPrimitive<Pair<Fi
         else super()
     }
 
+
+    /**
+     * Processes all the chained object and returns original {@link KoconutPair} instance.
+     * 
+     * @category Processor
+     * 
+     * @since 1.0.15
+     * 
+     * @example
+     * ```typescript
+     * const koconutPair = await new KoconutPair(0, 1)
+     *                                     .retrieve()
+     *                                     
+     * console.log(koconutPair)
+     * // ↑ KoconutPair {
+     * //   isValidated: true,
+     * //   data: Pair { firstElement: 0, secondElement: 1 }
+     * // }
+     * ```
+     */
+    async retrieve() : Promise<KoconutPair<FirstType, SecondType>> {
+        await super.retrieve()
+        return this
+    }
+
     /**
      * Class {@link KoconutPair} implements {@link KoconutEquatable}. The equality check process
      * is done by using '{@link Pair.equalsTo equalsTo method of Pair}'

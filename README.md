@@ -236,7 +236,7 @@ But by drawing upon [Koconut] library, your source code would be much more clear
 Let me give you a few examples for basic usage of this library.
 I've written only about [KoconutArray] as a representative class.
 ## Creation
-To create a [KoconutArray] instance, you can do it in 3 different ways.
+To create a [KoconutArray] instance, you can do it in 4 different ways.
 1. Using `new` keyword.
 
     Very traditional way. You can create a new instance from an iterable object or if it's ommitted you may have an empty array. In case of that, you'd better declare generic type explicitly.
@@ -268,6 +268,18 @@ To create a [KoconutArray] instance, you can do it in 3 different ways.
 
         const koconutNumbers = KoconutArray.of(1,2,3,4,5)
         // ↑ This is a Koconut number array consists of 1 to 5.
+    ```
+4. Using `static` [generate](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#generate) method.
+
+    This method creates a new instance with length positions and fills it with values provided by ```generator``` function callback with each index in the range "```0...length - 1```" in increasing order as an argument. Given ```count``` must be non-negative number.
+    ```typescript
+        import { KoconutArray } from 'koconut'
+        
+        const evenNumberArray = await KoconutArray.generate(5, i => i*2)
+        // ↑ This is a Koconut number array consists of 2, 4, 6, 8 and 10.
+
+        const negativeLength = await KoconutArray.generate(-1, i => i*2)
+        // ↑ This will cause invalid argument exception since given count is a negative number.
     ```
     
 ## Processing

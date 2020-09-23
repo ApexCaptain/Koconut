@@ -73,6 +73,34 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
     }
 
 
+    /**
+     * Processes all the chained object and returns original {@link KoconutArray} instance.
+     * 
+     * @category Processor
+     * 
+     * @since 1.0.15
+     * 
+     * @example
+     * ```typescript
+     * const koconutArray = await KoconutArray
+     *                     .of(1,2,3,4,5)
+     *                     .retrieve()
+     * console.log(koconutArray)
+     * // ↑ KoconutArray {
+     * //   isValidated: true,
+     * //   data: [ 1, 2, 3, 4, 5 ],
+     * //   combinedDataWrapper: [ 1, 2, 3, 4, 5 ],
+     * //   mSize: 5,
+     * //   mIndices: [ 0, 1, 2, 3, 4 ]
+     * // }
+     * ```
+     */
+    async retrieve() : Promise<KoconutArray<DataType>> {
+        await super.retrieve()
+        return this
+    }
+
+
 
 
 

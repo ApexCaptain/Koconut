@@ -1,5 +1,18 @@
 # Koconut Release Note
 
+## Comming 1.0.15
+
+### Known Caveats
+- Following methods are deprecated.
+
+    - `toArray` -- Commonly // `asArray` instead.
+    - `toSet` -- Commonly // `asSet` instead.
+    - `forEachIndexed` -- in `KoconutMap`
+    - `onEachIndexed` -- in `KoconutMap`
+
+### Repository
+- Introduction of static creator method `generate` is added.
+
 ## Release 1.0.14
 
 ### Major Features and Improvements

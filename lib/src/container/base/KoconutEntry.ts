@@ -192,6 +192,31 @@ export class KoconutEntry<KeyType, ValueType> extends KoconutPrimitive<Entry<Key
         else super()
     }
 
+
+    /**
+     * Processes all the chained object and returns original {@link KoconutEntry} instance.
+     * 
+     * @category Processor
+     * 
+     * @since 1.0.15
+     * 
+     * @example
+     * ```typescript
+     * const koconutEntry = await new KoconutEntry(0, 1)
+     *                                     .retrieve()
+     *                                     
+     * console.log(koconutEntry)
+     * // ↑ KoconutEntry {
+     * //   isValidated: true,
+     * //   data: Entry { keyElement: 0, valueElement: 1 }
+     * // }
+     * ```
+     */
+    async retrieve() : Promise<KoconutEntry<KeyType, ValueType>> {
+        await super.retrieve()
+        return this
+    }
+
     /**
      * Class {@link KoconutEntry} implements {@link KoconutEquatable}. The equality check process
      * is done by using '{@link Entry.equalsTo equalsTo method of Entry}'.

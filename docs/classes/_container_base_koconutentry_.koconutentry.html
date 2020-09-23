@@ -147,6 +147,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_container_base_koconutentry_.koconutentry.html#also" class="tsd-kind-icon">also</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="_container_base_koconutentry_.koconutentry.html#let" class="tsd-kind-icon">let</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_container_base_koconutentry_.koconutentry.html#process" class="tsd-kind-icon">process</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_container_base_koconutentry_.koconutentry.html#retrieve" class="tsd-kind-icon">retrieve</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_container_base_koconutentry_.koconutentry.html#yield" class="tsd-kind-icon">yield</a></li>
 							</ul>
 						</section>
@@ -166,7 +167,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutPrimitive.__constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/b7fadb5/lib/src/container/base/KoconutEntry.ts#L182">lib/src/container/base/KoconutEntry.ts:182</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/94b7097/lib/src/container/base/KoconutEntry.ts#L182">lib/src/container/base/KoconutEntry.ts:182</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -210,7 +211,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/b7fadb5/lib/src/container/base/KoconutEntry.ts#L201">lib/src/container/base/KoconutEntry.ts:201</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/94b7097/lib/src/container/base/KoconutEntry.ts#L226">lib/src/container/base/KoconutEntry.ts:226</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -246,7 +247,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_base_koconutpair_.koconutpair.html">KoconutPair</a>.<a href="_container_base_koconutpair_.koconutpair.html#also">also</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/b7fadb5/lib/src/tool/KoconutPrimitive.internal.ts#L148">lib/src/tool/KoconutPrimitive.internal.ts:148</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/94b7097/lib/src/tool/KoconutPrimitive.internal.ts#L155">lib/src/tool/KoconutPrimitive.internal.ts:155</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -319,7 +320,7 @@ mainProcess()</code></pre>
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_base_koconutpair_.koconutpair.html">KoconutPair</a>.<a href="_container_base_koconutpair_.koconutpair.html#let">let</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/b7fadb5/lib/src/tool/KoconutPrimitive.internal.ts#L116">lib/src/tool/KoconutPrimitive.internal.ts:116</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/94b7097/lib/src/tool/KoconutPrimitive.internal.ts#L123">lib/src/tool/KoconutPrimitive.internal.ts:123</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -396,7 +397,7 @@ mainProcess()</code></pre>
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_base_koconutpair_.koconutpair.html">KoconutPair</a>.<a href="_container_base_koconutpair_.koconutpair.html#process">process</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/b7fadb5/lib/src/tool/KoconutPrimitive.internal.ts#L50">lib/src/tool/KoconutPrimitive.internal.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/94b7097/lib/src/tool/KoconutPrimitive.internal.ts#L50">lib/src/tool/KoconutPrimitive.internal.ts:50</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -426,6 +427,44 @@ mainProcess()</code></pre>
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="retrieve" class="tsd-anchor"></a>
+					<h3>retrieve</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">retrieve<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_container_base_koconutentry_.koconutentry.html" class="tsd-signature-type">KoconutEntry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overrides <a href="_container_flow_koconutflow_.koconutflow.html">KoconutFlow</a>.<a href="_container_flow_koconutflow_.koconutflow.html#retrieve">retrieve</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/94b7097/lib/src/container/base/KoconutEntry.ts#L215">lib/src/container/base/KoconutEntry.ts:215</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Processes all the chained object and returns original <a href="_container_base_koconutentry_.koconutentry.html">KoconutEntry</a> instance.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>since</dt>
+									<dd><p>1.0.15</p>
+									</dd>
+									<dt>example</dt>
+									<dd><pre><code class="language-typescript"><span class="hljs-keyword">const</span> koconutEntry = <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> KoconutEntry(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>)
+                                    .retrieve()
+
+<span class="hljs-built_in">console</span>.log(koconutEntry)
+<span class="hljs-comment">// ↑ KoconutEntry {</span>
+<span class="hljs-comment">//   isValidated: true,</span>
+<span class="hljs-comment">//   data: Entry { keyElement: 0, valueElement: 1 }</span>
+<span class="hljs-comment">// }</span></code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_container_base_koconutentry_.koconutentry.html" class="tsd-signature-type">KoconutEntry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="yield" class="tsd-anchor"></a>
 					<h3>yield</h3>
@@ -437,7 +476,7 @@ mainProcess()</code></pre>
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_base_koconutpair_.koconutpair.html">KoconutPair</a>.<a href="_container_base_koconutpair_.koconutpair.html#yield">yield</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/b7fadb5/lib/src/tool/KoconutPrimitive.internal.ts#L85">lib/src/tool/KoconutPrimitive.internal.ts:85</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/94b7097/lib/src/tool/KoconutPrimitive.internal.ts#L92">lib/src/tool/KoconutPrimitive.internal.ts:92</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -541,6 +580,9 @@ mainProcess()</code></pre>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_container_base_koconutentry_.koconutentry.html#process" class="tsd-kind-icon">process</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_container_base_koconutentry_.koconutentry.html#retrieve" class="tsd-kind-icon">retrieve</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_container_base_koconutentry_.koconutentry.html#yield" class="tsd-kind-icon">yield</a>

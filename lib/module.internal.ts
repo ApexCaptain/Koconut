@@ -7,6 +7,7 @@ export * from "./src/tool/KoconutPrimitive.internal"
 export * from "./src/tool/KoconutTypeChecker.internal"
 
 // Base
+export * from "./src/container/base/KoconutBoolean"
 export * from "./src/container/base/KoconutPair"
 export * from "./src/container/base/KoconutEntry"
 

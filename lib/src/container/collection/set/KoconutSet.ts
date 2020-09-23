@@ -74,6 +74,34 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
         super()
         this.data = set == null ? new Set() : new Set(set)
     }
+
+
+    /**
+     * Processes all the chained object and returns original {@link KoconutSet} instance.
+     * 
+     * @category Processor
+     * 
+     * @since 1.0.15
+     * 
+     * @example
+     * ```typescript
+     * const koconutSet = await KoconutSet
+     *                     .of(1,2,3,4,5)
+     *                     .retrieve()
+     * console.log(koconutSet)
+     * // ↑ KoconutSet {
+     * //   isValidated: true,
+     * //   data: Set { 1, 2, 3, 4, 5 },
+     * //   combinedDataWrapper: Set { 1, 2, 3, 4, 5 },
+     * //   mSize: 5,
+     * //   mIndices: [ 0, 1, 2, 3, 4 ]
+     * // }
+     * ```
+     */
+    async retrieve() : Promise<KoconutSet<DataType>> {
+        await super.retrieve()
+        return this
+    }
     
 
 
