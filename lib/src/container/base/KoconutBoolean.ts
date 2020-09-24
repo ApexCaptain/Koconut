@@ -31,6 +31,19 @@ export class KoconutBoolean extends KoconutPrimitive<boolean> implements Boolean
         return this.data!
     }
 
+    
+    not() : KoconutBoolean {
+
+        const koconutToReturn = new KoconutBoolean();
+        (koconutToReturn as any as KoconutOpener<boolean>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                return !this.data!
+            })
+        return koconutToReturn
+
+    }
+
 
     and(other : targetBooleanLikeType) : KoconutBoolean {
 
@@ -49,20 +62,18 @@ export class KoconutBoolean extends KoconutPrimitive<boolean> implements Boolean
     }
 
 
-    not() : KoconutBoolean {
+    nand(
+        other : targetBooleanLikeType
+    ) : KoconutBoolean {
 
-        const koconutToReturn = new KoconutBoolean();
-        (koconutToReturn as any as KoconutOpener<boolean>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                return !this.data!
-            })
-        return koconutToReturn
-
+        return this.and(other).not()
+        
     }
 
 
-    or(other : targetBooleanLikeType) : KoconutBoolean {
+    or(
+        other : targetBooleanLikeType
+    ) : KoconutBoolean {
 
         const koconutToReturn = new KoconutBoolean();
         (koconutToReturn as any as KoconutOpener<boolean>)
@@ -79,7 +90,18 @@ export class KoconutBoolean extends KoconutPrimitive<boolean> implements Boolean
     }
 
 
-    xor(other : targetBooleanLikeType) : KoconutBoolean {
+    nor(
+        other : targetBooleanLikeType
+    ) : KoconutBoolean {
+
+        return this.or(other).not()
+
+    }
+
+
+    xor(
+        other : targetBooleanLikeType
+    ) : KoconutBoolean {
 
         const koconutToReturn = new KoconutBoolean();
         (koconutToReturn as any as KoconutOpener<boolean>)
@@ -92,6 +114,24 @@ export class KoconutBoolean extends KoconutPrimitive<boolean> implements Boolean
                 return this.data! != otherBoolean
             })
         return koconutToReturn
+
+    }
+
+
+    xnor(
+        other : targetBooleanLikeType
+    ) : KoconutBoolean {
+
+        return this.xor(other).not()
+
+    }
+
+
+    eqv(
+        other : targetBooleanLikeType
+    ) : KoconutBoolean {
+
+        return this.xor(other).not()
 
     }
 

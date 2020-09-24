@@ -27,7 +27,12 @@ Installation is done by using [`npm install` command](https://docs.npmjs.com/get
 
 ```sh
 $ npm install koconut --save
+
+# or
+
+$ yarn add koconut
 ```
+
 
 # Introduction
 
