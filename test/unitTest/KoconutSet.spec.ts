@@ -945,445 +945,7 @@ describe(`${KoconutSet.name} -- Iterator`, () => {
 
 
 
-describe(`${KoconutSet.name} -- Transformer`, () => {
 
-    it(KoconutSet.prototype.associate.name, async () =>{
-
-        const koconut = KoconutSet.from(["Grace Hopper", "Jacob Bernoulli", "Johann Bernoulli", "Jinyoung Luvya"])
-        const expectedResultEntryArray =[[ 'Hopper', 'Grace' ],
-                                        [ 'Bernoulli', 'Johann' ],
-                                        [ 'Luvya', 'Jinyoung' ]]
-
-        /* Case 1 */
-        const yieldableCase1 =
-                        koconut
-                        .associate(eachElement => {
-                            const [firstName, lastName] = eachElement.split(" ")
-                            return [lastName, firstName]
-                        })
-        expect(yieldableCase1).to.be.instanceOf(KoconutMap)
-        const resultCase1 = await yieldableCase1.yield()
-        expect(Array.from(resultCase1!.entries())).to.eql(expectedResultEntryArray)
-
-        /* Case 2 */
-        const yieldableCase2 =
-                        koconut
-                        .associate(eachElement => {
-                            const [firstName, lastName] = eachElement.split(" ")
-                            return new Pair(lastName, firstName)
-                        })
-        expect(yieldableCase2).to.be.instanceOf(KoconutMap)
-        const resultCase2 = await yieldableCase2.yield()
-        expect(Array.from(resultCase2!.entries())).to.eql(expectedResultEntryArray)
-
-        /* Case 3 */
-        const yieldableCase3 =
-                        koconut
-                        .associate(eachElement => {
-                            const [firstName, lastName] = eachElement.split(" ")
-                            return new KoconutPair(lastName, firstName)
-                        })
-        expect(yieldableCase3).to.be.instanceOf(KoconutMap)
-        const resultCase3 = await yieldableCase3.yield()
-        expect(Array.from(resultCase3!.entries())).to.eql(expectedResultEntryArray)
-
-    })
-
-    it(KoconutSet.prototype.associateBy.name, async () => {
-
-        const koconut = KoconutSet.from([
-                        new Person("Grace", "Hopper"), 
-                        new Person("Jacob", "Bernoulli"), 
-                        new Person("Johann", "Bernoulli"), 
-                        new Person("Jinyoung", "Luvya")])
-                        
-        /* Case 1 */
-        const yieldableCase1 = 
-                        koconut
-                        .associateBy(eachElement => eachElement.lastName)
-        expect(yieldableCase1).to.be.instanceOf(KoconutMap)
-        const resultCase1 = await yieldableCase1.yield()
-        expect(resultCase1?.get("Hopper")).to.eql(new Person("Grace", "Hopper"))
-        expect(resultCase1?.get("Bernoulli")).to.eql(new Person("Jacob", "Bernoulli"))
-        expect(resultCase1?.get("Luvya")).to.eql(new Person("Jinyoung", "Luvya"))
-        
-        /* Case 2 */
-        const yieldableCase2 =
-                        koconut
-                        .associateBy(
-                            eachElement => eachElement.lastName,
-                            eachElement => eachElement.firstName
-                        )
-        expect(yieldableCase2).to.be.instanceOf(KoconutMap)
-        const resultCase2 = await yieldableCase2.yield()
-        const expectedResultEntryArrayCase2 =[[ 'Hopper', 'Grace' ],
-                                            [ 'Bernoulli', 'Jacob' ],
-                                            [ 'Luvya', 'Jinyoung' ]]
-        expect(Array.from(resultCase2!.entries())).to.eql(expectedResultEntryArrayCase2)
-
-    })
-
-    it(KoconutSet.prototype.associateByTo.name, async () => {
-
-        const koconut = KoconutSet.from([
-                        new Person("Grace", "Hopper"), 
-                        new Person("Jacob", "Bernoulli"), 
-                        new Person("Johann", "Bernoulli"), 
-                        new Person("Jinyoung", "Luvya")])
-        
-        /* Case 1 */
-        const destinationCase1 = new Map<string, Person>()
-        const yieldableCase1 =
-                        koconut
-                        .associateByTo(
-                            destinationCase1,
-                            eachElement => eachElement.lastName
-                        )
-        expect(yieldableCase1).to.be.instanceOf(KoconutSet)
-        await yieldableCase1.process()
-        expect(destinationCase1.get("Hopper")).to.eql(new Person("Grace", "Hopper"))
-        expect(destinationCase1.get("Bernoulli")).to.eql(new Person("Jacob", "Bernoulli"))
-        expect(destinationCase1.get("Luvya")).to.eql(new Person("Jinyoung", "Luvya"))
-
-        /* Case 2 */
-        const destinationCase2 = new Map<string, string>()
-        const yieldableCase2 = 
-                        koconut
-                        .associateByTo(
-                            destinationCase2,
-                            eachElement => eachElement.lastName,
-                            eachElement => eachElement.firstName
-                        )
-        expect(yieldableCase2).to.be.instanceOf(KoconutSet)
-        await yieldableCase2.process()
-        const expectedResultEntryArrayCase2 =[[ 'Hopper', 'Grace' ],
-                                            [ 'Bernoulli', 'Jacob' ],
-                                            [ 'Luvya', 'Jinyoung' ]]
-        expect(Array.from(destinationCase2.entries())).to.eql(expectedResultEntryArrayCase2)
-
-    })
-
-    it(KoconutSet.prototype.associateTo.name, async () =>{
-
-        const koconut = KoconutSet.from(["Grace Hopper", "Jacob Bernoulli", "Johann Bernoulli", "Jinyoung Luvya"])
-        const expectedResultEntryArray =[[ 'Hopper', 'Grace' ],
-                                        [ 'Bernoulli', 'Johann' ],
-                                        [ 'Luvya', 'Jinyoung' ]]
-
-        /* Case 1 */
-        const destinationCase1 = new Map<string, string>()
-        const yieldableCase1 =
-                        koconut
-                        .associateTo(
-                            destinationCase1,
-                            eachElement => {
-                                const [firstName, lastname] = eachElement.split(" ")
-                                return [lastname, firstName]
-                            }
-                        )
-        expect(yieldableCase1).to.be.instanceOf(KoconutSet)
-        await yieldableCase1.process()
-        expect(Array.from(destinationCase1.entries())).to.eql(expectedResultEntryArray)
-
-        /* Case 2 */
-        const destinationCase2 = new Map<string, string>()
-        const yieldableCase2 =
-                        koconut
-                        .associateTo(
-                            destinationCase2,
-                            eachElement => {
-                                const [firstName, lastName] = eachElement.split(" ")
-                                return new Pair(lastName, firstName)
-                            }
-                        )
-        expect(yieldableCase2).to.be.instanceOf(KoconutSet)
-        await yieldableCase2.process()
-        expect(Array.from(destinationCase2.entries())).to.eql(expectedResultEntryArray)
-
-        /* Case 3 */
-        const destinationCase3 = new Map<string, string>()
-        const yieldableCase3 = 
-                        koconut
-                        .associateTo(
-                            destinationCase3,
-                            eachElement => {
-                                const [firstName, lastName] = eachElement.split(" ")
-                                return new KoconutPair(lastName, firstName)
-                            }
-                        )
-        expect(yieldableCase3).to.be.instanceOf(KoconutSet)
-        await yieldableCase3.process()
-        expect(Array.from(destinationCase3.entries())).to.eql(expectedResultEntryArray)
-
-    })
-
-    it(KoconutSet.prototype.associateWith.name, async () => {
-
-        const koconut = KoconutSet.from(["a", "ab", "abc", "abcd"])
-
-        const yieldable =
-                        koconut
-                        .associateWith(eachElement => eachElement.length)
-        expect(yieldable).to.be.instanceOf(KoconutMap)
-        const result = await yieldable.yield()
-        const expectedResultEntryArray = [ [ 'a', 1 ], [ 'ab', 2 ], [ 'abc', 3 ], [ 'abcd', 4 ] ]
-        expect(Array.from(result!.entries())).to.eql(expectedResultEntryArray)
-
-    })
-
-    it(KoconutSet.prototype.associateWithTo.name, async () => {
-
-        const koconut = KoconutSet.from(["Grace Hopper", "Jacob Bernoulli", "Johann Bernoulli", "Jinyoung Luvya"])
-
-        const destination = new Map<string, number>()
-        const yieldable =
-                        koconut
-                        .associateWithTo(
-                            destination,
-                            eachElement => eachElement.length
-                        )
-        expect(yieldable).to.be.instanceOf(KoconutSet)
-        await yieldable.process()
-        const expectedResultEntryArray = [
-                                            [ 'Grace Hopper', 12 ],
-                                            [ 'Jacob Bernoulli', 15 ],
-                                            [ 'Johann Bernoulli', 16 ],
-                                            [ 'Jinyoung Luvya', 14 ]
-                                        ]
-        expect(Array.from(destination.entries())).to.eql(expectedResultEntryArray)
-
-    })
-
-    it(KoconutSet.prototype.chunked.name, async () => {
-
-        const koconut = KoconutSet.from( "one two three four five six seven eight nine ten".split(' '))
-
-        /* Case 1 */
-        const yieldableCase1 = 
-                        koconut
-                        .chunked(3)
-        expect(yieldableCase1).to.be.instanceOf(KoconutArray)
-        const resultCase1 = await yieldableCase1.yield()
-        const expectedResultArrayCase1 = [
-                                            [ 'one', 'two', 'three' ],
-                                            [ 'four', 'five', 'six' ],
-                                            [ 'seven', 'eight', 'nine' ],
-                                            [ 'ten' ]
-                                        ]
-        expect(resultCase1).to.eql(expectedResultArrayCase1)
-
-        /* Case 2 */
-        const yieldableCase2 = 
-                        koconut
-                        .chunked(
-                            3,
-                            eachElements => eachElements.join(' ')
-                        )
-        expect(yieldableCase2).to.be.instanceOf(KoconutArray)
-        const resultCase2 = await yieldableCase2.yield()
-        const expectedResultArrayCase2 = [ 'one two three', 'four five six', 'seven eight nine', 'ten' ]
-        expect(resultCase2).to.eql(expectedResultArrayCase2)
-
-    })
-
-    it(KoconutSet.prototype.flatMap.name, async () => {
-
-        const koconut = KoconutSet.from(["abc", "de"])
-
-        const yieldable = 
-                        koconut
-                        .flatMap(eachElement => eachElement.split(''))
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        const result = await yieldable.yield()
-        expect(result).eqls(['a','b','c','d','e'])
-
-    })
-
-    it(KoconutSet.prototype.flatMapIndexed.name, async () => {
-
-        const kocout = KoconutSet.from(["abc", "def", "ghi", "jkl"])
-
-        const yieldable =
-                        kocout
-                        .flatMapIndexed((eachIndex, eachElement) => {
-                            if(eachIndex % 2 == 0) return eachElement.split('')
-                            else return []
-                        })
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        const result = await yieldable.yield()
-        expect(result).eqls(['a','b','c','g','h','i'])
-
-    })
-
-    it(KoconutSet.prototype.flatMapTo.name, async () => {
-
-        const koconut = KoconutSet.from(["abc", "de"])
-
-        const destination = new Array<string>()
-        const yieldable =
-                        koconut
-                        .flatMapTo(
-                            destination,
-                            eachElement => eachElement.split('')
-                        )
-        expect(yieldable).to.be.instanceOf(KoconutSet)
-        await yieldable.process()
-        expect(destination).eqls(['a','b','c','d','e'])
-
-    })
-
-    it(KoconutSet.prototype.flatMapIndexedTo.name, async () => {
-
-        const kocout = KoconutSet.from(["abc", "def", "ghi", "jkl"])
-
-        const destination = new Array<string>()
-        const yieldable =
-                        kocout
-                        .flatMapIndexedTo(
-                            destination,
-                            (eachIndex, eachElement) => {
-                                if(eachIndex % 2 == 0) return eachElement.split('')
-                                else return []
-                            }
-                        )
-        expect(yieldable).to.be.instanceOf(KoconutSet)
-        await yieldable.process()
-        expect(destination).eqls(['a','b','c','g','h','i'])
-    })
-
-    it(KoconutSet.prototype.map.name, async () => {
-
-        const koconut = KoconutSet.from([1,2,3])
-
-        const yieldable =
-                        koconut
-                        .map(eachElement => eachElement * eachElement)
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        const result = await yieldable.yield()
-        expect(result).eqls([1,4,9])
-
-    })
-
-    it(KoconutSet.prototype.mapIndexed.name, async () => {
-
-        const koconut = KoconutSet.from([1,2,3])
-
-        const yieldable =
-                        koconut
-                        .mapIndexed((eachIndex, eachElement) => eachIndex + eachElement)
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        const result = await yieldable.yield()
-        expect(result).eqls([1,3,5])
-
-    })
-
-    it(KoconutSet.prototype.mapIndexedNotNull.name, async () => {
-        
-        const koconut = KoconutSet.from([1,2,3,4,5])
-
-        const yieldable =
-                        koconut
-                        .mapIndexedNotNull(
-                            (eachIndex, eachElement) => {
-                                if(eachIndex % 2 == 0) return eachElement * eachElement
-                            }
-                        )
-        await yieldable.process()
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        const result = await yieldable.yield()
-        expect(result).eqls([1,9,25])
-        
-    })
-
-    it(KoconutSet.prototype.mapIndexedNotNullTo.name, async () => {
-
-        const koconut = KoconutSet.from([1,2,3,4,5])
-
-        const destination = new Set<number>()
-        const yieldable =
-                        koconut
-                        .mapIndexedNotNullTo(
-                            destination,
-                            (eachIndex, eachElement) => {
-                                if(eachIndex % 2 == 0) return eachElement * eachElement
-                            }
-                        )
-        expect(yieldable).to.be.instanceOf(KoconutSet)
-        await yieldable.process()
-        expect(destination).eqls(new Set([1,9,25]))
-
-    })
-    
-    it(KoconutSet.prototype.mapIndexedTo.name, async () => {
-
-        const koconut = KoconutSet.from([1,2,3])
-
-        const destination = new Set<number>()
-        const yieldable = 
-                        koconut
-                        .mapIndexedTo(
-                            destination,
-                            (eachIndex, eachElement) => eachIndex + eachElement
-                        )
-        expect(yieldable).to.be.instanceOf(KoconutSet)
-        await yieldable.process()
-        expect(destination).eqls(new Set([1,3,5]))
-
-    })
-
-    it(KoconutSet.prototype.mapNotNull.name, async () => {
-
-        const koconut = KoconutSet.from([1,2,3,4,5])
-
-        const yieldable =
-                        koconut
-                        .mapNotNull(eachElement => {
-                            if(eachElement % 2 == 0) return eachElement * eachElement
-                        })
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        const result = await yieldable.yield()
-        expect(result).eqls([4, 16])
-
-    })
-
-    it(KoconutSet.prototype.mapNotNullTo.name, async () => {
-
-        const koconut = KoconutSet.from([1,2,3,4,5])
-
-        const destination = new Set()
-        const yieldable =
-                        koconut
-                        .mapNotNullTo(
-                            destination,
-                            eachElement => {
-                                if(eachElement % 2 == 0) return eachElement * eachElement
-                            }
-                        )
-        expect(yieldable).to.be.instanceOf(KoconutSet)
-        await yieldable.process()
-        expect(destination).eqls(new Set([4, 16]))
-
-    })
-
-    it(KoconutSet.prototype.mapTo.name, async () => {
-
-        const koconut = KoconutSet.from([1,2,3])
-
-        const destination = new Set<number>()
-        const yieldable =
-                        koconut
-                        .mapTo(
-                            destination,
-                            eachElement => eachElement * eachElement
-                        )
-        expect(yieldable).to.be.instanceOf(KoconutSet)
-        await yieldable.process()
-        expect(destination).eqls(new Set([1,4,9]))
-
-    })
-
-
-})
 
 
 
@@ -1826,7 +1388,7 @@ describe(`${KoconutSet.name} -- Manipulator`, () => {
 
 
 
-describe(`${KoconutSet.name} -- Function`, () => {
+describe(`${KoconutSet.name} -- Selector`, () => {
 
     it(KoconutSet.prototype.elementAt.name, async () => {
 
@@ -1884,6 +1446,487 @@ describe(`${KoconutSet.name} -- Function`, () => {
         expect(resultCase2).equals(null)
 
     })
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+describe(`${KoconutSet.name} -- Transformer`, () => {
+
+    it(KoconutSet.prototype.associate.name, async () =>{
+
+        const koconut = KoconutSet.from(["Grace Hopper", "Jacob Bernoulli", "Johann Bernoulli", "Jinyoung Luvya"])
+        const expectedResultEntryArray =[[ 'Hopper', 'Grace' ],
+                                        [ 'Bernoulli', 'Johann' ],
+                                        [ 'Luvya', 'Jinyoung' ]]
+
+        /* Case 1 */
+        const yieldableCase1 =
+                        koconut
+                        .associate(eachElement => {
+                            const [firstName, lastName] = eachElement.split(" ")
+                            return [lastName, firstName]
+                        })
+        expect(yieldableCase1).to.be.instanceOf(KoconutMap)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(Array.from(resultCase1!.entries())).to.eql(expectedResultEntryArray)
+
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .associate(eachElement => {
+                            const [firstName, lastName] = eachElement.split(" ")
+                            return new Pair(lastName, firstName)
+                        })
+        expect(yieldableCase2).to.be.instanceOf(KoconutMap)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(Array.from(resultCase2!.entries())).to.eql(expectedResultEntryArray)
+
+        /* Case 3 */
+        const yieldableCase3 =
+                        koconut
+                        .associate(eachElement => {
+                            const [firstName, lastName] = eachElement.split(" ")
+                            return new KoconutPair(lastName, firstName)
+                        })
+        expect(yieldableCase3).to.be.instanceOf(KoconutMap)
+        const resultCase3 = await yieldableCase3.yield()
+        expect(Array.from(resultCase3!.entries())).to.eql(expectedResultEntryArray)
+
+    })
+
+    it(KoconutSet.prototype.associateBy.name, async () => {
+
+        const koconut = KoconutSet.from([
+                        new Person("Grace", "Hopper"), 
+                        new Person("Jacob", "Bernoulli"), 
+                        new Person("Johann", "Bernoulli"), 
+                        new Person("Jinyoung", "Luvya")])
+                        
+        /* Case 1 */
+        const yieldableCase1 = 
+                        koconut
+                        .associateBy(eachElement => eachElement.lastName)
+        expect(yieldableCase1).to.be.instanceOf(KoconutMap)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1?.get("Hopper")).to.eql(new Person("Grace", "Hopper"))
+        expect(resultCase1?.get("Bernoulli")).to.eql(new Person("Jacob", "Bernoulli"))
+        expect(resultCase1?.get("Luvya")).to.eql(new Person("Jinyoung", "Luvya"))
+        
+        /* Case 2 */
+        const yieldableCase2 =
+                        koconut
+                        .associateBy(
+                            eachElement => eachElement.lastName,
+                            eachElement => eachElement.firstName
+                        )
+        expect(yieldableCase2).to.be.instanceOf(KoconutMap)
+        const resultCase2 = await yieldableCase2.yield()
+        const expectedResultEntryArrayCase2 =[[ 'Hopper', 'Grace' ],
+                                            [ 'Bernoulli', 'Jacob' ],
+                                            [ 'Luvya', 'Jinyoung' ]]
+        expect(Array.from(resultCase2!.entries())).to.eql(expectedResultEntryArrayCase2)
+
+    })
+
+    it(KoconutSet.prototype.associateByTo.name, async () => {
+
+        const koconut = KoconutSet.from([
+                        new Person("Grace", "Hopper"), 
+                        new Person("Jacob", "Bernoulli"), 
+                        new Person("Johann", "Bernoulli"), 
+                        new Person("Jinyoung", "Luvya")])
+        
+        /* Case 1 */
+        const destinationCase1 = new Map<string, Person>()
+        const yieldableCase1 =
+                        koconut
+                        .associateByTo(
+                            destinationCase1,
+                            eachElement => eachElement.lastName
+                        )
+        expect(yieldableCase1).to.be.instanceOf(KoconutSet)
+        await yieldableCase1.process()
+        expect(destinationCase1.get("Hopper")).to.eql(new Person("Grace", "Hopper"))
+        expect(destinationCase1.get("Bernoulli")).to.eql(new Person("Jacob", "Bernoulli"))
+        expect(destinationCase1.get("Luvya")).to.eql(new Person("Jinyoung", "Luvya"))
+
+        /* Case 2 */
+        const destinationCase2 = new Map<string, string>()
+        const yieldableCase2 = 
+                        koconut
+                        .associateByTo(
+                            destinationCase2,
+                            eachElement => eachElement.lastName,
+                            eachElement => eachElement.firstName
+                        )
+        expect(yieldableCase2).to.be.instanceOf(KoconutSet)
+        await yieldableCase2.process()
+        const expectedResultEntryArrayCase2 =[[ 'Hopper', 'Grace' ],
+                                            [ 'Bernoulli', 'Jacob' ],
+                                            [ 'Luvya', 'Jinyoung' ]]
+        expect(Array.from(destinationCase2.entries())).to.eql(expectedResultEntryArrayCase2)
+
+    })
+
+    it(KoconutSet.prototype.associateTo.name, async () =>{
+
+        const koconut = KoconutSet.from(["Grace Hopper", "Jacob Bernoulli", "Johann Bernoulli", "Jinyoung Luvya"])
+        const expectedResultEntryArray =[[ 'Hopper', 'Grace' ],
+                                        [ 'Bernoulli', 'Johann' ],
+                                        [ 'Luvya', 'Jinyoung' ]]
+
+        /* Case 1 */
+        const destinationCase1 = new Map<string, string>()
+        const yieldableCase1 =
+                        koconut
+                        .associateTo(
+                            destinationCase1,
+                            eachElement => {
+                                const [firstName, lastname] = eachElement.split(" ")
+                                return [lastname, firstName]
+                            }
+                        )
+        expect(yieldableCase1).to.be.instanceOf(KoconutSet)
+        await yieldableCase1.process()
+        expect(Array.from(destinationCase1.entries())).to.eql(expectedResultEntryArray)
+
+        /* Case 2 */
+        const destinationCase2 = new Map<string, string>()
+        const yieldableCase2 =
+                        koconut
+                        .associateTo(
+                            destinationCase2,
+                            eachElement => {
+                                const [firstName, lastName] = eachElement.split(" ")
+                                return new Pair(lastName, firstName)
+                            }
+                        )
+        expect(yieldableCase2).to.be.instanceOf(KoconutSet)
+        await yieldableCase2.process()
+        expect(Array.from(destinationCase2.entries())).to.eql(expectedResultEntryArray)
+
+        /* Case 3 */
+        const destinationCase3 = new Map<string, string>()
+        const yieldableCase3 = 
+                        koconut
+                        .associateTo(
+                            destinationCase3,
+                            eachElement => {
+                                const [firstName, lastName] = eachElement.split(" ")
+                                return new KoconutPair(lastName, firstName)
+                            }
+                        )
+        expect(yieldableCase3).to.be.instanceOf(KoconutSet)
+        await yieldableCase3.process()
+        expect(Array.from(destinationCase3.entries())).to.eql(expectedResultEntryArray)
+
+    })
+
+    it(KoconutSet.prototype.associateWith.name, async () => {
+
+        const koconut = KoconutSet.from(["a", "ab", "abc", "abcd"])
+
+        const yieldable =
+                        koconut
+                        .associateWith(eachElement => eachElement.length)
+        expect(yieldable).to.be.instanceOf(KoconutMap)
+        const result = await yieldable.yield()
+        const expectedResultEntryArray = [ [ 'a', 1 ], [ 'ab', 2 ], [ 'abc', 3 ], [ 'abcd', 4 ] ]
+        expect(Array.from(result!.entries())).to.eql(expectedResultEntryArray)
+
+    })
+
+    it(KoconutSet.prototype.associateWithTo.name, async () => {
+
+        const koconut = KoconutSet.from(["Grace Hopper", "Jacob Bernoulli", "Johann Bernoulli", "Jinyoung Luvya"])
+
+        const destination = new Map<string, number>()
+        const yieldable =
+                        koconut
+                        .associateWithTo(
+                            destination,
+                            eachElement => eachElement.length
+                        )
+        expect(yieldable).to.be.instanceOf(KoconutSet)
+        await yieldable.process()
+        const expectedResultEntryArray = [
+                                            [ 'Grace Hopper', 12 ],
+                                            [ 'Jacob Bernoulli', 15 ],
+                                            [ 'Johann Bernoulli', 16 ],
+                                            [ 'Jinyoung Luvya', 14 ]
+                                        ]
+        expect(Array.from(destination.entries())).to.eql(expectedResultEntryArray)
+
+    })
+
+    it(KoconutSet.prototype.chunked.name, async () => {
+
+        const koconut = KoconutSet.from( "one two three four five six seven eight nine ten".split(' '))
+
+        /* Case 1 */
+        const yieldableCase1 = 
+                        koconut
+                        .chunked(3)
+        expect(yieldableCase1).to.be.instanceOf(KoconutArray)
+        const resultCase1 = await yieldableCase1.yield()
+        const expectedResultArrayCase1 = [
+                                            [ 'one', 'two', 'three' ],
+                                            [ 'four', 'five', 'six' ],
+                                            [ 'seven', 'eight', 'nine' ],
+                                            [ 'ten' ]
+                                        ]
+        expect(resultCase1).to.eql(expectedResultArrayCase1)
+
+        /* Case 2 */
+        const yieldableCase2 = 
+                        koconut
+                        .chunked(
+                            3,
+                            eachElements => eachElements.join(' ')
+                        )
+        expect(yieldableCase2).to.be.instanceOf(KoconutArray)
+        const resultCase2 = await yieldableCase2.yield()
+        const expectedResultArrayCase2 = [ 'one two three', 'four five six', 'seven eight nine', 'ten' ]
+        expect(resultCase2).to.eql(expectedResultArrayCase2)
+
+    })
+
+    it(KoconutSet.prototype.flatMap.name, async () => {
+
+        const koconut = KoconutSet.from(["abc", "de"])
+
+        const yieldable = 
+                        koconut
+                        .flatMap(eachElement => eachElement.split(''))
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        const result = await yieldable.yield()
+        expect(result).eqls(['a','b','c','d','e'])
+
+    })
+
+    it(KoconutSet.prototype.flatMapIndexed.name, async () => {
+
+        const kocout = KoconutSet.from(["abc", "def", "ghi", "jkl"])
+
+        const yieldable =
+                        kocout
+                        .flatMapIndexed((eachIndex, eachElement) => {
+                            if(eachIndex % 2 == 0) return eachElement.split('')
+                            else return []
+                        })
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        const result = await yieldable.yield()
+        expect(result).eqls(['a','b','c','g','h','i'])
+
+    })
+
+    it(KoconutSet.prototype.flatMapTo.name, async () => {
+
+        const koconut = KoconutSet.from(["abc", "de"])
+
+        const destination = new Array<string>()
+        const yieldable =
+                        koconut
+                        .flatMapTo(
+                            destination,
+                            eachElement => eachElement.split('')
+                        )
+        expect(yieldable).to.be.instanceOf(KoconutSet)
+        await yieldable.process()
+        expect(destination).eqls(['a','b','c','d','e'])
+
+    })
+
+    it(KoconutSet.prototype.flatMapIndexedTo.name, async () => {
+
+        const kocout = KoconutSet.from(["abc", "def", "ghi", "jkl"])
+
+        const destination = new Array<string>()
+        const yieldable =
+                        kocout
+                        .flatMapIndexedTo(
+                            destination,
+                            (eachIndex, eachElement) => {
+                                if(eachIndex % 2 == 0) return eachElement.split('')
+                                else return []
+                            }
+                        )
+        expect(yieldable).to.be.instanceOf(KoconutSet)
+        await yieldable.process()
+        expect(destination).eqls(['a','b','c','g','h','i'])
+    })
+
+    it(KoconutSet.prototype.map.name, async () => {
+
+        const koconut = KoconutSet.from([1,2,3])
+
+        const yieldable =
+                        koconut
+                        .map(eachElement => eachElement * eachElement)
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        const result = await yieldable.yield()
+        expect(result).eqls([1,4,9])
+
+    })
+
+    it(KoconutSet.prototype.mapIndexed.name, async () => {
+
+        const koconut = KoconutSet.from([1,2,3])
+
+        const yieldable =
+                        koconut
+                        .mapIndexed((eachIndex, eachElement) => eachIndex + eachElement)
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        const result = await yieldable.yield()
+        expect(result).eqls([1,3,5])
+
+    })
+
+    it(KoconutSet.prototype.mapIndexedNotNull.name, async () => {
+        
+        const koconut = KoconutSet.from([1,2,3,4,5])
+
+        const yieldable =
+                        koconut
+                        .mapIndexedNotNull(
+                            (eachIndex, eachElement) => {
+                                if(eachIndex % 2 == 0) return eachElement * eachElement
+                            }
+                        )
+        await yieldable.process()
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        const result = await yieldable.yield()
+        expect(result).eqls([1,9,25])
+        
+    })
+
+    it(KoconutSet.prototype.mapIndexedNotNullTo.name, async () => {
+
+        const koconut = KoconutSet.from([1,2,3,4,5])
+
+        const destination = new Set<number>()
+        const yieldable =
+                        koconut
+                        .mapIndexedNotNullTo(
+                            destination,
+                            (eachIndex, eachElement) => {
+                                if(eachIndex % 2 == 0) return eachElement * eachElement
+                            }
+                        )
+        expect(yieldable).to.be.instanceOf(KoconutSet)
+        await yieldable.process()
+        expect(destination).eqls(new Set([1,9,25]))
+
+    })
+    
+    it(KoconutSet.prototype.mapIndexedTo.name, async () => {
+
+        const koconut = KoconutSet.from([1,2,3])
+
+        const destination = new Set<number>()
+        const yieldable = 
+                        koconut
+                        .mapIndexedTo(
+                            destination,
+                            (eachIndex, eachElement) => eachIndex + eachElement
+                        )
+        expect(yieldable).to.be.instanceOf(KoconutSet)
+        await yieldable.process()
+        expect(destination).eqls(new Set([1,3,5]))
+
+    })
+
+    it(KoconutSet.prototype.mapNotNull.name, async () => {
+
+        const koconut = KoconutSet.from([1,2,3,4,5])
+
+        const yieldable =
+                        koconut
+                        .mapNotNull(eachElement => {
+                            if(eachElement % 2 == 0) return eachElement * eachElement
+                        })
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        const result = await yieldable.yield()
+        expect(result).eqls([4, 16])
+
+    })
+
+    it(KoconutSet.prototype.mapNotNullTo.name, async () => {
+
+        const koconut = KoconutSet.from([1,2,3,4,5])
+
+        const destination = new Set()
+        const yieldable =
+                        koconut
+                        .mapNotNullTo(
+                            destination,
+                            eachElement => {
+                                if(eachElement % 2 == 0) return eachElement * eachElement
+                            }
+                        )
+        expect(yieldable).to.be.instanceOf(KoconutSet)
+        await yieldable.process()
+        expect(destination).eqls(new Set([4, 16]))
+
+    })
+
+    it(KoconutSet.prototype.mapTo.name, async () => {
+
+        const koconut = KoconutSet.from([1,2,3])
+
+        const destination = new Set<number>()
+        const yieldable =
+                        koconut
+                        .mapTo(
+                            destination,
+                            eachElement => eachElement * eachElement
+                        )
+        expect(yieldable).to.be.instanceOf(KoconutSet)
+        await yieldable.process()
+        expect(destination).eqls(new Set([1,4,9]))
+
+    })
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+describe(`${KoconutSet.name} -- Function`, () => {
+
+
 
 
 

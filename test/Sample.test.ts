@@ -9,11 +9,6 @@ import {
 const sampleProcess = async () => {
 
 
-    const kbt = new KoconutBoolean(true)
-    const kbf = new KoconutBoolean(false)
-
-    const rst = await kbt.xor(kbf).yield()
-    console.log(rst)
 
 
 }
