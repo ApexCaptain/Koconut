@@ -188,19 +188,7 @@ export class Pair<FirstType, SecondType> implements KoconutEquatable {
                 else return compareResult
             } else return this.secondElement == other.secondElement
         }
-        /*
-        if(KoconutTypeChecker.checkIsEquatable(this.firstElement) && KoconutTypeChecker.checkIsEquatable(other.firstElement)) 
-            doseEqual = this.firstElement.equalsTo(other.firstElement)
-        else doseEqual = this.firstElement == other.firstElement
 
-        if(doseEqual) {
-            if(KoconutTypeChecker.checkIsEquatable(this.secondElement) && KoconutTypeChecker.checkIsEquatable(other.secondElement))
-                doseEqual = this.secondElement.equalsTo(other.secondElement)
-            else doseEqual = this.secondElement == other.secondElement
-        }
-        */
-        
-        
     }
 }
 
