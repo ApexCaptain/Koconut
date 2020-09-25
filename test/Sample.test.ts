@@ -8,8 +8,11 @@ import {
 
 const sampleProcess = async () => {
 
+    const tr = new KoconutBoolean(true)
+    const fl = new KoconutBoolean(true)
 
-
+    console.log(await tr.compareTo(fl).yield())
+    
 
 }
 sampleProcess()

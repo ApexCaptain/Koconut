@@ -1,5 +1,6 @@
 `use strict`
 
+import { should } from "chai"
 import {
     /* Tool */
     KoconutPrimitive, KoconutOpener, KoconutTypeChecker,
@@ -773,10 +774,15 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
                         while(startIndex < endIndex) {
                             middleIndex = Math.floor((startIndex + endIndex) / 2)
                             const targetComparable = await selector(processedArray[middleIndex])
-                            if(
-                                (KoconutTypeChecker.checkIsComparable(currentComparable) && (currentComparable).compareTo(targetComparable as any as KoconutComparable) >= 0)
-                                || (!KoconutTypeChecker.checkIsComparable(currentComparable) && currentComparable >= targetComparable)
-                            ) startIndex = middleIndex + 1
+                            var isCurrentGreater = false
+                            if(KoconutTypeChecker.checkIsComparable(currentComparable)) {
+                                const eachCompareResult = currentComparable.compareTo(targetComparable)
+                                let numberResult = 0
+                                if(eachCompareResult instanceof KoconutPrimitive) numberResult = await eachCompareResult.yield()
+                                else numberResult = eachCompareResult
+                                if(numberResult > 0) isCurrentGreater = true
+                            } else isCurrentGreater = targetComparable < currentComparable
+                            if(isCurrentGreater) startIndex = middleIndex + 1
                             else endIndex = middleIndex
                         }
                         processedArray.splice(endIndex, 0, dataArray[eachIndex])
@@ -813,10 +819,15 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
                         while(startIndex < endIndex) {
                             middleIndex = Math.floor((startIndex + endIndex) / 2)
                             const targetComparable = await selector(processedArray[middleIndex])
-                            if(
-                                (KoconutTypeChecker.checkIsComparable(currentComparable) && (currentComparable).compareTo(targetComparable as any as KoconutComparable) <= 0)
-                                || (!KoconutTypeChecker.checkIsComparable(currentComparable) && currentComparable <= targetComparable)
-                            ) startIndex = middleIndex + 1
+                            var isCurrentLesser = false
+                            if(KoconutTypeChecker.checkIsComparable(currentComparable)) {
+                                const eachCompareResult = currentComparable.compareTo(targetComparable)
+                                let numberResult = 0
+                                if(eachCompareResult instanceof KoconutPrimitive) numberResult = await eachCompareResult.yield()
+                                else numberResult = eachCompareResult
+                                if(numberResult < 0) isCurrentLesser = true
+                            } else isCurrentLesser = targetComparable > currentComparable
+                            if(isCurrentLesser) startIndex = middleIndex + 1
                             else endIndex = middleIndex
                         }
                         processedArray.splice(endIndex, 0, dataArray[eachIndex])

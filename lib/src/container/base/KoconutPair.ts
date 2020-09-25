@@ -1,13 +1,15 @@
+import { equal } from "assert"
 import { 
     /* Base */
     Entry, 
 
     /* Tool */
-    KoconutPrimitive, KoconutTypeChecker,
+    KoconutPrimitive, KoconutTypeChecker, KoconutOpener,
 
     /* Protol */
     KoconutEquatable
 } from "../../../module.internal"
+import { KoconutBoolean } from "./KoconutBoolean"
 
 /**
  * Represents a generic pair of two Values. There is no meaning attached to values
@@ -153,20 +155,52 @@ export class Pair<FirstType, SecondType> implements KoconutEquatable {
      *   // ↑ true
      * ```
      */
-    equalsTo(other : Pair<FirstType, SecondType>) : boolean {
-        let doseEquals = false
+    equalsTo(other : Pair<FirstType, SecondType>) : boolean | KoconutBoolean {
 
-        if(KoconutTypeChecker.checkIsEquatable(this.firstElement) && KoconutTypeChecker.checkIsEquatable(other.firstElement)) 
-            doseEquals = this.firstElement.equalsTo(other.firstElement)
-        else doseEquals = this.firstElement == other.firstElement
-
-        if(doseEquals) {
-            if(KoconutTypeChecker.checkIsEquatable(this.secondElement) && KoconutTypeChecker.checkIsEquatable(other.secondElement))
-                doseEquals = this.secondElement.equalsTo(other.secondElement)
-            else doseEquals = this.secondElement == other.secondElement
+        if(KoconutTypeChecker.checkIsEquatable(this.firstElement) && KoconutTypeChecker.checkIsEquatable(other.firstElement)) {
+            const firstCompareResult = this.firstElement.equalsTo(other.firstElement)
+            if(firstCompareResult instanceof KoconutPrimitive) {
+                const koconutToReturn = new KoconutBoolean();
+                (koconutToReturn as any as KoconutOpener<boolean>)
+                    .setProcessor(async () => {
+                        var thisValue = koconutToReturn['data']!
+                        if(!thisValue) return false
+                        if(KoconutTypeChecker.checkIsEquatable(this.secondElement) && KoconutTypeChecker.checkIsEquatable(other.secondElement)) {
+                            const compareResult = this.secondElement.equalsTo(other.secondElement)
+                            if(compareResult instanceof KoconutPrimitive) return await compareResult.yield()
+                            else return compareResult
+                        } else return this.secondElement == other.secondElement
+                    })
+                return koconutToReturn
+            } else {
+                if(!firstCompareResult) return false
+                if(KoconutTypeChecker.checkIsEquatable(this.secondElement) && KoconutTypeChecker.checkIsEquatable(other.secondElement)) {
+                    const secondCompareResult = this.secondElement.equalsTo(other.secondElement)
+                    if(secondCompareResult instanceof KoconutPrimitive) return KoconutBoolean['fromPrimitive'](secondCompareResult)
+                    else return secondCompareResult
+                } else return this.secondElement == other.secondElement
+            }
+        } else {
+            if(this.firstElement != other.firstElement) return false;
+            if(KoconutTypeChecker.checkIsEquatable(this.secondElement) && KoconutTypeChecker.checkIsEquatable(other.secondElement)) {
+                const compareResult = this.secondElement.equalsTo(other.secondElement)
+                if(compareResult instanceof KoconutPrimitive) return KoconutBoolean['fromPrimitive'](compareResult)
+                else return compareResult
+            } else return this.secondElement == other.secondElement
         }
+        /*
+        if(KoconutTypeChecker.checkIsEquatable(this.firstElement) && KoconutTypeChecker.checkIsEquatable(other.firstElement)) 
+            doseEqual = this.firstElement.equalsTo(other.firstElement)
+        else doseEqual = this.firstElement == other.firstElement
+
+        if(doseEqual) {
+            if(KoconutTypeChecker.checkIsEquatable(this.secondElement) && KoconutTypeChecker.checkIsEquatable(other.secondElement))
+                doseEqual = this.secondElement.equalsTo(other.secondElement)
+            else doseEqual = this.secondElement == other.secondElement
+        }
+        */
         
-        return doseEquals
+        
     }
 }
 

@@ -1,9 +1,9 @@
 import { 
     /* Base */
-    Pair,
+    Pair, KoconutBoolean,
 
     /* Tool */
-    KoconutPrimitive, KoconutTypeChecker,
+    KoconutPrimitive, KoconutTypeChecker, KoconutOpener,
 
     /* Protocol */
     KoconutEquatable
@@ -154,8 +154,12 @@ export class Entry<KeyType, ValueType> implements KoconutEquatable {
      *   // ↑ true
      * ```
      */
-    equalsTo(other : Entry<KeyType, ValueType>) : boolean {
-        if(KoconutTypeChecker.checkIsEquatable(this.key) && KoconutTypeChecker.checkIsEquatable(other.key)) return this.key.equalsTo(other.key)
+    equalsTo(other : Entry<KeyType, ValueType>) : boolean | KoconutBoolean {
+        if(KoconutTypeChecker.checkIsEquatable(this.key) && KoconutTypeChecker.checkIsEquatable(other.key)) {
+            const equalityResult = this.key.equalsTo(other.key)
+            if(equalityResult instanceof KoconutPrimitive) return KoconutBoolean['fromPrimitive'](equalityResult)
+            else return equalityResult
+        }
         else return this.key == other.key
     }
 }
@@ -223,7 +227,7 @@ export class KoconutEntry<KeyType, ValueType> extends KoconutPrimitive<Entry<Key
      * 
      * @param other Other {@link KoconutEntry} instance to check equality.
      */
-    equalsTo(other : KoconutEntry<KeyType, ValueType>) : boolean {
+    equalsTo(other : KoconutEntry<KeyType, ValueType>) : boolean | KoconutBoolean {
         if(this.data != null && other.data != null) return this.data.equalsTo(other.data)
         return false
     }

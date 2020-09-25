@@ -232,12 +232,22 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
                 let lastComparableDatum : number | string | KoconutComparable | null = null
                 for(const eachCombinedDatum of this.combinedDataWrapper) {
                     const eachComparableDatum = await selector(eachCombinedDatum)
-                    if(lastComparableDatum == null
-                        || (KoconutTypeChecker.checkIsComparable(eachComparableDatum) && eachComparableDatum.compareTo(lastComparableDatum as any as KoconutComparable) > 0)
-                        || (!KoconutTypeChecker.checkIsComparable(eachComparableDatum) && lastComparableDatum < eachComparableDatum)) {
-                            dataToReturn = eachCombinedDatum
-                            lastComparableDatum = eachComparableDatum
-                        }
+
+                    let shouldBeChanged = lastComparableDatum == null
+                    if(!shouldBeChanged) {
+                        if(KoconutTypeChecker.checkIsComparable(eachComparableDatum)) {
+                            const eachCompareResult = eachComparableDatum.compareTo(lastComparableDatum)
+                            let numberResult = 0
+                            if(eachCompareResult instanceof KoconutPrimitive) numberResult = await eachCompareResult.yield()
+                            else numberResult = eachCompareResult
+                            if(numberResult > 0) shouldBeChanged = true
+                        } else shouldBeChanged = lastComparableDatum! < eachComparableDatum
+                    }
+                    if(shouldBeChanged) {
+                        dataToReturn = eachCombinedDatum
+                        lastComparableDatum = eachComparableDatum
+                    }
+
                 }
                 if(dataToReturn == null) throw new KoconutNoSuchElementException(`Source data is empty`)
                 return dataToReturn
@@ -327,12 +337,22 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
                 let lastComparableDatum : number | string | KoconutComparable | null = null
                 for(const eachCombinedDatum of this.combinedDataWrapper) {
                     const eachComparableDatum = await selector(eachCombinedDatum)
-                    if(lastComparableDatum == null
-                        || (KoconutTypeChecker.checkIsComparable(eachComparableDatum) && eachComparableDatum.compareTo(lastComparableDatum as any as KoconutComparable) > 0)
-                        || (!KoconutTypeChecker.checkIsComparable(eachComparableDatum) && lastComparableDatum < eachComparableDatum)) {
-                            dataToReturn = eachCombinedDatum
-                            lastComparableDatum = eachComparableDatum
-                        }
+
+                    let shouldBeChanged = lastComparableDatum == null
+                    if(!shouldBeChanged) {
+                        if(KoconutTypeChecker.checkIsComparable(eachComparableDatum)) {
+                            const eachCompareResult = eachComparableDatum.compareTo(lastComparableDatum)
+                            let numberResult = 0
+                            if(eachCompareResult instanceof KoconutPrimitive) numberResult = await eachCompareResult.yield()
+                            else numberResult = eachCompareResult
+                            if(numberResult > 0) shouldBeChanged = true
+                        } else shouldBeChanged = lastComparableDatum! < eachComparableDatum
+                    }
+                    if(shouldBeChanged) {
+                        dataToReturn = eachCombinedDatum
+                        lastComparableDatum = eachComparableDatum
+                    }
+
                 }
                 return dataToReturn
             })
@@ -467,11 +487,19 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
                 let lastComparableDatumToReturn : number | string | ComparableType | null = null
                 for(const eachCombinedDatum of this.combinedDataWrapper) {
                     const eachComparableDatum = await selector(eachCombinedDatum)
-                    if(lastComparableDatumToReturn == null
-                        || (KoconutTypeChecker.checkIsComparable(eachComparableDatum) && (eachComparableDatum).compareTo(lastComparableDatumToReturn as any as KoconutComparable) > 0)
-                        || (!KoconutTypeChecker.checkIsComparable(eachComparableDatum) && lastComparableDatumToReturn < eachComparableDatum)) {
-                            lastComparableDatumToReturn = eachComparableDatum
-                        }
+
+                    let shouldBeChanged = lastComparableDatumToReturn == null
+                    if(!shouldBeChanged) {
+                        if(KoconutTypeChecker.checkIsComparable(eachComparableDatum)) {
+                            const eachCompareResult = eachComparableDatum.compareTo(lastComparableDatumToReturn)
+                            let numberResult = 0
+                            if(eachCompareResult instanceof KoconutPrimitive) numberResult = await eachCompareResult.yield()
+                            else numberResult = eachCompareResult
+                            if(numberResult > 0) shouldBeChanged = true
+                        } else shouldBeChanged = lastComparableDatumToReturn! < eachComparableDatum
+                    }
+                    if(shouldBeChanged) lastComparableDatumToReturn = eachComparableDatum
+                    
                 }
                 if(lastComparableDatumToReturn == null) throw new KoconutNoSuchElementException(`Source data is empty`)
                 return lastComparableDatumToReturn
@@ -596,11 +624,19 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
                 let lastComparableDatumToReturn : number | string | ComparableType | null = null
                 for(const eachCombinedDatum of this.combinedDataWrapper) {
                     const eachComparableDatum = await selector(eachCombinedDatum)
-                    if(lastComparableDatumToReturn == null
-                        || (KoconutTypeChecker.checkIsComparable(eachComparableDatum) && (eachComparableDatum).compareTo(lastComparableDatumToReturn as any as KoconutComparable) > 0)
-                        || (!KoconutTypeChecker.checkIsComparable(eachComparableDatum) && lastComparableDatumToReturn < eachComparableDatum)) {
-                            lastComparableDatumToReturn = eachComparableDatum
-                        }
+                    
+                    let shouldBeChanged = lastComparableDatumToReturn == null
+                    if(!shouldBeChanged) {
+                        if(KoconutTypeChecker.checkIsComparable(eachComparableDatum)) {
+                            const eachCompareResult = eachComparableDatum.compareTo(lastComparableDatumToReturn)
+                            let numberResult = 0
+                            if(eachCompareResult instanceof KoconutPrimitive) numberResult = await eachCompareResult.yield()
+                            else numberResult = eachCompareResult
+                            if(numberResult > 0) shouldBeChanged = true
+                        } else shouldBeChanged = lastComparableDatumToReturn! < eachComparableDatum
+                    }
+                    if(shouldBeChanged) lastComparableDatumToReturn = eachComparableDatum
+
                 }
                 return lastComparableDatumToReturn
             })
@@ -1120,12 +1156,22 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
                 let lastComparableDatum : number | string | KoconutComparable | null = null
                 for(const eachCombinedDatum of this.combinedDataWrapper) {
                     const eachComparableDatum = await selector(eachCombinedDatum)
-                    if(lastComparableDatum == null
-                        || (KoconutTypeChecker.checkIsComparable(eachComparableDatum) && eachComparableDatum.compareTo(lastComparableDatum as any as KoconutComparable) < 0)
-                        || (!KoconutTypeChecker.checkIsComparable(eachComparableDatum) && lastComparableDatum > eachComparableDatum)) {
-                            dataToReturn = eachCombinedDatum
-                            lastComparableDatum = eachComparableDatum
-                        }
+                    let shouldBeChanged = lastComparableDatum == null
+
+                    if(!shouldBeChanged) {
+                        if(KoconutTypeChecker.checkIsComparable(eachComparableDatum)) {
+                            const eachCompareResult = eachComparableDatum.compareTo(lastComparableDatum)
+                            let numberResult = 0
+                            if(eachCompareResult instanceof KoconutPrimitive) numberResult = await eachCompareResult.yield()
+                            else numberResult = eachCompareResult
+                            if(numberResult < 0) shouldBeChanged = true
+                        } else shouldBeChanged = lastComparableDatum! > eachComparableDatum
+                    }
+                    if(shouldBeChanged) {
+                        dataToReturn = eachCombinedDatum
+                        lastComparableDatum = eachComparableDatum
+                    }
+
                 }
                 if(dataToReturn == null) throw new KoconutNoSuchElementException(`Source data is empty`)
                 return dataToReturn
@@ -1214,12 +1260,20 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
                 let lastComparableDatum : number | string | KoconutComparable | null = null
                 for(const eachCombinedDatum of this.combinedDataWrapper) {
                     const eachComparableDatum = await selector(eachCombinedDatum)
-                    if(lastComparableDatum == null
-                        || (KoconutTypeChecker.checkIsComparable(eachComparableDatum) && eachComparableDatum.compareTo(lastComparableDatum as any as KoconutComparable) < 0)
-                        || (!KoconutTypeChecker.checkIsComparable(eachComparableDatum) && lastComparableDatum > eachComparableDatum)) {
-                            dataToReturn = eachCombinedDatum
-                            lastComparableDatum = eachComparableDatum
-                        }
+                    let shouldBeChanged = lastComparableDatum == null
+                    if(!shouldBeChanged) {
+                        if(KoconutTypeChecker.checkIsComparable(eachComparableDatum)) {
+                            const eachCompareResult = eachComparableDatum.compareTo(lastComparableDatum)
+                            let numberResult = 0
+                            if(eachCompareResult instanceof KoconutPrimitive) numberResult = await eachCompareResult.yield()
+                            else numberResult = eachCompareResult
+                            if(numberResult < 0) shouldBeChanged = true
+                        } else shouldBeChanged = lastComparableDatum! > eachComparableDatum
+                    }
+                    if(shouldBeChanged) {
+                        dataToReturn = eachCombinedDatum
+                        lastComparableDatum = eachComparableDatum
+                    }
                 }
                 return dataToReturn
             })
@@ -1354,11 +1408,17 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
                 let lastComparableDatumToReturn : number | string | ComparableType | null = null
                 for(const eachCombinedDatum of this.combinedDataWrapper) {
                     const eachComparableDatum = await selector(eachCombinedDatum)
-                    if(lastComparableDatumToReturn == null
-                        || (KoconutTypeChecker.checkIsComparable(eachComparableDatum) && (eachComparableDatum).compareTo(lastComparableDatumToReturn as any as KoconutComparable) < 0)
-                        || (!KoconutTypeChecker.checkIsComparable(eachComparableDatum) && lastComparableDatumToReturn > eachComparableDatum)) {
-                            lastComparableDatumToReturn = eachComparableDatum
-                        }
+                    let shouldBeChanged = lastComparableDatumToReturn == null
+                    if(!shouldBeChanged) {
+                        if(KoconutTypeChecker.checkIsComparable(eachComparableDatum)) {
+                            const eachCompareResult = eachComparableDatum.compareTo(lastComparableDatumToReturn)
+                            let numberResult = 0
+                            if(eachCompareResult instanceof KoconutPrimitive) numberResult = await eachCompareResult.yield()
+                            else numberResult = eachCompareResult
+                            if(numberResult < 0) shouldBeChanged = true
+                        } else shouldBeChanged = lastComparableDatumToReturn! > eachComparableDatum
+                    }
+                    if(shouldBeChanged) lastComparableDatumToReturn = eachComparableDatum
                 }
                 if(lastComparableDatumToReturn == null) throw new KoconutNoSuchElementException(`Source data is empty`)
                 return lastComparableDatumToReturn
@@ -1487,11 +1547,17 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
                 let lastComparableDatumToReturn : number | string | ComparableType | null = null
                 for(const eachCombinedDatum of this.combinedDataWrapper) {
                     const eachComparableDatum = await selector(eachCombinedDatum)
-                    if(lastComparableDatumToReturn == null
-                        || (KoconutTypeChecker.checkIsComparable(eachComparableDatum) && (eachComparableDatum).compareTo(lastComparableDatumToReturn as any as KoconutComparable) < 0)
-                        || (!KoconutTypeChecker.checkIsComparable(eachComparableDatum) && lastComparableDatumToReturn > eachComparableDatum)) {
-                            lastComparableDatumToReturn = eachComparableDatum
-                        }
+                    let shouldBeChanged = lastComparableDatumToReturn == null
+                    if(!shouldBeChanged) {
+                        if(KoconutTypeChecker.checkIsComparable(eachComparableDatum)) {
+                            const eachCompareResult = eachComparableDatum.compareTo(lastComparableDatumToReturn)
+                            let numberResult = 0
+                            if(eachCompareResult instanceof KoconutPrimitive) numberResult = await eachCompareResult.yield()
+                            else numberResult = eachCompareResult
+                            if(numberResult < 0) shouldBeChanged = true
+                        } else shouldBeChanged = lastComparableDatumToReturn! > eachComparableDatum
+                    }
+                    if(shouldBeChanged) lastComparableDatumToReturn = eachComparableDatum
                 }
                 return lastComparableDatumToReturn
             })

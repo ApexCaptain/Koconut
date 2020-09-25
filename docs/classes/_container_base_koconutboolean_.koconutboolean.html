@@ -99,8 +99,13 @@
 							<h3>Other Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_container_base_koconutboolean_.koconutboolean.html#and" class="tsd-kind-icon">and</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_container_base_koconutboolean_.koconutboolean.html#retrieve" class="tsd-kind-icon">retrieve</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_container_base_koconutboolean_.koconutboolean.html#valueof" class="tsd-kind-icon">value<wbr>Of</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_container_base_koconutboolean_.koconutboolean.html#eqv" class="tsd-kind-icon">eqv</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_container_base_koconutboolean_.koconutboolean.html#nand" class="tsd-kind-icon">nand</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_container_base_koconutboolean_.koconutboolean.html#nor" class="tsd-kind-icon">nor</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_container_base_koconutboolean_.koconutboolean.html#not" class="tsd-kind-icon">not</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_container_base_koconutboolean_.koconutboolean.html#or" class="tsd-kind-icon">or</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_container_base_koconutboolean_.koconutboolean.html#xnor" class="tsd-kind-icon">xnor</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_container_base_koconutboolean_.koconutboolean.html#xor" class="tsd-kind-icon">xor</a></li>
 							</ul>
 							<h3>Processor Methods</h3>
 							<ul class="tsd-index-list">
@@ -126,7 +131,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides KoconutPrimitive.__constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/94b7097/lib/src/container/base/KoconutBoolean.ts#L9">lib/src/container/base/KoconutBoolean.ts:9</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/e88a414/lib/src/container/base/KoconutBoolean.ts#L11">lib/src/container/base/KoconutBoolean.ts:11</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -146,51 +151,177 @@
 					<a name="and" class="tsd-anchor"></a>
 					<h3>and</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">and<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">and<span class="tsd-signature-symbol">(</span>other<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">targetBooleanLikeType</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_container_base_koconutboolean_.koconutboolean.html" class="tsd-signature-type">KoconutBoolean</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/94b7097/lib/src/container/base/KoconutBoolean.ts#L20">lib/src/container/base/KoconutBoolean.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/e88a414/lib/src/container/base/KoconutBoolean.ts#L46">lib/src/container/base/KoconutBoolean.ts:46</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a name="retrieve" class="tsd-anchor"></a>
-					<h3>retrieve</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">retrieve<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="_container_flow_koconutflow_.koconutflow.html">KoconutFlow</a>.<a href="_container_flow_koconutflow_.koconutflow.html#retrieve">retrieve</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/94b7097/lib/src/tool/KoconutPrimitive.internal.ts#L63">lib/src/tool/KoconutPrimitive.internal.ts:63</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>other: <span class="tsd-signature-type">targetBooleanLikeType</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_container_base_koconutboolean_.koconutboolean.html" class="tsd-signature-type">KoconutBoolean</a></h4>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="valueof" class="tsd-anchor"></a>
-					<h3>value<wbr>Of</h3>
+					<a name="eqv" class="tsd-anchor"></a>
+					<h3>eqv</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">value<wbr>Of<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">eqv<span class="tsd-signature-symbol">(</span>other<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">targetBooleanLikeType</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_container_base_koconutboolean_.koconutboolean.html" class="tsd-signature-type">KoconutBoolean</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/94b7097/lib/src/container/base/KoconutBoolean.ts#L16">lib/src/container/base/KoconutBoolean.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/e88a414/lib/src/container/base/KoconutBoolean.ts#L128">lib/src/container/base/KoconutBoolean.ts:128</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>other: <span class="tsd-signature-type">targetBooleanLikeType</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_container_base_koconutboolean_.koconutboolean.html" class="tsd-signature-type">KoconutBoolean</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="nand" class="tsd-anchor"></a>
+					<h3>nand</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">nand<span class="tsd-signature-symbol">(</span>other<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">targetBooleanLikeType</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_container_base_koconutboolean_.koconutboolean.html" class="tsd-signature-type">KoconutBoolean</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/e88a414/lib/src/container/base/KoconutBoolean.ts#L63">lib/src/container/base/KoconutBoolean.ts:63</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>other: <span class="tsd-signature-type">targetBooleanLikeType</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_container_base_koconutboolean_.koconutboolean.html" class="tsd-signature-type">KoconutBoolean</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="nor" class="tsd-anchor"></a>
+					<h3>nor</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">nor<span class="tsd-signature-symbol">(</span>other<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">targetBooleanLikeType</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_container_base_koconutboolean_.koconutboolean.html" class="tsd-signature-type">KoconutBoolean</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/e88a414/lib/src/container/base/KoconutBoolean.ts#L91">lib/src/container/base/KoconutBoolean.ts:91</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>other: <span class="tsd-signature-type">targetBooleanLikeType</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_container_base_koconutboolean_.koconutboolean.html" class="tsd-signature-type">KoconutBoolean</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="not" class="tsd-anchor"></a>
+					<h3>not</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">not<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_container_base_koconutboolean_.koconutboolean.html" class="tsd-signature-type">KoconutBoolean</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/e88a414/lib/src/container/base/KoconutBoolean.ts#L33">lib/src/container/base/KoconutBoolean.ts:33</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="_container_base_koconutboolean_.koconutboolean.html" class="tsd-signature-type">KoconutBoolean</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="or" class="tsd-anchor"></a>
+					<h3>or</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">or<span class="tsd-signature-symbol">(</span>other<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">targetBooleanLikeType</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_container_base_koconutboolean_.koconutboolean.html" class="tsd-signature-type">KoconutBoolean</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/e88a414/lib/src/container/base/KoconutBoolean.ts#L72">lib/src/container/base/KoconutBoolean.ts:72</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>other: <span class="tsd-signature-type">targetBooleanLikeType</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_container_base_koconutboolean_.koconutboolean.html" class="tsd-signature-type">KoconutBoolean</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="xnor" class="tsd-anchor"></a>
+					<h3>xnor</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">xnor<span class="tsd-signature-symbol">(</span>other<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">targetBooleanLikeType</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_container_base_koconutboolean_.koconutboolean.html" class="tsd-signature-type">KoconutBoolean</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/e88a414/lib/src/container/base/KoconutBoolean.ts#L119">lib/src/container/base/KoconutBoolean.ts:119</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>other: <span class="tsd-signature-type">targetBooleanLikeType</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_container_base_koconutboolean_.koconutboolean.html" class="tsd-signature-type">KoconutBoolean</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="xor" class="tsd-anchor"></a>
+					<h3>xor</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">xor<span class="tsd-signature-symbol">(</span>other<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">targetBooleanLikeType</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_container_base_koconutboolean_.koconutboolean.html" class="tsd-signature-type">KoconutBoolean</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/e88a414/lib/src/container/base/KoconutBoolean.ts#L100">lib/src/container/base/KoconutBoolean.ts:100</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>other: <span class="tsd-signature-type">targetBooleanLikeType</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_container_base_koconutboolean_.koconutboolean.html" class="tsd-signature-type">KoconutBoolean</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -208,7 +339,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_base_koconutpair_.koconutpair.html">KoconutPair</a>.<a href="_container_base_koconutpair_.koconutpair.html#also">also</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/94b7097/lib/src/tool/KoconutPrimitive.internal.ts#L155">lib/src/tool/KoconutPrimitive.internal.ts:155</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/e88a414/lib/src/tool/KoconutPrimitive.internal.ts#L155">lib/src/tool/KoconutPrimitive.internal.ts:155</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -281,7 +412,7 @@ mainProcess()</code></pre>
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_base_koconutpair_.koconutpair.html">KoconutPair</a>.<a href="_container_base_koconutpair_.koconutpair.html#let">let</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/94b7097/lib/src/tool/KoconutPrimitive.internal.ts#L123">lib/src/tool/KoconutPrimitive.internal.ts:123</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/e88a414/lib/src/tool/KoconutPrimitive.internal.ts#L123">lib/src/tool/KoconutPrimitive.internal.ts:123</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -358,7 +489,7 @@ mainProcess()</code></pre>
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_base_koconutpair_.koconutpair.html">KoconutPair</a>.<a href="_container_base_koconutpair_.koconutpair.html#process">process</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/94b7097/lib/src/tool/KoconutPrimitive.internal.ts#L50">lib/src/tool/KoconutPrimitive.internal.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/e88a414/lib/src/tool/KoconutPrimitive.internal.ts#L50">lib/src/tool/KoconutPrimitive.internal.ts:50</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -399,7 +530,7 @@ mainProcess()</code></pre>
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_container_base_koconutpair_.koconutpair.html">KoconutPair</a>.<a href="_container_base_koconutpair_.koconutpair.html#yield">yield</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/94b7097/lib/src/tool/KoconutPrimitive.internal.ts#L92">lib/src/tool/KoconutPrimitive.internal.ts:92</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/e88a414/lib/src/tool/KoconutPrimitive.internal.ts#L92">lib/src/tool/KoconutPrimitive.internal.ts:92</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -495,17 +626,32 @@ mainProcess()</code></pre>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_container_base_koconutboolean_.koconutboolean.html#and" class="tsd-kind-icon">and</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_container_base_koconutboolean_.koconutboolean.html#eqv" class="tsd-kind-icon">eqv</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 								<a href="_container_base_koconutboolean_.koconutboolean.html#let" class="tsd-kind-icon">let</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_container_base_koconutboolean_.koconutboolean.html#nand" class="tsd-kind-icon">nand</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_container_base_koconutboolean_.koconutboolean.html#nor" class="tsd-kind-icon">nor</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_container_base_koconutboolean_.koconutboolean.html#not" class="tsd-kind-icon">not</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_container_base_koconutboolean_.koconutboolean.html#or" class="tsd-kind-icon">or</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_container_base_koconutboolean_.koconutboolean.html#process" class="tsd-kind-icon">process</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_container_base_koconutboolean_.koconutboolean.html#retrieve" class="tsd-kind-icon">retrieve</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_container_base_koconutboolean_.koconutboolean.html#xnor" class="tsd-kind-icon">xnor</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_container_base_koconutboolean_.koconutboolean.html#valueof" class="tsd-kind-icon">value<wbr>Of</a>
+								<a href="_container_base_koconutboolean_.koconutboolean.html#xor" class="tsd-kind-icon">xor</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_container_base_koconutboolean_.koconutboolean.html#yield" class="tsd-kind-icon">yield</a>
