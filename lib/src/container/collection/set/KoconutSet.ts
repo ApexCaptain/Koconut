@@ -2,7 +2,7 @@
 
 import {
     /* Base */
-    Pair, KoconutPair, KoconutTypeChecker, Entry, KoconutEntry,
+    Pair, KoconutPair, KoconutTypeChecker, Entry, KoconutEntry, KoconutPrimitive,
 
     /* Container */
     KoconutCollection,
@@ -133,9 +133,13 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
                 if(KoconutTypeChecker.checkIsEquatable(eachDatum)) {
                     let isConflict = false
                     for(const eachPrevEquatablekDatum of keys) {
-                        if(eachDatum.equalsTo(eachPrevEquatablekDatum as any as KoconutEquatable)) {
+                        const equalityResult = eachDatum.equalsTo(eachPrevEquatablekDatum)
+                        if(
+                            (equalityResult instanceof KoconutPrimitive && await equalityResult.yield())
+                            || (!(equalityResult instanceof KoconutPrimitive) && equalityResult)
+                        ) {
                             isConflict = true
-                            break;
+                            break
                         }
                     }
                     if(!isConflict) {

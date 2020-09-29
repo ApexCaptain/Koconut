@@ -8,7 +8,7 @@ import {
     Entry, Pair, KoconutPair, KoconutEntry,
 
     /* Container */
-    KoconutIterable, KoconutArray, KoconutSet,
+    KoconutIterable, KoconutArray, KoconutSet, KoconutBoolean,
 
     /* Enum */
     KoconutLoopSignal,
@@ -31,7 +31,11 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
                 if(KoconutTypeChecker.checkIsEquatable(key)) {
                     let isConflict = false
                     for(const eachPrevEquatableKey of this.mKeys) {
-                        if(key.equalsTo(eachPrevEquatableKey as any as KoconutEquatable)) {
+                        const equalityResult = key.equalsTo(eachPrevEquatableKey)
+                        if(
+                            (equalityResult instanceof KoconutPrimitive && await equalityResult.yield())
+                            || (!(equalityResult instanceof KoconutPrimitive) && equalityResult)
+                        ) {
                             isConflict = true
                             break
                         }
@@ -1161,15 +1165,20 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
      */
     contains(
         key : KeyType
-    ) : KoconutPrimitive<boolean> {
+    ) : KoconutBoolean {
 
-        const koconutToReturn = new KoconutPrimitive<boolean>();
+        const koconutToReturn = new KoconutBoolean();
         (koconutToReturn as any as KoconutOpener<boolean>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
                 for(const eachKey of this.mKeys) {
-                    if((KoconutTypeChecker.checkIsEquatable(eachKey) && eachKey.equalsTo(key as any as KoconutEquatable))
-                    || (!KoconutTypeChecker.checkIsEquatable(eachKey) && eachKey == key)) return true
+                    if(KoconutTypeChecker.checkIsEquatable(eachKey)) {
+                        const equalityResult = eachKey.equalsTo(key)
+                        if(
+                            (equalityResult instanceof KoconutPrimitive && await equalityResult.yield())
+                            || (!(equalityResult instanceof KoconutPrimitive) && equalityResult)
+                        ) return true
+                    } else if(eachKey == key) return true
                 }
                 return false
             })
@@ -1206,7 +1215,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
      */
     containsKey(
         key : KeyType
-    ) : KoconutPrimitive<boolean> {
+    ) : KoconutBoolean {
 
         return this.contains(key)
 
@@ -1241,15 +1250,20 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
      */
     containsValue(
         value : ValueType
-    ) : KoconutPrimitive<boolean> {
+    ) : KoconutBoolean {
 
-        const koconutToReturn = new KoconutPrimitive<boolean>();
+        const koconutToReturn = new KoconutBoolean();
         (koconutToReturn as any as KoconutOpener<boolean>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
                 for(const eachValue of this.mValues) {
-                    if((KoconutTypeChecker.checkIsEquatable(eachValue) && eachValue.equalsTo(value as any as KoconutEquatable))
-                    || (!KoconutTypeChecker.checkIsEquatable(eachValue) && eachValue == value)) return true
+                    if(KoconutTypeChecker.checkIsEquatable(eachValue)) {
+                        const equalityResult = eachValue.equalsTo(value)
+                        if(
+                            (equalityResult instanceof KoconutPrimitive && await equalityResult.yield())
+                            || (!(equalityResult instanceof KoconutPrimitive) && equalityResult)
+                        ) return true
+                    } else if (eachValue == value) return true
                 }
                 return false
             })
@@ -1776,8 +1790,13 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
             .setProcessor(async () => {
                 if(this.combinedDataWrapper != null) {
                     for(const eachEntry of this.combinedDataWrapper) {
-                        if((KoconutTypeChecker.checkIsEquatable(eachEntry.key) && eachEntry.key.equalsTo(key as any as KoconutEquatable))
-                        || (!KoconutTypeChecker.checkIsEquatable(eachEntry.key) && eachEntry.key == key)) return eachEntry.value
+                        if(KoconutTypeChecker.checkIsEquatable(eachEntry.key)) {
+                            const equalityResult = eachEntry.key.equalsTo(key)
+                            if(
+                                (equalityResult instanceof KoconutPrimitive && await equalityResult.yield())
+                                || (!(equalityResult instanceof KoconutPrimitive) && equalityResult)
+                            ) return eachEntry.value
+                        } else if(eachEntry.key == key) return eachEntry.value
                     }
                 }
                 return null
@@ -1826,8 +1845,13 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
             .setProcessor(async () => {
                 if(this.combinedDataWrapper != null) {
                     for(const eachEntry of this.combinedDataWrapper) {
-                        if((KoconutTypeChecker.checkIsEquatable(eachEntry.key) && eachEntry.key.equalsTo(key as any as KoconutEquatable))
-                        || (!KoconutTypeChecker.checkIsEquatable(eachEntry.key) && eachEntry.key == key)) return eachEntry.value
+                        if(KoconutTypeChecker.checkIsEquatable(eachEntry.key)) {
+                            const equalityResult = eachEntry.key.equalsTo(key)
+                            if(
+                                (equalityResult instanceof KoconutPrimitive && await equalityResult.yield())
+                                || (!(equalityResult instanceof KoconutPrimitive) && equalityResult)
+                            ) return eachEntry.value
+                        } else if(eachEntry.key == key) return eachEntry.value
                     }
                 }
                 return defaultValue
@@ -1884,8 +1908,13 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
             .setProcessor(async () => {
                 if(this.combinedDataWrapper != null) {
                     for(const eachEntry of this.combinedDataWrapper) {
-                        if((KoconutTypeChecker.checkIsEquatable(eachEntry.key) && eachEntry.key.equalsTo(key as any as KoconutEquatable))
-                        || (!KoconutTypeChecker.checkIsEquatable(eachEntry.key) && eachEntry.key == key)) return eachEntry.value
+                        if(KoconutTypeChecker.checkIsEquatable(eachEntry.key)) {
+                            const equalityResult = eachEntry.key.equalsTo(key)
+                            if(
+                                (equalityResult instanceof KoconutPrimitive && await equalityResult.yield())
+                                || (!(equalityResult instanceof KoconutPrimitive) && equalityResult)
+                            ) return eachEntry.value
+                        } else if(eachEntry.key == key) return eachEntry.value
                     }
                 }
                 return await defaultValue()
@@ -1936,8 +1965,13 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
         .setProcessor(async () => {
             if(this.combinedDataWrapper != null) {
                 for(const eachEntry of this.combinedDataWrapper) {
-                    if((KoconutTypeChecker.checkIsEquatable(eachEntry.key) && eachEntry.key.equalsTo(key as any as KoconutEquatable))
-                    || (!KoconutTypeChecker.checkIsEquatable(eachEntry.key) && eachEntry.key == key)) return eachEntry.value
+                    if(KoconutTypeChecker.checkIsEquatable(eachEntry.key)) {
+                        const equalityResult = eachEntry.key.equalsTo(key)
+                        if(
+                            (equalityResult instanceof KoconutPrimitive && await equalityResult.yield())
+                            || (!(equalityResult instanceof KoconutPrimitive) && equalityResult)
+                        ) return eachEntry.value
+                    } else if(eachEntry.key == key) return eachEntry.value
                 }
             }
             throw new KoconutNoSuchElementException(`No such element mathces given key ${key} is found`) 

@@ -9,7 +9,7 @@ import {
     KoconutPair, Pair, Entry, 
 
     /* Container */
-    KoconutIterable, KoconutArray, KoconutSet, KoconutMap,
+    KoconutIterable, KoconutArray, KoconutSet, KoconutMap, KoconutBoolean,
 
     /* Enum*/
     KoconutLoopSignal,
@@ -125,16 +125,21 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
      */
     contains(
         element : DataType
-    ) : KoconutPrimitive<boolean> {
+    ) : KoconutBoolean {
 
-        const koconutToReturn = new KoconutPrimitive<boolean>();
+        const koconutToReturn = new KoconutBoolean();
         (koconutToReturn as any as KoconutOpener<boolean>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
                 if(this.data == null) return false
                 for(let eachDatum of this.data) {
-                    if((KoconutTypeChecker.checkIsEquatable(eachDatum) && eachDatum.equalsTo(element as any as KoconutEquatable))
-                     || (!KoconutTypeChecker.checkIsEquatable(eachDatum) && element == eachDatum)) return true
+                    var isContained = false
+                    if(KoconutTypeChecker.checkIsEquatable(eachDatum)) {
+                        const equalityResult = eachDatum.equalsTo(element)
+                        if(equalityResult instanceof KoconutPrimitive) isContained = await equalityResult.yield()
+                        else isContained = equalityResult
+                    } else isContained = eachDatum == element
+                    if(isContained) return true
                 }
                 return false
             })
@@ -173,9 +178,9 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
      */
     containsAll(
         elements : Iterable<DataType>
-    ) : KoconutPrimitive<boolean> {
+    ) : KoconutBoolean {
 
-        const koconutToReturn = new KoconutPrimitive<boolean>();
+        const koconutToReturn = new KoconutBoolean();
         (koconutToReturn as any as KoconutOpener<boolean>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
@@ -185,7 +190,11 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
                     if(KoconutTypeChecker.checkIsEquatable(eachElementToCheck)) {
                         let isIncluded = false
                         for(const eachDatum of dataArray) {
-                            if(eachElementToCheck.equalsTo(eachDatum as any as KoconutEquatable)) {
+                            const equalityResult = eachElementToCheck.equalsTo(eachDatum)
+                            if(
+                                (equalityResult instanceof KoconutPrimitive && await equalityResult.yield())
+                                || (!(equalityResult instanceof KoconutPrimitive) && equalityResult)
+                            ) {
                                 isIncluded = true
                                 break
                             }
@@ -383,7 +392,11 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
                         if(KoconutTypeChecker.checkIsEquatable(eachDatum)) {
                             let isConflict = false
                             for(const eachPrevEquatableDatum of processedArray) {
-                                if((eachPrevEquatableDatum as any as KoconutEquatable).equalsTo(eachDatum)) {
+                                const equalityResult = eachDatum.equalsTo(eachPrevEquatableDatum)
+                                if(
+                                    (equalityResult instanceof KoconutPrimitive && await equalityResult.yield())
+                                    || (!(equalityResult instanceof KoconutPrimitive) && equalityResult)
+                                ) {
                                     isConflict = true
                                     break
                                 }
@@ -423,7 +436,11 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
                         if(KoconutTypeChecker.checkIsEquatable(eachKey)) {
                             let isConflict = false
                             for(const eachPrevEquatableKey of equatableKeyArray) {
-                                if(eachPrevEquatableKey.equalsTo(eachKey)) {
+                                const equalityResult = eachPrevEquatableKey.equalsTo(eachKey)
+                                if(
+                                    (equalityResult instanceof KoconutPrimitive && await equalityResult.yield())
+                                    || (!(equalityResult instanceof KoconutPrimitive) && equalityResult)
+                                ) {
                                     isConflict = true
                                     break
                                 }
@@ -2308,9 +2325,13 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
             .setProcessor(async () => {
                 if(this.data != null) {
                     for(const [index, element] of Array.from(this.data).entries()) {
-                        if((KoconutTypeChecker.checkIsEquatable(element) && element.equalsTo(elementToFind as any as KoconutEquatable))
-                        || (!KoconutTypeChecker.checkIsEquatable(element) && element == elementToFind))
-                            return index as number
+                        if(KoconutTypeChecker.checkIsEquatable(element)) {
+                            const equalityResult = element.equalsTo(elementToFind)
+                            if(
+                                (equalityResult instanceof KoconutPrimitive && await equalityResult.yield())
+                                || (!(equalityResult instanceof KoconutPrimitive) && equalityResult)
+                            ) return index as number
+                        } else if(element == elementToFind) return index as number
                     }
                 }
                 return -1
@@ -2460,8 +2481,13 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
                     const dataArray = Array.from(this.data)
                     for(let eachIndex = dataArray.length - 1 ; eachIndex >=0 ; eachIndex--) {
                         const eachElement = dataArray[eachIndex]
-                        if((KoconutTypeChecker.checkIsEquatable(eachElement) && eachElement.equalsTo(element as any as KoconutEquatable))
-                        || (!KoconutTypeChecker.checkIsEquatable(eachElement) && eachElement == element)) return eachIndex
+                        if(KoconutTypeChecker.checkIsEquatable(eachElement)) {
+                            const equalityResult = eachElement.equalsTo(element)
+                            if(
+                                (equalityResult instanceof KoconutPrimitive && await equalityResult.yield())
+                                || (!(equalityResult instanceof KoconutPrimitive) && equalityResult)
+                            ) return eachIndex
+                        } else if(eachElement == element) return eachIndex
                     }
                 }
                 return -1

@@ -10,7 +10,7 @@ import {
     KoconutArray, KoconutMap, KoconutSet, KoconutFlow, Flow,
 
     /* Exception */
-    KoconutNoSuchElementException, KoconutConflictException
+    KoconutNoSuchElementException, KoconutConflictException, KoconutBoolean
 } from "../../lib/module.internal"
 import {
     Person, ProductInfo
@@ -638,7 +638,7 @@ describe(`${KoconutArray.name} -- Inspector`, () => {
         const yieldableCase1 =
                         koconut
                         .all(element => element > 2)
-        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        expect(yieldableCase1).to.be.instanceOf(KoconutBoolean)
         const resultCase1 = await yieldableCase1.yield()
         expect(resultCase1).to.equals(false)
 
@@ -646,7 +646,7 @@ describe(`${KoconutArray.name} -- Inspector`, () => {
         const yieldableCase2 = 
                         koconut
                         .all(element => element < 10)
-        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        expect(yieldableCase2).to.be.instanceOf(KoconutBoolean)
         const resultCase2 = await yieldableCase2.yield()
         expect(resultCase2).to.equals(true)
 
@@ -660,7 +660,7 @@ describe(`${KoconutArray.name} -- Inspector`, () => {
         const yieldableCase1 =
                         koconut
                         .any(element => element >= 4)
-        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        expect(yieldableCase1).to.be.instanceOf(KoconutBoolean)
         const resultCase1 = await yieldableCase1.yield()
         expect(resultCase1).to.equals(true)
 
@@ -668,7 +668,7 @@ describe(`${KoconutArray.name} -- Inspector`, () => {
         const yieldableCase2 =
                         koconut
                         .any(element => element > 10)
-        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        expect(yieldableCase2).to.be.instanceOf(KoconutBoolean)
         const resultCase2 = await yieldableCase2.yield()
         expect(resultCase2).to.equals(false)
 
@@ -682,7 +682,7 @@ describe(`${KoconutArray.name} -- Inspector`, () => {
         const yieldableCase1 =
                         koconut
                         .isEmpty()
-        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        expect(yieldableCase1).to.be.instanceOf(KoconutBoolean)
         const resultCase1 = await yieldableCase1.yield()
         expect(resultCase1).equals(false)
 
@@ -691,7 +691,7 @@ describe(`${KoconutArray.name} -- Inspector`, () => {
                         koconut
                         .filter(eachElement => eachElement > 10)
                         .isEmpty()
-        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        expect(yieldableCase2).to.be.instanceOf(KoconutBoolean)
         const resultCase2 = await yieldableCase2.yield()
         expect(resultCase2).equals(true)
 
@@ -705,7 +705,7 @@ describe(`${KoconutArray.name} -- Inspector`, () => {
         const yieldableCase1 =
                         koconut
                         .isNotEmpty()
-        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        expect(yieldableCase1).to.be.instanceOf(KoconutBoolean)
         const resultCase1 = await yieldableCase1.yield()
         expect(resultCase1).equals(true)
 
@@ -714,7 +714,7 @@ describe(`${KoconutArray.name} -- Inspector`, () => {
                         koconut
                         .filter(eachElement => eachElement > 10)
                         .isNotEmpty()
-        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        expect(yieldableCase2).to.be.instanceOf(KoconutBoolean)
         const resultCase2 = await yieldableCase2.yield()
         expect(resultCase2).equals(false)
 
@@ -728,7 +728,7 @@ describe(`${KoconutArray.name} -- Inspector`, () => {
         const yieldableCase1 =
                         koconut
                         .isNullOrEmpty()
-        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        expect(yieldableCase1).to.be.instanceOf(KoconutBoolean)
         const resultCase1 = await yieldableCase1.yield()
         expect(resultCase1).equals(false)
 
@@ -737,7 +737,7 @@ describe(`${KoconutArray.name} -- Inspector`, () => {
                         koconut
                         .filter(eachElement => eachElement > 10)
                         .isNullOrEmpty()
-        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        expect(yieldableCase2).to.be.instanceOf(KoconutBoolean)
         const resultCase2 = await yieldableCase2.yield()
         expect(resultCase2).equals(true)
 
@@ -751,7 +751,7 @@ describe(`${KoconutArray.name} -- Inspector`, () => {
         const yieldableCase1 = 
                         koconut
                         .contains(3)
-        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        expect(yieldableCase1).to.be.instanceOf(KoconutBoolean)
         const resultCase1 = await yieldableCase1.yield()
         expect(resultCase1).to.equals(true)
 
@@ -759,7 +759,7 @@ describe(`${KoconutArray.name} -- Inspector`, () => {
         const yieldableCase2 = 
                         koconut
                         .contains(6)
-        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        expect(yieldableCase2).to.be.instanceOf(KoconutBoolean)
         const resultCase2 = await yieldableCase2.yield()
         expect(resultCase2).to.equals(false)
 
@@ -773,7 +773,7 @@ describe(`${KoconutArray.name} -- Inspector`, () => {
         const yieldableCase3 =
                             koconutCase3
                             .contains(new Person("Jinyoung", "Luvya"))
-        expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive)
+        expect(yieldableCase3).to.be.instanceOf(KoconutBoolean)
         const resultCase3 = await yieldableCase3.yield()
         expect(resultCase3).to.equal(true)
         
@@ -788,7 +788,7 @@ describe(`${KoconutArray.name} -- Inspector`, () => {
         const yieldableCase1 = 
                         koconut
                         .containsAll("ab")
-        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        expect(yieldableCase1).to.be.instanceOf(KoconutBoolean)
         const resultCase1 = await yieldableCase1.yield()
         expect(resultCase1).to.equals(true)
 
@@ -796,7 +796,7 @@ describe(`${KoconutArray.name} -- Inspector`, () => {
         const yieldableCase2 =
                         koconut
                         .containsAll("abcd")
-        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        expect(yieldableCase2).to.be.instanceOf(KoconutBoolean)
         const resultCase2 = await yieldableCase2.yield()
         expect(resultCase2).to.equals(false)
 
@@ -813,7 +813,7 @@ describe(`${KoconutArray.name} -- Inspector`, () => {
                             new Person("Jacob", "Bernoulli"), 
                             new Person("Johann", "Bernoulli"), 
                         ])
-        expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive)
+        expect(yieldableCase3).to.be.instanceOf(KoconutBoolean)
         const resultCase3 = await yieldableCase3.yield()
         expect(resultCase3).to.equals(true)
 
@@ -830,7 +830,7 @@ describe(`${KoconutArray.name} -- Inspector`, () => {
                         new Person("Jacob", "Bernoulli"), 
                         new Person("Steve", "Jobs"), 
                     ])
-        expect(yieldableCase4).to.be.instanceOf(KoconutPrimitive)
+        expect(yieldableCase4).to.be.instanceOf(KoconutBoolean)
         const resultCase4 = await yieldableCase4.yield()
         expect(resultCase4).to.equals(false)
 
@@ -844,7 +844,7 @@ describe(`${KoconutArray.name} -- Inspector`, () => {
         const yieldableCase1 =
                         koconut
                         .none()
-        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        expect(yieldableCase1).to.be.instanceOf(KoconutBoolean)
         const resultCase1 = await yieldableCase1.yield()
         expect(resultCase1).equals(false)
 
@@ -853,7 +853,7 @@ describe(`${KoconutArray.name} -- Inspector`, () => {
                         koconut
                         .filter(eachElement => eachElement > 10)
                         .none()
-        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        expect(yieldableCase2).to.be.instanceOf(KoconutBoolean)
         const resultCase2 = await yieldableCase2.yield()
         expect(resultCase2).equals(true)
 
@@ -861,7 +861,7 @@ describe(`${KoconutArray.name} -- Inspector`, () => {
         const yieldableCase3 =
                         koconut
                         .none(eachElement => eachElement % 2 == 0)
-        expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive)
+        expect(yieldableCase3).to.be.instanceOf(KoconutBoolean)
         const resultCase3 = await yieldableCase3.yield()
         expect(resultCase3).equals(false)
 
@@ -869,7 +869,7 @@ describe(`${KoconutArray.name} -- Inspector`, () => {
         const yieldableCase4 =
                         koconut
                         .none(eachElement => eachElement % 10 == 0)
-        expect(yieldableCase4).to.be.instanceOf(KoconutPrimitive)
+        expect(yieldableCase4).to.be.instanceOf(KoconutBoolean)
         const resultCase4 = await yieldableCase4.yield()
         expect(resultCase4).equals(true)
 

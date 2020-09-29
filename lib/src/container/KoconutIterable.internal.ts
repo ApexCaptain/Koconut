@@ -4,7 +4,7 @@ import {
     KoconutPrimitive, KoconutOpener, KoconutDeprecation, KoconutTypeChecker,
 
     /* Container */
-    KoconutArray, KoconutSet, KoconutFlow, Flow, KoconutMap, Entry,
+    KoconutArray, KoconutSet, KoconutFlow, Flow, KoconutMap, Entry, KoconutBoolean,
 
     /* Enum */
     KoconutLoopSignal,
@@ -2339,10 +2339,10 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
     all(
         predicate : (element : CombinedDataType) => boolean | Promise<boolean>,
         thisArg : any = null
-    ) : KoconutPrimitive<boolean> {
+    ) : KoconutBoolean {
 
         predicate = predicate.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<boolean>();
+        const koconutToReturn = new KoconutBoolean();
         (koconutToReturn as any as KoconutOpener<boolean>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
@@ -2438,10 +2438,10 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
     any(
         predicate : (element : CombinedDataType) => boolean | Promise<boolean>,
         thisArg : any = null
-    ) : KoconutPrimitive<boolean> {
+    ) : KoconutBoolean {
 
         predicate = predicate.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<boolean>();
+        const koconutToReturn = new KoconutBoolean();
         (koconutToReturn as any as KoconutOpener<boolean>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
@@ -2493,9 +2493,9 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
      * // ↑ true
      * ```
      */
-    isEmpty() : KoconutPrimitive<boolean> {
+    isEmpty() : KoconutBoolean {
 
-        const koconutToReturn = new KoconutPrimitive<boolean>();
+        const koconutToReturn = new KoconutBoolean();
         (koconutToReturn as any as KoconutOpener<boolean>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
@@ -2544,9 +2544,9 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
      * // ↑ false
      * ```
      */
-    isNotEmpty() : KoconutPrimitive<boolean> {
+    isNotEmpty() : KoconutBoolean {
 
-        const koconutToReturn = new KoconutPrimitive<boolean>();
+        const koconutToReturn = new KoconutBoolean();
         (koconutToReturn as any as KoconutOpener<boolean>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
@@ -2597,10 +2597,10 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
      * // ↑ true
      * ``` 
      */
-    isNullOrEmpty() : KoconutPrimitive<boolean> {
+    isNullOrEmpty() : KoconutBoolean {
 
         KoconutDeprecation.showDeprecationWarning("1.3.0", this.isEmpty)
-        const koconutToReturn = new KoconutPrimitive<boolean>();
+        const koconutToReturn = new KoconutBoolean();
         (koconutToReturn as any as KoconutOpener<boolean>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
@@ -2673,10 +2673,10 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
     none(
         predicate : ((element : CombinedDataType) => boolean | Promise<boolean>) | null = null,
         thisArg : any = null
-    ) : KoconutPrimitive<boolean> {
+    ) : KoconutBoolean {
 
         if(predicate) predicate = predicate.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<boolean>();
+        const koconutToReturn = new KoconutBoolean();
         (koconutToReturn as any as KoconutOpener<boolean>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
