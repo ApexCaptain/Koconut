@@ -1083,6 +1083,35 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
      * 
      * @example
      * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const elementAtIndex3OfArray = await koconutArray
+     *                                 .elementAtOrElse(3, index => 0)
+     *                                 .yield()
+     * console.log(elementAtIndex3OfArray)
+     * // ↑ 4
+     *
+     * const elementAtIndex10OfArray = await koconutArray
+     *                                 .elementAtOrElse(10, index => 0)
+     *                                 .yield()
+     * console.log(elementAtIndex10OfArray)
+     * // ↑ 0
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of(1,2,3,4,5)
+     *
+     * const elementAtIndex2OfSet = await koconutSet
+     *                                 .elementAtOrElse(2, index => 0)
+     *                                 .yield()
+     * console.log(elementAtIndex2OfSet)
+     * // ↑ 3
+     *
+     * const elementAtIndexNegative2OfSet = await koconutSet
+     *                                 .elementAtOrElse(-2, index => 0)
+     *                                 .yield()
+     * console.log(elementAtIndexNegative2OfSet)
+     * // ↑ 0
      * ```
      */
     elementAtOrElse(
@@ -1104,6 +1133,47 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
     }
 
 
+    /**
+     * Returns an element at the given ```index``` or ```null``` if the index is out of bounds of this collection.
+     * @param index The index of element to search for.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Selector
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const elementAtIndex3OfArray = await koconutArray
+     *                                 .elementAtOrNull(3)
+     *                                 .yield()
+     * console.log(elementAtIndex3OfArray)
+     * // ↑ 4
+     *
+     * const elementAtIndex10OfArray = await koconutArray
+     *                                 .elementAtOrNull(10)
+     *                                 .yield()
+     * console.log(elementAtIndex10OfArray)
+     * // ↑ null
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of(1,2,3,4,5)
+     *
+     * const elementAtIndex2OfSet = await koconutSet
+     *                                 .elementAtOrNull(2)
+     *                                 .yield()
+     * console.log(elementAtIndex2OfSet)
+     * // ↑ 3
+     *
+     * const elementAtIndexNegative2OfSet = await koconutSet
+     *                                 .elementAtOrNull(-2)
+     *                                 .yield()
+     * console.log(elementAtIndexNegative2OfSet)
+     * // ↑ null
+     * ```
+     */
     elementAtOrNull(
         index : number
     ) : KoconutPrimitive<DataType | null> {
@@ -1112,9 +1182,288 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
         (koconutToReturn as any as KoconutOpener<DataType | null>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
+                if(index < 0 || index >= this.mSize) return null
+                return Array.from(this.data!)[index]
+            })
+        return koconutToReturn
+
+    }
+
+
+    /**
+     * Returns the first element matching the given ```predicate```, or ```null``` if no such element was found.
+     * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Selector
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const foundEventNumberOfArray = await koconutArray
+     *                                 .find(eachNumber => eachNumber % 2 == 0)
+     *                                 .yield()
+     * console.log(foundEventNumberOfArray)
+     * // ↑ 2
+     *
+     * const foundMultiplesOf10Array = await koconutArray
+     *                                 .find(eachNumber => eachNumber % 10 == 0)
+     *                                 .yield()
+     * console.log(foundMultiplesOf10Array)
+     * // ↑ null
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of(1,2,3,4,5)
+     *
+     * const foundOddNumberOfSet = await koconutSet
+     *                                 .find(eachNumber => eachNumber % 2 == 1)
+     *                                 .yield()
+     * console.log(foundOddNumberOfSet)
+     * // ↑ 1
+     *
+     * const foundMultiplesOf10OfSet = await koconutSet
+     *                                 .find(eachNumber => eachNumber % 10 == 0)
+     *                                 .yield()
+     * console.log(foundMultiplesOf10OfSet)
+     * // ↑ null
+     * ```
+     */
+    find(
+        predicate : (element : DataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutPrimitive<DataType | null> {
+        
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<DataType | null>();
+        (koconutToReturn as any as KoconutOpener<DataType | null>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
                 if(this.data == null) return null
-                const foundData = Array.from(this.data)[index]
-                return foundData ? foundData : null
+                for(const eachDatum of this.data)
+                    if(await predicate(eachDatum)) return eachDatum
+                return null
+            })
+        return koconutToReturn
+
+    }
+
+
+    /**
+     * Returns the last element matching the given ```predicate```, or ```null``` if no such element was found.
+     * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Selector
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const lastEventNumberOfArray = await koconutArray
+     *                                 .findLast(eachNumber => eachNumber % 2 == 0)
+     *                                 .yield()
+     * console.log(lastEventNumberOfArray)
+     * // ↑ 4
+     *
+     * const lastMultiplesOf10Array = await koconutArray
+     *                                 .findLast(eachNumber => eachNumber % 10 == 0)
+     *                                 .yield()
+     * console.log(lastMultiplesOf10Array)
+     * // ↑ null
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of(1,2,3,4,5)
+     *
+     * const lastOddNumberOfSet = await koconutSet
+     *                                 .findLast(eachNumber => eachNumber % 2 == 1)
+     *                                 .yield()
+     * console.log(lastOddNumberOfSet)
+     * // ↑ 5
+     *
+     * const lastMultiplesOf10OfSet = await koconutSet
+     *                                 .findLast(eachNumber => eachNumber % 10 == 0)
+     *                                 .yield()
+     * console.log(lastMultiplesOf10OfSet)
+     * // ↑ null
+     * ```
+     */
+    findLast(
+        predicate : (element : DataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutPrimitive<DataType | null> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<DataType | null>();
+        (koconutToReturn as any as KoconutOpener<DataType | null>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data == null) return null
+                const dataArray = Array.from(this.data)
+                for(let eachIndex = dataArray.length - 1 ; eachIndex >= 0 ; eachIndex--) {
+                    if(await predicate(dataArray[eachIndex])) return dataArray[eachIndex]
+                }
+                return null
+            })
+        return koconutToReturn
+
+    }
+
+
+    /**
+     * Returns the first element matching the given ```predicate```. Or, if ```predicate``` is omitted
+     * method will just return the very first element of this collection. If source data is null or no element
+     * matching given ```predicate``` is found, it throws {@link KoconutNoSuchElementException}.
+     * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @throws {@link KoconutNoSuchElementException}
+     * -- When source data is empty or no element matching given ```predicate``` is found.
+     * 
+     * @since 1.0.10
+     *
+     * @category Selector
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const firstNumberOfArray = await koconutArray
+     *                                     .first()
+     *                                     .yield()
+     * console.log(firstNumberOfArray)
+     * // ↑ 1
+     *
+     * const firstEventNumberOfArray = await koconutArray
+     *                             .first(eachNumber => eachNumber % 2 == 0)
+     *                             .yield()
+     * console.log(firstEventNumberOfArray)
+     * // ↑ 2
+     *
+     * try {
+     *     await koconutArray
+     *             .filter(eachNumber => eachNumber > 10)
+     *             .first()
+     *             .yield()
+     * } catch(error) {
+     *     console.log(error.name)
+     *     // ↑ Koconut No Such Element Exception
+     * }
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of(1,2,3,4,5)
+     *
+     * const firstNumberOfSet = await koconutSet
+     *                                 .first()
+     *                                 .yield()
+     * console.log(firstNumberOfSet)
+     * // ↑ 1
+     *
+     * const firstOddNumberOfSet = await koconutSet
+     *                             .first(eachNumber => eachNumber % 2 == 1)
+     *                             .yield()
+     * console.log(firstOddNumberOfSet)
+     * // ↑ 1
+     * ```
+     */
+    first(
+        predicate : ((element : DataType) => boolean | Promise<boolean>) | null = null,
+        thisArg : any = null
+    ) : KoconutPrimitive<DataType> {
+
+        if(predicate) predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<DataType>();
+        (koconutToReturn as any as KoconutOpener<DataType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data == null || this.mSize == 0) throw new KoconutNoSuchElementException(`Source data is null or empty`)
+                if(predicate) {
+                    for(const eachDatum of this.data)
+                        if(await predicate(eachDatum)) return eachDatum
+                    throw new KoconutNoSuchElementException(`No such element is found`)
+                }
+                return Array.from(this.data)[0]
+            })
+        return koconutToReturn
+
+    }
+
+
+    /**
+     * Returns the first element matching the given ```predicate```. Or, if ```predicate``` is omitted
+     * method will just return the very first element of this collection. If source data is null or no element
+     * matching given ```predicate``` is found, it returns ```null```.
+     * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     *
+     * @category Selector
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const firstNumberOfArray = await koconutArray
+     *                                     .firstOrNull()
+     *                                     .yield()
+     * console.log(firstNumberOfArray)
+     * // ↑ 1
+     *
+     * const firstEventNumberOfArray = await koconutArray
+     *                             .firstOrNull(eachNumber => eachNumber % 2 == 0)
+     *                             .yield()
+     * console.log(firstEventNumberOfArray)
+     * // ↑ 2
+     *
+     * const firstNumberOfEmptyArray = await koconutArray
+     *                                 .filter(eachNumber => eachNumber > 10)
+     *                                 .firstOrNull()
+     *                                 .yield()
+     * console.log(firstNumberOfEmptyArray)
+     * // ↑ null
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of(1,2,3,4,5)
+     *
+     * const firstNumberOfSet = await koconutSet
+     *                                 .firstOrNull()
+     *                                 .yield()
+     * console.log(firstNumberOfSet)
+     * // ↑ 1
+     *
+     * const firstOddNumberOfSet = await koconutSet
+     *                             .firstOrNull(eachNumber => eachNumber % 2 == 1)
+     *                             .yield()
+     * console.log(firstOddNumberOfSet)
+     * // ↑ 1
+     * ```
+     */
+    firstOrNull(
+        predicate : ((element : DataType) => boolean | Promise<boolean>) | null = null,
+        thisArg : any = null
+    ) : KoconutPrimitive<DataType | null> {
+
+        if(predicate) predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<DataType | null>();
+        (koconutToReturn as any as KoconutOpener<DataType | null>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data == null || this.mSize == 0) return null
+                if(predicate) {
+                    for(const eachDatum of this.data)
+                        if(await predicate(eachDatum)) return eachDatum
+                    return null
+                }
+                return Array.from(this.data)[0]
             })
         return koconutToReturn
 
@@ -2113,99 +2462,6 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
     
     /* Funcions */
 
-
-
-
-
-
-
-
-
-    find(
-        predicate : (element : DataType) => boolean | Promise<boolean>,
-        thisArg : any = null
-    ) : KoconutPrimitive<DataType | null> {
-        
-        predicate = predicate.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<DataType | null>();
-        (koconutToReturn as any as KoconutOpener<DataType | null>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data == null) return null
-                for(const eachDatum of this.data)
-                    if(await predicate(eachDatum)) return eachDatum
-                return null
-            })
-        return koconutToReturn
-
-    }
-
-
-    findLast(
-        predicate : (element : DataType) => boolean | Promise<boolean>,
-        thisArg : any = null
-    ) : KoconutPrimitive<DataType | null> {
-
-        predicate = predicate.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<DataType | null>();
-        (koconutToReturn as any as KoconutOpener<DataType | null>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data == null) return null
-                const dataArray = Array.from(this.data)
-                for(let eachIndex = dataArray.length - 1 ; eachIndex >= 0 ; eachIndex--) {
-                    if(await predicate(dataArray[eachIndex])) return dataArray[eachIndex]
-                }
-                return null
-            })
-        return koconutToReturn
-
-    }
-
-
-    first(
-        predicate : ((element : DataType) => boolean | Promise<boolean>) | null = null,
-        thisArg : any = null
-    ) : KoconutPrimitive<DataType> {
-
-        if(predicate) predicate = predicate.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<DataType>();
-        (koconutToReturn as any as KoconutOpener<DataType>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data == null || this.mSize == 0) throw new KoconutNoSuchElementException(`Source data is null or empty`)
-                if(predicate) {
-                    for(const eachDatum of this.data)
-                        if(await predicate(eachDatum)) return eachDatum
-                    throw new KoconutNoSuchElementException(`No such element is found`)
-                }
-                return Array.from(this.data)[0]
-            })
-        return koconutToReturn
-
-    }
-
-    firstOrNull(
-        predicate : ((element : DataType) => boolean | Promise<boolean>) | null = null,
-        thisArg : any = null
-    ) : KoconutPrimitive<DataType | null> {
-
-        if(predicate) predicate = predicate.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<DataType | null>();
-        (koconutToReturn as any as KoconutOpener<DataType | null>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data == null || this.mSize == 0) return null
-                if(predicate) {
-                    for(const eachDatum of this.data)
-                        if(await predicate(eachDatum)) return eachDatum
-                    return null
-                }
-                return Array.from(this.data)[0]
-            })
-        return koconutToReturn
-
-    }
 
 
     fold<ResultDataType>(

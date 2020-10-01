@@ -80,6 +80,12 @@
 					</li>
 				</ul>
 			</section>
+			<section class="tsd-panel">
+				<h3>Implemented by</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../classes/_container_base_koconutboolean_.koconutboolean.html" class="tsd-signature-type">KoconutBoolean</a></li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
@@ -99,18 +105,19 @@
 					<a name="compareto" class="tsd-anchor"></a>
 					<h3>compare<wbr>To</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">compare<wbr>To<span class="tsd-signature-symbol">(</span>other<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+						<li class="tsd-signature tsd-kind-icon">compare<wbr>To<span class="tsd-signature-symbol">(</span>other<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/e88a414/lib/src/protocol/KoconutComparable.ts#L17">lib/src/protocol/KoconutComparable.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/3e16aea/lib/src/protocol/KoconutComparable.ts#L19">lib/src/protocol/KoconutComparable.ts:19</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Compares this instance with the target object.</p>
+									<p>Compares this instance with the target object.
+									Result can be either simple number or {@link KoconutPrimitive} instance wrapping number value.</p>
 									<pre>
 Returns zero            -- This object equals to other.
 Returns negative number -- This object is less than other.
@@ -127,7 +134,7 @@ Returns positive number -- This object is grater than other.
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">KoconutPrimitive</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
