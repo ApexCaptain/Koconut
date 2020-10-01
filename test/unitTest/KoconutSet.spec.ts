@@ -67,6 +67,55 @@ describe(`${KoconutSet.name} -- Property Getter`, () => {
 
 
 
+describe(`${KoconutSet.name} -- Accumulator`, () => {
+
+    it(KoconutSet.prototype.fold.name, async () => {
+
+        const koconut = KoconutSet.from([1,2,3,4,5])
+
+        const yieldable =
+                        koconut
+                        .fold(1, (acc, eachElement) => acc * eachElement)
+        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
+        const result = await yieldable.yield()
+        expect(result).equals(120)
+
+    })
+
+    it(KoconutSet.prototype.foldIndexed.name, async () => {
+
+        const koconut = KoconutSet.from([1,2,3,4,5])
+
+        const yieldable =
+                        koconut
+                        .foldIndexed(0, (eachIndex, acc, eachElement) => acc + eachIndex + eachElement)
+        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
+        const result = await yieldable.yield()
+        expect(result).equals(25)
+
+    })
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 describe(`${KoconutSet.name} -- Calculator`, () => {
 
     it(KoconutSet.prototype.count.name, async () => {
@@ -1447,6 +1496,123 @@ describe(`${KoconutSet.name} -- Selector`, () => {
 
     })
 
+    it(KoconutSet.prototype.find.name, async () => {
+
+        const koconut = KoconutSet.from([1,2,3,4,5,6,7])
+
+        const yieldable =
+                        koconut
+                        .find(eachElement => eachElement % 2 == 0)
+        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
+        const result = await yieldable.yield()
+        expect(result).equals(2)
+
+    })
+
+    it(KoconutSet.prototype.findLast.name, async () => {
+
+        const koconut = KoconutSet.from([1,2,3,4,5,6,7])
+
+        const yieldable =
+                        koconut
+                        .findLast(eachElement => eachElement % 2 == 1)
+        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
+        const result = await yieldable.yield()
+        expect(result).equals(7)
+
+    })
+
+    it(KoconutSet.prototype.first.name, async () => {
+
+        /* Case 1 */
+        const koconutCase1 = KoconutSet.from([1,2,3,4,5,6,7])
+
+        const yieldableCase1 =
+                            koconutCase1
+                            .filter(eachElement => eachElement > 10)
+                            .first()
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        try { await yieldableCase1.process() } 
+        catch(error) { expect(error).instanceOf(KoconutNoSuchElementException) }
+
+        /* Case 2 */
+        const koconutCase2 = KoconutSet.from("abc")
+
+        const yieldableCase2 =
+                            koconutCase2
+                            .first(eachElement => eachElement > 'd')
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        try { await yieldableCase2.process() }
+        catch(error) { expect(error).instanceOf(KoconutNoSuchElementException) }
+
+
+        /* Case 3 */
+        const koconutCase3 = KoconutSet.from([1,2,3])
+
+        const yieldableCase3 =
+                            koconutCase3
+                            .first()
+        expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive)
+        const resultCase3 = await yieldableCase3.yield()
+        expect(resultCase3).equals(1)
+
+        /* Case 4 */
+        const koconutCase4 = KoconutSet.from([1,2,3,4,5,6,7])
+
+        const yieldableCase4 =
+                            koconutCase4
+                            .first(eachElement => eachElement % 3 == 0)
+        expect(yieldableCase4).to.be.instanceOf(KoconutPrimitive)
+        const resultCase4 = await yieldableCase4.yield()
+        expect(resultCase4).equals(3)
+
+    })
+
+    it(KoconutSet.prototype.firstOrNull.name, async () => {
+
+        /* Case 1 */
+        const koconutCase1 = KoconutSet.from([1,2,3,4,5,6,7])
+
+        const yieldableCase1 =
+                            koconutCase1
+                            .filter(eachElement => eachElement > 10)
+                            .firstOrNull()
+        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
+        const resultCase1 = await yieldableCase1.yield()
+        expect(resultCase1).equals(null)
+
+        /* Case 2 */
+        const koconutCase2 = KoconutSet.from("abc")
+
+        const yieldableCase2 =
+                            koconutCase2
+                            .firstOrNull(eachElement => eachElement > 'd')
+        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
+        const resultCase2 = await yieldableCase2.yield()
+        expect(resultCase2).equals(null)
+
+        /* Case 3 */
+        const koconutCase3 = KoconutSet.from([1,2,3])
+
+        const yieldableCase3 =  
+                            koconutCase3
+                            .firstOrNull()
+        expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive)
+        const resultCase3 = await yieldableCase3.yield()
+        expect(resultCase3).equals(1)
+
+        /* Case 4 */
+        const koconutCase4 = KoconutSet.from([1,2,3,4,5,6,7])
+
+        const yieldableCase4 =
+                            koconutCase4
+                            .first(eachElement => eachElement % 3 == 0)
+        expect(yieldableCase4).to.be.instanceOf(KoconutPrimitive)
+        const resultCase4 = await yieldableCase4.yield()
+        expect(resultCase4).equals(3)
+
+    })
+
 })
 
 
@@ -1925,156 +2091,6 @@ describe(`${KoconutSet.name} -- Transformer`, () => {
 
 
 describe(`${KoconutSet.name} -- Function`, () => {
-
-
-
-
-
-
-
-
-    it(KoconutSet.prototype.find.name, async () => {
-
-        const koconut = KoconutSet.from([1,2,3,4,5,6,7])
-
-        const yieldable =
-                        koconut
-                        .find(eachElement => eachElement % 2 == 0)
-        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
-        const result = await yieldable.yield()
-        expect(result).equals(2)
-
-    })
-
-    it(KoconutSet.prototype.findLast.name, async () => {
-
-        const koconut = KoconutSet.from([1,2,3,4,5,6,7])
-
-        const yieldable =
-                        koconut
-                        .findLast(eachElement => eachElement % 2 == 1)
-        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
-        const result = await yieldable.yield()
-        expect(result).equals(7)
-
-    })
-
-    it(KoconutSet.prototype.first.name, async () => {
-
-        /* Case 1 */
-        const koconutCase1 = KoconutSet.from([1,2,3,4,5,6,7])
-
-        const yieldableCase1 =
-                            koconutCase1
-                            .filter(eachElement => eachElement > 10)
-                            .first()
-        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
-        try { await yieldableCase1.process() } 
-        catch(error) { expect(error).instanceOf(KoconutNoSuchElementException) }
-
-        /* Case 2 */
-        const koconutCase2 = KoconutSet.from("abc")
-
-        const yieldableCase2 =
-                            koconutCase2
-                            .first(eachElement => eachElement > 'd')
-        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
-        try { await yieldableCase2.process() }
-        catch(error) { expect(error).instanceOf(KoconutNoSuchElementException) }
-
-
-        /* Case 3 */
-        const koconutCase3 = KoconutSet.from([1,2,3])
-
-        const yieldableCase3 =
-                            koconutCase3
-                            .first()
-        expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive)
-        const resultCase3 = await yieldableCase3.yield()
-        expect(resultCase3).equals(1)
-
-        /* Case 4 */
-        const koconutCase4 = KoconutSet.from([1,2,3,4,5,6,7])
-
-        const yieldableCase4 =
-                            koconutCase4
-                            .first(eachElement => eachElement % 3 == 0)
-        expect(yieldableCase4).to.be.instanceOf(KoconutPrimitive)
-        const resultCase4 = await yieldableCase4.yield()
-        expect(resultCase4).equals(3)
-
-    })
-
-    it(KoconutSet.prototype.firstOrNull.name, async () => {
-
-        /* Case 1 */
-        const koconutCase1 = KoconutSet.from([1,2,3,4,5,6,7])
-
-        const yieldableCase1 =
-                            koconutCase1
-                            .filter(eachElement => eachElement > 10)
-                            .firstOrNull()
-        expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive)
-        const resultCase1 = await yieldableCase1.yield()
-        expect(resultCase1).equals(null)
-
-        /* Case 2 */
-        const koconutCase2 = KoconutSet.from("abc")
-
-        const yieldableCase2 =
-                            koconutCase2
-                            .firstOrNull(eachElement => eachElement > 'd')
-        expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive)
-        const resultCase2 = await yieldableCase2.yield()
-        expect(resultCase2).equals(null)
-
-        /* Case 3 */
-        const koconutCase3 = KoconutSet.from([1,2,3])
-
-        const yieldableCase3 =  
-                            koconutCase3
-                            .firstOrNull()
-        expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive)
-        const resultCase3 = await yieldableCase3.yield()
-        expect(resultCase3).equals(1)
-
-        /* Case 4 */
-        const koconutCase4 = KoconutSet.from([1,2,3,4,5,6,7])
-
-        const yieldableCase4 =
-                            koconutCase4
-                            .first(eachElement => eachElement % 3 == 0)
-        expect(yieldableCase4).to.be.instanceOf(KoconutPrimitive)
-        const resultCase4 = await yieldableCase4.yield()
-        expect(resultCase4).equals(3)
-
-    })
-
-    it(KoconutSet.prototype.fold.name, async () => {
-
-        const koconut = KoconutSet.from([1,2,3,4,5])
-
-        const yieldable =
-                        koconut
-                        .fold(1, (acc, eachElement) => acc * eachElement)
-        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
-        const result = await yieldable.yield()
-        expect(result).equals(120)
-
-    })
-
-    it(KoconutSet.prototype.foldIndexed.name, async () => {
-
-        const koconut = KoconutSet.from([1,2,3,4,5])
-
-        const yieldable =
-                        koconut
-                        .foldIndexed(0, (eachIndex, acc, eachElement) => acc + eachIndex + eachElement)
-        expect(yieldable).to.be.instanceOf(KoconutPrimitive)
-        const result = await yieldable.yield()
-        expect(result).equals(25)
-
-    })
 
     it(KoconutSet.prototype.groupBy.name, async () => {
 

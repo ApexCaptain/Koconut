@@ -63,9 +63,35 @@
 				<a href="#koconut-release-note" id="koconut-release-note" style="color: inherit; text-decoration: none;">
 					<h1>Koconut Release Note</h1>
 				</a>
-				<a href="#comming-1015" id="comming-1015" style="color: inherit; text-decoration: none;">
-					<h2>Comming 1.0.15</h2>
+				<a href="#release-1015" id="release-1015" style="color: inherit; text-decoration: none;">
+					<h2>Release 1.0.15</h2>
 				</a>
+				<a href="#major-features-and-improvements" id="major-features-and-improvements" style="color: inherit; text-decoration: none;">
+					<h3>Major Features and Improvements</h3>
+				</a>
+				<ul>
+					<li><p>New base container class <code>KoconutBoolean</code> is added. It is a child class that extends <code>KoconutPrimitive&lt;boolean&gt;</code> and also implements <code>Boolean</code> of typescript. All the methods of other classes that return <code>KoconutPrimitive&lt;boolean&gt;</code> are replcaed with it. Documentization is still being processed. Supported methods are as following.</p>
+						<ul>
+							<li><code>compareTo</code></li>
+							<li><code>not</code></li>
+							<li><code>and</code></li>
+							<li><code>nand</code></li>
+							<li><code>or</code></li>
+							<li><code>nor</code></li>
+							<li><code>xor</code></li>
+							<li><code>xnor</code></li>
+							<li><code>eqv</code></li>
+						</ul>
+					</li>
+					<li><p>New processor method <code>retrieve</code> is added to container classes.  It simply processes all the chained objects and returns container instance itself. Please, have a check following example. </p>
+						<pre><code class="language-typescript"><span class="hljs-keyword">const</span> koconutBoolean = <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> KoconutBoolean(<span class="hljs-literal">true</span>)
+                                     .retrieve()
+<span class="hljs-built_in">console</span>.log(koconutBoolean)
+<span class="hljs-comment">// ↑ KoconutBoolean { isValidated: true, data: true }</span></code></pre>
+					</li>
+					<li><p>Return type of <code>equalsTo</code> of protocol <code>KoconutEquatable</code> is now also can be <code>KoconutPrimitive&lt;boolean&gt;</code> or <code>KoconutBoolean</code>.</p>
+					</li>
+				</ul>
 				<a href="#known-caveats" id="known-caveats" style="color: inherit; text-decoration: none;">
 					<h3>Known Caveats</h3>
 				</a>
@@ -79,16 +105,10 @@
 						</ul>
 					</li>
 				</ul>
-				<a href="#repository" id="repository" style="color: inherit; text-decoration: none;">
-					<h3>Repository</h3>
-				</a>
-				<ul>
-					<li>Introduction of static creator method <code>generate</code> is added.</li>
-				</ul>
 				<a href="#release-1014" id="release-1014" style="color: inherit; text-decoration: none;">
 					<h2>Release 1.0.14</h2>
 				</a>
-				<a href="#major-features-and-improvements" id="major-features-and-improvements" style="color: inherit; text-decoration: none;">
+				<a href="#major-features-and-improvements-1" id="major-features-and-improvements-1" style="color: inherit; text-decoration: none;">
 					<h3>Major Features and Improvements</h3>
 				</a>
 				<ul>
@@ -156,7 +176,7 @@
 					<li><code>indexed</code> methods of <code>KoconutMap</code> are deprecated. It is not appropriate to let it be possible to use in <code>Map</code> data structure. They&#39;ll remain until version <code>1.0.15</code>.</li>
 					<li>Common caster methods <code>toArray</code> and <code>toSet</code> are deprecated. Instead, you can use <code>asArray</code> or <code>asSet</code>. Those have the same functionality. They&#39;ll remain until version <code>1.0.15</code>.</li>
 				</ul>
-				<a href="#repository-1" id="repository-1" style="color: inherit; text-decoration: none;">
+				<a href="#repository" id="repository" style="color: inherit; text-decoration: none;">
 					<h3>Repository</h3>
 				</a>
 				<ul>
@@ -193,7 +213,7 @@
 						<p>  If you&#39;re using TypeScript, it is recommended to declare generic type explicitly.</p>
 					</li>
 				</ul>
-				<a href="#repository-2" id="repository-2" style="color: inherit; text-decoration: none;">
+				<a href="#repository-1" id="repository-1" style="color: inherit; text-decoration: none;">
 					<h3>Repository</h3>
 				</a>
 				<ul>
@@ -202,7 +222,7 @@
 				<a href="#release-1010" id="release-1010" style="color: inherit; text-decoration: none;">
 					<h2>Release 1.0.10</h2>
 				</a>
-				<a href="#major-features-and-improvements-1" id="major-features-and-improvements-1" style="color: inherit; text-decoration: none;">
+				<a href="#major-features-and-improvements-2" id="major-features-and-improvements-2" style="color: inherit; text-decoration: none;">
 					<h3>Major Features and Improvements</h3>
 				</a>
 				<ul>
@@ -214,7 +234,7 @@
 				<ul>
 					<li><a href="https://github.com/ApexCaptain/Koconut/blob/master/README.md#Deprecation-Warning">Deprecation Warning</a> functionality is now available</li>
 				</ul>
-				<a href="#repository-3" id="repository-3" style="color: inherit; text-decoration: none;">
+				<a href="#repository-2" id="repository-2" style="color: inherit; text-decoration: none;">
 					<h3>Repository</h3>
 				</a>
 				<ul>

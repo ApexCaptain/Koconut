@@ -2,7 +2,7 @@
 
 export {
     /* Base */
-    Entry, KoconutEntry, Pair, KoconutPair,
+    Entry, KoconutEntry, Pair, KoconutPair, KoconutBoolean,
 
     /* Container */
     KoconutArray, KoconutSet, KoconutMap,

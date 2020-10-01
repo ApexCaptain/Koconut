@@ -1,6 +1,30 @@
 # Koconut Release Note
 
-## Comming 1.0.15
+## Release 1.0.15
+
+### Major Features and Improvements
+- New base container class `KoconutBoolean` is added. It is a child class that extends `KoconutPrimitive<boolean>` and also implements `Boolean` of typescript. All the methods of other classes that return `KoconutPrimitive<boolean>` are replcaed with it. Documentization is still being processed. Supported methods are as following.
+
+    - `compareTo`
+    - `not`
+    - `and`
+    - `nand`
+    - `or`
+    - `nor`
+    - `xor`
+    - `xnor`
+    - `eqv`
+
+- New processor method `retrieve` is added to container classes.  It simply processes all the chained objects and returns container instance itself. Please, have a check following example. 
+
+    ```typescript
+    const koconutBoolean = await new KoconutBoolean(true)
+                                         .retrieve()
+    console.log(koconutBoolean)
+    // ↑ KoconutBoolean { isValidated: true, data: true }
+    ```
+
+- Return type of `equalsTo` of protocol `KoconutEquatable` is now also can be `KoconutPrimitive<boolean>` or `KoconutBoolean`.
 
 ### Known Caveats
 - Following methods are deprecated.
@@ -9,9 +33,6 @@
     - `toSet` -- Commonly // `asSet` instead.
     - `forEachIndexed` -- in `KoconutMap`
     - `onEachIndexed` -- in `KoconutMap`
-
-### Repository
-- Introduction of static creator method `generate` is added.
 
 ## Release 1.0.14
 

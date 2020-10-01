@@ -93,6 +93,148 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
 
 
     
+    // Accumulator
+    /**
+     * Accumulates value starting with ```initial``` value and applying ```operation``` 
+     * from left to right to current accumulator value and each element.
+     * @param initial A value to use as the first argument to the first call of the ```operation```.
+     * @param operation A callback function that accepts one argument. The ```operation``` accumulates callback's return value. It's accumulated value 
+     * previously returned in the last invocation of the callback or ```initial``` value. The method calls the ```operation``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```operation```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Accumulator
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const sumOfArray = await koconutArray
+     *                 .fold(
+     *                     0,
+     *                     (acc, eachNumber) => acc + eachNumber
+     *                 )
+     *                 .yield()
+     * console.log(sumOfArray)
+     * // ↑ 15
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of(1,2,3,4,5)
+     *
+     * const multiplesOfSet = await koconutSet
+     *                 .fold(
+     *                     1,
+     *                     async (acc, eachNumber) => acc * eachNumber
+     *                 )
+     *                 .yield()
+     * console.log(multiplesOfSet)
+     * // ↑ 120
+     * ```
+     */
+    fold<ResultDataType>(
+        initial : ResultDataType,
+        operation : (acc : ResultDataType, element : DataType) => ResultDataType | Promise<ResultDataType>,
+        thisArg : any = null
+    ) : KoconutPrimitive<ResultDataType> {
+
+        operation = operation.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<ResultDataType>();
+        (koconutToReturn as any as KoconutOpener<ResultDataType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                let dataToReturn = initial
+                if(this.data != null) {
+                    for(const eachDatum of this.data)
+                        dataToReturn = await operation(dataToReturn, eachDatum)
+                }
+                return dataToReturn
+            })
+        return koconutToReturn
+
+    }
+
+
+    /**     
+     * Accumulates value starting with ```initial``` value and applying ```operation``` 
+     * from left to right to current accumulator value and each element.
+     * @param initial A value to use as the first argument to the first call of the ```operation```.
+     * @param operation A callback function that accepts one argument. The ```operation``` accumulates callback's return value. It's accumulated value 
+     * previously returned in the last invocation of the callback or ```initial``` value. The method calls the ```operation``` one time for each element and index in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```operation```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Accumulator
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const sumOfNumberAndIndexInArray = await koconutArray
+     *                 .foldIndexed(
+     *                     0,
+     *                     (index, acc, eachNumber) => index + acc + eachNumber
+     *                 )
+     *                 .yield()
+     * console.log(sumOfNumberAndIndexInArray)
+     * // ↑ 25
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of(1,2,3,4,5)
+     *
+     * const multiplesOfNumberAndIndexInSet = await koconutSet
+     *                 .foldIndexed(
+     *                     1,
+     *                     async (index, acc, eachNumber) => index * acc * eachNumber
+     *                 )
+     *                 .yield()
+     * console.log(multiplesOfNumberAndIndexInSet)
+     * // ↑ 0
+     * ```
+     */
+    foldIndexed<ResultDataType>(
+        initial : ResultDataType,
+        operation : (index : number, acc : ResultDataType, element : DataType) => ResultDataType | Promise<ResultDataType>,
+        thisArg : any = null
+    ) : KoconutPrimitive<ResultDataType> {
+
+        operation = operation.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<ResultDataType>();
+        (koconutToReturn as any as KoconutOpener<ResultDataType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                let dataToReturn = initial
+                if(this.data != null) {
+                    for(const [eachIndex, eachDatum] of Array.from(this.data).entries())
+                        dataToReturn = await operation(eachIndex as number, dataToReturn, eachDatum)
+                }
+                return dataToReturn
+            })
+        return koconutToReturn
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     // Inspector
     /**
      * Checks if the specified element is contained in this collection.
@@ -2461,55 +2603,6 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
 
     
     /* Funcions */
-
-
-
-    fold<ResultDataType>(
-        initial : ResultDataType,
-        operation : (acc : ResultDataType, element : DataType) => ResultDataType | Promise<ResultDataType>,
-        thisArg : any = null
-    ) : KoconutPrimitive<ResultDataType> {
-
-        operation = operation.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<ResultDataType>();
-        (koconutToReturn as any as KoconutOpener<ResultDataType>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                let dataToReturn = initial
-                if(this.data != null) {
-                    for(const eachDatum of this.data)
-                        dataToReturn = await operation(dataToReturn, eachDatum)
-                }
-                return dataToReturn
-            })
-        return koconutToReturn
-
-    }
-
-
-    foldIndexed<ResultDataType>(
-        initial : ResultDataType,
-        operation : (index : number, acc : ResultDataType, element : DataType) => ResultDataType | Promise<ResultDataType>,
-        thisArg : any = null
-    ) : KoconutPrimitive<ResultDataType> {
-
-        operation = operation.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<ResultDataType>();
-        (koconutToReturn as any as KoconutOpener<ResultDataType>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                let dataToReturn = initial
-                if(this.data != null) {
-                    for(const [eachIndex, eachDatum] of Array.from(this.data).entries())
-                        dataToReturn = await operation(eachIndex as number, dataToReturn, eachDatum)
-                }
-                return dataToReturn
-            })
-        return koconutToReturn
-
-    }
-
-
     groupBy<KeyType, ValueType = DataType>(
         keySelector : (element : DataType) => KeyType | Promise<KeyType>,
         valueTransform : ((element : DataType) => ValueType | Promise<ValueType>) | null = null,
