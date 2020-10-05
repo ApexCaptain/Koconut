@@ -187,7 +187,7 @@ export class KoconutFlow<DataType> extends KoconutIterable<Entry<number, DataTyp
             await this.process()
             if(this.mIsChained) resolve(this.data!)
             else {
-                if(this.processor == null) resolve(this.data!['sort']())
+                if(!this.processor) resolve(this.data!['sort']())
                 else this.data!.once(Flow['dataScanningCompletedEvent'], () => {
                     resolve(this.data!['sort']())
                 })

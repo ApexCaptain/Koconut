@@ -43,16 +43,17 @@ export class Sequence<DataType> extends EventEmitter implements Iterable<DataTyp
     }
 
     private onNewDatumInserted(
-        onNewDatumInserted : (index : number, datum : DataType) => void | Promise<void>,
+        onNewDatumInsertedListener : (index : number, datum : DataType) => void | Promise<void>,
         targetSequence : Sequence<any> | null = null
     ) {
+
         let count = 0
         this.mChainedSequence = targetSequence
-        let isRunning = false
-        const entryQueue = new Array<Entry<number, DataType>>()
         const mediatedListener = async (index : number, datum : DataType) => {
-            await onNewDatumInserted(index, datum)
-            if(this.mPentDataSize - 1 == count++) {
+            console.log(datum)
+            await onNewDatumInsertedListener(index, datum)
+            if(this.mPentDataSize - 1 == count ++) {
+                console.log("com")
                 this.emit(Sequence.dataScanningCompletedEvent)
                 if(targetSequence != null) {
                     targetSequence.mPentDataSize = targetSequence.mDataArray.length
@@ -60,24 +61,29 @@ export class Sequence<DataType> extends EventEmitter implements Iterable<DataTyp
                 }
             }
         }
-        const queueController = (index : number, datum : DataType) => {
-            if(!isRunning) {
-                isRunning = true
-                const currentEntry = entryQueue.shift()
-
-                // ToDo 큐 관리 코드
-                isRunning = false
-            } else entryQueue.push(new Entry(index, datum))
+        this.on(Sequence.newDatumInsertedEvent, mediatedListener)
+        this.once(Sequence.dataScanningCompletedEvent, () => {
+            this.removeListener(Sequence.newDatumInsertedEvent, mediatedListener)
+        })
+        if(this.dataArray.length != 0) this.dataArray.forEach((datum, index) => this.emit(Sequence.newDatumInsertedEvent, index, datum))
+        /*
+        let count = 0;
+        this.mChainedSequence = targetFlow
+        const mediatedListener = async (index : number, datum : DataType) => {
+            await onNewDatumInsertedListener(index, datum)
+            if(this.mPentDataSize - 1 == count++) {
+                this.emit(Sequence.dataScanningCompletedEvent)
+                if(targetFlow != null) {
+                    targetFlow.mPentDataSize = targetFlow.mInnerDataMap.size
+                    if(targetFlow.mChainedFlow == null) targetFlow.emit(Flow.dataScanningCompletedEvent)
+                }
+            }
         }
-        this.on(Sequence.newDatumInsertedEvent, queueController)
-        this.once(Sequence.dataScanningCompletedEvent, () => this.removeListener(
-            Sequence.newDatumInsertedEvent,
-            queueController
-        ))
-        if(this.mDataArray.length != 0) {
-            for(const [index, element] of this.dataArray.entries())
-                this.emit(Sequence.newDatumInsertedEvent, index, element)
-        }
+        this.on(Flow.newDatumInsertedEvent, mediatedListener)
+        this.once(Flow.dataScanningCompletedEvent, () => this.removeListener(Flow.newDatumInsertedEvent, mediatedListener))
+        if(this.mInnerDataMap.size != 0) this.mInnerDataMap.forEach((datum, id) => this.emit(Flow.newDatumInsertedEvent, id, datum))
+        */
+        
     }
 
 }
@@ -125,7 +131,10 @@ export class KoconutSequence<DataType> extends KoconutCollection<DataType, Seque
             await this.process()
             if(this.mIsChained) resolve(this.data!)
             else {
-                if(this.processor == null) resolve(this.data!)
+                if(!this.processor) {
+                    console.log("as")
+                    resolve(this.data!)
+                }
                 else this.data!.once(Sequence['dataScanningCompletedEvent'], () => {
                     resolve(this.data!)
                 })
