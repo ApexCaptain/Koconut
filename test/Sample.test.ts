@@ -1,38 +1,23 @@
 // ↑
 
 import {
-    KoconutArray, KoconutSet, KoconutLoopSignal, KoconutFlow, Flow, KoconutBoolean,
+    KoconutArray, KoconutSet, KoconutLoopSignal, KoconutFlow, Flow, KoconutBoolean, KoconutSequence, Sequence,
     KoconutLocale, KoconutOption, KoconutDeprecation, KoconutComparable, KoconutMap, Entry, Pair, KoconutPair, KoconutEntry, KoconutEquatable
 } from "../lib/module.internal" // Same as -- from 'koconut'
 
 
 const sampleProcess = async () => {
 
-    // Case 1 -- KoconutArray
-    const koconutArray = KoconutArray.of(1,2,3,4,5)
+    const seq = new KoconutSequence(new Sequence([1,2,3,4,5,6,7,8,9,10]))
 
-    const sumOfNumberAndIndexInArray = await koconutArray
-                    .foldIndexed(
-                        0,
-                        (index, acc, eachNumber) => index + acc + eachNumber
-                    )
-                    .yield()
-    console.log(sumOfNumberAndIndexInArray)
-    // ↑ 25
+    const rst1 = seq
+        .filter(eachNumber => eachNumber % 2 == 0)
 
-    // Case 2 -- KoconutSet
-    const koconutSet = KoconutSet.of(1,2,3,4,5)
-
-    const multiplesOfNumberAndIndexInSet = await koconutSet
-                    .foldIndexed(
-                        1,
-                        async (index, acc, eachNumber) => index * acc * eachNumber
-                    )
-                    .yield()
-    console.log(multiplesOfNumberAndIndexInSet)
-    // ↑ 0
+    const rst2 = rst1.filter(eachNumber => eachNumber > 6)
 
 
+    console.log((await rst1.yield()).dataArray)
+    console.log((await rst2.yield()).dataArray)
 
 }
 sampleProcess()

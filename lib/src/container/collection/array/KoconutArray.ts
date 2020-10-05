@@ -2,7 +2,7 @@
 
 import {
     /* Base */
-    Pair, KoconutPair, Entry, KoconutEntry,
+    Pair, KoconutPair, Entry, KoconutEntry, KoconutOpener,
 
     /* Container */
     KoconutCollection,
@@ -16,7 +16,6 @@ import {
     /* Protocol */
     KoconutEquatable, KoconutComparable
 } from "../../../../module.internal"
-import { KoconutOpener } from "../../../tool/KoconutOpener.internal";
 
 export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<DataType>> {
     
@@ -644,6 +643,57 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
         return KoconutArray.fromCollection(super.flatMapIndexedTo(destination, transform, thisArg))
 
     }
+
+
+    /**
+     * Groups values returned by the ```valueTransform``` function applied to each element of the original collection by the key 
+     * returned by the given ```keySelector``` function applied to the element and puts to the destination map each group key 
+     * associated with a list of corresponding values. If ```valueTransform``` is omitted, each value would be original element.
+     * @param destination Iterable destinaion. ```Map``` to be exact.
+     * @param keySelector A callback function that accepts an argument. The method calls the ```keySelector``` one time for each element in object.
+     * @param valueTransform A callback function that accepts an argument. The method calls the ```valueTransform``` one time for each element in object it it's not omitted.
+     * @param keySelectorThisArg An object to which the ```this``` keyword can refer in the ```keySelector```. If ```keySelectorThisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * @param valueTransformThisArg An object to which the ```this``` keyword can refer in the ```valueTransform```. If ```valueTransformThisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Transformer
+     * 
+     * @example
+     * ```typescript
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     * 
+     * const groupedByOddParity = new Map<boolean, number[]>()
+     * const groupedByEvenParityToString = new Map<boolean, string[]>()
+     * await koconutArray
+     *         .groupByTo(
+     *             groupedByOddParity,
+     *             eachNumber => eachNumber % 2 == 1
+     *         )
+     *         .groupByTo(
+     *             groupedByEvenParityToString,
+     *             eachNumber => eachNumber % 2 == 0,
+     *             eachNumber => eachNumber.toString()
+     *         )
+     *         .process()
+     * console.log(groupedByOddParity)
+     * // ↑ Map { true => [ 1, 3, 5 ], false => [ 2, 4 ] }
+     * console.log(groupedByEvenParityToString)
+     * // ↑ Map { false => [ '1', '3', '5' ], true => [ '2', '4' ] }
+     * ```
+     */
+    groupByTo<KeyType, ValueType = DataType>(
+        destination : Map<KeyType, Array<ValueType>>,
+        keySelector : (element : DataType) => KeyType | Promise<KeyType>,
+        valueTransform : ((element : DataType) => ValueType | Promise<ValueType>) | null = null,
+        keySelectorThisArg : any = null,
+        valueTransformThisArg : any = null  
+    ) : KoconutArray<DataType> {
+
+        return KoconutArray.fromCollection(super.groupByTo(destination, keySelector, valueTransform, keySelectorThisArg, valueTransformThisArg))
+
+    }
+
 
     /**
      * Applies the given ```transform``` function to each element of the original collection
@@ -1863,17 +1913,7 @@ export class KoconutArray<DataType> extends KoconutCollection<DataType, Array<Da
 
 
 
-    groupByTo<KeyType, ValueType = DataType>(
-        destination : Map<KeyType, Array<ValueType>>,
-        keySelector : (element : DataType) => KeyType | Promise<KeyType>,
-        valueTransform : ((element : DataType) => ValueType | Promise<ValueType>) | null = null,
-        keySelectorThisArg : any = null,
-        valueTransformThisArg : any = null  
-    ) : KoconutArray<DataType> {
 
-        return KoconutArray.fromCollection(super.groupByTo(destination, keySelector, valueTransform, keySelectorThisArg, valueTransformThisArg))
-
-    }
 
 
 

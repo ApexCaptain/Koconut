@@ -1892,6 +1892,96 @@ describe(`${KoconutArray.name} -- Transformer`, () => {
         expect(destination).eqls(['a','b','c','g','h','i'])
     })
 
+    it(KoconutArray.prototype.groupBy.name, async () => {
+
+        /* Case 1 */
+        const koconutCase1 = KoconutArray.from(["a", "abc", "ab", "def", "abcd"])
+
+        const yieldableCase1 = 
+                        koconutCase1
+                        .groupBy(eachElement => eachElement.length)
+        expect(yieldableCase1).to.be.instanceOf(KoconutMap)
+        const resultCase1 = await yieldableCase1.yield()
+        const expectedResultEntryArrayCase1 = [
+                                            [ 1, [ 'a' ] ],
+                                            [ 3, [ 'abc', 'def' ] ],
+                                            [ 2, [ 'ab' ] ],
+                                            [ 4, [ 'abcd' ] ]
+                                        ]
+        expect(Array.from(resultCase1!.entries())).eqls(expectedResultEntryArrayCase1)
+
+        /* Case 2 */
+        const koconutCase2 = KoconutArray.from([
+                        new Person("Grace", "Hopper"), 
+                        new Person("Jacob", "Bernoulli"), 
+                        new Person("Johann", "Bernoulli"), 
+                        new Person("Jinyoung", "Luvya")])
+
+        const yieldableCase2 =
+                        koconutCase2
+                        .groupBy(
+                            eachElement => eachElement.lastName,
+                            eachElement => eachElement.firstName
+                        )
+        expect(yieldableCase2).to.be.instanceOf(KoconutMap)
+        const resultCase2 = await yieldableCase2.yield()
+        const expectedResultEntryArrayCase2 = [
+                                                [ 'Hopper', [ 'Grace' ] ],
+                                                [ 'Bernoulli', [ 'Jacob', 'Johann' ] ],
+                                                [ 'Luvya', [ 'Jinyoung' ] ]
+                                            ]
+        expect(Array.from(resultCase2!.entries())).eqls(expectedResultEntryArrayCase2)
+
+    })
+
+    it(KoconutArray.prototype.groupByTo.name, async () => {
+
+        /* Case 1 */
+        const koconutCase1 = KoconutArray.from(["a", "abc", "ab", "def", "abcd"])
+
+        const destinationCase1 = new Map<number, Array<string>>()
+        const yieldableCase1 =
+                        koconutCase1
+                        .groupByTo(
+                            destinationCase1,
+                            eachElement => eachElement.length
+                        )
+        expect(yieldableCase1).to.be.instanceOf(KoconutArray)
+        await yieldableCase1.process()
+        const expectedResultEntryArrayCase1 = [
+                                                [ 1, [ 'a' ] ],
+                                                [ 3, [ 'abc', 'def' ] ],
+                                                [ 2, [ 'ab' ] ],
+                                                [ 4, [ 'abcd' ] ]
+                                            ]
+        expect(Array.from(destinationCase1.entries())).eqls(expectedResultEntryArrayCase1)
+
+        /* Case 2 */
+        const koconutCase2 = KoconutArray.from([
+                        new Person("Grace", "Hopper"), 
+                        new Person("Jacob", "Bernoulli"), 
+                        new Person("Johann", "Bernoulli"), 
+                        new Person("Jinyoung", "Luvya")])
+
+        const destinationCase2 = new Map<string, Array<string>>()
+        const yieldableCase2 =
+                        koconutCase2
+                        .groupByTo(
+                            destinationCase2,
+                            eachElement => eachElement.lastName,
+                            eachElement => eachElement.firstName
+                        )
+        expect(yieldableCase2).to.be.instanceOf(KoconutArray)
+        await yieldableCase2.process()
+        const expectedResultEntryArrayCase2 = [
+                                            [ 'Hopper', [ 'Grace' ] ],
+                                            [ 'Bernoulli', [ 'Jacob', 'Johann' ] ],
+                                            [ 'Luvya', [ 'Jinyoung' ] ]
+                                        ]
+        expect(Array.from(destinationCase2.entries())).eqls(expectedResultEntryArrayCase2)
+
+    })
+
     it(KoconutArray.prototype.map.name, async () => {
 
         const koconut = KoconutArray.from([1,2,3])
@@ -2043,95 +2133,7 @@ describe(`${KoconutArray.name} -- Transformer`, () => {
 
 describe(`${KoconutArray.name} -- Function`, () => {
 
-    it(KoconutArray.prototype.groupBy.name, async () => {
 
-        /* Case 1 */
-        const koconutCase1 = KoconutArray.from(["a", "abc", "ab", "def", "abcd"])
-
-        const yieldableCase1 = 
-                        koconutCase1
-                        .groupBy(eachElement => eachElement.length)
-        expect(yieldableCase1).to.be.instanceOf(KoconutMap)
-        const resultCase1 = await yieldableCase1.yield()
-        const expectedResultEntryArrayCase1 = [
-                                            [ 1, [ 'a' ] ],
-                                            [ 3, [ 'abc', 'def' ] ],
-                                            [ 2, [ 'ab' ] ],
-                                            [ 4, [ 'abcd' ] ]
-                                        ]
-        expect(Array.from(resultCase1!.entries())).eqls(expectedResultEntryArrayCase1)
-
-        /* Case 2 */
-        const koconutCase2 = KoconutArray.from([
-                        new Person("Grace", "Hopper"), 
-                        new Person("Jacob", "Bernoulli"), 
-                        new Person("Johann", "Bernoulli"), 
-                        new Person("Jinyoung", "Luvya")])
-
-        const yieldableCase2 =
-                        koconutCase2
-                        .groupBy(
-                            eachElement => eachElement.lastName,
-                            eachElement => eachElement.firstName
-                        )
-        expect(yieldableCase2).to.be.instanceOf(KoconutMap)
-        const resultCase2 = await yieldableCase2.yield()
-        const expectedResultEntryArrayCase2 = [
-                                                [ 'Hopper', [ 'Grace' ] ],
-                                                [ 'Bernoulli', [ 'Jacob', 'Johann' ] ],
-                                                [ 'Luvya', [ 'Jinyoung' ] ]
-                                            ]
-        expect(Array.from(resultCase2!.entries())).eqls(expectedResultEntryArrayCase2)
-
-    })
-
-    it(KoconutArray.prototype.groupByTo.name, async () => {
-
-        /* Case 1 */
-        const koconutCase1 = KoconutArray.from(["a", "abc", "ab", "def", "abcd"])
-
-        const destinationCase1 = new Map<number, Array<string>>()
-        const yieldableCase1 =
-                        koconutCase1
-                        .groupByTo(
-                            destinationCase1,
-                            eachElement => eachElement.length
-                        )
-        expect(yieldableCase1).to.be.instanceOf(KoconutArray)
-        await yieldableCase1.process()
-        const expectedResultEntryArrayCase1 = [
-                                                [ 1, [ 'a' ] ],
-                                                [ 3, [ 'abc', 'def' ] ],
-                                                [ 2, [ 'ab' ] ],
-                                                [ 4, [ 'abcd' ] ]
-                                            ]
-        expect(Array.from(destinationCase1.entries())).eqls(expectedResultEntryArrayCase1)
-
-        /* Case 2 */
-        const koconutCase2 = KoconutArray.from([
-                        new Person("Grace", "Hopper"), 
-                        new Person("Jacob", "Bernoulli"), 
-                        new Person("Johann", "Bernoulli"), 
-                        new Person("Jinyoung", "Luvya")])
-
-        const destinationCase2 = new Map<string, Array<string>>()
-        const yieldableCase2 =
-                        koconutCase2
-                        .groupByTo(
-                            destinationCase2,
-                            eachElement => eachElement.lastName,
-                            eachElement => eachElement.firstName
-                        )
-        expect(yieldableCase2).to.be.instanceOf(KoconutArray)
-        await yieldableCase2.process()
-        const expectedResultEntryArrayCase2 = [
-                                            [ 'Hopper', [ 'Grace' ] ],
-                                            [ 'Bernoulli', [ 'Jacob', 'Johann' ] ],
-                                            [ 'Luvya', [ 'Jinyoung' ] ]
-                                        ]
-        expect(Array.from(destinationCase2.entries())).eqls(expectedResultEntryArrayCase2)
-
-    })
 
     it(KoconutArray.prototype.indexOf.name, async () => {
 

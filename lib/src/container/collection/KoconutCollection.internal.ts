@@ -1,6 +1,5 @@
 `use strict`
 
-import { should } from "chai"
 import {
     /* Tool */
     KoconutPrimitive, KoconutOpener, KoconutTypeChecker,
@@ -9,7 +8,7 @@ import {
     KoconutPair, Pair, Entry, 
 
     /* Container */
-    KoconutIterable, KoconutArray, KoconutSet, KoconutMap, KoconutBoolean,
+    KoconutIterable, KoconutArray, KoconutSet, KoconutMap, KoconutBoolean, Sequence,
 
     /* Enum*/
     KoconutLoopSignal,
@@ -23,7 +22,7 @@ import {
 import { KoconutEntry } from "../base/KoconutEntry"
 
 /** @internal */
-export class KoconutCollection<DataType, WrapperType extends Array<DataType> | Set<DataType>> extends KoconutIterable<DataType, DataType, WrapperType, WrapperType> {
+export class KoconutCollection<DataType, WrapperType extends Array<DataType> | Sequence<DataType>| Set<DataType>> extends KoconutIterable<DataType, DataType, WrapperType, WrapperType> {
 
     /* Koconut Primitive */
     async validate(data : WrapperType | null) {
@@ -40,7 +39,7 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
     }
 
 
-    private static fromIterable<DataType, WrapperType extends Array<DataType> | Set<DataType>>(
+    private static fromIterable<DataType, WrapperType extends Array<DataType> | Sequence<DataType>| Set<DataType>>(
         iterable : KoconutIterable<DataType, DataType, WrapperType, WrapperType>
     ) : KoconutCollection<DataType, WrapperType> {
 
@@ -1612,6 +1611,166 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
     }
 
 
+    /**
+     * Returns first index of element. or -1 if the collection does not contains element.
+     * @param elementToFind The element to search for.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Selector
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     * 
+     * const indexOf3 = await koconutArray
+     *                         .indexOf(3)
+     *                         .yield()
+     * console.log(indexOf3)
+     * // ↑ 2
+     * 
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of(1,2,3,4,5)
+     * 
+     * const indexOf10 = await koconutSet
+     *                         .indexOf(10)
+     *                         .yield()
+     * console.log(indexOf10)
+     * // ↑ -1
+     * ```
+     */
+    indexOf(
+        elementToFind : DataType
+    ) : KoconutPrimitive<number> {
+
+        const koconutToReturn = new KoconutPrimitive<number>();
+        (koconutToReturn as any as KoconutOpener<number>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data != null) {
+                    for(const [index, element] of Array.from(this.data).entries()) {
+                        if(KoconutTypeChecker.checkIsEquatable(element)) {
+                            const equalityResult = element.equalsTo(elementToFind)
+                            if(
+                                (equalityResult instanceof KoconutPrimitive && await equalityResult.yield())
+                                || (!(equalityResult instanceof KoconutPrimitive) && equalityResult)
+                            ) return index as number
+                        } else if(element == elementToFind) return index as number
+                    }
+                }
+                return -1
+            })
+        return koconutToReturn
+
+    }
+
+
+    /**
+     * Returns index of the first element matching the given ```predicate```, or -1 if the
+     * collection does not contain such element.
+     * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Selector
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const indexOfFirstEven = await koconutArray
+     *                         .indexOfFirst(eachNumber => eachNumber % 2 == 0)
+     *                         .yield()
+     * console.log(indexOfFirstEven)
+     * // ↑ 1
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of(1,2,3,4,5)
+     *
+     * const indexOfFirstOdd = await koconutSet
+     *                         .indexOfFirst(eachNumber => eachNumber % 2 == 1)
+     *                         .yield()
+     * console.log(indexOfFirstOdd)
+     * // ↑ 0 
+     * ```
+     */
+    indexOfFirst(
+        predicate : (element : DataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutPrimitive<number> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<number>();
+        (koconutToReturn as any as KoconutOpener<number>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data != null) {
+                    for(const [index, element] of Array.from(this.data).entries()) 
+                        if(await predicate(element)) return index as number
+                }
+                return -1
+            })
+        return koconutToReturn
+
+    }
+
+
+    /**
+     * Returns index of the last element matching the given ```predicate```, or -1 if the
+     * collection does not contain such element.
+     * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
+     * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Selector
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     *
+     * const indexOfLastEven = await koconutArray
+     *                         .indexOfLast(eachNumber => eachNumber % 2 == 0)
+     *                         .yield()
+     * console.log(indexOfLastEven)
+     * // ↑ 3
+     *
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of(1,2,3,4,5)
+     *
+     * const indexOfLastOdd = await koconutSet
+     *                         .indexOfLast(eachNumber => eachNumber % 2 == 1)
+     *                         .yield()
+     * console.log(indexOfLastOdd)
+     * // ↑ 4
+     * ```
+     */
+    indexOfLast(
+        predicate : (element : DataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutPrimitive<number> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutPrimitive<number>();
+        (koconutToReturn as any as KoconutOpener<number>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data != null) {
+                    const dataArray = Array.from(this.data)
+                    for(let eachIndex = dataArray.length - 1 ; eachIndex >= 0 ; eachIndex--)
+                        if(await predicate(dataArray[eachIndex])) return eachIndex
+                }
+                return -1
+            })
+        return koconutToReturn
+
+    }
+
+
 
 
 
@@ -2231,6 +2390,104 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
     }
 
 
+    /**
+     * Groups values returned by the ```valueTransform``` function applied to each element of the original collection 
+     * by the key returned by the given ```keySelector``` function applied to the element and returns a map where each
+     * group key is associated with a list of corresponding values. If ```valueTransform``` is omitted, the ```value``` of
+     * each entry would be origianl element.
+     * @param keySelector A callback function that accepts an argument. The method calls the ```keySelector``` one time for each element in object.
+     * @param valueTransform A callback function that accepts an argument. The method calls the ```valueTransform``` one time for each element in object it it's not omitted.
+     * @param keySelectorThisArg An object to which the ```this``` keyword can refer in the ```keySelector```. If ```keySelectorThisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * @param valueTransformThisArg An object to which the ```this``` keyword can refer in the ```valueTransform```. If ```valueTransformThisArg``` is omitted, ```null``` is used as the ```this``` value.
+     * 
+     * @since 1.0.10
+     * 
+     * @category Transformer
+     * 
+     * @example
+     * ```typescript
+     * // Case 1 -- KoconutArray
+     * // Case 1 -- KoconutArray
+     * const koconutArray = KoconutArray.of(1,2,3,4,5)
+     * 
+     * const groupedByOddParity = await koconutArray
+     *                             .groupBy(eachNumber => eachNumber % 2 == 1)
+     *                             .yield()
+     * console.log(groupedByOddParity)
+     * // ↑ Map { true => [ 1, 3, 5 ], false => [ 2, 4 ] }
+     * 
+     * // Case 2 -- KoconutSet
+     * const koconutSet = KoconutSet.of(1,2,3,4,5)
+     * 
+     * const groupedByEvenParityToString = await koconutSet
+     *                             .groupBy(
+     *                                 eachNumber => eachNumber % 2 == 0,
+     *                                 eachNumber => eachNumber.toString()
+     *                             )
+     *                             .yield()
+     * console.log(groupedByEvenParityToString)
+     * // ↑ Map { false => [ '1', '3', '5' ], true => [ '2', '4' ] }
+     * ```
+     */
+    groupBy<KeyType, ValueType = DataType>(
+        keySelector : (element : DataType) => KeyType | Promise<KeyType>,
+        valueTransform : ((element : DataType) => ValueType | Promise<ValueType>) | null = null,
+        keySelectorThisArg : any = null,
+        valueTransformThisArg : any = null
+    ) : KoconutMap<KeyType, Array<ValueType>> {
+
+        keySelector = keySelector.bind(keySelectorThisArg)
+        if(valueTransform) valueTransform = valueTransform.bind(valueTransformThisArg)
+        const koconutToReturn = new KoconutMap<KeyType, Array<ValueType>>();
+        (koconutToReturn as any as KoconutOpener<Map<KeyType, Array<ValueType>>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                const processedMap = new Map<KeyType, Array<ValueType>>()
+                if(this.data != null) {
+                    for(const eachDatum of this.data) {
+                        const eachKey = await keySelector(eachDatum)
+                        const eachValue = valueTransform ? await valueTransform(eachDatum) : eachDatum
+                        if(!processedMap.has(eachKey)) processedMap.set(eachKey, new Array())
+                        processedMap.get(eachKey)?.push(eachValue as ValueType)
+                    }
+                }
+                return processedMap
+            })
+        return koconutToReturn
+
+    }
+
+
+    // No Comment -- KoconutArray/KoconutSet
+    groupByTo<KeyType, ValueType = DataType>(
+        destination : Map<KeyType, Array<ValueType>>,
+        keySelector : (element : DataType) => KeyType | Promise<KeyType>,
+        valueTransform : ((element : DataType) => ValueType | Promise<ValueType>) | null = null,
+        keySelectorThisArg : any = null,
+        valueTransformThisArg : any = null
+    ) : KoconutCollection<DataType, WrapperType> {
+
+        keySelector = keySelector.bind(keySelectorThisArg)
+        if(valueTransform) valueTransform = valueTransform.bind(valueTransformThisArg)
+        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
+        (koconutToReturn as any as KoconutOpener<WrapperType>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                if(this.data != null) {
+                    for(const eachDatum of this.data) {
+                        const eachKey = await keySelector(eachDatum)
+                        const eachValue = valueTransform ? await valueTransform(eachDatum) : eachDatum
+                        if(!destination.has(eachKey)) destination.set(eachKey, new Array())
+                        destination.get(eachKey)?.push(eachValue as ValueType)
+                    }
+                }
+                return this.data!
+            })
+        return koconutToReturn
+
+    }
+
+
     // No Comment -- KoconutArray/KoconutSet
     mapTo<ResultDataType>(
         destination : Array<ResultDataType> | Set<ResultDataType>,
@@ -2603,136 +2860,6 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
 
     
     /* Funcions */
-    groupBy<KeyType, ValueType = DataType>(
-        keySelector : (element : DataType) => KeyType | Promise<KeyType>,
-        valueTransform : ((element : DataType) => ValueType | Promise<ValueType>) | null = null,
-        keySelectorThisArg : any = null,
-        valueTransformThisArg : any = null
-    ) : KoconutMap<KeyType, Array<ValueType>> {
-
-        keySelector = keySelector.bind(keySelectorThisArg)
-        if(valueTransform) valueTransform = valueTransform.bind(valueTransformThisArg)
-        const koconutToReturn = new KoconutMap<KeyType, Array<ValueType>>();
-        (koconutToReturn as any as KoconutOpener<Map<KeyType, Array<ValueType>>>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                const processedMap = new Map<KeyType, Array<ValueType>>()
-                if(this.data != null) {
-                    for(const eachDatum of this.data) {
-                        const eachKey = await keySelector(eachDatum)
-                        const eachValue = valueTransform ? await valueTransform(eachDatum) : eachDatum
-                        if(!processedMap.has(eachKey)) processedMap.set(eachKey, new Array())
-                        processedMap.get(eachKey)?.push(eachValue as ValueType)
-                    }
-                }
-                return processedMap
-            })
-        return koconutToReturn
-
-    }
-
-
-    groupByTo<KeyType, ValueType = DataType>(
-        destination : Map<KeyType, Array<ValueType>>,
-        keySelector : (element : DataType) => KeyType | Promise<KeyType>,
-        valueTransform : ((element : DataType) => ValueType | Promise<ValueType>) | null = null,
-        keySelectorThisArg : any = null,
-        valueTransformThisArg : any = null
-    ) : KoconutCollection<DataType, WrapperType> {
-
-        keySelector = keySelector.bind(keySelectorThisArg)
-        if(valueTransform) valueTransform = valueTransform.bind(valueTransformThisArg)
-        const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
-        (koconutToReturn as any as KoconutOpener<WrapperType>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data != null) {
-                    for(const eachDatum of this.data) {
-                        const eachKey = await keySelector(eachDatum)
-                        const eachValue = valueTransform ? await valueTransform(eachDatum) : eachDatum
-                        if(!destination.has(eachKey)) destination.set(eachKey, new Array())
-                        destination.get(eachKey)?.push(eachValue as ValueType)
-                    }
-                }
-                return this.data!
-            })
-        return koconutToReturn
-
-    }
-
-
-    // groupingBy
-
-
-    indexOf(
-        elementToFind : DataType
-    ) : KoconutPrimitive<number> {
-
-        const koconutToReturn = new KoconutPrimitive<number>();
-        (koconutToReturn as any as KoconutOpener<number>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data != null) {
-                    for(const [index, element] of Array.from(this.data).entries()) {
-                        if(KoconutTypeChecker.checkIsEquatable(element)) {
-                            const equalityResult = element.equalsTo(elementToFind)
-                            if(
-                                (equalityResult instanceof KoconutPrimitive && await equalityResult.yield())
-                                || (!(equalityResult instanceof KoconutPrimitive) && equalityResult)
-                            ) return index as number
-                        } else if(element == elementToFind) return index as number
-                    }
-                }
-                return -1
-            })
-        return koconutToReturn
-
-    }
-
-
-    indexOfFirst(
-        predicate : (element : DataType) => boolean | Promise<boolean>,
-        thisArg : any = null
-    ) : KoconutPrimitive<number> {
-
-        predicate = predicate.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<number>();
-        (koconutToReturn as any as KoconutOpener<number>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data != null) {
-                    for(const [index, element] of Array.from(this.data).entries()) 
-                        if(await predicate(element)) return index as number
-                }
-                return -1
-            })
-        return koconutToReturn
-
-    }
-
-
-    indexOfLast(
-        predicate : (element : DataType) => boolean | Promise<boolean>,
-        thisArg : any = null
-    ) : KoconutPrimitive<number> {
-
-        predicate = predicate.bind(thisArg)
-        const koconutToReturn = new KoconutPrimitive<number>();
-        (koconutToReturn as any as KoconutOpener<number>)
-            .setPrevYieldable(this)
-            .setProcessor(async () => {
-                if(this.data != null) {
-                    const dataArray = Array.from(this.data)
-                    for(let eachIndex = dataArray.length - 1 ; eachIndex >= 0 ; eachIndex--)
-                        if(await predicate(dataArray[eachIndex])) return eachIndex
-                }
-                return -1
-            })
-        return koconutToReturn
-
-    }
-
-
     intersect(
         other : Iterable<DataType>
     ) : KoconutSet<DataType> {
