@@ -1,145 +1,251 @@
 `use strict`
 
 import {
-    KoconutCollection, Entry,
+    /* Container */
+    KoconutCollection,
+
+    /* Enum */
+    KoconutLoopSignal,
+
+    /* Tool */
     KoconutOpener
 } from "../../../../module.internal"
 
-import { EventEmitter } from "events"
-export class Sequence<DataType> extends EventEmitter implements Iterable<DataType> {
+export class Sequence<DataType> implements Iterable<DataType> {
 
-    private static newDatumInsertedEvent = "newDatumInserted"
-    private static dataScanningCompletedEvent = "dataScanningCompleted"
-
-    private mPentDataSize = 0
-    private mChainedSequence : Sequence<DataType> | null = null
-    private mDataArray = new Array<DataType>();
-
+    private isFinished = false
+    private mLastPrevIndex = 0
+    private mParentSequence : Sequence<any> | null = null
+    private mTransformer : ((index : number, srcDatum : any) => void | DataType | Promise<void | DataType>) | null = null
+    private mInnerDataArray = new Array<DataType>();
     [Symbol.iterator]() : Iterator<DataType> {
-        return this.mDataArray[Symbol.iterator]()
+        return this.mInnerDataArray[Symbol.iterator]()
     }
 
     constructor(
-        srcSequecne : Iterable<DataType> | null = null
+        srcSequence : Iterable<DataType> | null = null
     ) {
-        super()
-        if(srcSequecne != null) {
-            for(const eachDatum of srcSequecne) {
-                this.mPentDataSize++
-                this.mDataArray.push(eachDatum)
+        if(srcSequence != null) {
+            for(const eachDatum of srcSequence) {
+                this.mInnerDataArray.push(eachDatum)
             }
         }
     }
 
-    get dataArray() : Array<DataType> {
-        return this.mDataArray
+    static of<DataType>(
+        ...srcSequence : DataType[]
+    ) : Sequence<DataType> {
+        return new Sequence(srcSequence)
     }
 
-    private setDatum(
-        datum : DataType
-    ) {
-        const index = this.mDataArray.push(datum) - 1
-        this.emit(Sequence.newDatumInsertedEvent, index, datum)
+    static from<DataType>(
+        srcSequence : Iterable<DataType> | null = null
+    ) : Sequence<DataType> {
+        return new Sequence(srcSequence)
     }
 
-    private onNewDatumInserted(
-        onNewDatumInsertedListener : (index : number, datum : DataType) => void | Promise<void>,
-        targetSequence : Sequence<any> | null = null
-    ) {
-
-        let count = 0
-        this.mChainedSequence = targetSequence
-        const mediatedListener = async (index : number, datum : DataType) => {
-            console.log(datum)
-            await onNewDatumInsertedListener(index, datum)
-            if(this.mPentDataSize - 1 == count ++) {
-                console.log("com")
-                this.emit(Sequence.dataScanningCompletedEvent)
-                if(targetSequence != null) {
-                    targetSequence.mPentDataSize = targetSequence.mDataArray.length
-                    if(targetSequence.mChainedSequence == null) targetSequence.emit(Sequence.dataScanningCompletedEvent)
-                }
-            }
+    async done() : Promise<Sequence<DataType>> {
+        let index = 0
+        if(this.mParentSequence) this.mParentSequence.isFinished = false
+        while(!this.isFinished) {
+            await this.getDatum(index++)
         }
-        this.on(Sequence.newDatumInsertedEvent, mediatedListener)
-        this.once(Sequence.dataScanningCompletedEvent, () => {
-            this.removeListener(Sequence.newDatumInsertedEvent, mediatedListener)
-        })
-        if(this.dataArray.length != 0) this.dataArray.forEach((datum, index) => this.emit(Sequence.newDatumInsertedEvent, index, datum))
-        /*
-        let count = 0;
-        this.mChainedSequence = targetFlow
-        const mediatedListener = async (index : number, datum : DataType) => {
-            await onNewDatumInsertedListener(index, datum)
-            if(this.mPentDataSize - 1 == count++) {
-                this.emit(Sequence.dataScanningCompletedEvent)
-                if(targetFlow != null) {
-                    targetFlow.mPentDataSize = targetFlow.mInnerDataMap.size
-                    if(targetFlow.mChainedFlow == null) targetFlow.emit(Flow.dataScanningCompletedEvent)
-                }
-            }
-        }
-        this.on(Flow.newDatumInsertedEvent, mediatedListener)
-        this.once(Flow.dataScanningCompletedEvent, () => this.removeListener(Flow.newDatumInsertedEvent, mediatedListener))
-        if(this.mInnerDataMap.size != 0) this.mInnerDataMap.forEach((datum, id) => this.emit(Flow.newDatumInsertedEvent, id, datum))
-        */
         
+        this.mParentSequence = null
+        this.mTransformer = null
+        this.mLastPrevIndex = 0
+        return this
+    }
+
+    private async getDatum(index : number) : Promise<void | DataType> {
+        if(this.mParentSequence == null) {
+            if(index == this.mInnerDataArray.length - 1) this.isFinished = true
+            return this.mInnerDataArray[index]
+        }
+        else {
+            const fetchedResult = await this.mParentSequence.getDatum(index)
+            if(fetchedResult) {
+                const result = await this.mTransformer!(this.mLastPrevIndex++, fetchedResult)
+                if(this.mParentSequence.isFinished) this.isFinished = true
+                if(result) this.mInnerDataArray.push(result)
+                return result
+            }
+        }
+    }
+
+    private chainSequence<ParentType>(
+        prevSequence : Sequence<ParentType>,
+        transformer : (index : number, srcDatum : ParentType) => void | DataType | Promise<void | DataType>
+    ) : Sequence<DataType> {
+        this.mParentSequence = prevSequence
+        this.mTransformer = transformer
+        return this
     }
 
 }
 
 export class KoconutSequence<DataType> extends KoconutCollection<DataType, Sequence<DataType>> {
 
-    private mIsChained = false
 
-    async validate(data : Sequence<DataType> | null) {
-        if(data != null) {
-            this.combinedDataWrapper = data
-        }
+    constructor(srcSequence : Iterable<DataType> | null = null) {
+        super()
+        this.data = new Sequence(srcSequence)
     }
 
-    filter(
-        predicate : (element : DataType) => boolean | Promise<boolean>,
+
+    static of<DataType>(
+        ...srcSequence : DataType[]
+    ) : KoconutSequence<DataType> {
+        return new KoconutSequence(srcSequence)
+    }
+
+    
+    static from<DataType>(
+        srcSequence : Iterable<DataType> | null = null
+    ) : KoconutSequence<DataType> {
+        return new KoconutSequence(srcSequence)
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    // Iterator
+    onEach(
+        action : (element : DataType) => boolean | KoconutLoopSignal | void | Promise<boolean | KoconutLoopSignal | void>,
         thisArg : any = null
     ) : KoconutSequence<DataType> {
 
-        this.mIsChained = true
-        predicate = predicate.bind(thisArg)
+        action.bind(thisArg)
         const koconutToReturn = new KoconutSequence<DataType>();
         (koconutToReturn as any as KoconutOpener<Sequence<DataType>>)
             .setPrevYieldable(this)
             .setProcessor(async () => {
-                const processedSequence = new Sequence<DataType>()
-                if(this.data != null) {
-                    this.data['onNewDatumInserted'](
-                        async (_, element) => {
-                            if(await predicate(element))
-                                processedSequence['setDatum'](element)
-                        },
-                        processedSequence
-                    )
-                } else processedSequence.emit(Sequence['dataScanningCompletedEvent'])
-                return processedSequence
+                let continueProcess = true
+                return new Sequence<DataType>()['chainSequence'](
+                    this.data!,
+                    async (_, srcDatum) => {
+                        if(continueProcess) {
+                            const signal = await action(srcDatum)
+                            if(signal == false || signal == KoconutLoopSignal.BREAK)
+                                continueProcess = false
+                        }
+                        return srcDatum
+                    }
+                )
             })
         return koconutToReturn
 
     }
 
 
-    async yield() : Promise<Sequence<DataType>> {
-        return new Promise(async resolve => {
-            await this.process()
-            if(this.mIsChained) resolve(this.data!)
-            else {
-                if(!this.processor) {
-                    console.log("as")
-                    resolve(this.data!)
-                }
-                else this.data!.once(Sequence['dataScanningCompletedEvent'], () => {
-                    resolve(this.data!)
-                })
-            }
-        })
+    onEachIndexed(
+        action : (index : number, element : DataType) => boolean | KoconutLoopSignal | void | Promise<boolean | KoconutLoopSignal | void>,
+        thisArg : any = null
+    ) : KoconutSequence<DataType> {
+
+        action.bind(thisArg)
+        const koconutToReturn = new KoconutSequence<DataType>();
+        (koconutToReturn as any as KoconutOpener<Sequence<DataType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                let continueProcess = true
+                return new Sequence<DataType>()['chainSequence'](
+                    this.data!,
+                    async (index, srcDatum) => {
+                        if(continueProcess) {
+                            const signal = await action(index, srcDatum)
+                            if(signal == false || signal == KoconutLoopSignal.BREAK)
+                                continueProcess = false
+                        }
+                        return srcDatum
+                    }
+                )
+            })
+        return koconutToReturn
+
     }
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    filter(
+        predicate : (element : DataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutSequence<DataType> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutSequence<DataType>();
+        (koconutToReturn as any as KoconutOpener<Sequence<DataType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                return new Sequence<DataType>()['chainSequence'](
+                    this.data!,
+                    async (_, srcDatum) => {
+                        if(await predicate(srcDatum)) return srcDatum
+                    }
+                )
+            })
+        return koconutToReturn
+
+    }
+
+
+    filterIndexed(
+        predicate : (index : number, element : DataType) => boolean | Promise<boolean>,
+        thisArg : any = null
+    ) : KoconutSequence<DataType> {
+
+        predicate = predicate.bind(thisArg)
+        const koconutToReturn = new KoconutSequence<DataType>();
+        (koconutToReturn as any as KoconutOpener<Sequence<DataType>>)
+            .setPrevYieldable(this)
+            .setProcessor(async () => {
+                return new Sequence<DataType>()['chainSequence'](
+                    this.data!,
+                    async (index, srcDatum) => {
+                        if(await predicate(index, srcDatum)) return srcDatum
+                    }
+                )
+            })
+        return koconutToReturn
+
+    }
+
+
+
 
 }

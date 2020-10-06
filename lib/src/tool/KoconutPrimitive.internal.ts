@@ -1,6 +1,6 @@
 `use strict`
 
-import { KoconutYieldable, KoconutOpener } from "../../module.internal"
+import { KoconutYieldable, KoconutOpener, KoconutSequence, Sequence } from "../../module.internal"
 
 export class KoconutPrimitive<DataType> implements KoconutYieldable<DataType> {
     
@@ -48,7 +48,10 @@ export class KoconutPrimitive<DataType> implements KoconutYieldable<DataType> {
      * ```
      */
     async process() : Promise<void> {
-        if(this.prevYieldable != null) this.data = await this.prevYieldable.yield()
+        if(this.prevYieldable != null) {
+            this.data = await this.prevYieldable.yield()
+            if(!(this instanceof KoconutSequence) && this.data instanceof Sequence) await this.data.done()
+        }
         if(this.processor != null) this.data = await this.processor()
         if(!this.isValidated) {
             await this.validate(this.data)

@@ -8,43 +8,31 @@ import {
 
 const sampleProcess = async () => {
 
-    
-    
-    const seq = new KoconutSequence(new Sequence([1,2,3,4,5,6,7,8,9,10]))
 
-    const rst1 = seq
-        .filter(eachNumber => new Promise(resolve => {
-            console.log(1, eachNumber)
-            setTimeout(() => {
-                resolve(eachNumber % 2 == 0)
-            }, 1000)
-        }))
+    const rst =  await new KoconutSequence(new Sequence([1,2,3,4,5,6,7,8,9,10]))
+                        .onEachIndexed(console.log)
+                        .onEachIndexed(console.log)
+                        .onEach(console.log)
+                        .onEach(console.log)
+                        
+                        /*
+                        .filter(eachNumber => new Promise(resolve => {
+                            setTimeout(() => {
+                                resolve(eachNumber % 2 == 0)
+                            }, 1000)
+                        }))
+                        .onEach(e => {
+                            if(e > 5) return KoconutLoopSignal.BREAK
+                            console.log("qwe", e)
+                        })
+                        .onEach(console.log)
+                        .maxByOrNull(e => e)
+                        */
+                        .asArray()
+                        .yield()
 
-    
-    const rst2 = rst1.filter(eachNumber => new Promise(resolve => {
-        console.log(2, eachNumber)
-        setTimeout(() => {
-            resolve(eachNumber > 6)
-        }, 1000)
-    }))
-    
-    
-    console.log((await rst1.yield()).dataArray)
-    console.log((await rst2.yield()).dataArray)
-    
-
-    
-    
-    const fl = KoconutFlow.ofSimple(1,2,3,4,5)
-
-    const f1 = fl.mapFlow(eachNumber => eachNumber * 2)
-    const f2 = f1.mapFlow(eachNumber => eachNumber.toString())
-
-    console.log((await f1.yield()).dataArray)
-    console.log((await f2.yield()).dataArray)
-    
-    
-    
-
+    console.log("-----------------")
+    console.log(rst)
+    console.log("-----------------")
 }
 sampleProcess()

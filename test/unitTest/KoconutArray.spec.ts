@@ -954,6 +954,35 @@ describe(`${KoconutArray.name} -- Iterator`, () => {
         await yieldable.process()
 
     })
+
+    
+    it(KoconutArray.prototype.onEach.name, async () => {
+
+        const koconut = KoconutArray.from([1,2,3,4,5])
+
+        const yieldable = 
+                        koconut
+                        .onEach(eachElement => {
+                            expect(eachElement).to.be.a("number")
+                        })
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        await yieldable.process()
+
+    })
+
+    it(KoconutArray.prototype.onEachIndexed.name, async () => {
+
+        const koconut = KoconutArray.from([1,2,3,4,5])
+
+        const yieldable =
+                        koconut
+                        .onEachIndexed((eachIndex, eachElement) => {
+                            expect(eachElement - eachIndex).equals(1)
+                        })
+        expect(yieldable).to.be.instanceOf(KoconutArray)
+        await yieldable.process()
+
+    })
     
 })
 
@@ -2553,33 +2582,6 @@ describe(`${KoconutArray.name} -- Function`, () => {
     
 
 
-    it(KoconutArray.prototype.onEach.name, async () => {
-
-        const koconut = KoconutArray.from([1,2,3,4,5])
-
-        const yieldable = 
-                        koconut
-                        .onEach(eachElement => {
-                            expect(eachElement).to.be.a("number")
-                        })
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        await yieldable.process()
-
-    })
-
-    it(KoconutArray.prototype.onEachIndexed.name, async () => {
-
-        const koconut = KoconutArray.from([1,2,3,4,5])
-
-        const yieldable =
-                        koconut
-                        .onEachIndexed((eachIndex, eachElement) => {
-                            expect(eachElement - eachIndex).equals(1)
-                        })
-        expect(yieldable).to.be.instanceOf(KoconutArray)
-        await yieldable.process()
-
-    })
 
     it(KoconutArray.prototype.partition.name, async () => {
 
