@@ -13,7 +13,7 @@ import {
 
 export class Sequence<DataType> implements Iterable<DataType> {
 
-    private isFinished = false
+    private mIsFinished = false
     private mLastPrevIndex = 0
     private mParentSequence : Sequence<any> | null = null
     private mTransformer : ((index : number, srcDatum : any) => void | DataType | Promise<void | DataType>) | null = null
@@ -46,8 +46,8 @@ export class Sequence<DataType> implements Iterable<DataType> {
 
     async done() : Promise<Sequence<DataType>> {
         let index = 0
-        if(this.mParentSequence) this.mParentSequence.isFinished = false
-        while(!this.isFinished) {
+        if(this.mParentSequence) this.mParentSequence.mIsFinished = false
+        while(!this.mIsFinished) {
             await this.getDatum(index++)
         }
         
@@ -59,14 +59,14 @@ export class Sequence<DataType> implements Iterable<DataType> {
 
     private async getDatum(index : number) : Promise<void | DataType> {
         if(this.mParentSequence == null) {
-            if(index == this.mInnerDataArray.length - 1) this.isFinished = true
+            if(index == this.mInnerDataArray.length - 1) this.mIsFinished = true
             return this.mInnerDataArray[index]
         }
         else {
             const fetchedResult = await this.mParentSequence.getDatum(index)
             if(fetchedResult) {
                 const result = await this.mTransformer!(this.mLastPrevIndex++, fetchedResult)
-                if(this.mParentSequence.isFinished) this.isFinished = true
+                if(this.mParentSequence.mIsFinished) this.mIsFinished = true
                 if(result) this.mInnerDataArray.push(result)
                 return result
             }
@@ -77,6 +77,7 @@ export class Sequence<DataType> implements Iterable<DataType> {
         prevSequence : Sequence<ParentType>,
         transformer : (index : number, srcDatum : ParentType) => void | DataType | Promise<void | DataType>
     ) : Sequence<DataType> {
+        prevSequence.mIsFinished = false
         this.mParentSequence = prevSequence
         this.mTransformer = transformer
         return this
