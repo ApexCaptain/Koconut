@@ -7,6 +7,6 @@ import {
 
 
 const sampleProcess = async () => {
-
+    console.log(Symbol.iterator)
 }
 sampleProcess()
