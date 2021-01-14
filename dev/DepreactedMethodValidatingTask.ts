@@ -16,7 +16,7 @@ const checkIdsDepreactionVersionValid = (deprecationVersionIntArray : Array<numb
     return false
 }
 
-export const validateDepreactedMethod = async (currentVersion : string | null = null) : Promise<boolean> => {
+export const validateDeprecatedMethod = async (currentVersion : string | null = null) : Promise<boolean> => {
     if(existsSync(devDeprecationListTmpFilePath)) {
         currentVersion = currentVersion == null ? require(packageJsonPath).version : currentVersion
         const currentVersionIntArray = currentVersion!!.split('.').map(eachCharacter => parseInt(eachCharacter))
@@ -39,4 +39,4 @@ export const validateDepreactedMethod = async (currentVersion : string | null = 
     }
     return true
 }
-if(process.argv[2] == '-f') validateDepreactedMethod()
+if(process.argv[2] == '-f') validateDeprecatedMethod()

@@ -25,7 +25,7 @@
     "test": "echo Preparing Unit Test... && mocha -r ts-node/register ./test/unitTest/*.spec.ts && echo Unit Test Completed",
     "testSequence": "echo Preparing Unit Test... && mocha -r ts-node/register ./test/unitTest/*Sequence.spec.ts && echo Unit Test Completed",
     "validate": "npm run test && ts-node ./dev/DepreactedMethodValidatingTask.ts -f && echo Validating deprecation method completed.",
-    "distribute": "npm run update && npm run build && npm run doc && npm run topic && npm test && node ./dev/DistributingTask",
+    "distribute": "npm run update && npm run build && npm run doc && npm run topic && npm test && ts-node ./dev/DistributingTask.ts",
     "sample": "ts-node ./test/Sample.test.ts && echo Sample Test Completed"
   },
   "repository": {
