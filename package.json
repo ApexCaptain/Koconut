@@ -59,7 +59,7 @@
     "@types/node": "^14.14.20",
     "chai": "^4.2.0",
     "mocha": "^8.2.1",
-    "npm-check-updates": "^10.2.5",
+    "npm-check-updates": "^11.0.2",
     "npx": "^10.2.2",
     "ts-node": "^9.1.1",
     "typedoc": "^0.20.14",
