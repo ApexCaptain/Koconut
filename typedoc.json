@@ -5,7 +5,6 @@
         "./lib/**/*internal.ts"
     ],
     "excludeExternals": true,
-    "excludeNotExported": true,
     "excludePrivate": true,
     "excludeProtected" : true
 }

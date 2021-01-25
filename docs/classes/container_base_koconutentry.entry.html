@@ -1,0 +1,588 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Entry | koconut</title>
+	<meta name="description" content="Documentation for koconut">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+	<script async src="../assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">koconut</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../modules.html">koconut</a>
+				</li>
+				<li>
+					<a href="../modules/container_base_koconutentry.html">container/base/KoconutEntry</a>
+				</li>
+				<li>
+					<a href="container_base_koconutentry.entry.html">Entry</a>
+				</li>
+			</ul>
+			<h1>Class Entry&lt;KeyType, ValueType&gt;</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Represents a key/value pair for <a href="container_map_koconutmap.koconutmap.html">KoconutMap</a>.
+							The type of key is basically could be any kind of class instance,
+							but it is recommended to be a number, string or custom class that inherits <a href="../interfaces/protocol_koconutequatable.koconutequatable.html">KoconutEquatable</a>.
+							Otherwise, further equality check process in <a href="container_collection_set_koconutset.koconutset.html">KoconutSet</a> or <a href="container_map_koconutmap.koconutmap.html">KoconutMap</a> will not work
+							as intented. This is beacuse even if there are two different instances of same class, which have
+							exactly identical properties, they are fundamentally indistinguishable from each other.
+						Please, check the <a href="container_base_koconutentry.entry.html#equalsto">example of &#39;equalsTo&#39; method</a></p>
+					</div>
+					<dl class="tsd-comment-tags">
+						<dt>see</dt>
+						<dd><pre>
+-- Base --
+<a href="container_base_koconutentry.koconutentry.html">KoconutEntry</a>, <a href="container_base_koconutpair.pair.html">Pair</a>, <a href="container_base_koconutpair.koconutpair.html">KoconutPair</a>
+
+-- Container --
+<a href="container_map_koconutmap.koconutmap.html">KoconutMap</a>
+
+-- Protocol --
+<a href="../interfaces/protocol_koconutequatable.koconutequatable.html">KoconutEquatable</a>
+</pre>
+						</dd>
+					</dl>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>KeyType</h4>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>The type of the key value.</p>
+							</div>
+						</div>
+					</li>
+					<li>
+						<h4>ValueType</h4>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>The type of the value.</p>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">Entry</span>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../interfaces/protocol_koconutequatable.koconutequatable.html" class="tsd-signature-type" data-tsd-kind="Interface">KoconutEquatable</a></li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter"><a href="container_base_koconutentry.entry.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Accessors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="container_base_koconutentry.entry.html#key" class="tsd-kind-icon">key</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="container_base_koconutentry.entry.html#value" class="tsd-kind-icon">value</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="container_base_koconutentry.entry.html#equalsto" class="tsd-kind-icon">equals<wbr>To</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="container_base_koconutentry.entry.html#toarray" class="tsd-kind-icon">to<wbr>Array</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="container_base_koconutentry.entry.html#topair" class="tsd-kind-icon">to<wbr>Pair</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="container_base_koconutentry.entry.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="container_base_koconutentry.entry.html#from" class="tsd-kind-icon">from</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Entry&lt;KeyType, ValueType&gt;<span class="tsd-signature-symbol">(</span>keyElement<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">KeyType</span>, valueElement<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="container_base_koconutentry.entry.html" class="tsd-signature-type" data-tsd-kind="Class">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/93028a0/lib/src/container/base/KoconutEntry.ts#L57">container/base/KoconutEntry.ts:57</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Constructor of <a href="container_base_koconutentry.entry.html">Entry</a>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>KeyType</h4>
+								</li>
+								<li>
+									<h4>ValueType</h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>keyElement: <span class="tsd-signature-type">KeyType</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>KeyType element it&#39;d better be distinguishable.</p>
+									</div>
+								</li>
+								<li>
+									<h5>valueElement: <span class="tsd-signature-type">ValueType</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>ValueType element.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="container_base_koconutentry.entry.html" class="tsd-signature-type" data-tsd-kind="Class">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="key" class="tsd-anchor"></a>
+					<h3>key</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> key<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">KeyType</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/93028a0/lib/src/container/base/KoconutEntry.ts#L74">container/base/KoconutEntry.ts:74</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the key of this key/value pair.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">KeyType</span></h4>
+							<p>The Key of this key/value pair.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="value" class="tsd-anchor"></a>
+					<h3>value</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> value<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ValueType</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/93028a0/lib/src/container/base/KoconutEntry.ts#L80">container/base/KoconutEntry.ts:80</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the value of key/value pair.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ValueType</span></h4>
+							<p>The value of this key/value pair.</p>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="equalsto" class="tsd-anchor"></a>
+					<h3>equals<wbr>To</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">equals<wbr>To<span class="tsd-signature-symbol">(</span>other<span class="tsd-signature-symbol">: </span><a href="container_base_koconutentry.entry.html" class="tsd-signature-type" data-tsd-kind="Class">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><a href="container_base_koconutboolean.koconutboolean.html" class="tsd-signature-type" data-tsd-kind="Class">KoconutBoolean</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/93028a0/lib/src/container/base/KoconutEntry.ts#L157">container/base/KoconutEntry.ts:157</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Class <a href="container_base_koconutentry.entry.html">Entry</a> implements <a href="../interfaces/protocol_koconutequatable.koconutequatable.html">KoconutEquatable</a>. The equality check process
+										of this is done simply by using &#39;==&#39; operator when the KeyType is not <a href="../interfaces/protocol_koconutequatable.koconutequatable.html">KoconutEquatable</a>,
+										otherwise, by using the method &#39;<a href="../interfaces/protocol_koconutequatable.koconutequatable.html#equalsto">equalsTo</a>&#39; to the the key element.
+									Please, have a check following example.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-typescript"><span style="color: #000000">  </span><span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">MyKey</span><span style="color: #000000"> {</span>
+<span style="color: #000000">      </span><span style="color: #0000FF">private</span><span style="color: #000000"> </span><span style="color: #001080">keyString</span><span style="color: #000000"> : </span><span style="color: #267F99">string</span>
+<span style="color: #000000">      </span><span style="color: #0000FF">constructor</span><span style="color: #000000">(</span><span style="color: #001080">keyString</span><span style="color: #000000"> : </span><span style="color: #267F99">string</span><span style="color: #000000">) {</span>
+<span style="color: #000000">          </span><span style="color: #0000FF">this</span><span style="color: #000000">.</span><span style="color: #001080">keyString</span><span style="color: #000000"> = </span><span style="color: #001080">keyString</span>
+<span style="color: #000000">      }</span>
+<span style="color: #000000">  }</span>
+
+<span style="color: #000000">  </span><span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">MyEquatableKey</span><span style="color: #000000"> </span><span style="color: #0000FF">implements</span><span style="color: #000000"> </span><span style="color: #267F99">KoconutEquatable</span><span style="color: #000000"> {</span>
+
+<span style="color: #000000">      </span><span style="color: #0000FF">private</span><span style="color: #000000"> </span><span style="color: #001080">keyString</span><span style="color: #000000"> : </span><span style="color: #267F99">string</span>
+<span style="color: #000000">      </span><span style="color: #0000FF">constructor</span><span style="color: #000000">(</span><span style="color: #001080">keyString</span><span style="color: #000000"> : </span><span style="color: #267F99">string</span><span style="color: #000000">) {</span>
+<span style="color: #000000">          </span><span style="color: #0000FF">this</span><span style="color: #000000">.</span><span style="color: #001080">keyString</span><span style="color: #000000"> = </span><span style="color: #001080">keyString</span>
+<span style="color: #000000">      }</span>
+<span style="color: #000000">      </span><span style="color: #795E26">equalsTo</span><span style="color: #000000">(</span><span style="color: #001080">other</span><span style="color: #000000"> : </span><span style="color: #267F99">MyEquatableKey</span><span style="color: #000000">) {</span>
+<span style="color: #000000">          </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #0000FF">this</span><span style="color: #000000">.</span><span style="color: #001080">keyString</span><span style="color: #000000"> == </span><span style="color: #001080">other</span><span style="color: #000000">.</span><span style="color: #001080">keyString</span>
+<span style="color: #000000">      }</span>
+
+<span style="color: #000000">  }</span>
+
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">myKeyEntry</span><span style="color: #000000"> = </span><span style="color: #001080">Entry</span><span style="color: #000000">.</span><span style="color: #795E26">from</span><span style="color: #000000">([</span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">MyKey</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;myKeyString&quot;</span><span style="color: #000000">), </span><span style="color: #098658">0</span><span style="color: #000000">])</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">myKeyEntry2</span><span style="color: #000000"> = </span><span style="color: #001080">Entry</span><span style="color: #000000">.</span><span style="color: #795E26">from</span><span style="color: #000000">([</span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">MyKey</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;myKeyString&quot;</span><span style="color: #000000">), </span><span style="color: #098658">0</span><span style="color: #000000">])</span>
+<span style="color: #000000">  </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">`</span><span style="color: #0000FF">${</span><span style="color: #001080">myKeyEntry</span><span style="color: #000000FF">.</span><span style="color: #795E26">equalsTo</span><span style="color: #000000FF">(</span><span style="color: #001080">myKeyEntry2</span><span style="color: #000000FF">)</span><span style="color: #0000FF">}</span><span style="color: #A31515">`</span><span style="color: #000000">)</span>
+<span style="color: #000000">  </span><span style="color: #008000">// ↑ false</span>
+
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">myEquatableKeyEntry</span><span style="color: #000000"> = </span><span style="color: #001080">Entry</span><span style="color: #000000">.</span><span style="color: #795E26">from</span><span style="color: #000000">([</span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">MyEquatableKey</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;myEquatableKeyString&quot;</span><span style="color: #000000">), </span><span style="color: #098658">0</span><span style="color: #000000">])</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">myEquatableKeyEntry2</span><span style="color: #000000"> = </span><span style="color: #001080">Entry</span><span style="color: #000000">.</span><span style="color: #795E26">from</span><span style="color: #000000">([</span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">MyEquatableKey</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;myEquatableKeyString&quot;</span><span style="color: #000000">), </span><span style="color: #098658">0</span><span style="color: #000000">])</span>
+<span style="color: #000000">  </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">`</span><span style="color: #0000FF">${</span><span style="color: #001080">myEquatableKeyEntry</span><span style="color: #000000FF">.</span><span style="color: #795E26">equalsTo</span><span style="color: #000000FF">(</span><span style="color: #001080">myEquatableKeyEntry2</span><span style="color: #000000FF">)</span><span style="color: #0000FF">}</span><span style="color: #A31515">`</span><span style="color: #000000">)</span>
+<span style="color: #000000">  </span><span style="color: #008000">// ↑ true</span>
+</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>other: <a href="container_base_koconutentry.entry.html" class="tsd-signature-type" data-tsd-kind="Class">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Other <a href="container_base_koconutentry.entry.html">Entry</a> instance to check equality.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><a href="container_base_koconutboolean.koconutboolean.html" class="tsd-signature-type" data-tsd-kind="Class">KoconutBoolean</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="toarray" class="tsd-anchor"></a>
+					<h3>to<wbr>Array</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>Array<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/93028a0/lib/src/container/base/KoconutEntry.ts#L104">container/base/KoconutEntry.ts:104</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Turns this <a href="container_base_koconutentry.entry.html">Entry</a> instance into a simple array.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">myEntry</span><span style="color: #000000"> = </span><span style="color: #001080">Entry</span><span style="color: #000000">.</span><span style="color: #795E26">from</span><span style="color: #000000">([</span><span style="color: #A31515">&quot;Apex&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;Captain&quot;</span><span style="color: #000000">])</span>
+<span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">myEntry</span><span style="color: #000000">.</span><span style="color: #795E26">toArray</span><span style="color: #000000">())</span>
+<span style="color: #008000">// ↑ [ &#039;Apex&#039;, &#039;Captain&#039; ]</span>
+</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">(</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="topair" class="tsd-anchor"></a>
+					<h3>to<wbr>Pair</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>Pair<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="container_base_koconutpair.pair.html" class="tsd-signature-type" data-tsd-kind="Class">Pair</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/93028a0/lib/src/container/base/KoconutEntry.ts#L115">container/base/KoconutEntry.ts:115</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Turns this <a href="container_base_koconutentry.entry.html">Entry</a> instance into a simple <a href="container_base_koconutpair.pair.html">Pair</a></p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">myEntry</span><span style="color: #000000"> = </span><span style="color: #001080">Entry</span><span style="color: #000000">.</span><span style="color: #795E26">from</span><span style="color: #000000">([</span><span style="color: #A31515">&quot;Apex&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;Captain&quot;</span><span style="color: #000000">])</span>
+<span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">myEntry</span><span style="color: #000000">.</span><span style="color: #795E26">toPair</span><span style="color: #000000">())</span>
+<span style="color: #008000">// ↑ Pair { firstElement: &#039;Apex&#039;, secondElement: &#039;Captain&#039; }</span>
+</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="container_base_koconutpair.pair.html" class="tsd-signature-type" data-tsd-kind="Class">Pair</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="tostring" class="tsd-anchor"></a>
+					<h3>to<wbr>String</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>String<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/93028a0/lib/src/container/base/KoconutEntry.ts#L92">container/base/KoconutEntry.ts:92</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Turns this <a href="container_base_koconutentry.entry.html">Entry</a> into a simple JSON obeject string.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">myEntry</span><span style="color: #000000"> = </span><span style="color: #001080">Entry</span><span style="color: #000000">.</span><span style="color: #795E26">from</span><span style="color: #000000">([</span><span style="color: #A31515">&quot;Apex&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;Captain&quot;</span><span style="color: #000000">])</span>
+<span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">myEntry</span><span style="color: #000000">.</span><span style="color: #795E26">toString</span><span style="color: #000000">()) </span><span style="color: #008000">// Or, you can use console.log(`${myEntry}`)</span>
+<span style="color: #008000">// ↑ {&quot;keyElement&quot;:&#039;Apex&#039;,&quot;valueElement&quot;:&quot;Captain&quot;}</span>
+</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<a name="from" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> from</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">from&lt;KeyType, ValueType&gt;<span class="tsd-signature-symbol">(</span>entry<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="container_base_koconutentry.entry.html" class="tsd-signature-type" data-tsd-kind="Class">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/93028a0/lib/src/container/base/KoconutEntry.ts#L55">container/base/KoconutEntry.ts:55</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create an <a href="container_base_koconutentry.entry.html">Entry</a> instance by iterable two values pair.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">myEntry</span><span style="color: #000000"> = </span><span style="color: #001080">Entry</span><span style="color: #000000">.</span><span style="color: #795E26">from</span><span style="color: #000000">([</span><span style="color: #A31515">&quot;Apex&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;Captain&quot;</span><span style="color: #000000">])</span>
+<span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">myEntry</span><span style="color: #000000">)</span>
+<span style="color: #008000">// ↑ Entry { keyElement: &#039;Apex&#039;, valueElement: &#039;Captain&#039; }</span>
+</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>KeyType</h4>
+								</li>
+								<li>
+									<h4>ValueType</h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>entry: <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Entry pair of key/value as iterable.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="container_base_koconutentry.entry.html" class="tsd-signature-type" data-tsd-kind="Class">Entry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyType</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ValueType</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="../modules.html">Exports</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/container_base_koconutboolean.html">container/base/<wbr>Koconut<wbr>Boolean</a>
+					</li>
+					<li class="current tsd-kind-module">
+						<a href="../modules/container_base_koconutentry.html">container/base/<wbr>Koconut<wbr>Entry</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/container_base_koconutpair.html">container/base/<wbr>Koconut<wbr>Pair</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/container_collection_array_koconutarray.html">container/collection/array/<wbr>Koconut<wbr>Array</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/container_collection_sequence_koconutsequence.html">container/collection/sequence/<wbr>Koconut<wbr>Sequence</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/container_collection_set_koconutset.html">container/collection/set/<wbr>Koconut<wbr>Set</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/container_flow_koconutflow.html">container/flow/<wbr>Koconut<wbr>Flow</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/container_map_koconutmap.html">container/map/<wbr>Koconut<wbr>Map</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/enum_koconutlocale.html">enum/<wbr>Koconut<wbr>Locale</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/enum_koconutloopsignal.html">enum/<wbr>Koconut<wbr>Loop<wbr>Signal</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/exception_koconutexceptions.html">exception/<wbr>Koconut<wbr>Exceptions</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/protocol_koconutcomparable.html">protocol/<wbr>Koconut<wbr>Comparable</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/protocol_koconutequatable.html">protocol/<wbr>Koconut<wbr>Equatable</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/tool_koconutoption.html">tool/<wbr>Koconut<wbr>Option</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="container_base_koconutentry.entry.html" class="tsd-kind-icon">Entry</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter">
+								<a href="container_base_koconutentry.entry.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="container_base_koconutentry.entry.html#key" class="tsd-kind-icon">key</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="container_base_koconutentry.entry.html#value" class="tsd-kind-icon">value</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="container_base_koconutentry.entry.html#equalsto" class="tsd-kind-icon">equals<wbr>To</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="container_base_koconutentry.entry.html#toarray" class="tsd-kind-icon">to<wbr>Array</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="container_base_koconutentry.entry.html#topair" class="tsd-kind-icon">to<wbr>Pair</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="container_base_koconutentry.entry.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+								<a href="container_base_koconutentry.entry.html#from" class="tsd-kind-icon">from</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="container_base_koconutentry.koconutentry.html" class="tsd-kind-icon">Koconut<wbr>Entry</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-namespace"><span class="tsd-kind-icon">Namespace</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

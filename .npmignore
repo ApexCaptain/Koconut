@@ -17,6 +17,7 @@ ReadMeRes/
 .travis.yml
 tsconfig.json
 typedoc.json
+*.lock
 
 # System Files
 desktop.ini
