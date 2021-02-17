@@ -80,7 +80,7 @@
 						</ul>
 					</li>
 					<li><p>New processor method <code>retrieve</code> is added to container classes.  It simply processes all the chained objects and returns container instance itself. Please, have a check following example. </p>
-						<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">koconutBoolean</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">KoconutBoolean</span><span style="color: #000000">(</span><span style="color: #0000FF">true</span><span style="color: #000000">)</span>
+						<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">koconutBoolean</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">KoconutBoolean</span><span style="color: #000000">(</span><span style="color: #0000FF">true</span><span style="color: #000000">)</span>
 <span style="color: #000000">                                     .</span><span style="color: #795E26">retrieve</span><span style="color: #000000">()</span>
 <span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">koconutBoolean</span><span style="color: #000000">)</span>
 <span style="color: #008000">// ↑ KoconutBoolean { isValidated: true, data: true }</span>
@@ -141,10 +141,8 @@
 					<h3>Bug Fixes and Other Changes</h3>
 				</a>
 				<ul>
-					<li><p>Mapping and filtering methods of collections with specified target destination is now propery applied to <code>Set</code> when the value is instance of
-						your custom class that inherits <code>KoconutEquatable</code>.</p>
-						<p>  Applied Methods</p>
-						<ul>
+					<li>Mapping and filtering methods of collections with specified target destination is now propery applied to <code>Set</code> when the value is instance of
+						your custom class that inherits <code>KoconutEquatable</code>.  Applied Methods<ul>
 							<li><code>flatMapTo</code></li>
 							<li><code>mapTo</code></li>
 							<li><code>mapNotNullTo</code></li>
@@ -197,15 +195,15 @@
 				</a>
 				<ul>
 					<li><p>Creation of container classes now allow <code>null</code> and also use it as default value. If the argument is omitted, it&#39;ll return an empty collection instance.</p>
-						<pre><code class="language-typescript"><span style="color: #000000">    </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">KoconutArray</span><span style="color: #000000">()</span>
+						<pre><code class="language-typescript"><span style="color: #000000">    </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">KoconutArray</span><span style="color: #000000">()</span>
 <span style="color: #000000">    </span><span style="color: #001080">KoconutArray</span><span style="color: #000000">.</span><span style="color: #795E26">of</span><span style="color: #000000">()</span>
 <span style="color: #000000">    </span><span style="color: #001080">KoconutArray</span><span style="color: #000000">.</span><span style="color: #795E26">from</span><span style="color: #000000">() </span><span style="color: #008000">// An empty array.</span>
 
-<span style="color: #000000">    </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">KoconutSet</span><span style="color: #000000">()</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">KoconutSet</span><span style="color: #000000">()</span>
 <span style="color: #000000">    </span><span style="color: #001080">KoconutSet</span><span style="color: #000000">.</span><span style="color: #795E26">of</span><span style="color: #000000">()</span>
 <span style="color: #000000">    </span><span style="color: #001080">KoconutSet</span><span style="color: #000000">.</span><span style="color: #795E26">from</span><span style="color: #000000">() </span><span style="color: #008000">// An empty set.</span>
 
-<span style="color: #000000">    </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">KoconutMap</span><span style="color: #000000">()</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">KoconutMap</span><span style="color: #000000">()</span>
 <span style="color: #000000">    </span><span style="color: #001080">KcoonutMap</span><span style="color: #000000">.</span><span style="color: #795E26">of</span><span style="color: #000000">()</span>
 <span style="color: #000000">    </span><span style="color: #001080">KoconutMap</span><span style="color: #000000">.</span><span style="color: #795E26">from</span><span style="color: #000000">() </span><span style="color: #008000">// An empty map.</span>
 </code></pre>
