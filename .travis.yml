@@ -1,8 +1,13 @@
 language: node_js
 os :
   - linux
+  - osx
+  - windows
 arch:
   - amd64
+  - ppc64le
+  - s390x
+  - arm64
 node_js:
   - "node"
   - "lts/*"
@@ -16,15 +21,14 @@ node_js:
   - 9
   - 8
   - 7
-  - 6
-  - 5
+before-install:
+  - npm install yarn -g
 install:
-  - npm install
+  - yarn
 before-script:
-  - npm run set-tf
+  - yarn match-mocha-version
 script:
-  - npm test
-
+  - yarn test
 branches:
   only:
     - master
