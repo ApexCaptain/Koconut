@@ -8,9 +8,10 @@ node_js:
   - "lts/*"
   - 10
   - 9
-before_install:
-  - npm install mocha@^7.x --save-dev
+install:
   - npm install
+before-script:
+  - npm run set-tf
 script:
   - npm test
 
