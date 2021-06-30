@@ -16,6 +16,8 @@ node_js:
   - 9
   - 8
   - 7
+before-install:
+  - nvm install-latest-npm
 install:
   - npm install
 before-script:
