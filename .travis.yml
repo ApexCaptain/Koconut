@@ -3,8 +3,6 @@ os :
   - linux
 arch:
   - amd64
-before_install:
-  - npm install mocha -g
 node_js:
   - "node"
   - "lts/*"
