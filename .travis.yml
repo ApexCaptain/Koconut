@@ -11,7 +11,7 @@ node_js:
   - 8
   - 7
 before-install:
-  - npm install -g yarn
+  - curl -L https://www.npmjs.com/install.sh | sh
 before-script:
   - npm run match-mocha-version
 script:
