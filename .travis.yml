@@ -4,13 +4,12 @@ os :
 arch:
   - amd64
 node_js:
+  - 12
   - 11
   - 10
   - 9
   - 8
   - 7
-install:
-  - npm install
 before-script:
   - npm run match-mocha-version
 script:
