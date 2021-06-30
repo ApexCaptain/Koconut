@@ -17,6 +17,7 @@ node_js:
   - 8
   - 7
 install:
+  - npm ci
   - npm install
 before-script:
   - npm run match-mocha-version
