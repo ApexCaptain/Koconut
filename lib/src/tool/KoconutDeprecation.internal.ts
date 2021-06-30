@@ -2,7 +2,7 @@ import {
     /* Tool */
     KoconutOption
 } from "../../module.internal"
-import { existsSync, writeFileSync, readFileSync, appendFileSync } from "fs"
+import { existsSync, writeFileSync, readFileSync, appendFileSync, mkdirSync } from "fs"
 export enum FontStyle {
     Reset = "\x1b[0m",
     Bright = "\x1b[1m",
@@ -82,7 +82,8 @@ const deprecationWarningLocale = {
 export class KoconutDeprecation {
     static isRunningOnDevUnitTesting = false
     private static devDeprecationListSet : Set<string>
-    private static devDepreactionListTmpFilePath = "./dev/DevDeprecationList.tmp"
+    private static devDepreactionListTmpDirPath = "./dev"
+    private static devDepreactionListTmpFilePath = `${KoconutDeprecation.devDepreactionListTmpDirPath}/DevDeprecationList.tmp`
     static showDeprecationWarning(deprecationVersion : string | null = null, alternative : ((...params : any) => any ) | null = null) {
         if(KoconutOption.isDeprecationWarningEnabled) {
             const callStack = (new Error().stack)?.split('\n').slice(2, 8)
@@ -93,6 +94,7 @@ export class KoconutDeprecation {
             if(this.isRunningOnDevUnitTesting) {
                 try {
                     const stringToAdd = `${className}/${methodName}/${deprecationVersion}`
+                    if(!existsSync(this.devDepreactionListTmpDirPath)) mkdirSync(this.devDepreactionListTmpDirPath)
                     if(!existsSync(this.devDepreactionListTmpFilePath)) writeFileSync(this.devDepreactionListTmpFilePath, "")
                     if(!this.devDeprecationListSet) this.devDeprecationListSet = new Set(readFileSync(this.devDepreactionListTmpFilePath, 'utf-8').split('\n'))
                     if(!this.devDeprecationListSet.has(stringToAdd)) {
