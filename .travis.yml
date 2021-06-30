@@ -4,6 +4,10 @@ os :
 arch:
   - amd64
 node_js:
+  - 16
+  - 15
+  - 14
+  - 13
   - 12
   - 11
   - 10
@@ -11,9 +15,7 @@ node_js:
   - 8
   - 7
 before-script:
-  - npm run match-mocha-version
-script:
-  - npm test
+  - yarn match-mocha-version
 branches:
   only:
     - master
