@@ -21,14 +21,12 @@ node_js:
   - 9
   - 8
   - 7
-before-install:
-  - npm install yarn -g
 install:
-  - yarn
+  - npm install
 before-script:
-  - yarn match-mocha-version
+  - npm run match-mocha-version
 script:
-  - yarn test
+  - npm test
 branches:
   only:
     - master
