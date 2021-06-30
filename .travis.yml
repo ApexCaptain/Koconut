@@ -10,6 +10,8 @@ node_js:
   - 9
   - 8
   - 7
+before-install:
+  - npm i -g npm 
 before-script:
   - npm run match-mocha-version
 script:
