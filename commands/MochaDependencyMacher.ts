@@ -9,7 +9,9 @@ const matchMochaDependency = async () => {
 
 
     const masterVersionLevel = parseInt(nodeVersion.split(".")[0].slice(1))
-    if(masterVersionLevel < 10) {
+    if(masterVersionLevel <= 7) {
+        await runPromisifiedCommand("npm install mocha@^6.x --save-dev")
+    } else if(masterVersionLevel <= 9) {
         await runPromisifiedCommand("npm install mocha@^7.x --save-dev")
     }
 
