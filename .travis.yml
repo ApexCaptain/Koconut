@@ -9,7 +9,7 @@ node_js:
   - 10
   - 9
 before_install:
-  - npm install mocha @types/mocha --save-dev
+  - npm install mocha@^7.x --save-dev
   - npm install
 script:
   - npm test
