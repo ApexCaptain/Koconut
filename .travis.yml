@@ -1,22 +1,13 @@
 language: node_js
 os :
   - linux
-  - osx
-  - windows
 arch:
   - amd64
-  - ppc64le
-  - s390x
-  - arm64
 before_install:
   - npm install mocha -g
 node_js:
   - "node"
   - "lts/*"
-  - 14
-  - 13
-  - 12
-  - 11
   - 10
   - 9
 script:
@@ -25,4 +16,3 @@ script:
 branches:
   only:
     - master
-    
