@@ -8,8 +8,6 @@ arch:
   - ppc64le
   - s390x
   - arm64
-before_install:
-  - npm install mocha -g
 node_js:
   - "node"
   - "lts/*"
