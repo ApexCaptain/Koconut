@@ -57,7 +57,7 @@
     "@types/mocha": "^8.2.2",
     "@types/node": "^15.12.5",
     "chai": "^4.3.4",
-    "mocha": "^7",
+    "mocha": "^0",
     "npm-check-updates": "^11.7.1",
     "npx": "^10.2.2",
     "ts-node": "^10.0.0",
