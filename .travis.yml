@@ -11,8 +11,7 @@ node_js:
   - 8
   - 7
 before-install:
-  - node --version
-  - npm --version
+  - nvm install 11
 before-script:
   - npm run match-mocha-version
 script:

@@ -14,6 +14,9 @@
     "async-await",
     "data-structures"
   ],
+  "engines": {
+    "node": ">= 7.0"
+  },
   "scripts": {
     "match-mocha-version" : "ts-node ./commands/MochaDependencyMacher.ts",
     "update": "ncu -u && yarn && echo Update Completed",
