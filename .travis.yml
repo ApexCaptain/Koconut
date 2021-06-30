@@ -4,7 +4,7 @@ os :
 arch:
   - amd64
 before_install:
-  - npm install mocha @types/mocha  -g
+  - npm install mocha ts-node @types/mocha  -g
 node_js:
   - "node"
   - "lts/*"
