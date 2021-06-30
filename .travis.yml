@@ -1,6 +1,6 @@
 language: node_js
 os :
-  - linux
+  - windows
 arch:
   - amd64
 node_js:
@@ -10,8 +10,6 @@ node_js:
   - 9
   - 8
   - 7
-before-install:
-  - nvm install 11
 before-script:
   - npm run match-mocha-version
 script:
