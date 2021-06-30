@@ -16,6 +16,9 @@ node_js:
   - 7
 before-script:
   - yarn match-mocha-version
+script :
+  - yarn test
+  - echo asd
 branches:
   only:
     - master
