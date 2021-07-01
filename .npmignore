@@ -2,11 +2,12 @@
 docs/
 
 # Development
+.github/
 dev/
 lib/
 node_modules/
 test/
-ToDo
+.ToDo
 
 # Read Me
 README.git.tmp
