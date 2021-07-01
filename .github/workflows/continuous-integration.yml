@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 14.x, 16.x]
+        node-version: [8.x, 9.x, 10.x, 11.x, 12.x, 13.x, 14.x, 15.x, 16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -27,13 +27,11 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Match Mocha Version
+    - name: Install Runtime Dependencies
       run: npm install ts-node @types/node typescript --save-dev && npm run match-mocha-version
 
-    - name: Install Dependencies
+    - name: Install Rest Dependencies
       run: npm install 
 
-
-
-    - name: Run Mocha Test
+    - name: Initiate Test
       run: npm test
