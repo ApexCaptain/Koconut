@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest, windows-2016, macos-latest ] # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
-        node-version: [8.x, 9.x, 10.x, 11.x, 12.x, 13.x, 14.x, 15.x, 16.x]
+        node-version: [ 7.x, 8.x, 9.x, 10.x, 11.x, 12.x, 13.x, 14.x, 15.x, 16.x ]
 
     steps:
     - uses: actions/checkout@v2
