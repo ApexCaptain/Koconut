@@ -165,7 +165,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/9ce253e/lib/src/container/base/KoconutPair.ts#L49">container/base/KoconutPair.ts:49</a></li>
+									<li>Defined in container/base/KoconutPair.ts:49</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -214,7 +214,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/9ce253e/lib/src/container/base/KoconutPair.ts#L65">container/base/KoconutPair.ts:65</a></li>
+									<li>Defined in container/base/KoconutPair.ts:65</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -237,7 +237,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/9ce253e/lib/src/container/base/KoconutPair.ts#L71">container/base/KoconutPair.ts:71</a></li>
+									<li>Defined in container/base/KoconutPair.ts:71</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -262,8 +262,9 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/protocol_koconutequatable.koconutequatable.html">KoconutEquatable</a>.<a href="../interfaces/protocol_koconutequatable.koconutequatable.html#equalsto">equalsTo</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/9ce253e/lib/src/container/base/KoconutPair.ts#L158">container/base/KoconutPair.ts:158</a></li>
+									<li>Defined in container/base/KoconutPair.ts:158</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -275,7 +276,7 @@
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>example</dt>
-									<dd><pre><code class="language-typescript"><span style="color: #000000">  </span><span style="color: #008000">// Case 1 -- All values are simply number or string</span>
+									<dd><pre><code class="language-typescript"><span style="color: #000000">  </span><span style="color: #008000">// Case 1 -- All values are simply number or string </span>
 <span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">myPairCase1_01</span><span style="color: #000000"> = </span><span style="color: #001080">Pair</span><span style="color: #000000">.</span><span style="color: #795E26">from</span><span style="color: #000000">([</span><span style="color: #098658">10</span><span style="color: #000000">, </span><span style="color: #098658">20</span><span style="color: #000000">])</span>
 <span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">myPairCase1_02</span><span style="color: #000000"> = </span><span style="color: #001080">Pair</span><span style="color: #000000">.</span><span style="color: #795E26">from</span><span style="color: #000000">([</span><span style="color: #098658">10</span><span style="color: #000000">, </span><span style="color: #098658">20</span><span style="color: #000000">])</span>
 <span style="color: #000000">  </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">`</span><span style="color: #0000FF">${</span><span style="color: #001080">myPairCase1_01</span><span style="color: #000000FF">.</span><span style="color: #795E26">equalsTo</span><span style="color: #000000FF">(</span><span style="color: #001080">myPairCase1_02</span><span style="color: #000000FF">)</span><span style="color: #0000FF">}</span><span style="color: #A31515">`</span><span style="color: #000000">)</span>
@@ -300,7 +301,7 @@
 <span style="color: #000000">  </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">`</span><span style="color: #0000FF">${</span><span style="color: #001080">myPairCase2_01</span><span style="color: #000000FF">.</span><span style="color: #795E26">equalsTo</span><span style="color: #000000FF">(</span><span style="color: #001080">myPairCase2_02</span><span style="color: #000000FF">)</span><span style="color: #0000FF">}</span><span style="color: #A31515">`</span><span style="color: #000000">)</span>
 <span style="color: #000000">  </span><span style="color: #008000">// ↑ false</span>
 
-<span style="color: #000000">  </span><span style="color: #008000">// Case 3 -- First Type is distinguishable class</span>
+<span style="color: #000000">  </span><span style="color: #008000">// Case 3 -- First Type is distinguishable class </span>
 <span style="color: #000000">  </span><span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">MyDistinguishableClass</span><span style="color: #000000"> </span><span style="color: #0000FF">implements</span><span style="color: #000000"> </span><span style="color: #267F99">KoconutEquatable</span><span style="color: #000000"> {</span>
 <span style="color: #000000">      </span><span style="color: #0000FF">private</span><span style="color: #000000"> </span><span style="color: #001080">value</span><span style="color: #000000"> : </span><span style="color: #267F99">string</span>
 <span style="color: #000000">      </span><span style="color: #0000FF">constructor</span><span style="color: #000000">(</span><span style="color: #001080">value</span><span style="color: #000000"> : </span><span style="color: #267F99">string</span><span style="color: #000000">) {</span>
@@ -340,7 +341,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/9ce253e/lib/src/container/base/KoconutPair.ts#L95">container/base/KoconutPair.ts:95</a></li>
+									<li>Defined in container/base/KoconutPair.ts:95</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -370,7 +371,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/9ce253e/lib/src/container/base/KoconutPair.ts#L106">container/base/KoconutPair.ts:106</a></li>
+									<li>Defined in container/base/KoconutPair.ts:106</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -400,7 +401,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/9ce253e/lib/src/container/base/KoconutPair.ts#L83">container/base/KoconutPair.ts:83</a></li>
+									<li>Defined in container/base/KoconutPair.ts:83</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -430,7 +431,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ApexCaptain/Koconut/blob/9ce253e/lib/src/container/base/KoconutPair.ts#L47">container/base/KoconutPair.ts:47</a></li>
+									<li>Defined in container/base/KoconutPair.ts:47</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -470,7 +471,7 @@
 			<nav class="tsd-navigation primary">
 				<ul>
 					<li class=" ">
-						<a href="../modules.html">Exports</a>
+						<a href="../modules.html">Modules</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="../modules/container_base_koconutboolean.html">container/base/<wbr>Koconut<wbr>Boolean</a>

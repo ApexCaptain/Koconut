@@ -1,5 +1,4 @@
 import { expect } from "chai"
-import { count } from "console"
 import {
     /* Tool */
     KoconutPrimitive, KoconutDeprecation,
@@ -12,7 +11,7 @@ import {
 
     /* Exception */
     KoconutNoSuchElementException, KoconutConflictException, KoconutBoolean
-} from "../../lib/module.internal"
+} from "../../src/module.internal"
 import {
     Person, ProductInfo
 } from "./TestDataClasses"

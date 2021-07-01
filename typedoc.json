@@ -2,7 +2,7 @@
     "out" : "./docs",
     "readme" : "./RELEASE.md",
     "exclude" : [
-        "./lib/**/*internal.ts"
+        "./src/**/*internal.ts"
     ],
     "excludeExternals": true,
     "excludePrivate": true,

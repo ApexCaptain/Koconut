@@ -4,7 +4,7 @@ docs/
 # Development
 .github/
 dev/
-lib/
+src/
 node_modules/
 test/
 .ToDo
