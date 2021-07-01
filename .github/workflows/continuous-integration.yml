@@ -29,6 +29,8 @@ jobs:
 
     - name: Install Dependencies
       run: yarn
+
+    - name: Match Mocha Version
       run: yarn match-mocha-version
 
     - name: Run Mocha Test
