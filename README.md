@@ -2,7 +2,8 @@
 
 <!-- I.O Sheilds -->
 [![npm version][npm-image]][npm-url]
-[![Travis][travis-image]][travis-url]
+[![Node.js CI][ci-image]][ci-url]
+[![CodeQL][code-ql-image]][code-ql-url]
 [![License][license-image]][license-url]
 [![Bundle Size][bundle-size-image]][bundle-size-url]
 [![Dev Dependencies][dev-dependencies-image]][dev-dependencies-url]
@@ -596,8 +597,11 @@ There are three options you can change for `Depreation Warning`.
 [npm-image]: https://img.shields.io/npm/v/koconut.svg?color=CB0000&label=npm&style=plastic&logo=npm
 [npm-url]: https://www.npmjs.com/package/koconut
 
-[travis-image]: https://img.shields.io/travis/ApexCaptain/Koconut?color=3EAAAF&label=Travis%20CI&logo=travis-ci&style=plastic
-[travis-url]: https://travis-ci.org/github/ApexCaptain/Koconut
+[ci-image]: https://github.com/ApexCaptain/Koconut/actions/workflows/continuous-integration.yml/badge.svg?branch=master
+[ci-url]: https://github.com/ApexCaptain/Koconut/actions/workflows/continuous-integration.yml
+
+[code-ql-image]: https://github.com/ApexCaptain/Koconut/actions/workflows/codeql-analysis.yml/badge.svg?branch=master
+[code-ql-url]: https://github.com/ApexCaptain/Koconut/actions/workflows/codeql-analysis.yml
 
 [bundle-size-image]: https://img.shields.io/bundlephobia/min/koconut?label=Bundle&style=plastic&color=EC983C&logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8%2F9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAbwAAAG8B8aLcQwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAGQSURBVDiNpZO9bhNBFIW%2F%2BfXsYlCcIGSMUiCgAimPQZd0lLQuUbq8Qh4ACWp4BB4gJUKiABqSHiFkASHOrnd3ZmcojDcyxIlEjnSkuXPOPTO6mhEpJa4CvVQd7K5B47r63XTALBhumoqH%2FROAZlpsBNv7kT9%2B%2BXU54P3YIOwXkHm397mASQP3c3h0A4Cy9FAGn4MFkJ152ijgrPkipKQWS3mRj%2ByP7Fbb9EoF4Mnw0stodnauI6Xi2Vp1qfscSGL8QGwP8fc2%2FydAA3eJCW4Nj%2BjdhvoE6mOojiHF1Z0fX11j3cXlGUgN2fqcqQVfQluDn0E56QJ1f0A04chPvmfnDtHXDQKBkBnC5gi3gRACim9koweowR05mxYjbcyLLmD26xSZHNoYTM%2F%2Bm9ofhZgNA7V3dVFhnN23W%2BO9LkAIQqi9DrVHCIFUkpTSnDEt5qUBjLN7dmu8D%2FOH9AY4cLuvc%2BvcU2X0WyFF04aW2EaAKKWqpFY%2FldaHOrPbi2aAs1P%2BYvnp%2BWZKSa7SFxRX%2Fc6%2FAU%2F%2FtkbCbCcQAAAAAElFTkSuQmCC
 [bundle-size-url]: https://bundlephobia.com/result?p=koconut
