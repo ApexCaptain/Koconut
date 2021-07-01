@@ -597,8 +597,8 @@ There are three options you can change for `Depreation Warning`.
 [npm-image]: https://img.shields.io/npm/v/koconut.svg?color=CB0000&label=npm&style=plastic&logo=npm
 [npm-url]: https://www.npmjs.com/package/koconut
 
-[ci-image]: https://github.com/ApexCaptain/Koconut/actions/workflows/continuous-integration.yml/badge.svg?branch=master
-[ci-url]: https://github.com/ApexCaptain/Koconut/actions/workflows/continuous-integration.yml
+[ci-image]: https://github.com/ApexCaptain/Koconut/actions/workflows/node-js-ci.yml/badge.svg?branch=master
+[ci-url]: https://github.com/ApexCaptain/Koconut/actions/workflows/node-js-ci.yml
 
 [code-ql-image]: https://github.com/ApexCaptain/Koconut/actions/workflows/codeql-analysis.yml/badge.svg?branch=master
 [code-ql-url]: https://github.com/ApexCaptain/Koconut/actions/workflows/codeql-analysis.yml
