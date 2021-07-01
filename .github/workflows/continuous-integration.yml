@@ -28,12 +28,12 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: Match Mocha Version
-      run: npm install ts-node @types/node typescript --save-dev && yarn match-mocha-version
+      run: npm install ts-node @types/node typescript --save-dev && npm run match-mocha-version
 
     - name: Install Dependencies
-      run: yarn install --frozen-lockfile
+      run: npm install 
 
 
 
     - name: Run Mocha Test
-      run: yarn test
+      run: npm test
