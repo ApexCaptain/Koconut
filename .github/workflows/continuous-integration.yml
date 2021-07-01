@@ -28,7 +28,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: Match Mocha Version
-      run: yarn add ts-node && match-mocha-version
+      run: npm install ts-node --save-dev && match-mocha-version
 
     - name: Install Dependencies
       run: yarn install --frozen-lockfile
