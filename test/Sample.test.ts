@@ -8,7 +8,6 @@ import {
 
 const sampleProcess = async () => {
     const sample = KoconutSequence.of(1,2,3,4,5)
-
     console.log(
         await sample.yield()
     )

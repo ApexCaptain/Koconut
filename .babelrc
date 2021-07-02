@@ -1,7 +1,8 @@
 {
     "presets": [
         "@babel/preset-env",
-        ["@babel/preset-typescript", {"allowNamespaces" : true, "modules": false}]
+        ["@babel/preset-typescript", {"allowNamespaces" : true, "modules": false}],
+        ["minify"]
     ],
     "plugins": [
         "@babel/proposal-class-properties",
@@ -9,5 +10,6 @@
         "@babel/syntax-dynamic-import",
         "@babel/plugin-transform-runtime",
         "@babel/transform-async-to-generator"
-    ]
+    ],
+    "comments": false
 }
