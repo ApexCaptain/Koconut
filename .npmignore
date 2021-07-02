@@ -8,6 +8,7 @@ src/
 node_modules/
 test/
 .ToDo
+.vscode/
 
 # Read Me
 README.git.tmp
@@ -21,7 +22,6 @@ typedoc.json
 *.lock
 
 # System Files
-.vscode
 desktop.ini
 .DS_Store
 Icon

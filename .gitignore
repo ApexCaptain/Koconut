@@ -2,6 +2,5 @@
 /node_modules
 Icon
 /dist
-/.vscode
 *.lock
 /dev
