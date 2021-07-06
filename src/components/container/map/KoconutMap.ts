@@ -687,6 +687,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
      *                       .yield()
      * console.log(largest1sDigitNumberOfArray2)
      * // ↑ 45
+     * ```
      */
     maxWith(
         selector : (front : Entry<KeyType, ValueType>, rear : Entry<KeyType, ValueType>) => number | Promise<number>,
@@ -766,6 +767,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, Va
      *                       .yield()
      * console.log(largest1sDigitNumberOfArray2)
      * // ↑ 45
+     * ```
      */
     maxWithOrNull(
         selector : (front : Entry<KeyType, ValueType>, rear : Entry<KeyType, ValueType>) => number | Promise<number>,

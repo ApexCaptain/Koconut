@@ -815,9 +815,9 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
      *                       )
      *                       .yield()
      * console.log(twoDigitsNumbers)
-    // ↑ [ 12, 34 ]
-    console.log(originalData)
-    // ↑ Set { '1', '12', '34', '5' }
+     * // ↑ [ 12, 34 ]
+     * console.log(originalData)
+     * // ↑ Set { '1', '12', '34', '5' }
      * ```
      */
     mapNotNullTo<ResultDataType>(
@@ -1220,7 +1220,7 @@ export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataTy
      *                                         .dropLast(3)
      *                                         .yield()
      * console.log(last3ElementsDroppedSet)
-    // ↑ Set  { 1, 2 }
+     * // ↑ Set  { 1, 2 }
      * ```
      */
     dropLast(

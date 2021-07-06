@@ -955,6 +955,7 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
      *                       .yield()
      * console.log(largest1sDigitNumberOfArray2)
      * // ↑ 45
+     * ```
      */
     maxWith(
         comparator : (front : CombinedDataType, rear : CombinedDataType) => number | Promise<number>,
@@ -1044,6 +1045,7 @@ export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Ite
      *                       .yield()
      * console.log(largest1sDigitNumberOfArray2)
      * // ↑ 45
+     * ```
      */
     maxWithOrNull(
         comparator : (front : CombinedDataType, rear : CombinedDataType) => number | Promise<number>,
