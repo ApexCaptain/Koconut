@@ -1,7 +1,7 @@
 import { exit } from "process"
 import {
     runPromisifiedCommand
-} from "./CommandShell"
+} from "./CommandShell.task"
 
 const matchMochaDependency = async () => {
     const nodeHeadVersionLevel = parseInt((await runPromisifiedCommand("node -v")).trim().split(".")[0].slice(1))

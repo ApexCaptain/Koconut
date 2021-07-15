@@ -3,13 +3,13 @@ import {
 } from 'fs'
 import {
     validateDeprecatedMethod
-} from "./DepreactedMethodValidatingTask"
+} from "./DepreactedMethodValidator.task"
 import {
     normalize, join
 } from 'path'
 import {
     readPromisifiedText, runPromisifiedCommand
-} from "./CommandShell"
+} from "./CommandShell.task"
 
 
 const versionStringReg = /\d+.\d+.\d+/

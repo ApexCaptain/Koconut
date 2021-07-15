@@ -23,7 +23,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: Install Runtime Dependencies
-      run: npm install ts-node @types/node typescript --save-dev && npm run match-mocha-version
+      run: npm install ts-node @types/node typescript --save-dev && npm run test@match-mocha-version
 
     - name: Install Rest Dependencies
       run: npm install 

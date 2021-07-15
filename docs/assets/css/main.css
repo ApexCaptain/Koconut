@@ -2658,3 +2658,7 @@ input[type=checkbox]:checked + .tsd-widget:before {
 img {
   max-width: 100%;
 }
+
+    .tsd-generator {
+        display: none;
+    }
