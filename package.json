@@ -4,6 +4,7 @@
   "description": "Promise-Friendly Kotlin style collection lib for nodejs.",
   "main": "dist/index.internal.js",
   "types": "dist/index.internal.d.ts",
+  "homepage": "https://apexcaptain.github.io/Koconut/",
   "keywords": [
     "nodejs",
     "typescript-library",
@@ -18,20 +19,19 @@
     "node": ">= 7.0"
   },
   "scripts": {
-    "update": "ncu -u && yarn && echo Update Completed",
-    "build": "ts-node ./commands/DirectoryCleaner.task.ts && babel ./src --out-dir dist --extensions .ts,.tsx && tsc && echo Build Completed",
-    "topic": "ts-node ./commands/TopicsFetcher.task.ts && echo Topics Fethcing Completed",
-    "distribute": "yarn update && yarn build && yarn doc && yarn topic && yarn test && ts-node ./commands/Distributer.task.ts",
-
-    "//Doc": "Documentization Commands",
+    "// Project": "Project Commands",
+    "pro": "yarn pro@update && yarn pro@build && yarn pro@topic && yarn doc@build &&  && yarn test && ts-node ./commands/Distributer.task.ts",
+    "pro@update": "ncu -u && yarn && echo Update Completed",
+    "pro@build": "ts-node ./commands/DirectoryCleaner.task.ts && babel ./src --out-dir dist --extensions .ts,.tsx && tsc && echo Build Completed",
+    "pro@topic": "ts-node ./commands/TopicsFetcher.task.ts && echo Topics Fethcing Completed",
+    "// Document": "Documentization Commands",
     "doc": "yarn doc@build && yarn doc@view",
     "doc@build": "typedoc --options ./typedoc.json ./src && ts-node ./commands/TypeDocAfterRenderer.task.ts && echo Documentization Completed",
     "doc@view": "run-script-os",
     "doc@view:windows": "cmd /c start ./docs/index.html",
     "doc@view:macos": "open ./docs/index.html",
     "doc@view:linux": "xdg-open ./docs/index.html",
-
-    "//Test": "Test Commands",
+    "// Test": "Test Commands",
     "test": "echo Preparing Unit Test... && mocha -r ts-node/register ./test/unitTest/*.spec.ts && echo Unit Test Completed",
     "test@validate": "yarn test && ts-node ./commands/DepreactedMethodValidator.task.ts -f && echo Validating deprecation method completed.",
     "test@match-mocha-version": "ts-node ./commands/MochaDependencyMacher.task.ts",
@@ -48,7 +48,8 @@
   },
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/ApexCaptain/Koconut/issues"
+    "url": "https://github.com/ApexCaptain/Koconut/issues",
+    "email": "ayteneve93@gmail.com"
   },
   "dependencies": {
     "@babel/runtime": "^7.14.6"
