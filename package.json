@@ -25,7 +25,7 @@
     "doc@view" : "run-script-os",
     "doc@view:windows" : "echo win32",
     "doc@view:macos" : "echo mac",
-    "doc@view:darwin:linux" : "echo linux",
+    "doc@view:linux" : "echo linux",
     "topic": "ts-node ./commands/TopicsFetchingTask.ts && echo Topics Fethcing Completed",
     "validate": "yarn test && ts-node ./decommandsv/DepreactedMethodValidatingTask.ts -f && echo Validating deprecation method completed.",
     "distribute": "yarn update && yarn build && yarn doc@build && yarn topic && yarn test && ts-node ./commands/DistributingTask.ts",
