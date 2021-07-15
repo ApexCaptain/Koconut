@@ -2,6 +2,7 @@
 docs/
 
 # Development
+.devcontainer/
 .github/
 .vscode/
 commands/
