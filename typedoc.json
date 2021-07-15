@@ -1,6 +1,6 @@
 {
     "out" : "./docs",
-    "readme" : "./RELEASE.md",
+    "readme" : "./CHANGELOG.md",
     "exclude" : [
         "./src/**/*internal.ts"
     ],

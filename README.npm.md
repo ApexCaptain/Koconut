@@ -488,7 +488,7 @@ Transformer methods convert the collection into other format. The [map](https://
 
 # Deprecation Warning
 ## Introduction
-Some methods might no longer be supported in the future. If you have used any one of them, your application is gonna be crashed after updating the library with no reason. To prevent such troubles, [Koconut] supports `Deprecation Warning` functionality since version [1.0.10](./RELEASE.md#Release-1.0.10). 
+Some methods might no longer be supported in the future. If you have used any one of them, your application is gonna be crashed after updating the library with no reason. To prevent such troubles, [Koconut] supports `Deprecation Warning` functionality since version [1.0.10](./CHANGELOG.md#Release-1.0.10). 
 
 What does that mean?
 

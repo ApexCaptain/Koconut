@@ -171,8 +171,8 @@ your custom class that inherits `KoconutEquatable`.
 - [Deprecation Warning](https://github.com/ApexCaptain/Koconut/blob/master/README.md#Deprecation-Warning) functionality is now available
 
 ### Repository
-- [README.md] and [RELEASE.md] files added.
+- [README.md] and [CHANGELOG.md] files added.
 - All the classes, methods, protocols or etc are currently being documentized and available from now on. There are still lots of work to do though... You can check'em [here](https://apexcaptain.github.io/Koconut/).
 
 [README.md]: https://github.com/ApexCaptain/Koconut/blob/master/README.md
-[RELEASE.md]: https://github.com/ApexCaptain/Koconut/blob/master/RELEASE.md
+[CHANGELOG.md]: https://github.com/ApexCaptain/Koconut/blob/master/CHANGELOG.md
