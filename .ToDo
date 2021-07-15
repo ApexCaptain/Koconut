@@ -11,3 +11,5 @@ tsconfig 정리
 ioShield 정리 -- 참조 : https://simpleicons.org/, https://stackoverflow.com/questions/38985050/how-do-i-use-the-logo-option-in-shields-io-badges
 
 RELEASE.md 작성 -- 참조 : https://github.com/tensorflow/tensorflow/blob/master/RELEASE.md
+
+DevDeprecationList 저장 위치/이름 변경 (LOG)
