@@ -3,12 +3,14 @@ docs/
 
 # Development
 .github/
+.vscode/
+commands/
 dev/
 src/
 node_modules/
 test/
 .ToDo
-.vscode/
+
 
 # Read Me
 README.git.tmp
