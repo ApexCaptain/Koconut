@@ -82,7 +82,7 @@ const deprecationWarningLocale = {
 export class KoconutDeprecation {
     static isRunningOnDevUnitTesting = false
     private static devDeprecationListSet : Set<string>
-    private static devDepreactionListTmpDirPath = "./dev"
+    private static devDepreactionListTmpDirPath = "./log"
     private static devDepreactionListTmpFilePath = `${KoconutDeprecation.devDepreactionListTmpDirPath}/DevDeprecationList.tmp`
     static showDeprecationWarning(deprecationVersion : string | null = null, alternative : ((...params : any) => any ) | null = null) {
         if(KoconutOption.isDeprecationWarningEnabled) {

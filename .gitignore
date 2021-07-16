@@ -1,5 +1,4 @@
-*.tmp
 /node_modules
 Icon
 /dist
-/dev
+/log

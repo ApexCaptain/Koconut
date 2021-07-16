@@ -4,7 +4,7 @@ import { join, normalize } from 'path'
 
 const versionStringReg = /\d+.\d+.\d+/
 const rootPath = normalize(`${__dirname}/../`)
-const devDeprecationListTmpFilePath = join(rootPath, "dev/DevDeprecationList.tmp")
+const devDeprecationListTmpFilePath = join(rootPath, "log/DevDeprecationList.tmp")
 const packageJsonPath = join(rootPath, 'package.json')
 
 const checkIdsDepreactionVersionValid = (deprecationVersionIntArray : Array<number>, currentVersionIntArray : Array<number>) : boolean => {

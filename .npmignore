@@ -6,7 +6,7 @@ docs/
 .github/
 .vscode/
 commands/
-dev/
+log/
 src/
 test/
 .ToDo

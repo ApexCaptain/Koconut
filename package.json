@@ -27,10 +27,7 @@
     "// Document": "Documentization Commands",
     "doc": "yarn doc@build && yarn doc@view",
     "doc@build": "typedoc --options ./typedoc.json ./src && ts-node ./commands/TypeDocAfterRenderer.task.ts && echo Documentization Completed",
-    "doc@view": "run-script-os",
-    "doc@view:windows": "cmd /c start ./docs/index.html",
-    "doc@view:macos": "open ./docs/index.html",
-    "doc@view:linux": "xdg-open ./docs/index.html",
+    "doc@view": "ts-node ./commands/LocalDocumentViewer.task.ts",
     "// Test": "Test Commands",
     "test": "echo Preparing Unit Test... && mocha -r ts-node/register ./test/unitTest/*.spec.ts && echo Unit Test Completed",
     "test@validate": "yarn test && ts-node ./commands/DepreactedMethodValidator.task.ts -f && echo Validating deprecation method completed.",
@@ -54,6 +51,9 @@
   "dependencies": {
     "@babel/runtime": "^7.14.6"
   },
+  "config": {
+    "docViewPort": "5000"
+  },
   "devDependencies": {
     "@babel/cli": "^7.14.5",
     "@babel/core": "^7.14.6",
@@ -65,13 +65,15 @@
     "@babel/register": "^7.14.5",
     "@octokit/rest": "^18.6.7",
     "@types/chai": "^4.2.21",
+    "@types/express": "^4.17.13",
     "@types/mocha": "^8.2.3",
     "@types/node": "^16.3.2",
     "babel-preset-minify": "0.5.1",
     "chai": "^4.3.4",
+    "express": "4.17.1",
     "mocha": "^9.0.2",
     "npm-check-updates": "^11.8.3",
-    "run-script-os": "1.1.6",
+    "open": "^8.2.1",
     "ts-node": "^10.1.0",
     "typedoc": "^0.21.4",
     "typescript": "^4.3.5"
