@@ -1,4 +1,4 @@
-# <img src="ReadMeRes/logo.png" alt="Koconut Logo" width="70" height="70">Koconut : Kotlin Style Collection Lib For Node.Js 
+# <img src="res/logo.png" alt="Koconut Logo" width="70" height="70">Koconut : Kotlin Style Collection Lib For Node.Js 
 
 <!-- I.O Sheilds -->
 [![npm version][npm-image]][npm-url]
@@ -110,7 +110,7 @@ The full document of this library is running on [git-hub page].
 ## Hierarchy
 This is the [Koconut] class hierarchy in current version.
 
-![Hierarchy](ReadMeRes/Hierarchy.png)
+![Hierarchy](res/Hierarchy.png)
 
 # Necessity
 `OK, so... why do I need it?`
@@ -536,7 +536,7 @@ The problem is that you might not have known about it. You must be warned before
 
 ## Language Support
 Currently, `Deprecation Warning` of [Koconut] supports three languages. 
-![languageSupportExample](ReadMeRes/deprecationWarning/languageSupportExample.png)
+![languageSupportExample](res/deprecationWarning/languageSupportExample.png)
 
 Locale setting is done automatically. If you are in Japan, message will be printed in Japanese. If you are in Korea it'll be Korean or if you're in States, English will be your default locale.
 

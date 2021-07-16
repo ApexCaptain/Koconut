@@ -14,7 +14,7 @@ test/
 
 # Read Me
 README.git.tmp
-ReadMeRes/
+res/
 
 # Configuration Files
 .babelrc
