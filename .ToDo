@@ -11,3 +11,9 @@ tsconfig 정리
 ioShield 정리 -- 참조 : https://simpleicons.org/, https://stackoverflow.com/questions/38985050/how-do-i-use-the-logo-option-in-shields-io-badges
 
 CHANGELOG.md 작성 -- 참조 : https://github.com/tensorflow/tensorflow/blob/master/RELEASE.md
+
+Container 내부에서 Git 커맨드 사용 (SSH 키 써서)
+
+Mac에서 Docs 실행시 문제점이 있는지 확인
+
+Windows에서 Docs 실행시 파일명 깨지는 현상 수정

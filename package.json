@@ -28,6 +28,7 @@
     "doc": "yarn doc@build && yarn doc@view",
     "doc@build": "typedoc --options ./typedoc.json ./src && ts-node ./commands/TypeDocAfterRenderer.task.ts && echo Documentization Completed",
     "doc@view": "ts-node ./commands/LocalDocumentViewer.task.ts",
+    "doc@after" : "ts-node ./commands/TypeDocAfterRenderer.task.ts",
     "// Test": "Test Commands",
     "test": "echo Preparing Unit Test... && mocha -r ts-node/register ./test/unitTest/*.spec.ts && echo Unit Test Completed",
     "test@validate": "yarn test && ts-node ./commands/DepreactedMethodValidator.task.ts -f && echo Validating deprecation method completed.",
