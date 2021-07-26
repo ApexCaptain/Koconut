@@ -3,7 +3,7 @@ export * from "./components/tool/KoconutDeprecation.internal"
 export * from "./components/tool/KoconutYieldable.internal"
 export * from "./components/tool/KoconutOpener.internal"
 export * from "./components/tool/KoconutOption"
-export * from "./components/tool/KoconutPrimitive.internal"
+export * from "./components/tool/KoconutPrimitive"
 export * from "./components/tool/KoconutTypeChecker.internal"
 
 // Base
