@@ -165,7 +165,7 @@ your custom class that inherits `KoconutEquatable`.
 </div>
 
 ### Major Features and Improvements
-- Iterative functions, such as `forEach`, `forEachIndexed`, `onEach` and `onEachIndexed` now can be interrupted with `KoconutLoopSignal.BREAK`. Of course it is still available by simple ```boolean```. To stop the iteration in the mean time, you can simply `return false` or `return KoconutLoopSignal.BREAK`. You can check [example](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#foreach) if you want to.
+- Iterative functions, such as `forEach`, `forEachIndexed`, `onEach` and `onEachIndexed` now can be interrupted with `KoconutLoopSignal.BREAK`. Of course it is still available by simple ```boolean```. To stop the iteration in the mean time, you can simply `return false` or `return KoconutLoopSignal.BREAK`. You can check [example](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_KoconutArray_.KoconutArray.html#forEach) if you want to.
 
 ### Known Caveats
 - [Deprecation Warning](https://github.com/ApexCaptain/Koconut/blob/master/README.md#Deprecation-Warning) functionality is now available

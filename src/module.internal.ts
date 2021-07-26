@@ -23,8 +23,8 @@ export * from "./components/protocol/KoconutComparable"
 export * from "./components/protocol/KoconutEquatable"
 
 // Container
-export * from "./components/container/KoconutIterable.internal"
-export * from "./components/container/collection/KoconutCollection.internal"
+export * from "./components/container/KoconutIterable"
+export * from "./components/container/collection/KoconutCollection"
 export * from "./components/container/collection/array/KoconutArray"
 export * from "./components/container/collection/sequence/KoconutSequence"
 export * from "./components/container/collection/set/KoconutSet"
