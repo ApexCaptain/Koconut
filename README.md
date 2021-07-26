@@ -256,7 +256,7 @@ To create a [KoconutArray] instance, you can do it in 4 different ways.
         const koconuntNumbers = new KoconutArray(numbers)
         // ↑ This is a Koconut number array consists of 1 to 5.
     ```
-2. Using `static` [from](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#from) method.
+2. Using `static` [from](https://apexcaptain.github.io/Koconut/classes/container_collection_array_KoconutArray.KoconutArray.html#from) method.
 
     You can create a new instance from an iterable object.
     ```typescript
@@ -266,7 +266,7 @@ To create a [KoconutArray] instance, you can do it in 4 different ways.
         const koconutNumbers = KoconutArray.from(numbers)
         // ↑ This is a Koconut number array consists of 1 to 5.
     ```
-3. Using `static` [of](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#of) method.
+3. Using `static` [of](https://apexcaptain.github.io/Koconut/classes/container_collection_array_KoconutArray.KoconutArray.html#of) method.
 
     You can create a new instance with a variable number of arguments
     ```typescript
@@ -275,7 +275,7 @@ To create a [KoconutArray] instance, you can do it in 4 different ways.
         const koconutNumbers = KoconutArray.of(1,2,3,4,5)
         // ↑ This is a Koconut number array consists of 1 to 5.
     ```
-4. Using `static` [generate](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#generate) method.
+4. Using `static` [generate](https://apexcaptain.github.io/Koconut/classes/container_collection_array_KoconutArray.KoconutArray.html#generate) method.
 
     This method creates a new instance with length positions and fills it with values provided by ```generator``` function callback with each index in the range "```0...length - 1```" in increasing order as an argument. Given ```count``` must be non-negative number.
     ```typescript
