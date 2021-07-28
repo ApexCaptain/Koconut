@@ -1,6 +1,6 @@
 import { join, normalize } from 'path'
 import { appendFileSync, existsSync, readdirSync, statSync, writeFileSync } from 'fs'
-import * as Koconut from "../src/index.internal"
+import * as Koconut from "../src/index"
 
 const rootPath = normalize(`${__dirname}/../`)
 

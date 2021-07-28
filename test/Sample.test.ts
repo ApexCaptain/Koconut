@@ -3,7 +3,7 @@
 import {
     KoconutArray, KoconutSet, KoconutLoopSignal, KoconutFlow, Flow, KoconutBoolean, KoconutSequence, Sequence,
     KoconutLocale, KoconutOption, KoconutDeprecation, KoconutComparable, KoconutMap, Entry, Pair, KoconutPair, KoconutEntry, KoconutEquatable
-} from "../src/module.internal" // Same as -- from 'koconut'
+} from "../src/module" // Same as -- from 'koconut'
 
 
 const sampleProcess = async () => {

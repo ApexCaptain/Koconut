@@ -1,6 +1,6 @@
 import {
     KoconutPrimitive
-} from "../../module.internal"
+} from "../../module"
 /**
  * Classes which inherit from this protocol is able to check equality with other instances of them. 
  */

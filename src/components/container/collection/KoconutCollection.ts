@@ -18,7 +18,7 @@ import {
 
     /* Protocol */
     KoconutEquatable, KoconutComparable
-} from "../../../module.internal"
+} from "../../../module"
 import { KoconutEntry } from "../base/KoconutEntry"
 
 /** @internal */

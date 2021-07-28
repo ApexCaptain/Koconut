@@ -9,7 +9,7 @@ import {
 
     /* Tool */
     KoconutOpener
-} from "../../../../module.internal"
+} from "../../../../module"
 
 export class Sequence<DataType> implements Iterable<DataType> {
 

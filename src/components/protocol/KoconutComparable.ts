@@ -1,6 +1,6 @@
 import {
     KoconutPrimitive
-} from "../../module.internal"
+} from "../../module"
 /**
  * Classes which inherit from this protocol have a defined total ordering between their instances
  */

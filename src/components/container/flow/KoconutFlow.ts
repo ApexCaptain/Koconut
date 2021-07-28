@@ -2,7 +2,7 @@ import {
     Entry, Pair, KoconutOpener,
 
     KoconutIterable
-} from "../../../module.internal"
+} from "../../../module"
 import { EventEmitter } from "events";
 
 export class Flow<DataType> extends EventEmitter implements Iterable<Entry<number, DataType>>{

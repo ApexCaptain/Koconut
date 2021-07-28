@@ -8,7 +8,7 @@ import {
 
     /* Protol */
     KoconutEquatable
-} from "../../../module.internal"
+} from "../../../module"
 import { KoconutBoolean } from "./KoconutBoolean"
 
 /**

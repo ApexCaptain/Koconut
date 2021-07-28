@@ -18,7 +18,7 @@ import {
 
     /* Protocol */
     KoconutEquatable, KoconutComparable 
-} from "../../../module.internal"
+} from "../../../module"
 
 export class KoconutMap<KeyType, ValueType> extends KoconutIterable<[KeyType, ValueType], Entry<KeyType, ValueType>, Map<KeyType, ValueType>, Set<Entry<KeyType, ValueType>>> {
 

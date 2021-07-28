@@ -4,7 +4,7 @@ import {
 
     /* Tool */
     KoconutPrimitive, KoconutOpener
-} from "../../../module.internal"
+} from "../../../module"
 
 type targetBooleanLikeType = boolean | KoconutPrimitive<boolean>
 

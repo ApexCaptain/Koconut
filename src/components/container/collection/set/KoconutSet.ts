@@ -15,7 +15,7 @@ import {
 
     /* Protocol */
     KoconutEquatable, KoconutComparable
-} from "../../../../module.internal"
+} from "../../../../module"
 
 export class KoconutSet<DataType> extends KoconutCollection<DataType, Set<DataType>> {
 

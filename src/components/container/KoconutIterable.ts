@@ -14,7 +14,7 @@ import {
 
     /* Protocol */
     KoconutComparable
-} from "../../module.internal"
+} from "../../module"
 
 export class KoconutIterable<DataType, CombinedDataType, WrapperType extends Iterable<DataType>, CombinedWrapperType extends Iterable<CombinedDataType>> extends KoconutPrimitive<WrapperType> {
 

@@ -1,9 +1,6 @@
 {
     "out" : "./docs",
     "readme" : "./CHANGELOG.md",
-    "exclude" : [
-        "./src/**/*internal.ts"
-    ],
     "excludeExternals": true,
     "excludePrivate": true,
     "excludeProtected" : true

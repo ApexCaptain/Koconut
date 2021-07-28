@@ -7,7 +7,7 @@ import {
 
     /* Protocol */
     KoconutEquatable
-} from "../../../module.internal"
+} from "../../../module"
 
 /** 
  * Represents a key/value pair for {@link KoconutMap}.

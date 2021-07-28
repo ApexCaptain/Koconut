@@ -11,7 +11,7 @@ import {
 
     /* Exception */
     KoconutNoSuchElementException, KoconutConflictException, KoconutBoolean
-} from "../../src/module.internal"
+} from "../../src/module"
 import {
     Person, ProductInfo
 } from "./TestDataClasses"
