@@ -1896,7 +1896,7 @@ export class KoconutCollection<DataType, WrapperType extends Array<DataType> | S
      * Returns a {@link KoconutMap} containing the elements from the given collection indexed by the key
      * returned from ```keySelector``` function applied to each element.
      * ```valueTransform``` callback function is optional. If it's not omitted the method returns
-     * a {@link KoconutMap} instance containing the values provied by the funcion and indexed by ```keySelector```
+     * a {@link KoconutMap} instance containing the values provied by the function and indexed by ```keySelector```
      * applied to elements of the given collection.
      * @param keySelector A callback function that accepts an argument. The method calls the ```keySelector``` one time for each element in object.
      * @param valueTransform A callback function that accepts an argument. The method calls the ```valueTransform``` one time for each element in object it it's not omitted.
