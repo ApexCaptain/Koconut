@@ -291,7 +291,7 @@ To create a [KoconutArray] instance, you can do it in 4 different ways.
 ## Processing
 All the [Koconut] containers internally connected with each other within [Promise] chain. In a nutshell, you have to process all the chained objects before you get the result. There are 3 ways to do that. They're almost same but slightly different.
 
-1. Using [yield](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#yield) method.
+1. Using [yield](https://apexcaptain.github.io/Koconut/classes/container_collection_array_KoconutArray.KoconutArray.html#yield) method.
 
     This method processes all the chained objects and returns the result.
     ```typescript
@@ -308,7 +308,7 @@ All the [Koconut] containers internally connected with each other within [Promis
         }
         mainProcess()
     ```
-2. Using [process](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#process) method.
+2. Using [process](https://apexcaptain.github.io/Koconut/classes/container_collection_array_KoconutArray.KoconutArray.html#process) method.
 
     This method just simply processes all the chained objects, then return `Promise<void>`.
     ```typescript
@@ -324,7 +324,7 @@ All the [Koconut] containers internally connected with each other within [Promis
         }
         mainProcess()
     ```
-3. Using [let](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#let) method.
+3. Using [let](https://apexcaptain.github.io/Koconut/classes/container_collection_array_KoconutArray.KoconutArray.html#let) method.
 
     This method processes all the chained objects and calls the specified function `block` with the reuslt value as its argument and returns the final result of the `block`.
 
@@ -342,7 +342,7 @@ All the [Koconut] containers internally connected with each other within [Promis
         }
         mainProcess()
     ```
-4. Using [also](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#also) method.
+4. Using [also](https://apexcaptain.github.io/Koconut/classes/container_collection_array_KoconutArray.KoconutArray.html#also) method.
 
     This method processes all the chained objects and calls the specified function `block` with the result value as its argument and return passed result object.
     ```typescript
@@ -364,7 +364,7 @@ All the [Koconut] containers internally connected with each other within [Promis
     ```
 
 ## Iteration
-Iterative methods of [KoconutArray] are [forEach](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#foreach), [forEachIndexed](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#foreachindexed), [onEach](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#oneach) and [onEachIndexed](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#oneachindexed). These methods loop to repeat given `action`. 
+Iterative methods of [KoconutArray] are [forEach](https://apexcaptain.github.io/Koconut/classes/container_collection_array_KoconutArray.KoconutArray.html#forEach), [forEachIndexed](https://apexcaptain.github.io/Koconut/classes/container_collection_array_KoconutArray.KoconutArray.html#forEachIndexed), [onEach](https://apexcaptain.github.io/Koconut/classes/container_collection_array_KoconutArray.KoconutArray.html#onEach) and [onEachIndexed](https://apexcaptain.github.io/Koconut/classes/container_collection_array_KoconutArray.KoconutArray.html#onEachIndexed). These methods loop to repeat given `action`. 
 
 Methods of which names start with `for` return nothing. 
 
@@ -395,7 +395,7 @@ And of course, methods of which name end with `indexed` have action block given 
 
  One is index, and the other is element.
 
- If you want to interrupt, in other word `stop` the iteration process in the meantime, you may return `false` or [KoconutLoopSignal.BREAK](https://apexcaptain.github.io/Koconut/enums/_enum_koconutloopsignal_.koconutloopsignal.html#break).
+ If you want to interrupt, in other word `stop` the iteration process in the meantime, you may return `false` or [KoconutLoopSignal.BREAK](https://apexcaptain.github.io/Koconut/enums/enum_KoconutLoopSignal.KoconutLoopSignal.html#BREAK).
 ## Calculation
 Each calculator method has its own purpose, performing calculation according to the established rules. For instance, [maxBy] method returns the first element yielding the largest value of the given function block.
 ```typescript
@@ -425,7 +425,7 @@ Each calculator method has its own purpose, performing calculation according to 
     mainProcess()
 ``` 
 ## Manipulation
-Manipulator methods rearrange the collection, add new elements or filter it by given condition. For instance, [sortedBy](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#sortedby) method returns a collection of all elements sorted according to natural sort order(ASC) of the value returned by specified `selector` function block.
+Manipulator methods rearrange the collection, add new elements or filter it by given condition. For instance, [sortedBy](https://apexcaptain.github.io/Koconut/classes/container_collection_array_KoconutArray.KoconutArray.html#sortedBy) method returns a collection of all elements sorted according to natural sort order(ASC) of the value returned by specified `selector` function block.
 ```typescript
     import { KoconutArray } from 'koconut'
 
@@ -441,7 +441,7 @@ Manipulator methods rearrange the collection, add new elements or filter it by g
     mainProcess()
 ```
 ## Inspection
-Inspector methods check the elements at given condtion. For instance, [all](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#all) method return `true` if all elements match the given `predicate` function block. If any one of those elements doesn't meet the condtion, it'll return `false`.
+Inspector methods check the elements at given condtion. For instance, [all](https://apexcaptain.github.io/Koconut/classes/container_collection_array_KoconutArray.KoconutArray.html#all) method return `true` if all elements match the given `predicate` function block. If any one of those elements doesn't meet the condtion, it'll return `false`.
 ```typescript
     import { KoconutArray } from 'koconut'
 
@@ -463,7 +463,7 @@ Inspector methods check the elements at given condtion. For instance, [all](http
     mainProcess()
 ``` 
 ## Transformation
-Transformer methods convert the collection into other format. The [map](https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#map) method is representative. It returns a list containing the results of applying the given `transform` function block to each element in the original collection.
+Transformer methods convert the collection into other format. The [map](https://apexcaptain.github.io/Koconut/classes/container_collection_array_KoconutArray.KoconutArray.html#map) method is representative. It returns a list containing the results of applying the given `transform` function block to each element in the original collection.
 ```typescript
     import { KoconutArray } from 'koconut'
 
@@ -540,11 +540,11 @@ Currently, `Deprecation Warning` of [Koconut] supports three languages.
 
 Locale setting is done automatically. If you are in Japan, message will be printed in Japanese. If you are in Korea it'll be Korean or if you're in States, English will be your default locale.
 
-If you want more detail, please have a check [here](https://apexcaptain.github.io/Koconut/enums/_enum_koconutlocale_.koconutlocale.html).
+If you want more detail, please have a check [here](https://apexcaptain.github.io/Koconut/modules/enum_KoconutLocale.html).
 
-## [Options](https://apexcaptain.github.io/Koconut/classes/_tool_koconutoption_.koconutoption.html)
+## [Options](https://apexcaptain.github.io/Koconut/classes/tool_KoconutOption.KoconutOption.html)
 There are three options you can change for `Depreation Warning`.
-- [Locale](https://apexcaptain.github.io/Koconut/enums/_enum_koconutlocale_.koconutlocale.html)
+- [Locale](https://apexcaptain.github.io/Koconut/enums/enum_KoconutLocale.KoconutLocale-1.html)
     
     You can chagne the language explicitly. Default value depends on your actual region. If it's not supported, `en(English)` will be the default. For instance, if you're in China or Russia, default locale is just `English`. I'm sorry I cannot handle them all...
     ```typescript
@@ -620,29 +620,28 @@ There are three options you can change for `Depreation Warning`.
 [git-hub page]: https://apexcaptain.github.io/Koconut/
 
 <!-- Documents -->
-[KoconutEntry]: https://apexcaptain.github.io/Koconut/classes/_container_base_koconutentry_.koconutentry.html
-[Entry]: https://apexcaptain.github.io/Koconut/classes/_container_base_koconutentry_.entry.html
-[KoconutPair]: https://apexcaptain.github.io/Koconut/classes/_container_base_koconutpair_.koconutpair.html
-[Pair]: https://apexcaptain.github.io/Koconut/classes/_container_base_koconutpair_.pair.html
-[KoconutArray]: https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html
-[KoconutSet]: https://apexcaptain.github.io/Koconut/modules/_container_collection_set_koconutset_.html
-[KoconutMap]: https://apexcaptain.github.io/Koconut/classes/_container_map_koconutmap_.koconutmap.html
+[KoconutEntry]: https://apexcaptain.github.io/Koconut/classes/container_base_KoconutEntry.KoconutEntry.html
+[Entry]: https://apexcaptain.github.io/Koconut/classes/container_base_KoconutEntry.Entry.html
+[KoconutPair]: https://apexcaptain.github.io/Koconut/classes/container_base_KoconutPair.KoconutPair.html
+[Pair]: https://apexcaptain.github.io/Koconut/classes/container_base_KoconutPair.Pair.html
+[KoconutArray]: https://apexcaptain.github.io/Koconut/classes/container_collection_array_KoconutArray.KoconutArray.html
+[KoconutSet]: https://apexcaptain.github.io/Koconut/classes/container_collection_set_KoconutSet.KoconutSet.html
+[KoconutMap]: https://apexcaptain.github.io/Koconut/classes/container_map_KoconutMap.KoconutMap.html
 
-[KoconutLocale]: https://apexcaptain.github.io/Koconut/enums/_enum_koconutlocale_.koconutlocale.html
-[KoconutLoopSignal]: https://apexcaptain.github.io/Koconut/enums/_enum_koconutloopsignal_.koconutloopsignal.html
+[KoconutLocale]: https://apexcaptain.github.io/Koconut/modules/enum_KoconutLocale.html
+[KoconutLoopSignal]: https://apexcaptain.github.io/Koconut/enums/enum_KoconutLoopSignal.KoconutLoopSignal.html
 
-[KoconutConflictException]: https://apexcaptain.github.io/Koconut/classes/_exception_koconutexceptions_.koconutconflictexception.html
-[KoconutIndexOutOfBoundsException]: https://apexcaptain.github.io/Koconut/classes/_exception_koconutexceptions_.koconutindexoutofboundsexception.html
-[KoconutInvalidArgumentException]: https://apexcaptain.github.io/Koconut/classes/_exception_koconutexceptions_.koconutinvalidargumentexception.html
-[KoconutNoSuchElementException]: https://apexcaptain.github.io/Koconut/classes/_exception_koconutexceptions_.koconutnosuchelementexception.html
+[KoconutConflictException]: https://apexcaptain.github.io/Koconut/classes/exception_KoconutExceptions.KoconutConflictException.html
+[KoconutIndexOutOfBoundsException]: https://apexcaptain.github.io/Koconut/classes/exception_KoconutExceptions.KoconutIndexOutOfBoundsException.html
+[KoconutInvalidArgumentException]: https://apexcaptain.github.io/Koconut/classes/exception_KoconutExceptions.KoconutInvalidArgumentException.html
+[KoconutNoSuchElementException]: https://apexcaptain.github.io/Koconut/classes/exception_KoconutExceptions.KoconutNoSuchElementException.html
 
-[KoconutComparable]: https://apexcaptain.github.io/Koconut/interfaces/_protocol_koconutcomparable_.koconutcomparable.html
-[KoconutEquatable]: https://apexcaptain.github.io/Koconut/interfaces/_protocol_koconutequatable_.koconutequatable.html
+[KoconutComparable]: https://apexcaptain.github.io/Koconut/interfaces/protocol_KoconutComparable.KoconutComparable.html
+[KoconutEquatable]: https://apexcaptain.github.io/Koconut/interfaces/protocol_KoconutEquatable.KoconutEquatable.html
 
-[KoconutOption]: https://apexcaptain.github.io/Koconut/classes/_tool_koconutoption_.koconutoption.html
-
+[KoconutOption]: https://apexcaptain.github.io/Koconut/classes/tool_KoconutOption.KoconutOption.html
 <!-- Outer or example -->
 [Promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
-[maxBy]: https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#maxby
-[maxByOrNull]: https://apexcaptain.github.io/Koconut/classes/_container_collection_array_koconutarray_.koconutarray.html#maxbyornull
+[maxBy]: https://apexcaptain.github.io/Koconut/classes/container_collection_array_KoconutArray.KoconutArray.html#maxBy
+[maxByOrNull]: https://apexcaptain.github.io/Koconut/classes/container_collection_array_KoconutArray.KoconutArray.html#maxByOrNull
 
