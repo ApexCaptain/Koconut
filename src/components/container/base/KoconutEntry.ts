@@ -11,8 +11,8 @@ import {
 
 /** 
  * Represents a key/value pair for {@link KoconutMap}.
- * The type of key is basically could be any kind of class instance,
- * but it is recommended to be a number, string or custom class that inherits {@link KoconutEquatable}.
+ * The type of key basically could be any kind of class instance,
+ * however it is recommended to be a number, string or custom class that inherits {@link KoconutEquatable}.
  * Otherwise, further equality check process in {@link KoconutSet} or {@link KoconutMap} will not work
  * as intented. This is beacuse even if there are two different instances of same class, which have 
  * exactly identical properties, they are fundamentally indistinguishable from each other.

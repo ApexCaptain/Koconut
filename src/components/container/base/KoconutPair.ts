@@ -107,7 +107,7 @@ export class Pair<FirstType, SecondType> implements KoconutEquatable {
 
     /**
      * Class {@link Pair} implments {@link KoconutEquatable}. The '{@link KoconutEquatable.equalsTo equalsTo}' method of
-     * this is basically check each individual element (first/second) are same or not. When the type of each element
+     * this basically check whether each individual element (first/second) is same or not. When the type of each element
      * is child of {@link KoconutEquatable}, it'd be done by using its '{@link KoconutEquatable.equalsTo equalsTo}' method.
      * Otherwise, it'd be done simply by '==' operator.
      * @param other 
