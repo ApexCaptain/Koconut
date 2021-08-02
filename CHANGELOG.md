@@ -135,7 +135,7 @@ your custom class that inherits `KoconutEquatable`.
 </div>
 
 ### Bug Fixes and Other Changes
-- Creation of container classes now allow `null` and also use it as default value. If the argument is omitted, it'll return an empty collection instance.
+- Creation of container classes allows `null` as its argument and also use it as default value. When it is omitted, it'll return an empty collection instance.
     ``` typescript
         new KoconutArray()
         KoconutArray.of()

@@ -22,22 +22,22 @@
 
 This is a [Node.js](https://nodejs.org/en/) library available through the [npm registry](https://www.npmjs.com/).
 
-Before you install it, please [download and install Node.js](https://nodejs.org/en/download/).
-
-Installation is done by using [`npm install` command](https://docs.npmjs.com/getting-started/installing-npm-packages-locally)
+To install this lib you may use either `npm` or `yarn` command.
 
 ```sh
-$ npm install koconut --save
+npm install koconut --save
 
 # or
 
-$ yarn add koconut
+yarn add koconut
 ```
+
+But before that, please have a check whether [Node.js is correctly installed](https://nodejs.org/en/download/) into your dev env.
 
 
 # Introduction
 
-This is a node.js library for collection(a.k.a data structure). It's fully written in TypeScript, but also compatible with JavaScript application. It is 100% [Apache-2.0](https://github.com/ApexCaptain/Koconut/blob/master/LICENSE) licensed.
+This is a node.js library for collection(a.k.a data structure). It's fully written in TypeScript, but also compatible with JavaScript application. It's 100% [Apache-2.0](https://github.com/ApexCaptain/Koconut/blob/master/LICENSE) licensed.
 
 Here is a short example on how to use it:
 
@@ -79,7 +79,7 @@ const sampleProcess = async () => {
 sampleProcess()
 ```
 
-As you can see, there's no big difference between using it in JS and TS. Both examples created an 1 to 6 integer array and filtered only the even numbers.
+As you can see, there's no big difference between using it in JS and TS. Both examples created a 1 to 6 integer array and filtered only the even numbers.
 
 # Components
 ## Documents
@@ -493,7 +493,7 @@ Some methods might no longer be supported in the future. If you have used any on
 What does that mean?
 
 ## Example
-For instance, [maxBy] method in [KoconutArray] returns the first element yielding the largest value of the given function or throw [KoconutNoSuchElementException] if there are no elements. Following examples are same as written in document page.
+For instance, [maxBy] method in [KoconutArray] returns the first element yielding the largest value of the given function or throw [KoconutNoSuchElementException] when there is no element. Following examples are same as written in document page.
 ```typescript
 import { KoconutArray } from "koconut"
 
