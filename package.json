@@ -20,7 +20,7 @@
   },
   "scripts": {
     "// Project": "Project Commands",
-    "pro": "yarn pro@update && yarn pro@build && yarn pro@topic && yarn doc@build &&  && yarn test && ts-node ./commands/Distributer.task.ts",
+    "pro": "yarn pro@update && yarn pro@build && yarn pro@topic && yarn doc@build && yarn test && ts-node ./commands/Distributer.task.ts",
     "pro@update": "ncu -u && yarn && echo Update Completed",
     "pro@build": "ts-node ./commands/DirectoryCleaner.task.ts && babel ./src --out-dir dist --extensions .ts,.tsx && tsc && echo Build Completed",
     "pro@topic": "ts-node ./commands/TopicsFetcher.task.ts && echo Topics Fethcing Completed",
@@ -50,33 +50,33 @@
     "email": "ayteneve93@gmail.com"
   },
   "dependencies": {
-    "@babel/runtime": "^7.14.8"
+    "@babel/runtime": "^7.15.4"
   },
   "config": {
     "docViewPort": "5000"
   },
   "devDependencies": {
-    "@babel/cli": "^7.14.8",
-    "@babel/core": "^7.15.0",
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.8",
     "@babel/plugin-proposal-class-properties": "^7.14.5",
-    "@babel/plugin-proposal-object-rest-spread": "^7.14.7",
-    "@babel/plugin-transform-runtime": "^7.15.0",
-    "@babel/preset-env": "^7.15.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.15.6",
+    "@babel/plugin-transform-runtime": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
     "@babel/preset-typescript": "^7.15.0",
-    "@babel/register": "^7.14.5",
-    "@octokit/rest": "^18.9.0",
-    "@types/chai": "^4.2.21",
+    "@babel/register": "^7.15.3",
+    "@octokit/rest": "^18.12.0",
+    "@types/chai": "^4.2.22",
     "@types/express": "^4.17.13",
     "@types/mocha": "^9.0.0",
-    "@types/node": "^16.4.13",
+    "@types/node": "^16.11.1",
     "babel-preset-minify": "0.5.1",
     "chai": "^4.3.4",
     "express": "4.17.1",
-    "mocha": "^9.0.3",
-    "npm-check-updates": "^11.8.3",
-    "open": "^8.2.1",
-    "ts-node": "^10.2.0",
-    "typedoc": "^0.21.5",
-    "typescript": "^4.3.5"
+    "mocha": "^9.1.3",
+    "npm-check-updates": "^11.8.5",
+    "open": "^8.3.0",
+    "ts-node": "^10.3.0",
+    "typedoc": "^0.22.6",
+    "typescript": "^4.4.4"
   }
 }
