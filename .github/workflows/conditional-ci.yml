@@ -24,6 +24,6 @@ jobs:
       - name: Install Runtime Dependencies
         run: npm i -g chai yarn
       - name: Install Rest Dependencies
-        run: yarn install --prod
+        run: yarn install --production --frozen-lockfile
       - name: Launch Coverage Test
         run: npx mocha ./coverage/*.spec.js
