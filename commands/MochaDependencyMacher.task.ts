@@ -6,11 +6,11 @@ const matchMochaDependency = async () => {
     (await runPromisifiedCommand("node -v")).trim().split(".")[0].slice(1)
   );
   if (nodeHeadVersionLevel < 8)
-    await runPromisifiedCommand("yarn add mocha@^6.x");
+    await runPromisifiedCommand("npm install mocha@^6.x");
   else if (nodeHeadVersionLevel < 10)
-    await runPromisifiedCommand("yarn add mocha@^7.x");
+    await runPromisifiedCommand("npm install mocha@^7.x");
   else if (nodeHeadVersionLevel < 12)
-    await runPromisifiedCommand("yarn add mocha@^8.x ");
+    await runPromisifiedCommand("npm install mocha@^8.x");
   exit(0);
 };
 matchMochaDependency();

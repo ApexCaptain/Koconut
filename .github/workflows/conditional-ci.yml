@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest] # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
-        node-version: [7.x, 8.x, 10.x]
+        node-version: [7.x, 8.x, 11.x, 14.x]
 
     steps:
       - uses: actions/checkout@v2
@@ -21,10 +21,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install Runtime Dependencies
-        run: npm i -g chai yarn
+        run: npm i -g chai
       - name: Match Test Inst Env
-        run: yarn test@match-mocha-version
+        run: npm run test@match-mocha-version
       - name: Install Rest Dependencies
-        run: yarn install --production --frozen-lockfile
+        run: npm install --production
       - name: Launch Coverage Test
-        run: yarn mocha ./coverage/*.spec.js
+        run: npm run test@coverage
