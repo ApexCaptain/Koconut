@@ -20,11 +20,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install Runtime Dependencies
-        run: npm i -g chai
       - name: Match Test Inst Env
-        run: npm run test@match-mocha-version
-      - name: Install Rest Dependencies
-        run: npm install --production
+        run: npm install mocha@^6.x chai --production
       - name: Launch Coverage Test
         run: npm run test@coverage
