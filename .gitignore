@@ -1,4 +1,4 @@
 /node_modules
 Icon
-/dist
 /log
+*.log

@@ -1,8 +1,7 @@
 {
     "presets": [
         "@babel/preset-env",
-        ["@babel/preset-typescript", {"allowNamespaces" : true, "modules": false}],
-        ["minify"]
+        ["@babel/preset-typescript", {"allowNamespaces" : true, "modules": false}]
     ],
     "plugins": [
         "@babel/proposal-class-properties",
