@@ -49,9 +49,7 @@
     "url": "https://github.com/ApexCaptain/Koconut/issues",
     "email": "ayteneve93@gmail.com"
   },
-  "dependencies": {
-    "@babel/runtime": "^7.16.3"
-  },
+  "dependencies": {},
   "config": {
     "docViewPort": "5000"
   },
