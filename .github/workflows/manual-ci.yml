@@ -1,4 +1,4 @@
-name: Node.js Conditional Unit Test CI
+name: Manual CI
 
 on:
   workflow_dispatch:
@@ -15,7 +15,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
