@@ -2,31 +2,30 @@ name: Node.js Conditional Unit Test CI
 
 on:
   workflow_dispatch:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   build:
-
     runs-on: ${{matrix.os}}
 
     strategy:
       matrix:
-        os: [ ubuntu-latest, windows-latest, windows-2016, macos-latest ] # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
-        node-version: [ 12.x ]
+        os: [ubuntu-latest] # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
+        node-version: [14.x, 15.x, 16.x]
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: Install Runtime Dependencies
-      run: npm install ts-node @types/node typescript --save-dev && npm run test@match-mocha-version
+      - name: Install Runtime Dependencies
+        run: npm install ts-node @types/node typescript --save-dev && npm run test@match-mocha-version
 
-    - name: Install Rest Dependencies
-      run: npm install 
+      - name: Install Rest Dependencies
+        run: npm install
 
-    - name: Initiate Test
-      run: npm run doc@view
+      - name: Initiate Test
+        run: npm run doc@view
