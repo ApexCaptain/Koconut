@@ -22,11 +22,9 @@
     "dist"
   ],
   "scripts": {
-    "ci": "",
+    "ci": "yarn pro@update && yarn pro@build && yarn pro@topic && yarn doc@build && yarn test",
     "cd": "",
     "// Project": "Project Commands",
-    "pro": "yarn pro@update && yarn pro@build && yarn pro@topic && yarn doc@build && yarn test",
-    "tmp": "yarn pro@update && yarn pro@build && yarn pro@topic && yarn doc@build && yarn test && ts-node ./commands/Distributer.task.ts",
     "pro@update": "ncu -u && yarn && echo Update Completed",
     "pro@build": "ts-node ./commands/DirectoryCleaner.task.ts && babel ./test --out-dir ./coverage --extensions .ts,.tsx && ts-node ./commands/ManualCoveragePathsResolver.task.ts && babel ./src --out-dir dist --extensions .ts,.tsx && tsc && echo Build Completed",
     "pro@topic": "ts-node ./commands/TopicsFetcher.task.ts && echo Topics Fethcing Completed",
@@ -39,7 +37,6 @@
     "test": "echo Preparing Unit Test... && mocha -r ts-node/register ./test/*.spec.ts && echo Unit Test Completed",
     "test@coverage": "mocha ./coverage/*.spec.js && echo Coverage Test Completed",
     "test@validate": "yarn test && ts-node ./commands/DepreactedMethodValidator.task.ts -f && echo Validating deprecation method completed.",
-    "test@match-mocha-version": "ts-node ./commands/MochaDependencyMacher.task.ts",
     "test@sequence": "echo Preparing Unit Test... && mocha -r ts-node/register ./test/*Sequence.spec.ts && echo Unit Test Completed",
     "test@sample": "mocha -r ts-node/register ./test/Sample.test.ts && echo Sample Test Completed"
   },
