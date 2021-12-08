@@ -22,6 +22,6 @@ jobs:
       - name: Install Production Dependency
         run: npm install --production
       - name: Install Test Inst Env
-        run: npm install mocha chai
+        run: npm install -g mocha chai
       - name: Launch Coverage Test
         run: npm run test@coverage
