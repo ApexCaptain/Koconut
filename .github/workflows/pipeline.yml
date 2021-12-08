@@ -69,7 +69,6 @@ jobs:
           registy-url: https://registry.npmjs.org/
 
       - name: Deploying new package to npm for testing
-        run: echo abcde
         run: yarn publish --new-version $(echo $GITHUB_REF | cut -d / -f 3)
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
