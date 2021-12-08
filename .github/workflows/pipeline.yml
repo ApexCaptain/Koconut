@@ -73,7 +73,7 @@ jobs:
           registy-url: https://registry.npmjs.org/
 
       - name: Deploying new package to npm
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
-        run: yarn publish --new-version ${GITHUB_REF/refs\/tags\//}
+        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+        run: yarn publish --new-version ${GITHUB_REF#refs/tags/}
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
