@@ -1,6 +1,6 @@
 {
   "name": "koconut",
-  "version": "1.0.161",
+  "version": "1.0.162",
   "description": "Promise-Friendly Kotlin style collection lib for nodejs.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -34,7 +34,7 @@
     "doc@after": "ts-node ./commands/TypeDocAfterRenderer.task.ts",
     "// Test": "Test Commands",
     "test": "echo Preparing Unit Test... && mocha -r ts-node/register ./test/*.spec.ts && echo Unit Test Completed",
-    "test@coverage": "mocha ./coverage/*.spec.js && echo Coverage Test Completed",
+    "test@coverage": "mocha ./coverage/*.spec.js --timeout 5000 && echo Coverage Test Completed",
     "test@validate": "yarn test && ts-node ./commands/DepreactedMethodValidator.task.ts -f && echo Validating deprecation method completed.",
     "test@sequence": "echo Preparing Unit Test... && mocha -r ts-node/register ./test/*Sequence.spec.ts && echo Unit Test Completed",
     "test@sample": "mocha -r ts-node/register ./test/Sample.test.ts && echo Sample Test Completed"
