@@ -33,7 +33,7 @@ jobs:
   release:
     name: Create GitHub Release
 
-    needs: [ci]
+    needs: ci
 
     runs-on: ubuntu-latest
 
@@ -54,13 +54,9 @@ jobs:
   cd:
     name: Continuous Deployment
 
-    needs: [ci]
+    needs: ci
 
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: read
-      packages: write
 
     steps:
       - name: Checkout to current repository
@@ -73,6 +69,6 @@ jobs:
           registy-url: https://registry.npmjs.org/
 
       - name: Deploying new package to npm for testing
-        run: yarn publish --new-version ${GITHUB_REF#refs/tags/}
+        run: yarn publish --new-version $(echo $GITHUB_REF | cut -d / -f 3)
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
