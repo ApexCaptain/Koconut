@@ -58,7 +58,7 @@ const checkIsNewVersionCodeValid = (newVersionCode: string) => {
 
 const distribute = async () => {
   try {
-    var newVersionCode: string;
+    let newVersionCode: string;
     while (true) {
       newVersionCode = await readPromisifiedText(
         `\nCurrent Version : ${getVersion()}\nPlease, type the version string of new package (Default : ${generateDefaultNextVersion()}) : `
@@ -102,15 +102,9 @@ const distribute = async () => {
     await runPromisifiedCommand(`git commit -m "${commitMessage}"`);
     await runPromisifiedCommand(`git tag "${newVersionCode}"`);
     await runPromisifiedCommand("git push origin master --tags");
-
-    const copiedPackageInfo = JSON.parse(JSON.stringify(packageToBeChanged));
-    delete packageToBeChanged.scripts;
-    // delete packageToBeChanged.devDependencies
-    writeFileSync(packageJsonPath, JSON.stringify(packageToBeChanged, null, 2));
-    await runPromisifiedCommand(`npm publish`);
-    writeFileSync(packageJsonPath, JSON.stringify(copiedPackageInfo, null, 2));
-
-    console.log("Deploying package is successfully completed!");
+    console.log(
+      `CI/CD Process Started : https://github.com/ApexCaptain/Koconut/actions/workflows/pipeline.yml`
+    );
     process.exit(0);
   } catch (error) {
     console.error(error);

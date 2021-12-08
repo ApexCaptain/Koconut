@@ -1,6 +1,6 @@
 {
   "name": "koconut",
-  "version": "1.0.16",
+  "version": "1.0.161",
   "description": "Promise-Friendly Kotlin style collection lib for nodejs.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -16,14 +16,14 @@
     "data-structures"
   ],
   "engines": {
-    "node": ">= 7.0"
+    "node": ">= 12.0"
   },
   "files": [
     "dist"
   ],
   "scripts": {
     "// Project": "Project Commands",
-    "pro": "yarn pro@update && yarn pro@build && yarn pro@topic && yarn doc@build && yarn test",
+    "pro": "yarn pro@update && yarn pro@build && yarn pro@topic && yarn doc@build && yarn test && ts-node ./commands/Distributer.task.ts",
     "pro@update": "ncu -u && yarn && echo Update Completed",
     "pro@build": "ts-node ./commands/DirectoryCleaner.task.ts && babel ./test --out-dir ./coverage --extensions .ts,.tsx && ts-node ./commands/ManualCoveragePathsResolver.task.ts && babel ./src --out-dir dist --extensions .ts,.tsx && tsc && echo Build Completed",
     "pro@topic": "ts-node ./commands/TopicsFetcher.task.ts && echo Topics Fethcing Completed",
