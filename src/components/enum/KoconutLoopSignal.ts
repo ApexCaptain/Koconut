@@ -1,5 +1,7 @@
-`use strict`
+/* eslint-disable no-unused-vars */
+`use strict`;
 
 export enum KoconutLoopSignal {
-    CONTINUE, BREAK
+  CONTINUE,
+  BREAK,
 }

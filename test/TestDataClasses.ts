@@ -1,6 +1,6 @@
 `use strict`;
 
-import { KoconutEquatable, KoconutComparable } from "../src/module";
+import { KoconutEquatable, KoconutComparable } from '../src/module';
 
 export class Person implements KoconutEquatable {
   firstName: string;

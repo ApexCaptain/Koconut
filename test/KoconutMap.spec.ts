@@ -1,4 +1,5 @@
-import { expect } from "chai";
+/* eslint-disable no-unused-vars */
+import { expect } from 'chai';
 import {
   /* Tool */
   KoconutPrimitive,
@@ -20,28 +21,28 @@ import {
 
   /* Exception */
   KoconutNoSuchElementException,
-} from "../src/module";
-import { Person, ProductInfo } from "./TestDataClasses";
+} from '../src/module';
+import { Person, ProductInfo } from './TestDataClasses';
 
 KoconutDeprecation.isRunningOnDevUnitTesting = true;
 
 describe(`${KoconutMap.name} -- Accessor`, () => {
-  it("entries", async () => {
-    const koconut = KoconutMap.of([0, "a"], [1, "b"], [2, "c"]);
+  it('entries', async () => {
+    const koconut = KoconutMap.of([0, 'a'], [1, 'b'], [2, 'c']);
 
     const yieldable = koconut.entries;
     expect(yieldable).to.be.instanceOf(KoconutSet);
     const result = await yieldable.yield();
     const expectedResultEntryArray = [
-      new Entry(0, "a"),
-      new Entry(1, "b"),
-      new Entry(2, "c"),
+      new Entry(0, 'a'),
+      new Entry(1, 'b'),
+      new Entry(2, 'c'),
     ];
     expect(result).eqls(new Set(expectedResultEntryArray));
   });
 
-  it("keys", async () => {
-    const koconut = KoconutMap.of([0, "a"], [1, "b"], [2, "c"]);
+  it('keys', async () => {
+    const koconut = KoconutMap.of([0, 'a'], [1, 'b'], [2, 'c']);
 
     const yieldable = koconut.keys;
     expect(yieldable).to.be.instanceOf(KoconutSet);
@@ -49,8 +50,8 @@ describe(`${KoconutMap.name} -- Accessor`, () => {
     expect(result).eqls(new Set([0, 1, 2]));
   });
 
-  it("size", async () => {
-    const koconut = KoconutMap.of([0, "a"], [1, "b"], [2, "c"]);
+  it('size', async () => {
+    const koconut = KoconutMap.of([0, 'a'], [1, 'b'], [2, 'c']);
 
     const yieldable = koconut.size;
     expect(yieldable).to.be.instanceOf(KoconutPrimitive);
@@ -58,13 +59,13 @@ describe(`${KoconutMap.name} -- Accessor`, () => {
     expect(result).equals(3);
   });
 
-  it("values", async () => {
-    const koconut = KoconutMap.of([0, "a"], [1, "b"], [2, "c"]);
+  it('values', async () => {
+    const koconut = KoconutMap.of([0, 'a'], [1, 'b'], [2, 'c']);
 
     const yieldable = koconut.values;
     expect(yieldable).to.be.instanceOf(KoconutArray);
     const result = await yieldable.yield();
-    expect(result).eqls(["a", "b", "c"]);
+    expect(result).eqls(['a', 'b', 'c']);
   });
 });
 
@@ -92,21 +93,21 @@ describe(`${KoconutMap.name} -- Calculator`, () => {
   it(KoconutMap.prototype.maxBy.name, async () => {
     /* Case 1 */
     const koconutCase1 = KoconutMap.of(
-      ["Alice", 42],
-      ["Bob", 28],
-      ["Carol", 51]
+      ['Alice', 42],
+      ['Bob', 28],
+      ['Carol', 51],
     );
 
     const yieldableCase1 = koconutCase1.maxBy((eachEntry) => eachEntry.value);
     expect(yieldableCase1).to.be.instanceOf(KoconutEntry);
     const resultCase1 = await yieldableCase1.yield();
-    expect(resultCase1).eqls(new Entry("Carol", 51));
+    expect(resultCase1).eqls(new Entry('Carol', 51));
 
     /* Case 2 */
     const koconutCase2 = KoconutMap.of(
-      ["Alice", 42],
-      ["Bob", 28],
-      ["Carol", 51]
+      ['Alice', 42],
+      ['Bob', 28],
+      ['Carol', 51],
     );
     const yieldableCase2 = koconutCase2
       .filter((eachEntry) => eachEntry.value > 100)
@@ -120,39 +121,39 @@ describe(`${KoconutMap.name} -- Calculator`, () => {
 
     /* Case 3 */
     const koconutCase3 = KoconutArray.from([
-      new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
-      new ProductInfo("A-2", "Mac Book Air -- September", 1200),
-      new ProductInfo("A-3", "iPhone -- June", 1500),
+      new ProductInfo('A-1', 'Mac Book Pro -- May', 2000),
+      new ProductInfo('A-2', 'Mac Book Air -- September', 1200),
+      new ProductInfo('A-3', 'iPhone -- June', 1500),
     ]).associateBy((eachElement) => eachElement.id);
 
     const yieldableCase3 = koconutCase3.maxBy((eachEntry) => eachEntry.value);
     expect(yieldableCase3).to.be.instanceOf(KoconutEntry);
     const resultCase3 = await yieldableCase3.yield();
     expect(resultCase3).eqls(
-      new Entry("A-1", new ProductInfo("A-1", "Mac Book Pro -- May", 2000))
+      new Entry('A-1', new ProductInfo('A-1', 'Mac Book Pro -- May', 2000)),
     );
   });
 
   it(KoconutMap.prototype.maxByOrNull.name, async () => {
     /* Case 1 */
     const koconutCase1 = KoconutMap.of(
-      ["Alice", 42],
-      ["Bob", 28],
-      ["Carol", 51]
+      ['Alice', 42],
+      ['Bob', 28],
+      ['Carol', 51],
     );
 
     const yieldableCase1 = koconutCase1.maxByOrNull(
-      (eachEntry) => eachEntry.value
+      (eachEntry) => eachEntry.value,
     );
     expect(yieldableCase1).to.be.instanceOf(KoconutEntry);
     const resultCase1 = await yieldableCase1.yield();
-    expect(resultCase1).eqls(new Entry("Carol", 51));
+    expect(resultCase1).eqls(new Entry('Carol', 51));
 
     /* Case 2 */
     const koconutCase2 = KoconutMap.of(
-      ["Alice", 42],
-      ["Bob", 28],
-      ["Carol", 51]
+      ['Alice', 42],
+      ['Bob', 28],
+      ['Carol', 51],
     );
     const yieldableCase2 = koconutCase2
       .filter((eachEntry) => eachEntry.value > 100)
@@ -163,27 +164,27 @@ describe(`${KoconutMap.name} -- Calculator`, () => {
 
     /* Case 3 */
     const koconutCase3 = KoconutArray.from([
-      new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
-      new ProductInfo("A-2", "Mac Book Air -- September", 1200),
-      new ProductInfo("A-3", "iPhone -- June", 1500),
+      new ProductInfo('A-1', 'Mac Book Pro -- May', 2000),
+      new ProductInfo('A-2', 'Mac Book Air -- September', 1200),
+      new ProductInfo('A-3', 'iPhone -- June', 1500),
     ]).associateBy((eachElement) => eachElement.id);
 
     const yieldableCase3 = koconutCase3.maxByOrNull(
-      (eachEntry) => eachEntry.value
+      (eachEntry) => eachEntry.value,
     );
     expect(yieldableCase3).to.be.instanceOf(KoconutEntry);
     const resultCase3 = await yieldableCase3.yield();
     expect(resultCase3).eqls(
-      new Entry("A-1", new ProductInfo("A-1", "Mac Book Pro -- May", 2000))
+      new Entry('A-1', new ProductInfo('A-1', 'Mac Book Pro -- May', 2000)),
     );
   });
 
   it(KoconutMap.prototype.maxOf.name, async () => {
     /* Case 1 */
     const koconutCase1 = KoconutMap.of(
-      ["Alice", 42],
-      ["Bob", 28],
-      ["Carol", 51]
+      ['Alice', 42],
+      ['Bob', 28],
+      ['Carol', 51],
     );
 
     const yieldableCase1 = koconutCase1.maxOf((eachEntry) => eachEntry.value);
@@ -193,9 +194,9 @@ describe(`${KoconutMap.name} -- Calculator`, () => {
 
     /* Case 2 */
     const koconutCase2 = KoconutMap.of(
-      ["Alice", 42],
-      ["Bob", 28],
-      ["Carol", 51]
+      ['Alice', 42],
+      ['Bob', 28],
+      ['Carol', 51],
     );
     const yieldableCase2 = koconutCase2
       .filter((eachEntry) => eachEntry.value > 100)
@@ -209,29 +210,29 @@ describe(`${KoconutMap.name} -- Calculator`, () => {
 
     /* Case 3 */
     const koconutCase3 = KoconutArray.from([
-      new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
-      new ProductInfo("A-2", "Mac Book Air -- September", 1200),
-      new ProductInfo("A-3", "iPhone -- June", 1500),
+      new ProductInfo('A-1', 'Mac Book Pro -- May', 2000),
+      new ProductInfo('A-2', 'Mac Book Air -- September', 1200),
+      new ProductInfo('A-3', 'iPhone -- June', 1500),
     ]).associateBy((eachElement) => eachElement.id);
 
     const yieldableCase3 = koconutCase3.maxOf((eachEntry) => eachEntry.value);
     expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive);
     const resultCase3 = await yieldableCase3.yield();
     expect(resultCase3).eqls(
-      new ProductInfo("A-1", "Mac Book Pro -- May", 2000)
+      new ProductInfo('A-1', 'Mac Book Pro -- May', 2000),
     );
   });
 
   it(KoconutMap.prototype.maxOfOrNull.name, async () => {
     /* Case 1 */
     const koconutCase1 = KoconutMap.of(
-      ["Alice", 42],
-      ["Bob", 28],
-      ["Carol", 51]
+      ['Alice', 42],
+      ['Bob', 28],
+      ['Carol', 51],
     );
 
     const yieldableCase1 = koconutCase1.maxOfOrNull(
-      (eachEntry) => eachEntry.value
+      (eachEntry) => eachEntry.value,
     );
     expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive);
     const resultCase1 = await yieldableCase1.yield();
@@ -239,9 +240,9 @@ describe(`${KoconutMap.name} -- Calculator`, () => {
 
     /* Case 2 */
     const koconutCase2 = KoconutMap.of(
-      ["Alice", 42],
-      ["Bob", 28],
-      ["Carol", 51]
+      ['Alice', 42],
+      ['Bob', 28],
+      ['Carol', 51],
     );
     const yieldableCase2 = koconutCase2
       .filter((eachEntry) => eachEntry.value > 100)
@@ -252,28 +253,28 @@ describe(`${KoconutMap.name} -- Calculator`, () => {
 
     /* Case 3 */
     const koconutCase3 = KoconutArray.from([
-      new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
-      new ProductInfo("A-2", "Mac Book Air -- September", 1200),
-      new ProductInfo("A-3", "iPhone -- June", 1500),
+      new ProductInfo('A-1', 'Mac Book Pro -- May', 2000),
+      new ProductInfo('A-2', 'Mac Book Air -- September', 1200),
+      new ProductInfo('A-3', 'iPhone -- June', 1500),
     ]).associateBy((eachElement) => eachElement.id);
 
     const yieldableCase3 = koconutCase3.maxOfOrNull(
-      (eachEntry) => eachEntry.value
+      (eachEntry) => eachEntry.value,
     );
     expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive);
     const resultCase3 = await yieldableCase3.yield();
     expect(resultCase3).eqls(
-      new ProductInfo("A-1", "Mac Book Pro -- May", 2000)
+      new ProductInfo('A-1', 'Mac Book Pro -- May', 2000),
     );
   });
 
   it(KoconutMap.prototype.maxOfWith.name, async () => {
-    const koconut = KoconutMap.of(["Alice", 42], ["Bob", 28], ["Carol", 51]);
+    const koconut = KoconutMap.of(['Alice', 42], ['Bob', 28], ['Carol', 51]);
 
     /* Case 1 */
     const yieldableCase1 = koconut.maxOfWith(
       (eachEntry) => eachEntry.value,
-      (front, rear) => front - rear
+      (front, rear) => front - rear,
     );
     expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive);
     const resultCase1 = await yieldableCase1.yield();
@@ -284,7 +285,7 @@ describe(`${KoconutMap.name} -- Calculator`, () => {
       .filter((eachEntry) => eachEntry.value > 100)
       .maxOfWith(
         (eachEntry) => eachEntry.value,
-        (front, rear) => (front = rear)
+        (front, rear) => (front = rear),
       );
     expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive);
     try {
@@ -295,12 +296,12 @@ describe(`${KoconutMap.name} -- Calculator`, () => {
   });
 
   it(KoconutMap.prototype.maxOfWithOrNull.name, async () => {
-    const koconut = KoconutMap.of(["Alice", 42], ["Bob", 28], ["Carol", 51]);
+    const koconut = KoconutMap.of(['Alice', 42], ['Bob', 28], ['Carol', 51]);
 
     /* Case 1 */
     const yieldableCase1 = koconut.maxOfWithOrNull(
       (eachEntry) => eachEntry.value,
-      (front, rear) => front - rear
+      (front, rear) => front - rear,
     );
     expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive);
     const resultCase1 = await yieldableCase1.yield();
@@ -311,7 +312,7 @@ describe(`${KoconutMap.name} -- Calculator`, () => {
       .filter((eachEntry) => eachEntry.value > 100)
       .maxOfWithOrNull(
         (eachEntry) => eachEntry.value,
-        (front, rear) => (front = rear)
+        (front, rear) => (front = rear),
       );
     expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive);
     const resultCase2 = await yieldableCase2.yield();
@@ -319,15 +320,15 @@ describe(`${KoconutMap.name} -- Calculator`, () => {
   });
 
   it(KoconutMap.prototype.maxWith.name, async () => {
-    const koconut = KoconutMap.of(["Alice", 42], ["Bob", 28], ["Carol", 51]);
+    const koconut = KoconutMap.of(['Alice', 42], ['Bob', 28], ['Carol', 51]);
 
     /* Case 1 */
     const yieldableCase1 = koconut.maxWith(
-      (front, rear) => front.value - rear.value
+      (front, rear) => front.value - rear.value,
     );
     expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive);
     const resultCase1 = await yieldableCase1.yield();
-    expect(resultCase1).eqls(new Entry("Carol", 51));
+    expect(resultCase1).eqls(new Entry('Carol', 51));
 
     /* Case 2 */
     const yieldableCase2 = koconut
@@ -342,15 +343,15 @@ describe(`${KoconutMap.name} -- Calculator`, () => {
   });
 
   it(KoconutMap.prototype.maxWithOrNull.name, async () => {
-    const koconut = KoconutMap.of(["Alice", 42], ["Bob", 28], ["Carol", 51]);
+    const koconut = KoconutMap.of(['Alice', 42], ['Bob', 28], ['Carol', 51]);
 
     /* Case 1 */
     const yieldableCase1 = koconut.maxWithOrNull(
-      (front, rear) => front.value - rear.value
+      (front, rear) => front.value - rear.value,
     );
     expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive);
     const resultCase1 = await yieldableCase1.yield();
-    expect(resultCase1).eqls(new Entry("Carol", 51));
+    expect(resultCase1).eqls(new Entry('Carol', 51));
 
     /* Case 2 */
     const yieldableCase2 = koconut
@@ -364,21 +365,21 @@ describe(`${KoconutMap.name} -- Calculator`, () => {
   it(KoconutMap.prototype.minBy.name, async () => {
     /* Case 1 */
     const koconutCase1 = KoconutMap.of(
-      ["Alice", 42],
-      ["Bob", 28],
-      ["Carol", 51]
+      ['Alice', 42],
+      ['Bob', 28],
+      ['Carol', 51],
     );
 
     const yieldableCase1 = koconutCase1.minBy((eachEntry) => eachEntry.value);
     expect(yieldableCase1).to.be.instanceOf(KoconutEntry);
     const resultCase1 = await yieldableCase1.yield();
-    expect(resultCase1).eqls(new Entry("Bob", 28));
+    expect(resultCase1).eqls(new Entry('Bob', 28));
 
     /* Case 2 */
     const koconutCase2 = KoconutMap.of(
-      ["Alice", 42],
-      ["Bob", 28],
-      ["Carol", 51]
+      ['Alice', 42],
+      ['Bob', 28],
+      ['Carol', 51],
     );
     const yieldableCase2 = koconutCase2
       .filter((eachEntry) => eachEntry.value > 100)
@@ -392,9 +393,9 @@ describe(`${KoconutMap.name} -- Calculator`, () => {
 
     /* Case 3 */
     const koconutCase3 = KoconutArray.from([
-      new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
-      new ProductInfo("A-2", "Mac Book Air -- September", 1200),
-      new ProductInfo("A-3", "iPhone -- June", 1500),
+      new ProductInfo('A-1', 'Mac Book Pro -- May', 2000),
+      new ProductInfo('A-2', 'Mac Book Air -- September', 1200),
+      new ProductInfo('A-3', 'iPhone -- June', 1500),
     ]).associateBy((eachElement) => eachElement.id);
 
     const yieldableCase3 = koconutCase3.minBy((eachEntry) => eachEntry.value);
@@ -402,32 +403,32 @@ describe(`${KoconutMap.name} -- Calculator`, () => {
     const resultCase3 = await yieldableCase3.yield();
     expect(resultCase3).eqls(
       new Entry(
-        "A-2",
-        new ProductInfo("A-2", "Mac Book Air -- September", 1200)
-      )
+        'A-2',
+        new ProductInfo('A-2', 'Mac Book Air -- September', 1200),
+      ),
     );
   });
 
   it(KoconutMap.prototype.minByOrNull.name, async () => {
     /* Case 1 */
     const koconutCase1 = KoconutMap.of(
-      ["Alice", 42],
-      ["Bob", 28],
-      ["Carol", 51]
+      ['Alice', 42],
+      ['Bob', 28],
+      ['Carol', 51],
     );
 
     const yieldableCase1 = koconutCase1.minByOrNull(
-      (eachEntry) => eachEntry.value
+      (eachEntry) => eachEntry.value,
     );
     expect(yieldableCase1).to.be.instanceOf(KoconutEntry);
     const resultCase1 = await yieldableCase1.yield();
-    expect(resultCase1).eqls(new Entry("Bob", 28));
+    expect(resultCase1).eqls(new Entry('Bob', 28));
 
     /* Case 2 */
     const koconutCase2 = KoconutMap.of(
-      ["Alice", 42],
-      ["Bob", 28],
-      ["Carol", 51]
+      ['Alice', 42],
+      ['Bob', 28],
+      ['Carol', 51],
     );
     const yieldableCase2 = koconutCase2
       .filter((eachEntry) => eachEntry.value > 100)
@@ -438,30 +439,30 @@ describe(`${KoconutMap.name} -- Calculator`, () => {
 
     /* Case 3 */
     const koconutCase3 = KoconutArray.from([
-      new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
-      new ProductInfo("A-2", "Mac Book Air -- September", 1200),
-      new ProductInfo("A-3", "iPhone -- June", 1500),
+      new ProductInfo('A-1', 'Mac Book Pro -- May', 2000),
+      new ProductInfo('A-2', 'Mac Book Air -- September', 1200),
+      new ProductInfo('A-3', 'iPhone -- June', 1500),
     ]).associateBy((eachElement) => eachElement.id);
 
     const yieldableCase3 = koconutCase3.minByOrNull(
-      (eachEntry) => eachEntry.value
+      (eachEntry) => eachEntry.value,
     );
     expect(yieldableCase3).to.be.instanceOf(KoconutEntry);
     const resultCase3 = await yieldableCase3.yield();
     expect(resultCase3).eqls(
       new Entry(
-        "A-2",
-        new ProductInfo("A-2", "Mac Book Air -- September", 1200)
-      )
+        'A-2',
+        new ProductInfo('A-2', 'Mac Book Air -- September', 1200),
+      ),
     );
   });
 
   it(KoconutMap.prototype.minOf.name, async () => {
     /* Case 1 */
     const koconutCase1 = KoconutMap.of(
-      ["Alice", 42],
-      ["Bob", 28],
-      ["Carol", 51]
+      ['Alice', 42],
+      ['Bob', 28],
+      ['Carol', 51],
     );
 
     const yieldableCase1 = koconutCase1.minOf((eachEntry) => eachEntry.value);
@@ -471,9 +472,9 @@ describe(`${KoconutMap.name} -- Calculator`, () => {
 
     /* Case 2 */
     const koconutCase2 = KoconutMap.of(
-      ["Alice", 42],
-      ["Bob", 28],
-      ["Carol", 51]
+      ['Alice', 42],
+      ['Bob', 28],
+      ['Carol', 51],
     );
     const yieldableCase2 = koconutCase2
       .filter((eachEntry) => eachEntry.value > 100)
@@ -487,29 +488,29 @@ describe(`${KoconutMap.name} -- Calculator`, () => {
 
     /* Case 3 */
     const koconutCase3 = KoconutArray.from([
-      new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
-      new ProductInfo("A-2", "Mac Book Air -- September", 1200),
-      new ProductInfo("A-3", "iPhone -- June", 1500),
+      new ProductInfo('A-1', 'Mac Book Pro -- May', 2000),
+      new ProductInfo('A-2', 'Mac Book Air -- September', 1200),
+      new ProductInfo('A-3', 'iPhone -- June', 1500),
     ]).associateBy((eachElement) => eachElement.id);
 
     const yieldableCase3 = koconutCase3.minOf((eachEntry) => eachEntry.value);
     expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive);
     const resultCase3 = await yieldableCase3.yield();
     expect(resultCase3).eqls(
-      new ProductInfo("A-2", "Mac Book Air -- September", 1200)
+      new ProductInfo('A-2', 'Mac Book Air -- September', 1200),
     );
   });
 
   it(KoconutMap.prototype.minOfOrNull.name, async () => {
     /* Case 1 */
     const koconutCase1 = KoconutMap.of(
-      ["Alice", 42],
-      ["Bob", 28],
-      ["Carol", 51]
+      ['Alice', 42],
+      ['Bob', 28],
+      ['Carol', 51],
     );
 
     const yieldableCase1 = koconutCase1.minOfOrNull(
-      (eachEntry) => eachEntry.value
+      (eachEntry) => eachEntry.value,
     );
     expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive);
     const resultCase1 = await yieldableCase1.yield();
@@ -517,9 +518,9 @@ describe(`${KoconutMap.name} -- Calculator`, () => {
 
     /* Case 2 */
     const koconutCase2 = KoconutMap.of(
-      ["Alice", 42],
-      ["Bob", 28],
-      ["Carol", 51]
+      ['Alice', 42],
+      ['Bob', 28],
+      ['Carol', 51],
     );
     const yieldableCase2 = koconutCase2
       .filter((eachEntry) => eachEntry.value > 100)
@@ -530,28 +531,28 @@ describe(`${KoconutMap.name} -- Calculator`, () => {
 
     /* Case 3 */
     const koconutCase3 = KoconutArray.from([
-      new ProductInfo("A-1", "Mac Book Pro -- May", 2000),
-      new ProductInfo("A-2", "Mac Book Air -- September", 1200),
-      new ProductInfo("A-3", "iPhone -- June", 1500),
+      new ProductInfo('A-1', 'Mac Book Pro -- May', 2000),
+      new ProductInfo('A-2', 'Mac Book Air -- September', 1200),
+      new ProductInfo('A-3', 'iPhone -- June', 1500),
     ]).associateBy((eachElement) => eachElement.id);
 
     const yieldableCase3 = koconutCase3.minOfOrNull(
-      (eachEntry) => eachEntry.value
+      (eachEntry) => eachEntry.value,
     );
     expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive);
     const resultCase3 = await yieldableCase3.yield();
     expect(resultCase3).eqls(
-      new ProductInfo("A-2", "Mac Book Air -- September", 1200)
+      new ProductInfo('A-2', 'Mac Book Air -- September', 1200),
     );
   });
 
   it(KoconutMap.prototype.minOfWith.name, async () => {
-    const koconut = KoconutMap.of(["Alice", 42], ["Bob", 28], ["Carol", 51]);
+    const koconut = KoconutMap.of(['Alice', 42], ['Bob', 28], ['Carol', 51]);
 
     /* Case 1 */
     const yieldableCase1 = koconut.minOfWith(
       (eachEntry) => eachEntry.value,
-      (front, rear) => front - rear
+      (front, rear) => front - rear,
     );
     expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive);
     const resultCase1 = await yieldableCase1.yield();
@@ -562,7 +563,7 @@ describe(`${KoconutMap.name} -- Calculator`, () => {
       .filter((eachEntry) => eachEntry.value > 100)
       .minOfWith(
         (eachEntry) => eachEntry.value,
-        (front, rear) => (front = rear)
+        (front, rear) => (front = rear),
       );
     expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive);
     try {
@@ -573,12 +574,12 @@ describe(`${KoconutMap.name} -- Calculator`, () => {
   });
 
   it(KoconutMap.prototype.minOfWithOrNull.name, async () => {
-    const koconut = KoconutMap.of(["Alice", 42], ["Bob", 28], ["Carol", 51]);
+    const koconut = KoconutMap.of(['Alice', 42], ['Bob', 28], ['Carol', 51]);
 
     /* Case 1 */
     const yieldableCase1 = koconut.minOfWithOrNull(
       (eachEntry) => eachEntry.value,
-      (front, rear) => front - rear
+      (front, rear) => front - rear,
     );
     expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive);
     const resultCase1 = await yieldableCase1.yield();
@@ -589,7 +590,7 @@ describe(`${KoconutMap.name} -- Calculator`, () => {
       .filter((eachEntry) => eachEntry.value > 100)
       .minOfWithOrNull(
         (eachEntry) => eachEntry.value,
-        (front, rear) => (front = rear)
+        (front, rear) => (front = rear),
       );
     expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive);
     const resultCase2 = await yieldableCase2.yield();
@@ -597,15 +598,15 @@ describe(`${KoconutMap.name} -- Calculator`, () => {
   });
 
   it(KoconutMap.prototype.minWith.name, async () => {
-    const koconut = KoconutMap.of(["Alice", 42], ["Bob", 28], ["Carol", 51]);
+    const koconut = KoconutMap.of(['Alice', 42], ['Bob', 28], ['Carol', 51]);
 
     /* Case 1 */
     const yieldableCase1 = koconut.minWith(
-      (front, rear) => front.value - rear.value
+      (front, rear) => front.value - rear.value,
     );
     expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive);
     const resultCase1 = await yieldableCase1.yield();
-    expect(resultCase1).eqls(new Entry("Bob", 28));
+    expect(resultCase1).eqls(new Entry('Bob', 28));
 
     /* Case 2 */
     const yieldableCase2 = koconut
@@ -620,15 +621,15 @@ describe(`${KoconutMap.name} -- Calculator`, () => {
   });
 
   it(KoconutMap.prototype.minWithOrNull.name, async () => {
-    const koconut = KoconutMap.of(["Alice", 42], ["Bob", 28], ["Carol", 51]);
+    const koconut = KoconutMap.of(['Alice', 42], ['Bob', 28], ['Carol', 51]);
 
     /* Case 1 */
     const yieldableCase1 = koconut.minWithOrNull(
-      (front, rear) => front.value - rear.value
+      (front, rear) => front.value - rear.value,
     );
     expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive);
     const resultCase1 = await yieldableCase1.yield();
-    expect(resultCase1).eqls(new Entry("Bob", 28));
+    expect(resultCase1).eqls(new Entry('Bob', 28));
 
     /* Case 2 */
     const yieldableCase2 = koconut
@@ -643,7 +644,7 @@ describe(`${KoconutMap.name} -- Calculator`, () => {
 describe(`${KoconutMap.name} -- Caster`, () => {
   it(KoconutMap.prototype.asArray.name, async () => {
     const koconut = KoconutArray.of(1, 2, 3).associate(
-      (eachElement) => new Pair(eachElement, eachElement)
+      (eachElement) => new Pair(eachElement, eachElement),
     );
 
     const yieldable = koconut.asArray();
@@ -654,14 +655,14 @@ describe(`${KoconutMap.name} -- Caster`, () => {
 
   it(KoconutMap.prototype.asSet.name, async () => {
     const koconut = KoconutArray.of(1, 1, 2, 2, 3, 3).associate(
-      (eachElement) => new Pair(eachElement, eachElement)
+      (eachElement) => new Pair(eachElement, eachElement),
     );
 
     const yieldable = koconut.asSet();
     expect(yieldable).to.be.instanceOf(KoconutSet);
     const result = await yieldable.yield();
     expect(result).eqls(
-      new Set([new Entry(1, 1), new Entry(2, 2), new Entry(3, 3)])
+      new Set([new Entry(1, 1), new Entry(2, 2), new Entry(3, 3)]),
     );
   });
 
@@ -696,7 +697,7 @@ describe(`${KoconutMap.name} -- Inspector`, () => {
 
     /* Case 1 */
     const yieldableCase1 = koconut.all(
-      (eachEntry) => eachEntry.value / eachEntry.key == 2
+      (eachEntry) => eachEntry.value / eachEntry.key == 2,
     );
     expect(yieldableCase1).to.be.instanceOf(KoconutBoolean);
     const resultCase1 = await yieldableCase1.yield();
@@ -794,7 +795,7 @@ describe(`${KoconutMap.name} -- Inspector`, () => {
   it(KoconutMap.prototype.contains.name, async () => {
     /* Case 1 */
     const koconutCase1 = KoconutArray.of(1, 2, 3).associate(
-      (eachelement) => new Pair(eachelement, eachelement)
+      (eachElement) => new Pair(eachElement, eachElement),
     );
 
     const yieldableCase1 = koconutCase1.contains(2);
@@ -804,16 +805,16 @@ describe(`${KoconutMap.name} -- Inspector`, () => {
 
     /* Case 2 */
     const koconutCase2 = KoconutArray.from([
-      new Person("Grace", "Hopper"),
-      new Person("Jacob", "Bernoulli"),
-      new Person("Johann", "Bernoulli"),
-      new Person("Jinyoung", "Luvya"),
+      new Person('Grace', 'Hopper'),
+      new Person('Jacob', 'Bernoulli'),
+      new Person('Johann', 'Bernoulli'),
+      new Person('Jinyoung', 'Luvya'),
     ]).associate((eachElement) => [
       eachElement,
       eachElement.firstName + eachElement.lastName,
     ]);
 
-    const yieldableCase2 = koconutCase2.contains(new Person("Grace", "Hopper"));
+    const yieldableCase2 = koconutCase2.contains(new Person('Grace', 'Hopper'));
     expect(yieldableCase2).to.be.instanceOf(KoconutBoolean);
     const resultCase2 = await yieldableCase2.yield();
     expect(resultCase2).equals(true);
@@ -822,7 +823,7 @@ describe(`${KoconutMap.name} -- Inspector`, () => {
   it(KoconutMap.prototype.containsKey.name, async () => {
     /* Case 1 */
     const koconutCase1 = KoconutArray.of(1, 2, 3).associate(
-      (eachelement) => new Pair(eachelement, eachelement)
+      (eachElement) => new Pair(eachElement, eachElement),
     );
 
     const yieldableCase1 = koconutCase1.containsKey(2);
@@ -832,17 +833,17 @@ describe(`${KoconutMap.name} -- Inspector`, () => {
 
     /* Case 2 */
     const koconutCase2 = KoconutArray.from([
-      new Person("Grace", "Hopper"),
-      new Person("Jacob", "Bernoulli"),
-      new Person("Johann", "Bernoulli"),
-      new Person("Jinyoung", "Luvya"),
+      new Person('Grace', 'Hopper'),
+      new Person('Jacob', 'Bernoulli'),
+      new Person('Johann', 'Bernoulli'),
+      new Person('Jinyoung', 'Luvya'),
     ]).associate((eachElement) => [
       eachElement,
       eachElement.firstName + eachElement.lastName,
     ]);
 
     const yieldableCase2 = koconutCase2.containsKey(
-      new Person("Grace", "Hopper")
+      new Person('Grace', 'Hopper'),
     );
     expect(yieldableCase2).to.be.instanceOf(KoconutBoolean);
     const resultCase2 = await yieldableCase2.yield();
@@ -852,7 +853,7 @@ describe(`${KoconutMap.name} -- Inspector`, () => {
   it(KoconutMap.prototype.containsValue.name, async () => {
     /* Case 1 */
     const koconutCase1 = KoconutArray.of(1, 2, 3).associate(
-      (eachElement) => new Pair(eachElement, eachElement)
+      (eachElement) => new Pair(eachElement, eachElement),
     );
 
     const yieldableCase1 = koconutCase1.containsValue(2);
@@ -862,17 +863,17 @@ describe(`${KoconutMap.name} -- Inspector`, () => {
 
     /* Case 2 */
     const koconutCase2 = KoconutArray.from([
-      new Person("Grace", "Hopper"),
-      new Person("Jacob", "Bernoulli"),
-      new Person("Johann", "Bernoulli"),
-      new Person("Jinyoung", "Luvya"),
+      new Person('Grace', 'Hopper'),
+      new Person('Jacob', 'Bernoulli'),
+      new Person('Johann', 'Bernoulli'),
+      new Person('Jinyoung', 'Luvya'),
     ]).associate((eachElement) => [
       eachElement.firstName + eachElement.lastName,
       eachElement,
     ]);
 
     const yieldableCase2 = koconutCase2.containsValue(
-      new Person("Grace", "Hopper")
+      new Person('Grace', 'Hopper'),
     );
     expect(yieldableCase2).to.be.instanceOf(KoconutBoolean);
     const resultCase2 = await yieldableCase2.yield();
@@ -972,7 +973,7 @@ describe(`${KoconutMap.name} -- Manipulator`, () => {
     const destination = new Map<number, number>();
     const yieldable = koconut.filterTo(
       destination,
-      (eachEntry) => eachEntry.key % 2 == 0
+      (eachEntry) => eachEntry.key % 2 == 0,
     );
     expect(yieldable).to.be.instanceOf(KoconutMap);
     await yieldable.process();
@@ -992,7 +993,7 @@ describe(`${KoconutMap.name} -- Manipulator`, () => {
     const destination = new Map<number, number>();
     const yieldable = koconut.filterNotTo(
       destination,
-      (eachEntry) => eachEntry.value < 6
+      (eachEntry) => eachEntry.value < 6,
     );
     expect(yieldable).to.be.instanceOf(KoconutMap);
     await yieldable.process();
@@ -1047,28 +1048,28 @@ describe(`${KoconutMap.name} -- Manipulator`, () => {
       new Map([
         [2, 2],
         [3, 3],
-      ])
+      ]),
     );
 
     /* Case 2 */
     const koconutCase2 = KoconutArray.from([
-      new Person("Grace", "Hopper"),
-      new Person("Jacob", "Bernoulli"),
-      new Person("Johann", "Bernoulli"),
-      new Person("Jinyoung", "Luvya"),
+      new Person('Grace', 'Hopper'),
+      new Person('Jacob', 'Bernoulli'),
+      new Person('Johann', 'Bernoulli'),
+      new Person('Jinyoung', 'Luvya'),
     ]).associate((eachElement) => [
       eachElement,
       eachElement.firstName + eachElement.lastName,
     ]);
 
-    const yieldableCase2 = koconutCase2.minus(new Person("Jinyoung", "Luvya"));
+    const yieldableCase2 = koconutCase2.minus(new Person('Jinyoung', 'Luvya'));
     expect(yieldableCase2).to.be.instanceOf(KoconutMap);
     const resultCase2 = await yieldableCase2.yield();
     expect(resultCase2).eqls(
       new Map([
-        [new Person("Grace", "Hopper"), "GraceHopper"],
-        [new Person("Jacob", "Bernoulli"), "JacobBernoulli"],
-      ])
+        [new Person('Grace', 'Hopper'), 'GraceHopper'],
+        [new Person('Jacob', 'Bernoulli'), 'JacobBernoulli'],
+      ]),
     );
   });
 
@@ -1106,21 +1107,21 @@ describe(`${KoconutMap.name} -- Manipulator`, () => {
     /* Case 4 */
     const yieldableCase4 = koconut.plus(new KoconutEntry(4, 4));
     expect(yieldableCase4).to.be.instanceOf(KoconutMap);
-    const reusltCase4 = await yieldableCase4.yield();
-    expect(reusltCase4).eqls(expectedResultMap);
+    const resultCase4 = await yieldableCase4.yield();
+    expect(resultCase4).eqls(expectedResultMap);
 
     expectedResultMap.set(5, 5);
 
     /* Case 5 */
     const yieldableCase5 = koconut.plus(new Pair(4, 4), new Pair(5, 5));
     expect(yieldableCase5).to.be.instanceOf(KoconutMap);
-    const reusltCase5 = await yieldableCase5.yield();
-    expect(reusltCase5).eqls(expectedResultMap);
+    const resultCase5 = await yieldableCase5.yield();
+    expect(resultCase5).eqls(expectedResultMap);
 
     /* Case 6 */
     const yieldableCase6 = koconut.plus(
       new KoconutPair(4, 4),
-      new KoconutPair(5, 5)
+      new KoconutPair(5, 5),
     );
     expect(yieldableCase6).to.be.instanceOf(KoconutMap);
     const resultCase6 = await yieldableCase6.yield();
@@ -1135,7 +1136,7 @@ describe(`${KoconutMap.name} -- Manipulator`, () => {
     /* Case 8 */
     const yieldableCase8 = koconut.plus(
       new KoconutEntry(4, 4),
-      new KoconutEntry(5, 5)
+      new KoconutEntry(5, 5),
     );
     expect(yieldableCase8).to.be.instanceOf(KoconutMap);
     const resultCase8 = await yieldableCase8.yield();
@@ -1147,7 +1148,7 @@ describe(`${KoconutMap.name} -- Selector`, () => {
   it(KoconutMap.prototype.get.name, async () => {
     /* Case 1 */
     const koconutCase1 = KoconutArray.of(1, 2, 3, 4, 5).associate(
-      (eachElement) => [eachElement, eachElement * 2]
+      (eachElement) => [eachElement, eachElement * 2],
     );
 
     const yieldableCase1 = koconutCase1.get(2);
@@ -1157,7 +1158,7 @@ describe(`${KoconutMap.name} -- Selector`, () => {
 
     /* Case 2 */
     const koconutCase2 = KoconutArray.of(1, 2, 3, 4, 5).associate(
-      (eachElement) => [eachElement, eachElement * 2]
+      (eachElement) => [eachElement, eachElement * 2],
     );
 
     const yieldableCase2 = koconutCase2
@@ -1169,25 +1170,25 @@ describe(`${KoconutMap.name} -- Selector`, () => {
 
     /* Case 3 */
     const koconutCase3 = KoconutArray.from([
-      new Person("Grace", "Hopper"),
-      new Person("Jacob", "Bernoulli"),
-      new Person("Johann", "Bernoulli"),
-      new Person("Jinyoung", "Luvya"),
+      new Person('Grace', 'Hopper'),
+      new Person('Jacob', 'Bernoulli'),
+      new Person('Johann', 'Bernoulli'),
+      new Person('Jinyoung', 'Luvya'),
     ]).associate((eachElement) => [
       eachElement,
       eachElement.firstName + eachElement.lastName,
     ]);
 
-    const yieldableCase3 = koconutCase3.get(new Person("Grace", "Hopper"));
+    const yieldableCase3 = koconutCase3.get(new Person('Grace', 'Hopper'));
     expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive);
     const resultCase3 = await yieldableCase3.yield();
-    expect(resultCase3).equals("GraceHopper");
+    expect(resultCase3).equals('GraceHopper');
   });
 
   it(KoconutMap.prototype.getOrDefault.name, async () => {
     /* Case 1 */
     const koconutCase1 = KoconutArray.of(1, 2, 3, 4, 5).associate(
-      (eachElement) => [eachElement, eachElement * 2]
+      (eachElement) => [eachElement, eachElement * 2],
     );
 
     const yieldableCase1 = koconutCase1.getOrDefault(2, 100);
@@ -1197,7 +1198,7 @@ describe(`${KoconutMap.name} -- Selector`, () => {
 
     /* Case 2 */
     const koconutCase2 = KoconutArray.of(1, 2, 3, 4, 5).associate(
-      (eachElement) => [eachElement, eachElement * 2]
+      (eachElement) => [eachElement, eachElement * 2],
     );
 
     const yieldableCase2 = koconutCase2
@@ -1209,28 +1210,28 @@ describe(`${KoconutMap.name} -- Selector`, () => {
 
     /* Case 3 */
     const koconutCase3 = KoconutArray.from([
-      new Person("Grace", "Hopper"),
-      new Person("Jacob", "Bernoulli"),
-      new Person("Johann", "Bernoulli"),
-      new Person("Jinyoung", "Luvya"),
+      new Person('Grace', 'Hopper'),
+      new Person('Jacob', 'Bernoulli'),
+      new Person('Johann', 'Bernoulli'),
+      new Person('Jinyoung', 'Luvya'),
     ]).associate((eachElement) => [
       eachElement,
       eachElement.firstName + eachElement.lastName,
     ]);
 
     const yieldableCase3 = koconutCase3.getOrDefault(
-      new Person("Grace", "Hopper"),
-      "SteveJobs"
+      new Person('Grace', 'Hopper'),
+      'SteveJobs',
     );
     expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive);
     const resultCase3 = await yieldableCase3.yield();
-    expect(resultCase3).equals("GraceHopper");
+    expect(resultCase3).equals('GraceHopper');
   });
 
   it(KoconutMap.prototype.getOrElse.name, async () => {
     /* Case 1 */
     const koconutCase1 = KoconutArray.of(1, 2, 3, 4, 5).associate(
-      (eachElement) => [eachElement, eachElement * 2]
+      (eachElement) => [eachElement, eachElement * 2],
     );
 
     const yieldableCase1 = koconutCase1.getOrElse(2, () => 100);
@@ -1240,7 +1241,7 @@ describe(`${KoconutMap.name} -- Selector`, () => {
 
     /* Case 2 */
     const koconutCase2 = KoconutArray.of(1, 2, 3, 4, 5).associate(
-      (eachElement) => [eachElement, eachElement * 2]
+      (eachElement) => [eachElement, eachElement * 2],
     );
 
     const yieldableCase2 = koconutCase2
@@ -1252,28 +1253,28 @@ describe(`${KoconutMap.name} -- Selector`, () => {
 
     /* Case 3 */
     const koconutCase3 = KoconutArray.from([
-      new Person("Grace", "Hopper"),
-      new Person("Jacob", "Bernoulli"),
-      new Person("Johann", "Bernoulli"),
-      new Person("Jinyoung", "Luvya"),
+      new Person('Grace', 'Hopper'),
+      new Person('Jacob', 'Bernoulli'),
+      new Person('Johann', 'Bernoulli'),
+      new Person('Jinyoung', 'Luvya'),
     ]).associate((eachElement) => [
       eachElement,
       eachElement.firstName + eachElement.lastName,
     ]);
 
     const yieldableCase3 = koconutCase3.getOrElse(
-      new Person("Grace", "Hopper"),
-      () => "SteveJobs"
+      new Person('Grace', 'Hopper'),
+      () => 'SteveJobs',
     );
     expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive);
     const resultCase3 = await yieldableCase3.yield();
-    expect(resultCase3).equals("GraceHopper");
+    expect(resultCase3).equals('GraceHopper');
   });
 
   it(KoconutMap.prototype.getValue.name, async () => {
     /* Case 1 */
     const koconutCase1 = KoconutArray.of(1, 2, 3, 4, 5).associate(
-      (eachElement) => [eachElement, eachElement * 2]
+      (eachElement) => [eachElement, eachElement * 2],
     );
 
     const yieldableCase1 = koconutCase1.getValue(2);
@@ -1283,7 +1284,7 @@ describe(`${KoconutMap.name} -- Selector`, () => {
 
     /* Case 2 */
     const koconutCase2 = KoconutArray.of(1, 2, 3, 4, 5).associate(
-      (eachElement) => [eachElement, eachElement * 2]
+      (eachElement) => [eachElement, eachElement * 2],
     );
 
     const yieldableCase2 = koconutCase2
@@ -1298,19 +1299,19 @@ describe(`${KoconutMap.name} -- Selector`, () => {
 
     /* Case 3 */
     const koconutCase3 = KoconutArray.from([
-      new Person("Grace", "Hopper"),
-      new Person("Jacob", "Bernoulli"),
-      new Person("Johann", "Bernoulli"),
-      new Person("Jinyoung", "Luvya"),
+      new Person('Grace', 'Hopper'),
+      new Person('Jacob', 'Bernoulli'),
+      new Person('Johann', 'Bernoulli'),
+      new Person('Jinyoung', 'Luvya'),
     ]).associate((eachElement) => [
       eachElement,
       eachElement.firstName + eachElement.lastName,
     ]);
 
-    const yieldableCase3 = koconutCase3.getValue(new Person("Grace", "Hopper"));
+    const yieldableCase3 = koconutCase3.getValue(new Person('Grace', 'Hopper'));
     expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive);
     const resultCase3 = await yieldableCase3.yield();
-    expect(resultCase3).equals("GraceHopper");
+    expect(resultCase3).equals('GraceHopper');
   });
 });
 
@@ -1353,7 +1354,7 @@ describe(`${KoconutMap.name} -- Transformer`, () => {
     ]);
 
     const yieldable = koconut.map(
-      (eachEntry) => eachEntry.key + eachEntry.value
+      (eachEntry) => eachEntry.key + eachEntry.value,
     );
     expect(yieldable).to.be.instanceOf(KoconutArray);
     const result = await yieldable.yield();
@@ -1361,7 +1362,7 @@ describe(`${KoconutMap.name} -- Transformer`, () => {
   });
 
   it(KoconutMap.prototype.mapKeys.name, async () => {
-    const koconut = KoconutMap.of(["beer", 2.7], ["bisquit", 5.8]);
+    const koconut = KoconutMap.of(['beer', 2.7], ['bisquit', 5.8]);
 
     const yieldable = koconut.mapKeys((eachEntry) => eachEntry.key.length);
     expect(yieldable).to.be.instanceOf(KoconutMap);
@@ -1374,12 +1375,12 @@ describe(`${KoconutMap.name} -- Transformer`, () => {
   });
 
   it(KoconutMap.prototype.mapKeysTo.name, async () => {
-    const koconut = KoconutMap.of(["beer", 2.7], ["bisquit", 5.8]);
+    const koconut = KoconutMap.of(['beer', 2.7], ['bisquit', 5.8]);
 
     const destination = new Map<number, number>();
     const yieldable = koconut.mapKeysTo(
       destination,
-      (eachEntry) => eachEntry.key.length
+      (eachEntry) => eachEntry.key.length,
     );
     expect(yieldable).to.be.instanceOf(KoconutMap);
     await yieldable.process();
@@ -1428,39 +1429,39 @@ describe(`${KoconutMap.name} -- Transformer`, () => {
     const destination = new Array<number>();
     const yieldable = koconut.mapTo(
       destination,
-      (eachEntry) => eachEntry.key + eachEntry.value
+      (eachEntry) => eachEntry.key + eachEntry.value,
     );
     expect(yieldable).to.be.instanceOf(KoconutMap);
     await yieldable.process();
     expect(destination).eqls([3, 6, 9, 12, 15]);
   });
 
-  it(KoconutMap.prototype.mapVaues.name, async () => {
-    const koconut = KoconutMap.of(["beverage", 2.7], ["meal", 12.4]);
+  it(KoconutMap.prototype.mapValues.name, async () => {
+    const koconut = KoconutMap.of(['beverage', 2.7], ['meal', 12.4]);
 
-    const yieldable = koconut.mapVaues((eachEntry) => `${eachEntry.value}$`);
+    const yieldable = koconut.mapValues((eachEntry) => `${eachEntry.value}$`);
     expect(yieldable).to.be.instanceOf(KoconutMap);
     const result = await yieldable.yield();
     const expectedResultMap = new Map<string, string>([
-      ["beverage", "2.7$"],
-      ["meal", "12.4$"],
+      ['beverage', '2.7$'],
+      ['meal', '12.4$'],
     ]);
     expect(result).eqls(expectedResultMap);
   });
 
   it(KoconutMap.prototype.mapValuesTo.name, async () => {
-    const koconut = KoconutMap.of(["beverage", 2.7], ["meal", 12.4]);
+    const koconut = KoconutMap.of(['beverage', 2.7], ['meal', 12.4]);
 
     const destination = new Map<string, string>();
     const yieldable = koconut.mapValuesTo(
       destination,
-      (eachEntry) => `${eachEntry.value}$`
+      (eachEntry) => `${eachEntry.value}$`,
     );
     expect(yieldable).to.be.instanceOf(KoconutMap);
     await yieldable.process();
     const expectedResultMap = new Map<string, string>([
-      ["beverage", "2.7$"],
-      ["meal", "12.4$"],
+      ['beverage', '2.7$'],
+      ['meal', '12.4$'],
     ]);
     expect(destination).eqls(expectedResultMap);
   });

@@ -1,11 +1,11 @@
-`use strict`
+`use strict`;
 
 class KoconutError extends Error {
-    constructor(message : string) {
-        super(message)
-        this.name = this.constructor.name.split(/(?=[A-Z])/).join(" ")
-        Error.captureStackTrace(this, this.constructor);
-    }
+  constructor(message: string) {
+    super(message);
+    this.name = this.constructor.name.split(/(?=[A-Z])/).join(' ');
+    Error.captureStackTrace(this, this.constructor);
+  }
 }
 
 export class KoconutInvalidArgumentException extends KoconutError {}

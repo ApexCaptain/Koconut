@@ -1,5 +1,5 @@
-import { existsSync, readdirSync, unlinkSync, rmdirSync, statSync } from "fs";
-import { join, normalize } from "path";
+import { existsSync, readdirSync, unlinkSync, rmdirSync, statSync } from 'fs';
+import { join, normalize } from 'path';
 
 const cleanDirectory = (dirPath: string) => {
   if (existsSync(dirPath)) {
@@ -11,5 +11,5 @@ const cleanDirectory = (dirPath: string) => {
     rmdirSync(dirPath);
   }
 };
-cleanDirectory(normalize("./coverage"));
-cleanDirectory(normalize("./dist"));
+cleanDirectory(normalize('./coverage'));
+cleanDirectory(normalize('./dist'));

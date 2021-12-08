@@ -3,10 +3,9 @@ import {
   readdirSync,
   readFileSync,
   writeFileSync,
-  rmdirSync,
   statSync,
-} from "fs";
-import { join, normalize } from "path";
+} from 'fs';
+import { join, normalize } from 'path';
 
 const resolvePath = (dirPath: string) => {
   if (existsSync(dirPath)) {
@@ -16,11 +15,11 @@ const resolvePath = (dirPath: string) => {
       else {
         writeFileSync(
           eachFilePath,
-          readFileSync(eachFilePath, "utf-8").replaceAll("../src", "../dist"),
-          "utf-8"
+          readFileSync(eachFilePath, 'utf-8').replaceAll('../src', '../dist'),
+          'utf-8',
         );
       }
     });
   }
 };
-resolvePath(normalize("./coverage"));
+resolvePath(normalize('./coverage'));
