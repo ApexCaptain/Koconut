@@ -72,7 +72,7 @@ jobs:
           node-version: "16.x"
           registy-url: https://registry.npmjs.org/
 
-      - name: Deploying new package to npm
+      - name: Deploying new package to npm for testing
         run: yarn publish --new-version ${GITHUB_REF#refs/tags/}
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
