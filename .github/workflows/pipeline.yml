@@ -66,9 +66,13 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: "16.x"
-          registy-url: https://registry.npmjs.org/
+          registry-url: https://registry.npmjs.org/
+
+      - name: Check Package Version
+        id: env_info
+        run: echo ::set-output name=PACKAGE_NAME::${GITHUB_REF#refs/tags/}
 
       - name: Deploying new package to npm for testing
-        run: yarn publish --new-version ${GITHUB_REF#refs/tags/}
+        run: yarn publish --new-version ${{steps.env_info.outputs.PACKAGE_NAME}}
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
