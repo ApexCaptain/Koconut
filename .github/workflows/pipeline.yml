@@ -11,8 +11,8 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest] #, windows-latest, windows-2016, macos-latest] # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
-        node-version: [12.x] # , 13.x, 14.x, 15.x, 16.x]
+        os: [ubuntu-latest, windows-latest, windows-2016, macos-latest] # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
+        node-version: [12.x, 13.x, 14.x, 15.x, 16.x]
 
     runs-on: ${{matrix.os}}
 
