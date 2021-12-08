@@ -30,27 +30,6 @@ jobs:
       - name: Launch Coverage Test
         run: npm run test@coverage
 
-  release:
-    name: Create GitHub Release
-
-    needs: ci
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout to current repository
-        uses: actions/checkout@v2
-      - name: Create new release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        with:
-          tag_name: ${{github.ref}}
-          release_name: New Version Release ${{github.ref}}
-          draft: false
-          prerelease: false
-
   cd:
     name: Continuous Deployment
 
@@ -67,11 +46,35 @@ jobs:
         with:
           node-version: "16.x"
           registry-url: https://registry.npmjs.org/
-
-      - name: Check Package Version
-        id: env_info
-        run: echo ::set-output name=PACKAGE_NAME::${GITHUB_REF#refs/tags/}
-      - name: Deploying new package to npm for testing
-        run: yarn publish --new-version ${{steps.env_info.outputs.PACKAGE_NAME}}
+      - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+      # - name: Check Package Version
+      #   id: env_info
+      #   run: echo ::set-output name=PACKAGE_NAME::${GITHUB_REF#refs/tags/}
+      # - name: Deploying new package to npm
+      #   run: yarn publish --new-version ${{steps.env_info.outputs.PACKAGE_NAME}}
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+  release:
+    name: Create GitHub Release
+
+    needs: cd
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout to current repository
+        uses: actions/checkout@v2
+      - name: Create new release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        with:
+          tag_name: ${{github.ref}}
+          release_name: New Version Release ${{github.ref}}
+          draft: false
+          prerelease: false
