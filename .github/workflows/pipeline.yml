@@ -1,0 +1,77 @@
+name: Pipeline
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - "*.*.*"
+
+jobs:
+  ci:
+    name: Continuous Integration
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, windows-2016, macos-latest] # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
+        node-version: [12.x, 13.x] # , 14.x, 15.x, 16.x]
+
+    runs-on: ${{matrix.os}}
+
+    steps:
+      - name: Checkout to current repository
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install Production Dependency
+        run: npm install --production
+      - name: Install Test Inst Env
+        run: npm install mocha chai
+      - name: Launch Coverage Test
+        run: npm run test@coverage
+
+  release:
+    name: Create GitHub Release
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout to current repository
+      - uses: actions/checkout@v2
+      - name: Create new release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        with:
+          tag_name: ${{github.ref}}
+          release_name: New Version Release ${{github.ref}}
+          draft: false
+          prerelease: false
+
+  cd:
+    name: Continuous Deployment
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout to current repository
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js v16
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16.x"
+          registy-url: https://registry.npmjs.org/
+
+      - name: Deploying new package to npm
+      - run:
+      - run: yarn publish --new-version ${{github.ref}}
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

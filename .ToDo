@@ -17,3 +17,8 @@ Container 내부에서 Git 커맨드 사용 (SSH 키 써서)
 Mac에서 Docs 실행시 문제점이 있는지 확인
 
 Windows에서 Docs 실행시 파일명 깨지는 현상 수정
+
+파이프라인 설정
+1. 빌드는 로컬에서 진행, test와 src 폴더 모두 babel을 사용해서 js로 변환
+2. pipeline에서 각 OS / Node 버전 별 CI 진행
+3. CI 종료 후 Deploy 시작?

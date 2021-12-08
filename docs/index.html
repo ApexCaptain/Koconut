@@ -3,6 +3,15 @@
   <h1>Koconut Release Note</h1>
 </a>
 <hr>
+
+
+<a href="#release-v1016" id="release-v1016" style="color: inherit; text-decoration: none;">
+  <h2>Release <strong>v1.0.16</strong></h2>
+</a>
+<div style="text-align: right; font-weight : bold; color : orange">
+22 Nov 2021 
+</div>
+
 <br>
 
 
@@ -31,8 +40,8 @@
 <li><code>eqv</code></li>
 </ul>
 </li>
-<li><p>New processor method <code>retrieve</code> is added to container classes.  It simply processes all the chained objects and returns container instance itself. Please, have a check following example. </p>
-<pre><code class="language-typescript"><span class="hl-0">const</span><span class="hl-1"> </span><span class="hl-2">koconutBoolean</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-0">new</span><span class="hl-1"> </span><span class="hl-4">KoconutBoolean</span><span class="hl-1">(</span><span class="hl-0">true</span><span class="hl-1">)</span><br/><span class="hl-1">                                     .</span><span class="hl-4">retrieve</span><span class="hl-1">()</span><br/><span class="hl-5">console</span><span class="hl-1">.</span><span class="hl-4">log</span><span class="hl-1">(</span><span class="hl-5">koconutBoolean</span><span class="hl-1">)</span><br/><span class="hl-6">// ↑ KoconutBoolean { isValidated: true, data: true }</span>
+<li><p>New processor method <code>retrieve</code> is added to container classes. It simply processes all the chained objects and returns container instance itself. Please, have a check following example.</p>
+<pre><code class="language-typescript"><span class="hl-0">const</span><span class="hl-1"> </span><span class="hl-2">koconutBoolean</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-0">new</span><span class="hl-1"> </span><span class="hl-4">KoconutBoolean</span><span class="hl-1">(</span><span class="hl-0">true</span><span class="hl-1">).</span><span class="hl-4">retrieve</span><span class="hl-1">();</span><br/><span class="hl-5">console</span><span class="hl-1">.</span><span class="hl-4">log</span><span class="hl-1">(</span><span class="hl-5">koconutBoolean</span><span class="hl-1">);</span><br/><span class="hl-6">// ↑ KoconutBoolean { isValidated: true, data: true }</span>
 </code></pre>
 </li>
 <li><p>Return type of <code>equalsTo</code> of protocol <code>KoconutEquatable</code> is now also can be <code>KoconutPrimitive&lt;boolean&gt;</code> or <code>KoconutBoolean</code>.</p>
@@ -44,19 +53,13 @@
 </a>
 <ul>
 <li><p>Following methods are deprecated.</p>
-<ul>
-<li><code>toArray</code> -- Commonly // <code>asArray</code> instead.</li>
-<li><code>toSet</code> -- Commonly // <code>asSet</code> instead.</li>
-<li><code>forEachIndexed</code> -- in <code>KoconutMap</code></li>
-<li><code>onEachIndexed</code> -- in <code>KoconutMap</code></li>
-</ul>
-</li>
-</ul>
+<pre><code><span class="hl-1">- </span><span class="hl-7">`toArray`</span><span class="hl-1"> -- </span><span class="hl-5">Commonly</span><span class="hl-1"> </span><span class="hl-6">// `asArray` instead.</span><br/><span class="hl-1">- </span><span class="hl-7">`toSet`</span><span class="hl-1"> -- </span><span class="hl-5">Commonly</span><span class="hl-1"> </span><span class="hl-6">// `asSet` instead.</span><br/><span class="hl-1">- </span><span class="hl-7">`forEachIndexed`</span><span class="hl-1"> -- </span><span class="hl-0">in</span><span class="hl-1"> </span><span class="hl-7">`KoconutMap`</span><br/><span class="hl-1">- </span><span class="hl-7">`onEachIndexed`</span><span class="hl-1"> -- </span><span class="hl-0">in</span><span class="hl-1"> </span><span class="hl-7">`KoconutMap`</span>
+</code></pre>
 <br>
 <br>
 <hr>
-<br>
-
+<br></li>
+</ul>
 
 <a href="#release-v1014" id="release-v1014" style="color: inherit; text-decoration: none;">
   <h2>Release <strong>v1.0.14</strong></h2>
@@ -70,7 +73,8 @@
   <h3>Major Features and Improvements</h3>
 </a>
 <ul>
-<li>New static creator method <code>generate</code> is added to container classes. It creates a new container instance with given <code>count</code> as number of elements and the values are provided by following <code>generator</code> function block with given ordered index as an argument . Please, have a check following example.<pre><code class="language-typescript"><br/><span class="hl-0">const</span><span class="hl-1"> </span><span class="hl-2">evenNumberArray</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-5">KoconutArray</span><span class="hl-1">.</span><span class="hl-4">generate</span><span class="hl-1">(</span><span class="hl-7">5</span><span class="hl-1">, </span><span class="hl-5">i</span><span class="hl-1"> </span><span class="hl-0">=&gt;</span><span class="hl-1"> </span><span class="hl-5">i</span><span class="hl-1">*</span><span class="hl-7">2</span><span class="hl-1">)</span><br/><span class="hl-1">                                                    .</span><span class="hl-4">yield</span><span class="hl-1">()</span><br/><span class="hl-5">console</span><span class="hl-1">.</span><span class="hl-4">log</span><span class="hl-1">(</span><span class="hl-5">evenNumberArray</span><span class="hl-1">)</span><br/><span class="hl-6">// ↑ [ 0, 2, 4, 6, 8 ]</span><br/><br/><span class="hl-0">const</span><span class="hl-1"> </span><span class="hl-2">evenNumberSet</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-5">KoconutSet</span><span class="hl-1">.</span><span class="hl-4">generate</span><span class="hl-1">(</span><span class="hl-7">5</span><span class="hl-1">, </span><span class="hl-5">i</span><span class="hl-1"> </span><span class="hl-0">=&gt;</span><span class="hl-1"> </span><span class="hl-5">i</span><span class="hl-1">*</span><span class="hl-7">2</span><span class="hl-1">)</span><br/><span class="hl-1">                                                .</span><span class="hl-4">yield</span><span class="hl-1">()</span><br/><span class="hl-5">console</span><span class="hl-1">.</span><span class="hl-4">log</span><span class="hl-1">(</span><span class="hl-5">evenNumberSet</span><span class="hl-1">)</span><br/><span class="hl-6">// ↑ Set { 0, 2, 4, 6, 8 }</span><br/><br/><span class="hl-0">const</span><span class="hl-1"> </span><span class="hl-2">numberKeyStringValueMap</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-5">KoconutMap</span><span class="hl-1">.</span><span class="hl-4">generate</span><span class="hl-1">(</span><br/><span class="hl-1">                                    </span><span class="hl-7">5</span><span class="hl-1">, </span><span class="hl-5">i</span><span class="hl-1"> </span><span class="hl-0">=&gt;</span><span class="hl-1"> [</span><span class="hl-5">i</span><span class="hl-1">, </span><span class="hl-5">i</span><span class="hl-1">.</span><span class="hl-4">toString</span><span class="hl-1">()]</span><br/><span class="hl-1">                                            </span><span class="hl-6">// ↑ Also can be</span><br/><span class="hl-1">                                            </span><span class="hl-6">//   new Pair(i, i.toString())</span><br/><span class="hl-1">                                            </span><span class="hl-6">//   Pair.from([i, i.toString()])</span><br/><span class="hl-1">                                            </span><span class="hl-6">//   new KoconutPair(i, i.toString())</span><br/><span class="hl-1">                                            </span><span class="hl-6">//   new Entry(i, i.toString())</span><br/><span class="hl-1">                                            </span><span class="hl-6">//   Entry.from([i, i.toString()])</span><br/><span class="hl-1">                                            </span><span class="hl-6">//   new KoconutEntry(i, i.toString())</span><br/><span class="hl-1">                                )</span><br/><span class="hl-1">                                .</span><span class="hl-4">yield</span><span class="hl-1">()</span><br/><span class="hl-5">console</span><span class="hl-1">.</span><span class="hl-4">log</span><span class="hl-1">(</span><span class="hl-5">numberKeyStringValueMap</span><span class="hl-1">)</span><br/><span class="hl-6">// ↑ Map { 0 =&gt; &#39;0&#39;, 1 =&gt; &#39;1&#39;, 2 =&gt; &#39;2&#39;, 3 =&gt; &#39;3&#39;, 4 =&gt; &#39;4&#39; }</span>
+<li><p>New static creator method <code>generate</code> is added to container classes. It creates a new container instance with given <code>count</code> as number of elements and the values are provided by following <code>generator</code> function block with given ordered index as an argument . Please, have a check following example.</p>
+<pre><code class="language-typescript"><span class="hl-0">const</span><span class="hl-1"> </span><span class="hl-2">evenNumberArray</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-5">KoconutArray</span><span class="hl-1">.</span><span class="hl-4">generate</span><span class="hl-1">(</span><span class="hl-8">5</span><span class="hl-1">, (</span><span class="hl-5">i</span><span class="hl-1">) </span><span class="hl-0">=&gt;</span><span class="hl-1"> </span><span class="hl-5">i</span><span class="hl-1"> * </span><span class="hl-8">2</span><span class="hl-1">).</span><span class="hl-4">yield</span><span class="hl-1">();</span><br/><span class="hl-5">console</span><span class="hl-1">.</span><span class="hl-4">log</span><span class="hl-1">(</span><span class="hl-5">evenNumberArray</span><span class="hl-1">);</span><br/><span class="hl-6">// ↑ [ 0, 2, 4, 6, 8 ]</span><br/><br/><span class="hl-0">const</span><span class="hl-1"> </span><span class="hl-2">evenNumberSet</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-5">KoconutSet</span><span class="hl-1">.</span><span class="hl-4">generate</span><span class="hl-1">(</span><span class="hl-8">5</span><span class="hl-1">, (</span><span class="hl-5">i</span><span class="hl-1">) </span><span class="hl-0">=&gt;</span><span class="hl-1"> </span><span class="hl-5">i</span><span class="hl-1"> * </span><span class="hl-8">2</span><span class="hl-1">).</span><span class="hl-4">yield</span><span class="hl-1">();</span><br/><span class="hl-5">console</span><span class="hl-1">.</span><span class="hl-4">log</span><span class="hl-1">(</span><span class="hl-5">evenNumberSet</span><span class="hl-1">);</span><br/><span class="hl-6">// ↑ Set { 0, 2, 4, 6, 8 }</span><br/><br/><span class="hl-0">const</span><span class="hl-1"> </span><span class="hl-2">numberKeyStringValueMap</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-5">KoconutMap</span><span class="hl-1">.</span><span class="hl-4">generate</span><span class="hl-1">(</span><br/><span class="hl-1">  </span><span class="hl-8">5</span><span class="hl-1">,</span><br/><span class="hl-1">  (</span><span class="hl-5">i</span><span class="hl-1">) </span><span class="hl-0">=&gt;</span><span class="hl-1"> [</span><span class="hl-5">i</span><span class="hl-1">, </span><span class="hl-5">i</span><span class="hl-1">.</span><span class="hl-4">toString</span><span class="hl-1">()]</span><br/><span class="hl-1">  </span><span class="hl-6">// ↑ Also can be</span><br/><span class="hl-1">  </span><span class="hl-6">//   new Pair(i, i.toString())</span><br/><span class="hl-1">  </span><span class="hl-6">//   Pair.from([i, i.toString()])</span><br/><span class="hl-1">  </span><span class="hl-6">//   new KoconutPair(i, i.toString())</span><br/><span class="hl-1">  </span><span class="hl-6">//   new Entry(i, i.toString())</span><br/><span class="hl-1">  </span><span class="hl-6">//   Entry.from([i, i.toString()])</span><br/><span class="hl-1">  </span><span class="hl-6">//   new KoconutEntry(i, i.toString())</span><br/><span class="hl-1">).</span><span class="hl-4">yield</span><span class="hl-1">();</span><br/><span class="hl-5">console</span><span class="hl-1">.</span><span class="hl-4">log</span><span class="hl-1">(</span><span class="hl-5">numberKeyStringValueMap</span><span class="hl-1">);</span><br/><span class="hl-6">// ↑ Map { 0 =&gt; &#39;0&#39;, 1 =&gt; &#39;1&#39;, 2 =&gt; &#39;2&#39;, 3 =&gt; &#39;3&#39;, 4 =&gt; &#39;4&#39; }</span>
 </code></pre>
 </li>
 </ul>
@@ -79,28 +83,23 @@
   <h3>Bug Fixes and Other Changes</h3>
 </a>
 <ul>
-<li><p>Mapping and filtering methods of collections with specified target destination is now propery applied to <code>Set</code> when the value is instance of
-your custom class that inherits <code>KoconutEquatable</code>.</p>
-<p>  Applied Methods</p>
-<ul>
-<li><code>flatMapTo</code></li>
-<li><code>mapTo</code></li>
-<li><code>mapNotNullTo</code></li>
-<li><code>flatMapIndexedTo</code></li>
-<li><code>mapIndexedTo</code></li>
-<li><code>mapIndexedNotNullTo</code></li>
-<li><code>filterTo</code></li>
-<li><code>filterNotTo</code></li>
-<li><code>filterIndexedTo</code></li>
-<li><code>filterNotNullTo</code></li>
-</ul>
-</li>
-</ul>
-<br>
+<li>Mapping and filtering methods of collections with specified target destination is now propery applied to <code>Set</code> when the value is instance of
+your custom class that inherits <code>KoconutEquatable</code>.
+Applied Methods
+- <code>flatMapTo</code>
+- <code>mapTo</code>
+- <code>mapNotNullTo</code>
+- <code>flatMapIndexedTo</code>
+- <code>mapIndexedTo</code>
+- <code>mapIndexedNotNullTo</code>
+- <code>filterTo</code>
+- <code>filterNotTo</code>
+- <code>filterIndexedTo</code>
+- <code>filterNotNullTo</code><br>
 <br>
 <hr>
-<br>
-
+<br></li>
+</ul>
 
 <a href="#release-v1013" id="release-v1013" style="color: inherit; text-decoration: none;">
   <h2>Release <strong>v1.0.13</strong></h2>
@@ -165,9 +164,11 @@ your custom class that inherits <code>KoconutEquatable</code>.</p>
   <h3>Bug Fixes and Other Changes</h3>
 </a>
 <ul>
-<li>Creation of container classes allows <code>null</code> as its argument and also use it as default value. When it is omitted, it&#39;ll return an empty collection instance.<pre><code class="language-typescript"><span class="hl-1">    </span><span class="hl-0">new</span><span class="hl-1"> </span><span class="hl-4">KoconutArray</span><span class="hl-1">()</span><br/><span class="hl-1">    </span><span class="hl-5">KoconutArray</span><span class="hl-1">.</span><span class="hl-4">of</span><span class="hl-1">()</span><br/><span class="hl-1">    </span><span class="hl-5">KoconutArray</span><span class="hl-1">.</span><span class="hl-4">from</span><span class="hl-1">() </span><span class="hl-6">// An empty array.</span><br/><br/><span class="hl-1">    </span><span class="hl-0">new</span><span class="hl-1"> </span><span class="hl-4">KoconutSet</span><span class="hl-1">()</span><br/><span class="hl-1">    </span><span class="hl-5">KoconutSet</span><span class="hl-1">.</span><span class="hl-4">of</span><span class="hl-1">()</span><br/><span class="hl-1">    </span><span class="hl-5">KoconutSet</span><span class="hl-1">.</span><span class="hl-4">from</span><span class="hl-1">() </span><span class="hl-6">// An empty set.</span><br/><br/><span class="hl-1">    </span><span class="hl-0">new</span><span class="hl-1"> </span><span class="hl-4">KoconutMap</span><span class="hl-1">()</span><br/><span class="hl-1">    </span><span class="hl-5">KcoonutMap</span><span class="hl-1">.</span><span class="hl-4">of</span><span class="hl-1">()</span><br/><span class="hl-1">    </span><span class="hl-5">KoconutMap</span><span class="hl-1">.</span><span class="hl-4">from</span><span class="hl-1">() </span><span class="hl-6">// An empty map.</span>
+<li><p>Creation of container classes allows <code>null</code> as its argument and also use it as default value. When it is omitted, it&#39;ll return an empty collection instance.</p>
+<pre><code class="language-typescript"><span class="hl-0">new</span><span class="hl-1"> </span><span class="hl-4">KoconutArray</span><span class="hl-1">();</span><br/><span class="hl-5">KoconutArray</span><span class="hl-1">.</span><span class="hl-4">of</span><span class="hl-1">();</span><br/><span class="hl-5">KoconutArray</span><span class="hl-1">.</span><span class="hl-4">from</span><span class="hl-1">(); </span><span class="hl-6">// An empty array.</span><br/><br/><span class="hl-0">new</span><span class="hl-1"> </span><span class="hl-4">KoconutSet</span><span class="hl-1">();</span><br/><span class="hl-5">KoconutSet</span><span class="hl-1">.</span><span class="hl-4">of</span><span class="hl-1">();</span><br/><span class="hl-5">KoconutSet</span><span class="hl-1">.</span><span class="hl-4">from</span><span class="hl-1">(); </span><span class="hl-6">// An empty set.</span><br/><br/><span class="hl-0">new</span><span class="hl-1"> </span><span class="hl-4">KoconutMap</span><span class="hl-1">();</span><br/><span class="hl-5">KcoonutMap</span><span class="hl-1">.</span><span class="hl-4">of</span><span class="hl-1">();</span><br/><span class="hl-5">KoconutMap</span><span class="hl-1">.</span><span class="hl-4">from</span><span class="hl-1">(); </span><span class="hl-6">// An empty map.</span>
 </code></pre>
-  If you&#39;re using TypeScript, it is recommended to declare generic type explicitly.</li>
+<p>If you&#39;re using TypeScript, it is recommended to declare generic type explicitly.</p>
+</li>
 </ul>
 
 <a href="#repository-1" id="repository-1" style="color: inherit; text-decoration: none;">
