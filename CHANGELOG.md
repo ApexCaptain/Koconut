@@ -2,13 +2,24 @@
 
 <hr>
 
-## Release **v1.0.16**
+## Release **v1.0.162**
 
 <div style="text-align: right; font-weight : bold; color : orange">
-22 Nov 2021 
+8 Dec 2021 
 </div>
 
-<br>
+### Bug Fixes and Other Changes
+
+- Fix some methods that did not print out intelliSence description of method example source.
+
+### Known Caveats
+
+- Changed the minimum Node.js version from 7 to 12 in order to follow [node.js release and maintenance policy](https://nodejs.org/en/about/releases/).
+
+### Repository
+
+- [API Document Page](https://apexcaptain.github.io/Koconut/) supports dark mode theme.
+  <br>
 
 ## Release **v1.0.15**
 
@@ -75,7 +86,7 @@
 
   const numberKeyStringValueMap = await KoconutMap.generate(
     5,
-    (i) => [i, i.toString()]
+    (i) => [i, i.toString()],
     // ↑ Also can be
     //   new Pair(i, i.toString())
     //   Pair.from([i, i.toString()])
@@ -92,17 +103,7 @@
 
 - Mapping and filtering methods of collections with specified target destination is now propery applied to `Set` when the value is instance of
   your custom class that inherits `KoconutEquatable`.
-      Applied Methods
-      - `flatMapTo`
-      - `mapTo`
-      - `mapNotNullTo`
-      - `flatMapIndexedTo`
-      - `mapIndexedTo`
-      - `mapIndexedNotNullTo`
-      - `filterTo`
-      - `filterNotTo`
-      - `filterIndexedTo`
-      - `filterNotNullTo`
+  Applied Methods - `flatMapTo` - `mapTo` - `mapNotNullTo` - `flatMapIndexedTo` - `mapIndexedTo` - `mapIndexedNotNullTo` - `filterTo` - `filterNotTo` - `filterIndexedTo` - `filterNotNullTo`
   <br>
   <br>
   <hr>
