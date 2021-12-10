@@ -13,7 +13,14 @@
     "promise",
     "iteration-process",
     "async-await",
-    "data-structures"
+    "data-structures",
+    "javascript",
+    "async",
+    "async-methods",
+    "async-iteration",
+    "array",
+    "async-functions",
+    "await"
   ],
   "engines": {
     "node": ">= 12.0"
@@ -23,15 +30,15 @@
   ],
   "scripts": {
     "// Project": "Project Commands",
-    "pro": "yarn pro@update && yarn pro@build && yarn pro@topic && yarn doc@build && yarn test && ts-node ./commands/Distributer.task.ts",
+    "pro": "yarn pro@update && yarn pro@build && yarn pro@lint && yarn pro@topic && yarn doc@render && yarn test && ts-node ./commands/Distributer.task.ts",
     "pro@update": "ncu -u && yarn && echo Update Completed",
     "pro@build": "ts-node ./commands/DirectoryCleaner.task.ts && babel ./test --out-dir ./coverage --extensions .ts,.tsx && ts-node ./commands/ManualCoveragePathsResolver.task.ts && babel ./src --out-dir dist --extensions .ts,.tsx && tsc && echo Build Completed",
     "pro@topic": "ts-node ./commands/TopicsFetcher.task.ts && echo Topics Fethcing Completed",
+    "pro@lint": "echo Applying Linter on Package files... && eslint --fix --ext .js,.ts dist coverage && echo Linting Completed",
     "// Document": "Documentization Commands",
-    "doc": "yarn doc@build && yarn doc@view",
-    "doc@build": "typedoc --options ./typedoc.json ./src/index.ts && ts-node ./commands/TypeDocAfterRenderer.task.ts && echo Documentization Completed",
+    "doc": "yarn doc@render && yarn doc@view",
+    "doc@render": "typedoc --options ./typedoc.json && ts-node ./commands/TypeDocAfterRenderer.task.ts && echo Documentization Completed",
     "doc@view": "ts-node ./commands/LocalDocumentViewer.task.ts",
-    "doc@after": "ts-node ./commands/TypeDocAfterRenderer.task.ts",
     "// Test": "Test Commands",
     "test": "echo Preparing Unit Test... && mocha -r ts-node/register ./test/*.spec.ts && echo Unit Test Completed",
     "test@coverage": "mocha ./coverage/*.spec.js --timeout 5000 && echo Coverage Test Completed",
@@ -84,7 +91,8 @@
     "prettier": "2.5.1",
     "ts-node": "^10.4.0",
     "typedoc": "^0.22.10",
-    "typescript": "4.5.2"
+    "typedoc-plugin-missing-exports": "0.22.6",
+    "typescript": "4.5.3"
   },
   "dependencies": {
     "@babel/runtime": "7.16.3"

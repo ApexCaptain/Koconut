@@ -11,6 +11,20 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['@typescript-eslint', 'spellcheck'],
+  overrides: [
+    {
+      files: ['dist/**/*', 'coverage/**/*'],
+      rules: {
+        'no-var': 'off',
+        'spellcheck/spell-checker': ['off'],
+        'no-invalid-this': ['off'],
+        'no-unused-vars': ['off'],
+        'prefer-const': ['off'],
+        'prefer-rest-params': ['off'],
+        'prefer-spread': ['off'],
+      },
+    },
+  ],
   rules: {
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
     'require-jsdoc': 'off',
@@ -69,6 +83,12 @@ module.exports = {
           'predicator',
           'str',
           'comparator',
+          'nullable',
+          'xnor',
+          'eqv',
+          'nand',
+          'versa',
+          'stringified',
         ],
       },
     ],

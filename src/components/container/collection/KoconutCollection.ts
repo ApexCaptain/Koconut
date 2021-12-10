@@ -31,6 +31,19 @@ import {
   /* Protocol */
   KoconutEquatable,
   KoconutComparable,
+
+  /* Callbacks */
+  Action,
+  Comparator,
+  Operator,
+  IndexedOperator,
+  IndexedAction,
+  Selector,
+  Predicator,
+  IndexedPredicator,
+  Transformer,
+  IndexedTransformer,
+  Zipper,
 } from '../../../module';
 import { KoconutEntry } from '../base/KoconutEntry';
 
@@ -86,10 +99,12 @@ export class KoconutCollection<
   /**
    * Accumulates value starting with ```initial``` value and applying ```operation```
    * from left to right to current accumulator value and each element.
-   * @param initial A value to use as the first argument to the first call of the ```operation```.
-   * @param operation A callback function that accepts one argument. The ```operation``` accumulates callback's return value. It's accumulated value
+   * @param {ResultDataType} initial A value to use as the first argument to the first call of the ```operation```.
+   * @param {Operator<DataType, ResultDataType>} operation A callback function that accepts one argument. The ```operation``` accumulates callback's return value. It's accumulated value
    * previously returned in the last invocation of the callback or ```initial``` value. The method calls the ```operation``` one time for each element in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```operation```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```operation```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutPrimitive<ResultDataType>}
    *
    * @since 1.0.10
    *
@@ -124,10 +139,7 @@ export class KoconutCollection<
    */
   fold<ResultDataType>(
     initial: ResultDataType,
-    operation: (
-      acc: ResultDataType,
-      element: DataType,
-    ) => ResultDataType | Promise<ResultDataType>,
+    operation: Operator<DataType, ResultDataType>,
     thisArg: any = null,
   ): KoconutPrimitive<ResultDataType> {
     operation = operation.bind(thisArg);
@@ -148,10 +160,15 @@ export class KoconutCollection<
   /**
    * Accumulates value starting with ```initial``` value and applying ```operation```
    * from left to right to current accumulator value and each element.
-   * @param initial A value to use as the first argument to the first call of the ```operation```.
-   * @param operation A callback function that accepts one argument. The ```operation``` accumulates callback's return value. It's accumulated value
+   *
+   * @param {ResultDataType} initial A value to use as the first argument to the first call of the ```operation```.
+   *
+   * @param {IndexedOperator<DataType, ResultDataType>} operation A callback function that accepts one argument. The ```operation``` accumulates callback's return value. It's accumulated value
    * previously returned in the last invocation of the callback or ```initial``` value. The method calls the ```operation``` one time for each element and index in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```operation```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```operation```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutPrimitive<ResultDataType>}
    *
    * @since 1.0.10
    *
@@ -186,11 +203,7 @@ export class KoconutCollection<
    */
   foldIndexed<ResultDataType>(
     initial: ResultDataType,
-    operation: (
-      index: number,
-      acc: ResultDataType,
-      element: DataType,
-    ) => ResultDataType | Promise<ResultDataType>,
+    operation: IndexedOperator<DataType, ResultDataType>,
     thisArg: any = null,
   ): KoconutPrimitive<ResultDataType> {
     operation = operation.bind(thisArg);
@@ -215,7 +228,9 @@ export class KoconutCollection<
   // Inspector
   /**
    * Checks if the specified element is contained in this collection.
-   * @param element The element to search for.
+   * @param {DataType} element The element to search for.
+   *
+   * @return {KoconutBoolean}
    *
    * @since 1.0.10
    *
@@ -265,7 +280,10 @@ export class KoconutCollection<
 
   /**
    * Checks if all the elements are contained in this collection.
-   * @param elements The elements to search for.
+   *
+   * @param {Iterable<DataType>} elements The elements to search for.
+   *
+   * @return {KoconutBoolean}
    *
    * @since 1.0.10
    *
@@ -326,8 +344,12 @@ export class KoconutCollection<
   /**
    * Performs the given ```action``` on each element, providing sequential index with the element.
    * When you want to stop iteration in the meantime ```return``` ```false``` or {@link KoconutLoopSignal.BREAK}.
-   * @param action A callback function that accepts two arguments. The method calls the ```action``` one time for each index and element in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```action```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {IndexedAction<DataType>} action A callback function that accepts two arguments. The method calls the ```action``` one time for each index and element in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```action```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutPrimitive<void>}
    *
    * @category Iterator
    *
@@ -398,14 +420,7 @@ export class KoconutCollection<
    * ```
    */
   forEachIndexed(
-    action: (
-      index: number,
-      element: DataType,
-    ) =>
-      | boolean
-      | KoconutLoopSignal
-      | void
-      | Promise<boolean | KoconutLoopSignal | void>,
+    action: IndexedAction<DataType>,
     thisArg: any = null,
   ): KoconutPrimitive<void> {
     action = action.bind(thisArg);
@@ -426,13 +441,7 @@ export class KoconutCollection<
 
   // No Comment - KoconutArray/KoconutSet
   onEach(
-    action: (
-      element: DataType,
-    ) =>
-      | boolean
-      | KoconutLoopSignal
-      | void
-      | Promise<boolean | KoconutLoopSignal | void>,
+    action: Action<DataType>,
     thisArg: any = null,
   ): KoconutCollection<DataType, WrapperType> {
     return KoconutCollection.fromIterable(super.onEach(action, thisArg));
@@ -440,14 +449,7 @@ export class KoconutCollection<
 
   // No Comment - KoconutArray/KoconutSet
   onEachIndexed(
-    action: (
-      index: number,
-      element: DataType,
-    ) =>
-      | boolean
-      | KoconutLoopSignal
-      | void
-      | Promise<boolean | KoconutLoopSignal | void>,
+    action: IndexedAction<DataType>,
     thisArg: any = null,
   ): KoconutCollection<DataType, WrapperType> {
     action = action.bind(thisArg);
@@ -507,10 +509,8 @@ export class KoconutCollection<
   }
 
   // No Comment - KoconutArray/KoconutSet
-  distinctBy<KeyType, EuqatableKeyType extends KoconutEquatable>(
-    selector: (
-      element: DataType,
-    ) => KeyType | EuqatableKeyType | Promise<KeyType | EuqatableKeyType>,
+  distinctBy<KeyType, EquatableKeyType extends KoconutEquatable>(
+    selector: Selector<DataType, KeyType | EquatableKeyType>,
     thisArg: any = null,
   ): KoconutCollection<DataType, WrapperType> {
     selector = selector.bind(thisArg);
@@ -521,7 +521,7 @@ export class KoconutCollection<
         const processedArray = new Array<DataType>();
         if (this.data != null) {
           const keyArray = new Array<KeyType>();
-          const equatableKeyArray = new Array<EuqatableKeyType>();
+          const equatableKeyArray = new Array<EquatableKeyType>();
           for (const eachDatum of this.data) {
             const eachKey = await selector(eachDatum);
             if (KoconutTypeChecker.checkIsEquatable(eachKey)) {
@@ -595,7 +595,7 @@ export class KoconutCollection<
 
   // No Comment - KoconutArray/KoconutSet
   dropLastWhile(
-    predicate: (element: DataType) => boolean | Promise<boolean>,
+    predicate: Predicator<DataType>,
     thisArg: any = null,
   ): KoconutCollection<DataType, WrapperType> {
     predicate = predicate.bind(thisArg);
@@ -627,7 +627,7 @@ export class KoconutCollection<
 
   // No Comment - KoconutArray/KoconutSet
   dropWhile(
-    predicate: (element: DataType) => boolean | Promise<boolean>,
+    predicate: Predicator<DataType>,
     thisArg: any = null,
   ): KoconutCollection<DataType, WrapperType> {
     predicate = predicate.bind(thisArg);
@@ -655,7 +655,7 @@ export class KoconutCollection<
 
   // No Comment - KoconutArray/KoconutSet
   filter(
-    predicate: (element: DataType) => boolean | Promise<boolean>,
+    predicate: Predicator<DataType>,
     thisArg: any = null,
   ): KoconutCollection<DataType, WrapperType> {
     return KoconutCollection.fromIterable(super.filter(predicate, thisArg));
@@ -663,7 +663,7 @@ export class KoconutCollection<
 
   // No Comment - KoconutArray/KoconutSet
   filterNot(
-    predicate: (element: DataType) => boolean | Promise<boolean>,
+    predicate: Predicator<DataType>,
     thisArg: any = null,
   ): KoconutCollection<DataType, WrapperType> {
     return KoconutCollection.fromIterable(super.filterNot(predicate, thisArg));
@@ -672,7 +672,7 @@ export class KoconutCollection<
   // No Comment - KoconutArray/KoconutSet
   filterTo(
     destination: Array<DataType> | Set<DataType>,
-    predicate: (element: DataType) => boolean | Promise<boolean>,
+    predicate: Predicator<DataType>,
     thisArg: any = null,
   ): KoconutCollection<DataType, WrapperType> {
     predicate = predicate.bind(thisArg);
@@ -703,7 +703,7 @@ export class KoconutCollection<
   // No Comment - KoconutArray/KoconutSet
   filterNotTo(
     destination: Array<DataType> | Set<DataType>,
-    predicate: (element: DataType) => boolean | Promise<boolean>,
+    predicate: Predicator<DataType>,
     thisArg: any = null,
   ): KoconutCollection<DataType, WrapperType> {
     predicate = predicate.bind(thisArg);
@@ -733,7 +733,7 @@ export class KoconutCollection<
 
   // No Comment - KoconutArray/KoconutSet
   filterIndexed(
-    predicate: (index: number, element: DataType) => boolean | Promise<boolean>,
+    predicate: IndexedPredicator<DataType>,
     thisArg: any = null,
   ): KoconutCollection<DataType, WrapperType> {
     predicate = predicate.bind(thisArg);
@@ -756,7 +756,7 @@ export class KoconutCollection<
   // No Comment - KoconutArray/KoconutSet
   filterIndexedTo(
     destination: Array<DataType> | Set<DataType>,
-    predicate: (index: number, element: DataType) => boolean | Promise<boolean>,
+    predicate: IndexedPredicator<DataType>,
     thisArg: any = null,
   ): KoconutCollection<DataType, WrapperType> {
     predicate = predicate.bind(thisArg);
@@ -834,13 +834,7 @@ export class KoconutCollection<
 
   // No Comment - KoconutArray/KoconutSet
   sortedBy(
-    selector: (
-      element: DataType,
-    ) =>
-      | number
-      | string
-      | KoconutComparable
-      | Promise<number | string | KoconutComparable>,
+    selector: Selector<DataType, number | string | KoconutComparable>,
     thisArg: any = null,
   ): KoconutCollection<DataType, WrapperType> {
     selector = selector.bind(thisArg);
@@ -852,29 +846,31 @@ export class KoconutCollection<
         if (this.data != null) {
           const dataArray = Array.from(this.data);
           for (const eachIndex in dataArray) {
-            const currentComparable = await selector(dataArray[eachIndex]);
-            let startIndex = 0;
-            let middleIndex: number;
-            let endIndex = processedArray.length;
-            while (startIndex < endIndex) {
-              middleIndex = Math.floor((startIndex + endIndex) / 2);
-              const targetComparable = await selector(
-                processedArray[middleIndex],
-              );
-              let isCurrentGreater = false;
-              if (KoconutTypeChecker.checkIsComparable(currentComparable)) {
-                const eachCompareResult =
-                  currentComparable.compareTo(targetComparable);
-                let numberResult = 0;
-                if (eachCompareResult instanceof KoconutPrimitive)
-                  numberResult = await eachCompareResult.yield();
-                else numberResult = eachCompareResult;
-                if (numberResult > 0) isCurrentGreater = true;
-              } else isCurrentGreater = targetComparable < currentComparable;
-              if (isCurrentGreater) startIndex = middleIndex + 1;
-              else endIndex = middleIndex;
+            if (Object.prototype.hasOwnProperty.call(dataArray, eachIndex)) {
+              const currentComparable = await selector(dataArray[eachIndex]);
+              let startIndex = 0;
+              let middleIndex: number;
+              let endIndex = processedArray.length;
+              while (startIndex < endIndex) {
+                middleIndex = Math.floor((startIndex + endIndex) / 2);
+                const targetComparable = await selector(
+                  processedArray[middleIndex],
+                );
+                let isCurrentGreater = false;
+                if (KoconutTypeChecker.checkIsComparable(currentComparable)) {
+                  const eachCompareResult =
+                    currentComparable.compareTo(targetComparable);
+                  let numberResult = 0;
+                  if (eachCompareResult instanceof KoconutPrimitive)
+                    numberResult = await eachCompareResult.yield();
+                  else numberResult = eachCompareResult;
+                  if (numberResult > 0) isCurrentGreater = true;
+                } else isCurrentGreater = targetComparable < currentComparable;
+                if (isCurrentGreater) startIndex = middleIndex + 1;
+                else endIndex = middleIndex;
+              }
+              processedArray.splice(endIndex, 0, dataArray[eachIndex]);
             }
-            processedArray.splice(endIndex, 0, dataArray[eachIndex]);
           }
         }
         if (this.data instanceof Array) return processedArray as WrapperType;
@@ -885,13 +881,7 @@ export class KoconutCollection<
 
   // No Comment - KoconutArray/KoconutSet
   sortedByDescending(
-    selector: (
-      element: DataType,
-    ) =>
-      | number
-      | string
-      | KoconutComparable
-      | Promise<number | string | KoconutComparable>,
+    selector: Selector<DataType, number | string | KoconutComparable>,
     thisArg: any = null,
   ): KoconutCollection<DataType, WrapperType> {
     selector = selector.bind(thisArg);
@@ -903,29 +893,31 @@ export class KoconutCollection<
         if (this.data != null) {
           const dataArray = Array.from(this.data);
           for (const eachIndex in dataArray) {
-            const currentComparable = await selector(dataArray[eachIndex]);
-            let startIndex = 0;
-            let middleIndex: number;
-            let endIndex = processedArray.length;
-            while (startIndex < endIndex) {
-              middleIndex = Math.floor((startIndex + endIndex) / 2);
-              const targetComparable = await selector(
-                processedArray[middleIndex],
-              );
-              let isCurrentLesser = false;
-              if (KoconutTypeChecker.checkIsComparable(currentComparable)) {
-                const eachCompareResult =
-                  currentComparable.compareTo(targetComparable);
-                let numberResult = 0;
-                if (eachCompareResult instanceof KoconutPrimitive)
-                  numberResult = await eachCompareResult.yield();
-                else numberResult = eachCompareResult;
-                if (numberResult < 0) isCurrentLesser = true;
-              } else isCurrentLesser = targetComparable > currentComparable;
-              if (isCurrentLesser) startIndex = middleIndex + 1;
-              else endIndex = middleIndex;
+            if (Object.prototype.hasOwnProperty.call(dataArray, eachIndex)) {
+              const currentComparable = await selector(dataArray[eachIndex]);
+              let startIndex = 0;
+              let middleIndex: number;
+              let endIndex = processedArray.length;
+              while (startIndex < endIndex) {
+                middleIndex = Math.floor((startIndex + endIndex) / 2);
+                const targetComparable = await selector(
+                  processedArray[middleIndex],
+                );
+                let isCurrentLesser = false;
+                if (KoconutTypeChecker.checkIsComparable(currentComparable)) {
+                  const eachCompareResult =
+                    currentComparable.compareTo(targetComparable);
+                  let numberResult = 0;
+                  if (eachCompareResult instanceof KoconutPrimitive)
+                    numberResult = await eachCompareResult.yield();
+                  else numberResult = eachCompareResult;
+                  if (numberResult < 0) isCurrentLesser = true;
+                } else isCurrentLesser = targetComparable > currentComparable;
+                if (isCurrentLesser) startIndex = middleIndex + 1;
+                else endIndex = middleIndex;
+              }
+              processedArray.splice(endIndex, 0, dataArray[eachIndex]);
             }
-            processedArray.splice(endIndex, 0, dataArray[eachIndex]);
           }
         }
         if (this.data instanceof Array) return processedArray as WrapperType;
@@ -936,7 +928,7 @@ export class KoconutCollection<
 
   // No Comment - KoconutArray/KoconutSet
   sortedWith(
-    comparator: (front: DataType, rear: DataType) => number | Promise<number>,
+    comparator: Comparator<DataType>,
     thisArg: any = null,
   ): KoconutCollection<DataType, WrapperType> {
     comparator = comparator.bind(thisArg);
@@ -948,21 +940,23 @@ export class KoconutCollection<
         if (this.data != null) {
           const dataArray = Array.from(this.data);
           for (const eachIndex in dataArray) {
-            let startIndex = 0;
-            let middleIndex: number;
-            let endIndex = processedArray.length;
-            while (startIndex < endIndex) {
-              middleIndex = Math.floor((startIndex + endIndex) / 2);
-              if (
-                (await comparator(
-                  dataArray[eachIndex],
-                  processedArray[middleIndex],
-                )) >= 0
-              )
-                startIndex = middleIndex + 1;
-              else endIndex = middleIndex;
+            if (Object.prototype.hasOwnProperty.call(dataArray, eachIndex)) {
+              let startIndex = 0;
+              let middleIndex: number;
+              let endIndex = processedArray.length;
+              while (startIndex < endIndex) {
+                middleIndex = Math.floor((startIndex + endIndex) / 2);
+                if (
+                  (await comparator(
+                    dataArray[eachIndex],
+                    processedArray[middleIndex],
+                  )) >= 0
+                )
+                  startIndex = middleIndex + 1;
+                else endIndex = middleIndex;
+              }
+              processedArray.splice(endIndex, 0, dataArray[eachIndex]);
             }
-            processedArray.splice(endIndex, 0, dataArray[eachIndex]);
           }
         }
         if (this.data instanceof Array) return processedArray as WrapperType;
@@ -1003,7 +997,7 @@ export class KoconutCollection<
 
   // No Comment - KoconutArray/KoconutSet
   takeLastWhile(
-    predicate: (element: DataType) => boolean | Promise<boolean>,
+    predicate: Predicator<DataType>,
     thisArg: any = null,
   ): KoconutCollection<DataType, WrapperType> {
     predicate = predicate.bind(thisArg);
@@ -1028,7 +1022,7 @@ export class KoconutCollection<
 
   // No Comment - KoconutArray/KoconutSet
   takeWhile(
-    predicate: (element: DataType) => boolean | Promise<boolean>,
+    predicate: Predicator<DataType>,
     thisArg: any = null,
   ): KoconutCollection<DataType, WrapperType> {
     predicate = predicate.bind(thisArg);
@@ -1054,7 +1048,10 @@ export class KoconutCollection<
   // Selector
   /**
    * Returns an element at the given ```index``` or throws an {@link KoconutIndexOutOfBoundsException} if the ```index``` is out of bounds of this collection.
-   * @param index The index of element to search for.
+   *
+   * @param {number} index The index of element to search for.
+   *
+   * @return {KoconutPrimitive<DataType>}
    *
    * @throws {@link KoconutIndexOutOfBoundsException}
    * -- When ```index``` is less than 0 or greater than lenth.
@@ -1119,9 +1116,11 @@ export class KoconutCollection<
   /**
    * Returns an element at the given ```index``` or the result of calling the ```defaultValue``` function
    * if the ```index``` is out of bounds of this collection.
-   * @param index The index of element to search for.
-   * @param defaultValue A callback function that accepts an argument. The method calls the ```defaultValue``` function when ```index``` is out of bounds.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```defaultValue```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   * @param {number} index The index of element to search for.
+   * @param {Selector<number, DataType>} defaultValue A callback function that accepts an argument. The method calls the ```defaultValue``` function when ```index``` is out of bounds.
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```defaultValue```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutPrimitive<DataType>}
    *
    * @since 1.0.10
    *
@@ -1162,7 +1161,7 @@ export class KoconutCollection<
    */
   elementAtOrElse(
     index: number,
-    defaultValue: (index: number) => DataType | Promise<DataType>,
+    defaultValue: Selector<number, DataType>,
     thisArg: any = null,
   ): KoconutPrimitive<DataType> {
     defaultValue = defaultValue.bind(thisArg);
@@ -1178,7 +1177,9 @@ export class KoconutCollection<
 
   /**
    * Returns an element at the given ```index``` or ```null``` if the index is out of bounds of this collection.
-   * @param index The index of element to search for.
+   * @param {number} index The index of element to search for.
+   *
+   * @return {KoconutPrimitive<DataType | null>}
    *
    * @since 1.0.10
    *
@@ -1230,8 +1231,12 @@ export class KoconutCollection<
 
   /**
    * Returns the first element matching the given ```predicate```, or ```null``` if no such element was found.
-   * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Predicator<DataType>} predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutPrimitive<DataType | null>}
    *
    * @since 1.0.10
    *
@@ -1271,7 +1276,7 @@ export class KoconutCollection<
    * ```
    */
   find(
-    predicate: (element: DataType) => boolean | Promise<boolean>,
+    predicate: Predicator<DataType>,
     thisArg: any = null,
   ): KoconutPrimitive<DataType | null> {
     predicate = predicate.bind(thisArg);
@@ -1289,8 +1294,12 @@ export class KoconutCollection<
 
   /**
    * Returns the last element matching the given ```predicate```, or ```null``` if no such element was found.
-   * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Predicator<DataType>} predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutPrimitive<DataType | null>}
    *
    * @since 1.0.10
    *
@@ -1330,7 +1339,7 @@ export class KoconutCollection<
    * ```
    */
   findLast(
-    predicate: (element: DataType) => boolean | Promise<boolean>,
+    predicate: Predicator<DataType>,
     thisArg: any = null,
   ): KoconutPrimitive<DataType | null> {
     predicate = predicate.bind(thisArg);
@@ -1357,8 +1366,12 @@ export class KoconutCollection<
    * Returns the first element matching the given ```predicate```. Or, if ```predicate``` is omitted
    * method will just return the very first element of this collection. If source data is null or no element
    * matching given ```predicate``` is found, it throws {@link KoconutNoSuchElementException}.
-   * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Predicator<DataType> | null } predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutPrimitive<DataType>}
    *
    * @throws {@link KoconutNoSuchElementException}
    * -- When source data is empty or no element matching given ```predicate``` is found.
@@ -1411,9 +1424,12 @@ export class KoconutCollection<
    * ```
    */
   first(
+    predicate: Predicator<DataType> | null = null,
+    /*
     predicate:
       | ((element: DataType) => boolean | Promise<boolean>)
       | null = null,
+      */
     thisArg: any = null,
   ): KoconutPrimitive<DataType> {
     if (predicate) predicate = predicate.bind(thisArg);
@@ -1439,8 +1455,10 @@ export class KoconutCollection<
    * Returns the first element matching the given ```predicate```. Or, if ```predicate``` is omitted
    * method will just return the very first element of this collection. If source data is null or no element
    * matching given ```predicate``` is found, it returns ```null```.
-   * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   * @param {Predicator<DataType> | null} predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutPrimitive<DataType | null>}
    *
    * @since 1.0.10
    *
@@ -1487,9 +1505,7 @@ export class KoconutCollection<
    * ```
    */
   firstOrNull(
-    predicate:
-      | ((element: DataType) => boolean | Promise<boolean>)
-      | null = null,
+    predicate: Predicator<DataType> | null = null,
     thisArg: any = null,
   ): KoconutPrimitive<DataType | null> {
     if (predicate) predicate = predicate.bind(thisArg);
@@ -1510,7 +1526,9 @@ export class KoconutCollection<
 
   /**
    * Returns first index of element. or -1 if the collection does not contains element.
-   * @param elementToFind The element to search for.
+   * @param {DataType} elementToFind The element to search for.
+   *
+   * @return {KoconutPrimitive<number>}
    *
    * @since 1.0.10
    *
@@ -1564,8 +1582,12 @@ export class KoconutCollection<
   /**
    * Returns index of the first element matching the given ```predicate```, or -1 if the
    * collection does not contain such element.
-   * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Predicator<DataType>} predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutPrimitive<number>}
    *
    * @since 1.0.10
    *
@@ -1593,7 +1615,7 @@ export class KoconutCollection<
    * ```
    */
   indexOfFirst(
-    predicate: (element: DataType) => boolean | Promise<boolean>,
+    predicate: Predicator<DataType>,
     thisArg: any = null,
   ): KoconutPrimitive<number> {
     predicate = predicate.bind(thisArg);
@@ -1613,8 +1635,12 @@ export class KoconutCollection<
   /**
    * Returns index of the last element matching the given ```predicate```, or -1 if the
    * collection does not contain such element.
-   * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Predicator<DataType>} predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutPrimitive<number>}
    *
    * @since 1.0.10
    *
@@ -1642,7 +1668,7 @@ export class KoconutCollection<
    * ```
    */
   indexOfLast(
-    predicate: (element: DataType) => boolean | Promise<boolean>,
+    predicate: Predicator<DataType>,
     thisArg: any = null,
   ): KoconutPrimitive<number> {
     predicate = predicate.bind(thisArg);
@@ -1668,8 +1694,10 @@ export class KoconutCollection<
   /**
    * Returns a {@link KoconutMap} containing key-value paired {@link Entry} provided by ```transform```
    * function applied to elements of the given collection.
-   * @param transform A callback function that accepts an argument. The method calls the ```transform``` one time for each element in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   * @param {Transformer<DataType,[KeyType, ValueType]| Pair<KeyType, ValueType> | KoconutPair<KeyType, ValueType> | Entry<KeyType, ValueType>| KoconutEntry<KeyType, ValueType>>} transform A callback function that accepts an argument. The method calls the ```transform``` one time for each element in object.
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutMap<KeyType, ValueType>}
    *
    * @since 1.0.10
    *
@@ -1723,21 +1751,14 @@ export class KoconutCollection<
    * ```
    */
   associate<KeyType, ValueType>(
-    transform: (
-      element: DataType,
-    ) =>
+    transform: Transformer<
+      DataType,
       | [KeyType, ValueType]
       | Pair<KeyType, ValueType>
       | KoconutPair<KeyType, ValueType>
       | Entry<KeyType, ValueType>
       | KoconutEntry<KeyType, ValueType>
-      | Promise<
-          | [KeyType, ValueType]
-          | Pair<KeyType, ValueType>
-          | KoconutPair<KeyType, ValueType>
-          | Entry<KeyType, ValueType>
-          | KoconutEntry<KeyType, ValueType>
-        >,
+    >,
     thisArg: any = null,
   ): KoconutMap<KeyType, ValueType> {
     transform = transform.bind(thisArg);
@@ -1780,12 +1801,18 @@ export class KoconutCollection<
    * Returns a {@link KoconutMap} containing the elements from the given collection indexed by the key
    * returned from ```keySelector``` function applied to each element.
    * ```valueTransform``` callback function is optional. If it's not omitted the method returns
-   * a {@link KoconutMap} instance containing the values provied by the function and indexed by ```keySelector```
+   * a {@link KoconutMap} instance containing the values provide by the function and indexed by ```keySelector```
    * applied to elements of the given collection.
-   * @param keySelector A callback function that accepts an argument. The method calls the ```keySelector``` one time for each element in object.
-   * @param valueTransform A callback function that accepts an argument. The method calls the ```valueTransform``` one time for each element in object it it's not omitted.
-   * @param keySelectorThisArg An object to which the ```this``` keyword can refer in the ```keySelector```. If ```keySelectorThisArg``` is omitted, ```null``` is used as the ```this``` value.
-   * @param valueTransformThisArg An object to which the ```this``` keyword can refer in the ```valueTransform```. If ```valueTransformThisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Selector<DataType, KeyType>} keySelector A callback function that accepts an argument. The method calls the ```keySelector``` one time for each element in object.
+   *
+   * @param {Transformer<DataType, ValueType> | null} valueTransform A callback function that accepts an argument. The method calls the ```valueTransform``` one time for each element in object it it's not omitted.
+   *
+   * @param {any} keySelectorThisArg An object to which the ```this``` keyword can refer in the ```keySelector```. If ```keySelectorThisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {any} valueTransformThisArg An object to which the ```this``` keyword can refer in the ```valueTransform```. If ```valueTransformThisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutMap<KeyType, ValueType>}
    *
    * @since 1.0.10
    *
@@ -1819,7 +1846,7 @@ export class KoconutCollection<
    *
    * const doubledKeySquaredValueMap = await koconutArray2
    *                   .associateBy(
-   *                       async eachNumebr => eachNumebr * 2,
+   *                       async eachNumber => eachNumber * 2,
    *                       eachNumber => new Promise(resolve => {
    *                           resolve(eachNumber * eachNumber)
    *                       })
@@ -1830,10 +1857,8 @@ export class KoconutCollection<
    * ```
    */
   associateBy<KeyType, ValueType = DataType>(
-    keySelector: (element: DataType) => KeyType | Promise<KeyType>,
-    valueTransform:
-      | ((element: DataType) => ValueType | Promise<ValueType>)
-      | null = null,
+    keySelector: Selector<DataType, KeyType>,
+    valueTransform: Transformer<DataType, ValueType> | null = null,
     keySelectorThisArg: any = null,
     valueTransformThisArg: any = null,
   ): KoconutMap<KeyType, ValueType> {
@@ -1862,10 +1887,8 @@ export class KoconutCollection<
   // No Comment - KoconutArray/KoconutSet
   associateByTo<KeyType, ValueType = DataType>(
     destination: Map<KeyType, ValueType>,
-    keySelector: (element: DataType) => KeyType | Promise<KeyType>,
-    valueTransform:
-      | ((element: DataType) => ValueType | Promise<ValueType>)
-      | null = null,
+    keySelector: Selector<DataType, KeyType>,
+    valueTransform: Transformer<DataType, ValueType> | null = null,
     keySelectorThisArg: any = null,
     valueTransformThisArg: any = null,
   ): KoconutCollection<DataType, WrapperType> {
@@ -1894,21 +1917,14 @@ export class KoconutCollection<
   // No Comment - KoconutArray/KoconutSet
   associateTo<KeyType, ValueType>(
     destination: Map<KeyType, ValueType>,
-    transform: (
-      element: DataType,
-    ) =>
+    transform: Transformer<
+      DataType,
       | [KeyType, ValueType]
       | Pair<KeyType, ValueType>
       | KoconutPair<KeyType, ValueType>
       | Entry<KeyType, ValueType>
       | KoconutEntry<KeyType, ValueType>
-      | Promise<
-          | [KeyType, ValueType]
-          | Pair<KeyType, ValueType>
-          | KoconutPair<KeyType, ValueType>
-          | Entry<KeyType, ValueType>
-          | KoconutEntry<KeyType, ValueType>
-        >,
+    >,
     thisArg: any = null,
   ): KoconutCollection<DataType, WrapperType> {
     transform = transform.bind(thisArg);
@@ -1929,8 +1945,12 @@ export class KoconutCollection<
   /**
    * Returns a {@link KoconutMap} where keys are original elements of the current object and values
    * are produced by the ```valueSelector``` function applied to each element.
-   * @param valueSelector A callback function that accepts an argument. The method calls the ```valueSelector``` one time for each element in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```valueSelector```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Selector<DataType, ValueType>} valueSelector A callback function that accepts an argument. The method calls the ```valueSelector``` one time for each element in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```valueSelector```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutMap<DataType, ValueType>}
    *
    * @since 1.0.10
    *
@@ -1965,17 +1985,17 @@ export class KoconutCollection<
    * console.log(squaredValueMap)
    * // ↑ Map { 1 => 2, 2 => 4, 3 => 6, 4 => 8, 5 => 10 }
    *
-   * const trippledValueMap = await koconutArray2
+   * const tripledValueMap = await koconutArray2
    *                   .associateWith(eachNumber => new Promise(resolve => {
    *                       resolve(eachNumber * 3)
    *                   }))
    *                   .yield()
-   * console.log(trippledValueMap)
+   * console.log(tripledValueMap)
    * // ↑ Map { 1 => 3, 2 => 6, 3 => 9, 4 => 12, 5 => 15 }
    * ```
    */
   associateWith<ValueType>(
-    valueSelector: (element: DataType) => ValueType | Promise<ValueType>,
+    valueSelector: Selector<DataType, ValueType>,
     thisArg: any = null,
   ): KoconutMap<DataType, ValueType> {
     valueSelector = valueSelector.bind(thisArg);
@@ -1998,7 +2018,7 @@ export class KoconutCollection<
   // No Comment - KoconutArray/KoconutSet
   associateWithTo<ValueType>(
     destination: Map<DataType, ValueType>,
-    valueSelector: (element: DataType) => ValueType | Promise<ValueType>,
+    valueSelector: Selector<DataType, ValueType>,
     thisArg: any = null,
   ): KoconutCollection<DataType, WrapperType> {
     valueSelector = valueSelector.bind(thisArg);
@@ -2016,19 +2036,14 @@ export class KoconutCollection<
     return koconutToReturn;
   }
 
-  /** @ignore */
-  chunked<ResultDataType>(
-    size: number,
-    transform: (
-      elements: Array<DataType>,
-    ) => ResultDataType | Promise<ResultDataType>,
-  ): KoconutArray<ResultDataType>;
   /**
    * Splits this collection into a {@link KoconutArray} of ```Arrays```
    * each not exceeding the given ```size```.
-   * @param size The number of elements to take in each ```Array```, must be positive and can be greater than the number of elements in this collection.
-   * @param transform A callback function that accepts an argument. The method calls the ```transform``` with chunked data ```array``` when it's not omitted.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   * @param {number} size The number of elements to take in each ```Array```, must be positive and can be greater than the number of elements in this collection.
+   * @param {Transformer<Array<DataType>, ResultDataType> | null} transform A callback function that accepts an argument. The method calls the ```transform``` with chunked data ```array``` when it's not omitted.
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @returns {KoconutArray<Array<DataType> | ResultDataType>}
    *
    * @throws {@link KoconutInvalidArgumentException}
    * -- When ```size``` is not greater than 0.
@@ -2057,7 +2072,7 @@ export class KoconutCollection<
    *   // ↑ Koconut Invalid Argument Exception
    * }
    *
-   * // Case 2 -- Koconutset
+   * // Case 2 -- KoconutSet
    * const koconutSet = KoconutSet.of(1,2,3,4,5)
    *
    * const chunkedSum = await koconutSet
@@ -2106,19 +2121,25 @@ export class KoconutCollection<
    */
   chunked<ResultDataType>(
     size: number,
-    transform: (
-      elements: Array<DataType>,
-    ) => ResultDataType | Promise<ResultDataType>,
+    transform: Transformer<Array<DataType>, ResultDataType> | null,
     thisArg: any,
-  ): KoconutArray<ResultDataType>;
+  ): KoconutArray<Array<DataType> | ResultDataType>;
+  /** @ignore */
   chunked(size: number): KoconutArray<Array<DataType>>;
+  /** @ignore */
   chunked<ResultDataType>(
     size: number,
-    transform:
-      | ((
-          elements: Array<DataType>,
-        ) => ResultDataType | Promise<ResultDataType>)
-      | null = null,
+    transform: Transformer<Array<DataType>, ResultDataType>,
+  ): KoconutArray<ResultDataType>;
+  /** @ignore */
+  chunked<ResultDataType>(
+    size: number,
+    transform: Transformer<Array<DataType>, ResultDataType>,
+    thisArg: any,
+  ): KoconutArray<ResultDataType>;
+  chunked<ResultDataType>(
+    size: number,
+    transform: Transformer<Array<DataType>, ResultDataType> | null = null,
     thisArg: any = null,
   ): KoconutArray<Array<DataType> | ResultDataType> {
     if (transform) transform = transform.bind(thisArg);
@@ -2150,9 +2171,15 @@ export class KoconutCollection<
         if (transform) {
           const transformedArray = new Array<ResultDataType>();
           for (const eachProcessedIndex in processedArray)
-            transformedArray.push(
-              await transform(processedArray[eachProcessedIndex]),
-            );
+            if (
+              Object.prototype.hasOwnProperty.call(
+                processedArray,
+                eachProcessedIndex,
+              )
+            )
+              transformedArray.push(
+                await transform(processedArray[eachProcessedIndex]),
+              );
           return transformedArray;
         }
         return processedArray;
@@ -2162,8 +2189,12 @@ export class KoconutCollection<
 
   /**
    * Returns a {@link KoconutArray} of all elements yielded from results of ```transform``` function being invoked on each element of original collection.
-   * @param transform A callback function that accepts two arguments. The method calls the ```transform``` one time for each index and element in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {IndexedTransformer<DataType, Iterable<ResultDataType>>} transform A callback function that accepts two arguments. The method calls the ```transform``` one time for each index and element in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutArray<ResultDataType>}
    *
    * @since 1.0.10
    *
@@ -2226,10 +2257,7 @@ export class KoconutCollection<
    * ```
    */
   flatMapIndexed<ResultDataType>(
-    transform: (
-      index: number,
-      element: DataType,
-    ) => Iterable<ResultDataType> | Promise<Iterable<ResultDataType>>,
+    transform: IndexedTransformer<DataType, Iterable<ResultDataType>>,
     thisArg: any = null,
   ): KoconutArray<ResultDataType> {
     transform = transform.bind(thisArg);
@@ -2255,9 +2283,7 @@ export class KoconutCollection<
   // No Comment - KoconutArray/KoconutSet
   flatMapTo<ResultDataType>(
     destination: Array<ResultDataType> | Set<ResultDataType>,
-    transform: (
-      element: DataType,
-    ) => Iterable<ResultDataType> | Promise<Iterable<ResultDataType>>,
+    transform: Transformer<DataType, Iterable<ResultDataType>>,
     thisArg: any = null,
   ): KoconutCollection<DataType, WrapperType> {
     return KoconutCollection.fromIterable(
@@ -2268,10 +2294,7 @@ export class KoconutCollection<
   // No Comment - KoconutArray/KoconutSet
   flatMapIndexedTo<ResultDataType>(
     destination: Array<ResultDataType> | Set<ResultDataType>,
-    transform: (
-      index: number,
-      element: DataType,
-    ) => Iterable<ResultDataType> | Promise<Iterable<ResultDataType>>,
+    transform: IndexedTransformer<DataType, Iterable<ResultDataType>>,
     thisArg: any = null,
   ): KoconutCollection<DataType, WrapperType> {
     transform = transform.bind(thisArg);
@@ -2303,11 +2326,17 @@ export class KoconutCollection<
    * Groups values returned by the ```valueTransform``` function applied to each element of the original collection
    * by the key returned by the given ```keySelector``` function applied to the element and returns a map where each
    * group key is associated with a list of corresponding values. If ```valueTransform``` is omitted, the ```value``` of
-   * each entry would be origianl element.
-   * @param keySelector A callback function that accepts an argument. The method calls the ```keySelector``` one time for each element in object.
-   * @param valueTransform A callback function that accepts an argument. The method calls the ```valueTransform``` one time for each element in object it it's not omitted.
-   * @param keySelectorThisArg An object to which the ```this``` keyword can refer in the ```keySelector```. If ```keySelectorThisArg``` is omitted, ```null``` is used as the ```this``` value.
-   * @param valueTransformThisArg An object to which the ```this``` keyword can refer in the ```valueTransform```. If ```valueTransformThisArg``` is omitted, ```null``` is used as the ```this``` value.
+   * each entry would be original element.
+   *
+   * @param {Selector<DataType, KeyType>} keySelector A callback function that accepts an argument. The method calls the ```keySelector``` one time for each element in object.
+   *
+   * @param {Transformer<DataType, ValueType> | null} valueTransform A callback function that accepts an argument. The method calls the ```valueTransform``` one time for each element in object it it's not omitted.
+   *
+   * @param {any} keySelectorThisArg An object to which the ```this``` keyword can refer in the ```keySelector```. If ```keySelectorThisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {any} valueTransformThisArg An object to which the ```this``` keyword can refer in the ```valueTransform```. If ```valueTransformThisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutMap<KeyType, Array<ValueType>>}
    *
    * @since 1.0.10
    *
@@ -2339,10 +2368,8 @@ export class KoconutCollection<
    * ```
    */
   groupBy<KeyType, ValueType = DataType>(
-    keySelector: (element: DataType) => KeyType | Promise<KeyType>,
-    valueTransform:
-      | ((element: DataType) => ValueType | Promise<ValueType>)
-      | null = null,
+    keySelector: Selector<DataType, KeyType>,
+    valueTransform: Transformer<DataType, ValueType> | null = null,
     keySelectorThisArg: any = null,
     valueTransformThisArg: any = null,
   ): KoconutMap<KeyType, Array<ValueType>> {
@@ -2373,10 +2400,8 @@ export class KoconutCollection<
   // No Comment -- KoconutArray/KoconutSet
   groupByTo<KeyType, ValueType = DataType>(
     destination: Map<KeyType, Array<ValueType>>,
-    keySelector: (element: DataType) => KeyType | Promise<KeyType>,
-    valueTransform:
-      | ((element: DataType) => ValueType | Promise<ValueType>)
-      | null = null,
+    keySelector: Selector<DataType, KeyType>,
+    valueTransform: Transformer<DataType, ValueType> | null = null,
     keySelectorThisArg: any = null,
     valueTransformThisArg: any = null,
   ): KoconutCollection<DataType, WrapperType> {
@@ -2406,7 +2431,7 @@ export class KoconutCollection<
   // No Comment -- KoconutArray/KoconutSet
   mapTo<ResultDataType>(
     destination: Array<ResultDataType> | Set<ResultDataType>,
-    transform: (element: DataType) => ResultDataType | Promise<ResultDataType>,
+    transform: Transformer<DataType, ResultDataType>,
     thisArg: any = null,
   ): KoconutCollection<DataType, WrapperType> {
     return KoconutCollection.fromIterable(
@@ -2417,14 +2442,7 @@ export class KoconutCollection<
   // No Comment -- KoconutArray/KoconutSet
   mapNotNullTo<ResultDataType>(
     destination: Array<ResultDataType> | Set<ResultDataType>,
-    transform: (
-      element: DataType,
-    ) =>
-      | ResultDataType
-      | void
-      | null
-      | undefined
-      | Promise<ResultDataType | void | null | undefined>,
+    transform: Transformer<DataType, ResultDataType | void | null | undefined>,
     thisArg: any = null,
   ): KoconutCollection<DataType, WrapperType> {
     return KoconutCollection.fromIterable(
@@ -2433,10 +2451,14 @@ export class KoconutCollection<
   }
 
   /**
-   * Retruns a list of all elements yielded from results of ```transform``` function beging invoked
+   * Returns a list of all elements yielded from results of ```transform``` function being invoked
    * on each element and its index in the original collection.
-   * @param transform A callback function that accepts two arguments. The method calls the ```transform``` one time for each index and element in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {IndexedTransformer<DataType, ResultDataType>} transform A callback function that accepts two arguments. The method calls the ```transform``` one time for each index and element in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutArray<ResultDataType>}
    *
    * @since 1.0.10
    *
@@ -2481,10 +2503,7 @@ export class KoconutCollection<
    * ```
    */
   mapIndexed<ResultDataType>(
-    transform: (
-      index: number,
-      element: DataType,
-    ) => ResultDataType | Promise<ResultDataType>,
+    transform: IndexedTransformer<DataType, ResultDataType>,
     thisArg: any = null,
   ): KoconutArray<ResultDataType> {
     transform = transform.bind(thisArg);
@@ -2507,10 +2526,7 @@ export class KoconutCollection<
   // No Comment -- KoconutArray/KoconutSet
   mapIndexedTo<ResultDataType>(
     destination: Array<ResultDataType> | Set<ResultDataType>,
-    transform: (
-      index: number,
-      element: DataType,
-    ) => ResultDataType | Promise<ResultDataType>,
+    transform: IndexedTransformer<DataType, ResultDataType>,
     thisArg: any = null,
   ): KoconutCollection<DataType, WrapperType> {
     transform = transform.bind(thisArg);
@@ -2541,8 +2557,12 @@ export class KoconutCollection<
   /**
    * Returns a {@link KoconutArray} containing only the results that are not ```null``` nor ```undefined``` of applying
    * the given ```transform``` function to each element and its index in the original collection.
-   * @param transform A callback function that accepts two arguments. The method calls the ```transform``` one time for each index and element in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {IndexedTransformer< DataType,ResultDataType | void | null | undefined>} transform A callback function that accepts two arguments. The method calls the ```transform``` one time for each index and element in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutArray<ResultDataType>}
    *
    * @since 1.0.10
    *
@@ -2591,27 +2611,22 @@ export class KoconutCollection<
    * console.log(sumsOfIndexesAndNumbersWhereNumberIsOdd)
    * // ↑ [ 1, 5, 9 ]
    *
-   * const squaredNumbersWhereIndesIsEven = await koconutArray2
+   * const squaredNumbersWhereIndexIsEven = await koconutArray2
    *           .mapIndexedNotNull((eachIndex, eachNumber) => new Promise<number | null>(resolve => {
    *               if(eachIndex % 2 == 0)
    *                   resolve(eachNumber * eachNumber)
    *               else resolve(null)
    *           }))
    *           .yield()
-   * console.log(squaredNumbersWhereIndesIsEven)
+   * console.log(squaredNumbersWhereIndexIsEven)
    * // ↑ [ 1, 9, 25 ]
    * ```
    */
   mapIndexedNotNull<ResultDataType>(
-    transform: (
-      index: number,
-      element: DataType,
-    ) =>
-      | ResultDataType
-      | void
-      | null
-      | undefined
-      | Promise<ResultDataType | void | null | undefined>,
+    transform: IndexedTransformer<
+      DataType,
+      ResultDataType | void | null | undefined
+    >,
     thisArg: any = null,
   ): KoconutArray<ResultDataType> {
     transform = transform.bind(thisArg);
@@ -2640,15 +2655,10 @@ export class KoconutCollection<
   // No Comment -- KoconutArray/KoconutSet
   mapIndexedNotNullTo<ResultDataType>(
     destination: Array<ResultDataType> | Set<ResultDataType>,
-    transform: (
-      index: number,
-      element: DataType,
-    ) =>
-      | ResultDataType
-      | void
-      | null
-      | undefined
-      | Promise<ResultDataType | void | null | undefined>,
+    transform: IndexedTransformer<
+      DataType,
+      ResultDataType | void | null | undefined
+    >,
     thisArg: any = null,
   ): KoconutCollection<DataType, WrapperType> {
     transform = transform.bind(thisArg);
@@ -2676,7 +2686,7 @@ export class KoconutCollection<
     return koconutToReturn;
   }
 
-  /* Funcions */
+  /* Functions */
   intersect(other: Iterable<DataType>): KoconutSet<DataType> {
     const koconutToReturn = new KoconutSet<DataType>();
     (koconutToReturn as any as KoconutOpener<Set<DataType>>)
@@ -2703,7 +2713,7 @@ export class KoconutCollection<
     postfix: string = '',
     limit: number = -1,
     truncated: string = '...',
-    transform: ((element: DataType) => any | Promise<any>) | null = null,
+    transform: Transformer<DataType, any> | null = null,
     thisArg: any = null,
   ): KoconutPrimitive<string> {
     if (transform) transform = transform.bind(thisArg);
@@ -2733,9 +2743,7 @@ export class KoconutCollection<
   }
 
   last(
-    predicate:
-      | ((element: DataType) => boolean | Promise<boolean>)
-      | null = null,
+    predicate: Predicator<DataType> | null = null,
     thisArg: any = null,
   ): KoconutPrimitive<DataType> {
     if (predicate) predicate = predicate.bind(thisArg);
@@ -2790,9 +2798,7 @@ export class KoconutCollection<
   }
 
   lastOrNull(
-    predicate:
-      | ((element: DataType) => boolean | Promise<boolean>)
-      | null = null,
+    predicate: Predicator<DataType> | null = null,
     thisArg: any = null,
   ): KoconutPrimitive<DataType | null> {
     if (predicate) predicate = predicate.bind(thisArg);
@@ -2851,7 +2857,7 @@ export class KoconutCollection<
 
   // orEmpty
   partition(
-    predicate: (element: DataType) => boolean | Promise<boolean>,
+    predicate: Predicator<DataType>,
     thisArg: any = null,
   ): KoconutPair<WrapperType, WrapperType> {
     predicate = predicate.bind(thisArg);
@@ -2933,10 +2939,7 @@ export class KoconutCollection<
   }
 
   reduce(
-    operation: (
-      acc: DataType,
-      element: DataType,
-    ) => DataType | Promise<DataType>,
+    operation: Operator<DataType, DataType>,
     thisArg: any = null,
   ): KoconutPrimitive<DataType> {
     operation = operation.bind(thisArg);
@@ -2958,11 +2961,7 @@ export class KoconutCollection<
   }
 
   reduceIndexed(
-    operation: (
-      index: number,
-      acc: DataType,
-      element: DataType,
-    ) => DataType | Promise<DataType>,
+    operation: IndexedOperator<DataType, DataType>,
     thisArg: any = null,
   ): KoconutPrimitive<DataType> {
     operation = operation.bind(thisArg);
@@ -2984,11 +2983,7 @@ export class KoconutCollection<
   }
 
   reduceIndexedOrNull(
-    operation: (
-      index: number,
-      acc: DataType,
-      element: DataType,
-    ) => DataType | Promise<DataType>,
+    operation: IndexedOperator<DataType, DataType>,
     thisArg: any = null,
   ): KoconutPrimitive<DataType | null> {
     operation = operation.bind(thisArg);
@@ -3007,10 +3002,7 @@ export class KoconutCollection<
   }
 
   reduceOrNull(
-    operation: (
-      acc: DataType,
-      element: DataType,
-    ) => DataType | Promise<DataType>,
+    operation: Operator<DataType, DataType>,
     thisArg: any = null,
   ): KoconutPrimitive<DataType | null> {
     operation = operation.bind(thisArg);
@@ -3045,10 +3037,7 @@ export class KoconutCollection<
 
   runningFold<ResultDataType>(
     initial: ResultDataType,
-    operation: (
-      acc: ResultDataType,
-      element: DataType,
-    ) => ResultDataType | Promise<ResultDataType>,
+    operation: Operator<DataType, ResultDataType>,
     thisArg: any = null,
   ): KoconutArray<ResultDataType> {
     operation = operation.bind(thisArg);
@@ -3071,11 +3060,7 @@ export class KoconutCollection<
 
   runningFoldIndexed<ResultDataType>(
     initial: ResultDataType,
-    operation: (
-      index: number,
-      acc: ResultDataType,
-      element: DataType,
-    ) => ResultDataType | Promise<ResultDataType>,
+    operation: IndexedOperator<DataType, ResultDataType>,
     thisArg: any = null,
   ): KoconutArray<ResultDataType> {
     operation = operation.bind(thisArg);
@@ -3099,10 +3084,7 @@ export class KoconutCollection<
   }
 
   runningReduce(
-    operation: (
-      acc: DataType,
-      element: DataType,
-    ) => DataType | Promise<DataType>,
+    operation: Operator<DataType, DataType>,
     thisArg: any = null,
   ): KoconutArray<DataType> {
     operation = operation.bind(thisArg);
@@ -3128,11 +3110,7 @@ export class KoconutCollection<
   }
 
   runningReduceIndexed(
-    operation: (
-      index: number,
-      acc: DataType,
-      element: DataType,
-    ) => DataType | Promise<DataType>,
+    operation: IndexedOperator<DataType, DataType>,
     thisArg: any = null,
   ): KoconutArray<DataType> {
     operation = operation.bind(thisArg);
@@ -3159,10 +3137,7 @@ export class KoconutCollection<
 
   scan<ResultDataType>(
     initial: ResultDataType,
-    operation: (
-      acc: ResultDataType,
-      element: DataType,
-    ) => ResultDataType | Promise<ResultDataType>,
+    operation: Operator<DataType, ResultDataType>,
     thisArg: any = null,
   ): KoconutArray<ResultDataType> {
     operation = operation.bind(thisArg);
@@ -3185,11 +3160,7 @@ export class KoconutCollection<
 
   scanIndexed<ResultDataType>(
     initial: ResultDataType,
-    operation: (
-      index: number,
-      acc: ResultDataType,
-      element: DataType,
-    ) => ResultDataType | Promise<ResultDataType>,
+    operation: IndexedOperator<DataType, ResultDataType>,
     thisArg: any = null,
   ): KoconutArray<ResultDataType> {
     operation = operation.bind(thisArg);
@@ -3237,9 +3208,7 @@ export class KoconutCollection<
   }
 
   single(
-    predicate:
-      | ((element: DataType) => boolean | Promise<boolean>)
-      | null = null,
+    predicate: Predicator<DataType> | null = null,
     thisArg: any = null,
   ): KoconutPrimitive<DataType> {
     if (predicate) predicate = predicate.bind(thisArg);
@@ -3273,9 +3242,7 @@ export class KoconutCollection<
   }
 
   singleOrNull(
-    predicate:
-      | ((element: DataType) => boolean | Promise<boolean>)
-      | null = null,
+    predicate: Predicator<DataType> | null = null,
     thisArg: any = null,
   ): KoconutPrimitive<DataType | null> {
     if (predicate) predicate = predicate.bind(thisArg);
@@ -3316,7 +3283,7 @@ export class KoconutCollection<
   }
 
   sumBy(
-    selector: (element: DataType) => number | Promise<number>,
+    selector: Selector<DataType, number>,
     thisArg: any = null,
   ): KoconutPrimitive<number> {
     selector = selector.bind(thisArg);
@@ -3354,39 +3321,43 @@ export class KoconutCollection<
   }
 
   // unzip
+  windowed<ResultDataType>(
+    size: number,
+    step: number,
+    partialWindows: boolean,
+    transform: Transformer<Array<DataType>, ResultDataType> | null,
+    thisArg: any,
+  ): KoconutArray<Array<DataType> | ResultDataType>;
+  /** @ignore */
   windowed(size: number): KoconutArray<Array<DataType>>;
+  /** @ignore */
   windowed(size: number, step: number): KoconutArray<Array<DataType>>;
+  /** @ignore */
   windowed(
     size: number,
     step: number,
     partialWindows: boolean,
   ): KoconutArray<Array<DataType>>;
+  /** @ignore */
   windowed<ResultDataType>(
     size: number,
     step: number,
     partialWindows: boolean,
-    transform: (
-      elements: Array<DataType>,
-    ) => ResultDataType | Promise<ResultDataType>,
+    transform: Transformer<Array<DataType>, ResultDataType>,
   ): KoconutArray<ResultDataType>;
+  /** @ignore */
   windowed<ResultDataType>(
     size: number,
     step: number,
     partialWindows: boolean,
-    transform: (
-      elements: Array<DataType>,
-    ) => ResultDataType | Promise<ResultDataType>,
+    transform: Transformer<Array<DataType>, ResultDataType>,
     thisArg: any,
   ): KoconutArray<ResultDataType>;
   windowed<ResultDataType>(
     size: number,
     step: number = 1,
     partialWindows: boolean = false,
-    transform:
-      | ((
-          elements: Array<DataType>,
-        ) => ResultDataType | Promise<ResultDataType>)
-      | null = null,
+    transform: Transformer<Array<DataType>, ResultDataType> | null = null,
     thisArg: any = null,
   ): KoconutArray<Array<DataType> | ResultDataType> {
     if (size < 0) size = -size;
@@ -3443,32 +3414,26 @@ export class KoconutCollection<
     return koconutToReturn;
   }
 
+  zip<OtherDataType, ResultDataType>(
+    other: Iterable<OtherDataType>,
+    transform: Zipper<DataType, OtherDataType, ResultDataType> | null,
+    thisArg: any,
+  ): KoconutArray<Pair<DataType, OtherDataType> | ResultDataType>;
   zip<OtherDataType>(
     other: Iterable<OtherDataType>,
   ): KoconutArray<Pair<DataType, OtherDataType>>;
   zip<OtherDataType, ResultDataType>(
     other: Iterable<OtherDataType>,
-    transform: (
-      originalData: DataType,
-      otherData: OtherDataType,
-    ) => ResultDataType | Promise<ResultDataType>,
+    transform: Zipper<DataType, OtherDataType, ResultDataType>,
   ): KoconutArray<ResultDataType>;
   zip<OtherDataType, ResultDataType>(
     other: Iterable<OtherDataType>,
-    transform: (
-      originalData: DataType,
-      otherData: OtherDataType,
-    ) => ResultDataType | Promise<ResultDataType>,
+    transform: Zipper<DataType, OtherDataType, ResultDataType>,
     thisArg: any,
   ): KoconutArray<ResultDataType>;
   zip<OtherDataType, ResultDataType>(
     other: Iterable<OtherDataType>,
-    transform:
-      | ((
-          originalData: DataType,
-          otherData: OtherDataType,
-        ) => ResultDataType | Promise<ResultDataType>)
-      | null = null,
+    transform: Zipper<DataType, OtherDataType, ResultDataType> | null = null,
     thisArg: any = null,
   ): KoconutArray<Pair<DataType, OtherDataType> | ResultDataType> {
     if (transform) transform = transform.bind(thisArg);
@@ -3511,27 +3476,20 @@ export class KoconutCollection<
     return koconutToReturn;
   }
 
+  zipWithNext<ResultDataType>(
+    transform: Zipper<DataType, DataType, ResultDataType> | null,
+    thisArg: any,
+  ): KoconutArray<Pair<DataType, DataType> | ResultDataType>;
   zipWithNext(): KoconutArray<Pair<DataType, DataType>>;
   zipWithNext<ResultDataType>(
-    transform: (
-      firstData: DataType,
-      secondData: DataType,
-    ) => ResultDataType | Promise<ResultDataType>,
+    transform: Zipper<DataType, DataType, ResultDataType>,
   ): KoconutArray<ResultDataType>;
   zipWithNext<ResultDataType>(
-    transform: (
-      firstData: DataType,
-      secondData: DataType,
-    ) => ResultDataType | Promise<ResultDataType>,
+    transform: Zipper<DataType, DataType, ResultDataType>,
     thisArg: any,
   ): KoconutArray<ResultDataType>;
   zipWithNext<ResultDataType>(
-    transform:
-      | ((
-          firstData: DataType,
-          secondData: DataType,
-        ) => ResultDataType | Promise<ResultDataType>)
-      | null = null,
+    transform: Zipper<DataType, DataType, ResultDataType> | null = null,
     thisArg: any = null,
   ): KoconutArray<Pair<DataType, DataType> | ResultDataType> {
     if (transform) transform.bind(thisArg);

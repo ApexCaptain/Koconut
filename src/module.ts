@@ -1,3 +1,4 @@
+`use strict`;
 // Basic Components
 export * from './components/KoconutOption';
 export * from './components/KoconutPrimitive';
@@ -7,7 +8,6 @@ export * from './components/callback/KoconutCallbacks';
 
 // Tool
 export * from './components/tool/KoconutDeprecation';
-export * from './components/tool/KoconutYieldable';
 export * from './components/tool/KoconutOpener';
 export * from './components/tool/KoconutTypeChecker';
 
@@ -26,6 +26,7 @@ export * from './components/exception/KoconutExceptions';
 // Protocol
 export * from './components/protocol/KoconutComparable';
 export * from './components/protocol/KoconutEquatable';
+export * from './components/protocol/KoconutYieldable';
 
 // Container
 export * from './components/container/KoconutIterable';

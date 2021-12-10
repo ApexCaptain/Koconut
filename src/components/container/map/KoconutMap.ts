@@ -5,7 +5,6 @@ import {
   KoconutPrimitive,
   KoconutOpener,
   KoconutTypeChecker,
-  KoconutDeprecation,
 
   /* Base */
   Entry,
@@ -19,16 +18,20 @@ import {
   KoconutSet,
   KoconutBoolean,
 
-  /* Enum */
-  KoconutLoopSignal,
-
   /* Exception */
   KoconutNoSuchElementException,
   KoconutInvalidArgumentException,
 
   /* Protocol */
-  KoconutEquatable,
   KoconutComparable,
+
+  /* Callbacks */
+  Generator,
+  Selector,
+  Comparator,
+  Action,
+  Predicator,
+  Transformer,
 } from '../../../module';
 
 export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
@@ -88,8 +91,9 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
   // Koconut Primitive
   /**
    * Creates a new instance from ```iterable``` object.
-   * Inner data type colud be an ```Array``` of two values([```Key```, ```Value```]), a Pair or an Entry.
-   * @param map An map-like ```iterable``` object to conver to a {@link KoconutMap}.
+   * Inner data type could be an ```Array``` of two values([```Key```, ```Value```]), a Pair or an Entry.
+   *
+   * @param {Iterable<[KeyType, ValueType]| Entry<KeyType, ValueType>| Pair<KeyType, ValueType>> | null} map An map-like ```iterable``` object to convert to a {@link KoconutMap}.
    *
    * @since 1.0.11
    *
@@ -134,6 +138,8 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
   /**
    * Processes all the chained object and returns original {@link KoconutMap} instance.
    *
+   * @return {Promise<KoconutMap<KeyType, ValueType>>}
+   *
    * @category Processor
    *
    * @since 1.0.15
@@ -174,6 +180,8 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
   /**
    * Returns a {@link KoconutSet} contains every {@link Entry}.
    *
+   * @return {KoconutSet<Entry<KeyType, ValueType>>}
+   *
    * @since 1.0.10
    *
    * @example
@@ -205,6 +213,8 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
   /**
    * Returns a {@link KoconutSet} contains all keys.
    *
+   * @return {KoconutSet<KeyType>}
+   *
    * @since 1.0.10
    *
    * @example
@@ -229,6 +239,8 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
 
   /**
    * Returns the number of {@link Entry} in this {@link KoconutMap}.
+   *
+   * @return {KoconutPrimitive<number>}
    *
    * @since 1.0.10
    *
@@ -255,6 +267,8 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
   /**
    * Returns a {@link KoconutArray} contains all values in this {@link KoconutMap}.
    *
+   * @return {KoconutArray<ValueType>}
+   *
    * @since 1.0.10
    *
    * @example
@@ -280,8 +294,11 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
   // Creator
   /**
    * Creates a new instance from ```iterable``` object.
-   * Inner data type colud be an ```Array``` of two values([```Key```, ```Value```]), a Pair or an Entry.
-   * @param source An map-like ```iterable``` object to conver to a {@link KoconutMap}.
+   * Inner data type could be an ```Array``` of two values([```Key```, ```Value```]), a Pair or an Entry.
+   *
+   * @param {Iterable<[KeyType, ValueType]| Entry<KeyType, ValueType>| Pair<KeyType, ValueType>> | null} source An map-like ```iterable``` object to convert to a {@link KoconutMap}.
+   *
+   * @return {KoconutMap<KeyType, ValueType>}
    *
    * @since 1.0.11
    *
@@ -316,8 +333,11 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
 
   /**
    * Creates a new instance from variable number of arguments.
-   * Inner data type colud be an ```Array``` of two values([```Key```, ```Value```]), a Pair or an Entry.
-   * @param data A set of elements to include in the new {@link KoconutMap} object.
+   * Inner data type could be an ```Array``` of two values([```Key```, ```Value```]), a Pair or an Entry.
+   *
+   * @param {([KeyType, ValueType]| Entry<KeyType, ValueType>| Pair<KeyType, ValueType>)[]} data A set of elements to include in the new {@link KoconutMap} object.
+   *
+   * @return {KoconutMap<KeyType, ValueType>}
    *
    * @since 1.0.11
    *
@@ -347,9 +367,14 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
   /**
    * Creates a new instance with given ```count``` as number of entries. ```count``` cannot be negative number.
    * Each entry is provided from ```generator``` with given ordered index.
-   * @param count Number of values.
-   * @param generator A callback function that accepts an argument. The method calls the ```action``` one time for each ordered index.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```generator```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {number} count Number of values.
+   *
+   * @param {Generator<[KeyType, ValueType]| Pair<KeyType, ValueType>| KoconutPair<KeyType, ValueType>| Entry<KeyType, ValueType>| KoconutEntry<KeyType, ValueType>>} generator A callback function that accepts an argument. The method calls the ```action``` one time for each ordered index.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```generator```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutMap<KeyType, ValueType>}
    *
    * @throws {@link KoconutInvalidArgumentException}
    * -- When ```count``` is less than 0.
@@ -377,21 +402,13 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    */
   static generate<KeyType, ValueType>(
     count: number,
-    generator: (
-      index: number,
-    ) =>
+    generator: Generator<
       | [KeyType, ValueType]
       | Pair<KeyType, ValueType>
       | KoconutPair<KeyType, ValueType>
       | Entry<KeyType, ValueType>
       | KoconutEntry<KeyType, ValueType>
-      | Promise<
-          | [KeyType, ValueType]
-          | Pair<KeyType, ValueType>
-          | KoconutPair<KeyType, ValueType>
-          | Entry<KeyType, ValueType>
-          | KoconutEntry<KeyType, ValueType>
-        >,
+    >,
     thisArg: any = null,
   ): KoconutMap<KeyType, ValueType> {
     if (count < 0)
@@ -427,8 +444,12 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
   /**
    * Returns the first entry yielding the largest value of the given function or
    * throws {@link KoconutNoSuchElementException} if there are no entries.
-   * @param selector A callback function that accepts an argument. The method calls the ```selector``` one time for each entry in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```selector```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Selector<Entry<KeyType, ValueType>,number | string | KoconutComparable>} selector A callback function that accepts an argument. The method calls the ```selector``` one time for each entry in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```selector```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutEntry<KeyType, ValueType>}
    *
    * @throws {@link KoconutNoSuchElementException}
    *
@@ -463,10 +484,10 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    * // Case 2 -- KoconutSet
    * const koconutSet = KoconutSet.of("a", "ab", "abc")
    *
-   * const lognestStringOfSet = await koconutSet
+   * const longestStringOfSet = await koconutSet
    *                               .maxBy(eachString => eachString.length)
    *                               .yield()
-   * console.log(lognestStringOfSet)
+   * console.log(longestStringOfSet)
    * // ↑ abc
    *
    * // Case 3 -- KoconutMap
@@ -498,13 +519,10 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    * ```
    */
   maxBy(
-    selector: (
-      entry: Entry<KeyType, ValueType>,
-    ) =>
-      | number
-      | string
-      | KoconutComparable
-      | Promise<number | string | KoconutComparable>,
+    selector: Selector<
+      Entry<KeyType, ValueType>,
+      number | string | KoconutComparable
+    >,
     thisArg: any = null,
   ): KoconutEntry<KeyType, ValueType> {
     const fromSuper = super.maxBy(selector, thisArg);
@@ -517,8 +535,12 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
 
   /**
    * Returns the first entry yielding the largest value of the given function or null if there are no entries.
-   * @param selector A callback function that accepts an argument. The method calls the ```selector``` one time for each entry in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```selector```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Selector<Entry<KeyType, ValueType>, number | string | KoconutComparable>} selector A callback function that accepts an argument. The method calls the ```selector``` one time for each entry in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```selector```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutEntry<KeyType, ValueType>}
    *
    * @category Calculator
    *
@@ -546,10 +568,10 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    * // Case 2 -- KoconutSet
    * const koconutSet = KoconutSet.of("a", "ab", "abc")
    *
-   * const lognestStringOfSet = await koconutSet
+   * const longestStringOfSet = await koconutSet
    *                               .maxByOrNull(eachString => eachString.length)
    *                               .yield()
-   * console.log(lognestStringOfSet)
+   * console.log(longestStringOfSet)
    * // ↑ abc
    *
    * // Case 3 -- KoconutMap
@@ -581,13 +603,10 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    * ```
    */
   maxByOrNull(
-    selector: (
-      entry: Entry<KeyType, ValueType>,
-    ) =>
-      | number
-      | string
-      | KoconutComparable
-      | Promise<number | string | KoconutComparable>,
+    selector: Selector<
+      Entry<KeyType, ValueType>,
+      number | string | KoconutComparable
+    >,
     thisArg: any = null,
   ): KoconutEntry<KeyType, ValueType> {
     const fromSuper = super.maxByOrNull(selector, thisArg);
@@ -601,9 +620,13 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
   /**
    * Returns the first element having the largest value according to the provided ```comparator``` or throws {@link KoconutNoSuchElementException}
    * if elements are empty.
-   * @param comparator A callback function that accepts two arguements. The method calls the ```comparator``` to compare two selected values.
+   *
+   * @param {Comparator<Entry<KeyType, ValueType>>} comparator A callback function that accepts two arguments. The method calls the ```comparator``` to compare two selected values.
    * In case the result is larger than 0, front is bigger than rear, and if it's less than 0 judge vice versa.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```comparator```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```comparator```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutEntry<KeyType, ValueType>}
    *
    * @throws {@link KoconutNoSuchElementException}
    *
@@ -672,13 +695,10 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    * ```
    */
   maxWith(
-    selector: (
-      front: Entry<KeyType, ValueType>,
-      rear: Entry<KeyType, ValueType>,
-    ) => number | Promise<number>,
+    comparator: Comparator<Entry<KeyType, ValueType>>,
     thisArg: any = null,
   ): KoconutEntry<KeyType, ValueType> {
-    const fromSuper = super.maxWith(selector, thisArg);
+    const fromSuper = super.maxWith(comparator, thisArg);
     const koconutToReturn = new KoconutEntry<KeyType, ValueType>();
     (koconutToReturn as any as KoconutOpener<Entry<KeyType, ValueType>>)
       .setPrevYieldable(fromSuper['prevYieldable']!)
@@ -689,9 +709,13 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
   /**
    * Returns the first element having the largest value according to the provided ```comparator``` or null
    * if elements are empty.
-   * @param comparator A callback function that accepts two arguements. The method calls the ```comparator``` to compare two selected values.
+   *
+   * @param {Comparator<Entry<KeyType, ValueType>>} comparator A callback function that accepts two arguments. The method calls the ```comparator``` to compare two selected values.
    * In case the result is larger than 0, front is bigger than rear, and if it's less than 0 judge vice versa.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```comparator```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```comparator```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutEntry<KeyType, ValueType>}
    *
    * @category Calculator
    *
@@ -753,13 +777,10 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    * ```
    */
   maxWithOrNull(
-    selector: (
-      front: Entry<KeyType, ValueType>,
-      rear: Entry<KeyType, ValueType>,
-    ) => number | Promise<number>,
+    comparator: Comparator<Entry<KeyType, ValueType>>,
     thisArg: any = null,
   ): KoconutEntry<KeyType, ValueType> {
-    const fromSuper = super.maxWithOrNull(selector, thisArg);
+    const fromSuper = super.maxWithOrNull(comparator, thisArg);
     const koconutToReturn = new KoconutEntry<KeyType, ValueType>();
     (koconutToReturn as any as KoconutOpener<Entry<KeyType, ValueType> | null>)
       .setPrevYieldable(fromSuper['prevYieldable']!)
@@ -768,16 +789,21 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
   }
 
   /**
-   * Returns the first entry yielding the samllest value of the given function or
+   * Returns the first entry yielding the smallest value of the given function or
    * throws {@link KoconutNoSuchElementException} if there are no entries.
-   * @param selector A callback function that accepts an argument. The method calls the ```selector``` one time for each entry in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```selector```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Selector<Entry<KeyType, ValueType>,number | string | KoconutComparable>} selector A callback function that accepts an argument. The method calls the ```selector``` one time for each entry in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```selector```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutEntry<KeyType, ValueType>}
    *
    * @throws {@link KoconutNoSuchElementException}
    *
    * @category Calculator
    *
    * @since 1.0.10
+   *
    * @deprecated Use {@link minByOrNull} instead.
    *
    * @example
@@ -841,13 +867,10 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    * ```
    */
   minBy(
-    selector: (
-      entry: Entry<KeyType, ValueType>,
-    ) =>
-      | number
-      | string
-      | KoconutComparable
-      | Promise<number | string | KoconutComparable>,
+    selector: Selector<
+      Entry<KeyType, ValueType>,
+      number | string | KoconutComparable
+    >,
     thisArg: any = null,
   ): KoconutEntry<KeyType, ValueType> {
     const fromSuper = super.minBy(selector, thisArg);
@@ -859,9 +882,13 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
   }
 
   /**
-   * Returns the first entry yielding the samllest value of the given function or ```null``` if there are no entries.
-   * @param selector A callback function that accepts an argument. The method calls the ```selector``` one time for each entry in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```selector```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   * Returns the first entry yielding the smallest value of the given function or ```null``` if there are no entries.
+   *
+   * @param {Selector<Entry<KeyType, ValueType>,number | string | KoconutComparable>} selector A callback function that accepts an argument. The method calls the ```selector``` one time for each entry in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```selector```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutEntry<KeyType, ValueType>}
    *
    * @category Calculator
    *
@@ -907,10 +934,10 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    * // Case 4 -- You can also do it asynchronously
    * const koconutArray2 = KoconutArray.of(19,27,32)
    *
-   * const samllestNumberOfArray2 = await koconutArray2
+   * const smallestNumberOfArray2 = await koconutArray2
    *                               .minByOrNull(async eachNumber => eachNumber)
    *                               .yield()
-   * console.log(samllestNumberOfArray2)
+   * console.log(smallestNumberOfArray2)
    * // ↑ 19
    *
    * const smallest1sDigitNumberOfArray2 = await koconutArray2
@@ -923,13 +950,10 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    * ```
    */
   minByOrNull(
-    selector: (
-      entry: Entry<KeyType, ValueType>,
-    ) =>
-      | number
-      | string
-      | KoconutComparable
-      | Promise<number | string | KoconutComparable>,
+    selector: Selector<
+      Entry<KeyType, ValueType>,
+      number | string | KoconutComparable
+    >,
     thisArg: any = null,
   ): KoconutEntry<KeyType, ValueType> {
     const fromSuper = super.minByOrNull(selector, thisArg);
@@ -943,9 +967,13 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
   /**
    * Returns the first element having the smallest value according to the provided ```comparator``` or throws {@link KoconutNoSuchElementException}
    * if elements are empty.
-   * @param comparator A callback function that accepts two arguements. The method calls the ```comparator``` to compare two selected values.
+   *
+   * @param {Comparator<Entry<KeyType, ValueType>>} comparator A callback function that accepts two arguments. The method calls the ```comparator``` to compare two selected values.
    * In case the result is larger than 0, front is bigger than rear, and if it's less than 0 judge vice versa.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```comparator```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```comparator```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutEntry<KeyType, ValueType>}
    *
    * @throws {@link KoconutNoSuchElementException}
    *
@@ -1014,13 +1042,10 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    * ```
    */
   minWith(
-    selector: (
-      front: Entry<KeyType, ValueType>,
-      rear: Entry<KeyType, ValueType>,
-    ) => number | Promise<number>,
+    comparator: Comparator<Entry<KeyType, ValueType>>,
     thisArg: any = null,
   ): KoconutEntry<KeyType, ValueType> {
-    const fromSuper = super.minWith(selector, thisArg);
+    const fromSuper = super.minWith(comparator, thisArg);
     const koconutToReturn = new KoconutEntry<KeyType, ValueType>();
     (koconutToReturn as any as KoconutOpener<Entry<KeyType, ValueType>>)
       .setPrevYieldable(fromSuper['prevYieldable']!)
@@ -1031,9 +1056,13 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
   /**
    * Returns the first element having the smallest value according to the provided ```comparator``` or ```null```
    * if elements are empty.
-   * @param comparator A callback function that accepts two arguements. The method calls the ```comparator``` to compare two selected values.
+   *
+   * @param {Comparator<Entry<KeyType, ValueType>>} comparator A callback function that accepts two arguments. The method calls the ```comparator``` to compare two selected values.
    * In case the result is larger than 0, front is bigger than rear, and if it's less than 0 judge vice versa.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```comparator```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```comparator```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutEntry<KeyType, ValueType>}
    *
    * @category Calculator
    *
@@ -1095,13 +1124,10 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    * ```
    */
   minWithOrNull(
-    selector: (
-      front: Entry<KeyType, ValueType>,
-      rear: Entry<KeyType, ValueType>,
-    ) => number | Promise<number>,
+    comparator: Comparator<Entry<KeyType, ValueType>>,
     thisArg: any = null,
   ): KoconutEntry<KeyType, ValueType> {
-    const fromSuper = super.minWithOrNull(selector, thisArg);
+    const fromSuper = super.minWithOrNull(comparator, thisArg);
     const koconutToReturn = new KoconutEntry<KeyType, ValueType>();
     (koconutToReturn as any as KoconutOpener<Entry<KeyType, ValueType> | null>)
       .setPrevYieldable(fromSuper['prevYieldable']!)
@@ -1112,7 +1138,10 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
   // Inspector
   /**
    * Checks if this {@link KoconutMap} contains the given ```key```.
-   * @param key Key to search for.
+   *
+   * @param {KeyType} key Key to search for.
+   *
+   * @return {KoconutBoolean}
    *
    * @since 1.0.10
    *
@@ -1159,7 +1188,9 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
 
   /**
    * Checks if this {@link KoconutMap} contains the given ```key```.
-   * @param key Key to search for.
+   * @param {KeyType} key Key to search for.
+   *
+   * @return {KoconutBoolean}
    *
    * @since 1.0.10
    *
@@ -1189,7 +1220,9 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
 
   /**
    * Checks if this {@link KoconutMap} contains given ```value```.
-   * @param value Value to search for.
+   * @param {ValueType} value Value to search for.
+   *
+   * @return {KoconutBoolean}
    *
    * @since 1.0.10
    *
@@ -1236,10 +1269,14 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
 
   // Iterator
   /**
-   * Perfroms the given ```action``` on each entry and returns the original collection itself afterwards.
+   * Performs the given ```action``` on each entry and returns the original collection itself afterwards.
    * When you want to stop iteration in the meantime ```return``` ```false``` or {@link KoconutLoopSignal.BREAK}.
-   * @param action A callback function that accepts an argument. The method calls the ```action``` one time for each entry in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```action```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Action<Entry<KeyType, ValueType>>} action A callback function that accepts an argument. The method calls the ```action``` one time for each entry in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```action```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutMap<KeyType, ValueType>}
    *
    * @since 1.0.10
    *
@@ -1279,13 +1316,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    * ```
    */
   onEach(
-    action: (
-      entry: Entry<KeyType, ValueType>,
-    ) =>
-      | boolean
-      | KoconutLoopSignal
-      | void
-      | Promise<boolean | KoconutLoopSignal | void>,
+    action: Action<Entry<KeyType, ValueType>>,
     thisArg: any = null,
   ): KoconutMap<KeyType, ValueType> {
     return KoconutMap.fromIterable(super.onEach(action, thisArg));
@@ -1294,8 +1325,12 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
   // Manipulator
   /**
    * Returns a map containing only entries matching the given ```predicate```.
-   * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each entry in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Predicator<Entry<KeyType, ValueType>>} predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each entry in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutMap<KeyType, ValueType>}
    *
    * @since 1.0.10
    *
@@ -1314,7 +1349,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    * ```
    */
   filter(
-    predicate: (entry: Entry<KeyType, ValueType>) => boolean | Promise<boolean>,
+    predicate: Predicator<Entry<KeyType, ValueType>>,
     thisArg: any = null,
   ): KoconutMap<KeyType, ValueType> {
     return KoconutMap.fromIterable(super.filter(predicate, thisArg));
@@ -1322,8 +1357,12 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
 
   /**
    * Returns a map containing only entries not matching the given ```predicate```.
-   * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each entry in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Predicator<Entry<KeyType, ValueType>>} predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each entry in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutMap<KeyType, ValueType>}
    *
    * @since 1.0.10
    *
@@ -1342,7 +1381,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    * ```
    */
   filterNot(
-    predicate: (entry: Entry<KeyType, ValueType>) => boolean | Promise<boolean>,
+    predicate: Predicator<Entry<KeyType, ValueType>>,
     thisArg: any = null,
   ): KoconutMap<KeyType, ValueType> {
     return KoconutMap.fromIterable(super.filterNot(predicate, thisArg));
@@ -1350,9 +1389,14 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
 
   /**
    * Appends all entries matching the given ```predicate``` to the given destination.
-   * @param destination Iterable destinaion. ```Map``` to be exact.
-   * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each entry in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Map<KeyType, ValueType>} destination Iterable destination. ```Map``` to be exact.
+   *
+   * @param {Predicator<Entry<KeyType, ValueType>>} predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each entry in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutMap<KeyType, ValueType>}
    *
    * @since 1.0.10
    *
@@ -1378,7 +1422,8 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    */
   filterTo(
     destination: Map<KeyType, ValueType>,
-    predicate: (entry: Entry<KeyType, ValueType>) => boolean | Promise<boolean>,
+    predicate: Predicator<Entry<KeyType, ValueType>>,
+    // predicate: (entry: Entry<KeyType, ValueType>) => boolean | Promise<boolean>,
     thisArg: any = null,
   ): KoconutMap<KeyType, ValueType> {
     predicate = predicate.bind(thisArg);
@@ -1398,9 +1443,14 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
 
   /**
    * Appends all entries not matching the given ```predicate``` to the given destination.
-   * @param destination Iterable destinaion. ```Map``` to be exact.
-   * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each entry in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Map<KeyType, ValueType>} destination Iterable destination. ```Map``` to be exact.
+   *
+   * @param {Predicator<Entry<KeyType, ValueType>>} predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each entry in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutMap<KeyType, ValueType>}
    *
    * @since 1.0.10
    *
@@ -1426,7 +1476,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    */
   filterNotTo(
     destination: Map<KeyType, ValueType>,
-    predicate: (entry: Entry<KeyType, ValueType>) => boolean | Promise<boolean>,
+    predicate: Predicator<Entry<KeyType, ValueType>>,
     thisArg: any = null,
   ): KoconutMap<KeyType, ValueType> {
     predicate = predicate.bind(thisArg);
@@ -1446,8 +1496,12 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
 
   /**
    * Returns a map containing all entries with key matching the given ```predicate```.
-   * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each entry in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Predicator<KeyType>} predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each entry in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutMap<KeyType, ValueType>}
    *
    * @since 1.0.10
    *
@@ -1466,7 +1520,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    * ```
    */
   filterKeys(
-    predicate: (key: KeyType) => boolean | Promise<boolean>,
+    predicate: Predicator<KeyType>,
     thisArg: any = null,
   ): KoconutMap<KeyType, ValueType> {
     predicate = predicate.bind(thisArg);
@@ -1487,8 +1541,12 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
 
   /**
    * Returns a map containing all entries with value matching the given ```predicate```.
-   * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each entry in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Predicator<ValueType>} predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each entry in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutMap<KeyType, ValueType>}
    *
    * @since 1.0.10
    *
@@ -1507,7 +1565,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    * ```
    */
   filterValues(
-    predicate: (value: ValueType) => boolean | Promise<boolean>,
+    predicate: Predicator<ValueType>,
     thisArg: any = null,
   ): KoconutMap<KeyType, ValueType> {
     predicate = predicate.bind(thisArg);
@@ -1527,9 +1585,12 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
   }
 
   /**
-   * Returns a {@link KoconutMap} containing all entires of the original map except
+   * Returns a {@link KoconutMap} containing all entries of the original map except
    * the entries the keys of which are contained in ```keys```.
-   * @param keys Key data to except. It could be plural or singular.
+   *
+   * @param {KeyType[]} keys Key data to except. It could be plural or singular.
+   *
+   * @return {KoconutMap<KeyType, ValueType>}
    *
    * @since 1.0.10
    *
@@ -1546,10 +1607,10 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    * console.log(key1ExceptedMap)
    * // ↑ Map { 2 => 4, 3 => 6, 4 => 8, 5 => 10 }
    *
-   * const key3And4ExcpetedMap = await koconutMap
+   * const key3And4ExpectedMap = await koconutMap
    *                           .minus(3, 4)
    *                           .yield()
-   * console.log(key3And4ExcpetedMap)
+   * console.log(key3And4ExpectedMap)
    * // ↑ Map { 1 => 2, 2 => 4, 5 => 10 }
    * ```
    */
@@ -1574,7 +1635,10 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
 
   /**
    * Returns a {@link KoconutMap} by replacing or adding entries from given ```entries```.
-   * @param entries Entires to add or replace. It could be plural or singular.
+   *
+   * @param {([KeyType, ValueType]| Pair<KeyType, ValueType>| KoconutPair<KeyType, ValueType>| Entry<KeyType, ValueType>| KoconutEntry<KeyType, ValueType>)[]} entries Entries to add or replace. It could be plural or singular.
+   *
+   * @return {KoconutMap<KeyType, ValueType>}
    *
    * @since 1.0.10
    *
@@ -1651,7 +1715,10 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
   /**
    * Returns the value corresponding to the given ```key```, or ```null``` if such a key is not
    * present in this {@link KoconutMap}.
-   * @param key Key to search for.
+   *
+   * @param {KeyType} key Key to search for.
+   *
+   * @return {KoconutPrimitive<ValueType | null>}
    *
    * @since 1.0.10
    *
@@ -1702,8 +1769,12 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
   /**
    * Returns the value to which the specified key is mapped, or ```defaultValue``` if the map contains
    * no mapping for key.
-   * @param key Key to search for.
-   * @param defaultValue Default value if no entry is found.
+   *
+   * @param {KeyType} key Key to search for.
+   *
+   * @param {ValueType} defaultValue Default value if no entry is found.
+   *
+   * @return {KoconutPrimitive<ValueType>}
    *
    * @since 1.0.10
    *
@@ -1757,8 +1828,14 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
   /**
    * Returns the value for the given ```key```, or the reuslt of the
    * ```defaultValue``` function if there was no entry from the given key.
-   * @param key Key to search for.
-   * @param defaultValue Callback function that generates default value. The method will call ```defaultValue``` if no entry is found.
+   *
+   * @param {KeyType} key Key to search for.
+   *
+   * @param {Selector<void, ValueType>} defaultValue Callback function that generates default value. The method will call ```defaultValue``` if no entry is found.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```defaultValue```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutPrimitive<ValueType>}
    *
    * @since 1.0.10
    *
@@ -1792,8 +1869,10 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    */
   getOrElse(
     key: KeyType,
-    defaultValue: () => ValueType | Promise<ValueType>,
+    defaultValue: Selector<void, ValueType>,
+    thisArg: any = null,
   ): KoconutPrimitive<ValueType> {
+    defaultValue = defaultValue.bind(thisArg);
     const koconutToReturn = new KoconutPrimitive<ValueType>();
     (koconutToReturn as any as KoconutOpener<ValueType>)
       .setPrevYieldable(this)
@@ -1819,7 +1898,10 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
 
   /**
    * Returns the value of the given key. If no entry is found, it throws {@link KoconutNoSuchElementException}.
-   * @param key Key to search for.
+   *
+   * @param {KeyType} key Key to search for.
+   *
+   * @return {KoconutPrimitive<ValueType>}
    *
    * @throws {@link KoconutNoSuchElementException}
    *
@@ -1868,7 +1950,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
           }
         }
         throw new KoconutNoSuchElementException(
-          `No such element mathces given key ${key} is found`,
+          `No such element matches given key ${key} is found`,
         );
       });
     return koconutToReturn;
@@ -1878,9 +1960,14 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
   /**
    * Appends all entries yielded from results of ```transform``` function being invoked
    * on each entry of original collection, to the given ```destination```.
-   * @param destination Iterable destinaion. ```Array``` or ```Set``` to be exact.
-   * @param transform A callback function that accepts an argument. The method calls the ```transform``` one time for each entry in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Array<ResultDataType> | Set<ResultDataType>} destination Iterable destination. ```Array``` or ```Set``` to be exact.
+   *
+   * @param {Transformer<Entry<KeyType, ValueType>, Iterable<ResultDataType>>} transform A callback function that accepts an argument. The method calls the ```transform``` one time for each entry in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutMap<KeyType, ValueType>}
    *
    * @since 1.0.10
    *
@@ -1905,9 +1992,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    */
   flatMapTo<ResultDataType>(
     destination: Array<ResultDataType> | Set<ResultDataType>,
-    transform: (
-      entry: Entry<KeyType, ValueType>,
-    ) => Iterable<ResultDataType> | Promise<Iterable<ResultDataType>>,
+    transform: Transformer<Entry<KeyType, ValueType>, Iterable<ResultDataType>>,
     thisArg: any = null,
   ): KoconutMap<KeyType, ValueType> {
     return KoconutMap.fromIterable(
@@ -1918,9 +2003,14 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
   /**
    * Applies the given ```transform``` function to each entry of the original collection
    * and appends the results to the given ```destination```.
-   * @param destination Iterable destinaion. ```Array``` or ```Set``` to be exact.
-   * @param transform A callback function that accepts an argument. The method calls the ```transform``` one time for each element in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Array<ResultDataType> | Set<ResultDataType>} destination Iterable destination. ```Array``` or ```Set``` to be exact.
+   *
+   * @param {Transformer<Entry<KeyType, ValueType>, ResultDataType>} transform A callback function that accepts an argument. The method calls the ```transform``` one time for each element in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutMap<KeyType, ValueType>}
    *
    * @since 1.0.10
    *
@@ -1946,9 +2036,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    */
   mapTo<ResultDataType>(
     destination: Array<ResultDataType> | Set<ResultDataType>,
-    transform: (
-      entry: Entry<KeyType, ValueType>,
-    ) => ResultDataType | Promise<ResultDataType>,
+    transform: Transformer<Entry<KeyType, ValueType>, ResultDataType>,
     thisArg: any = null,
   ): KoconutMap<KeyType, ValueType> {
     return KoconutMap.fromIterable(
@@ -1959,9 +2047,14 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
   /**
    * Applies the given ```transform``` function to each entry of the original collection
    * and appends the results to the given ```destination```.
-   * @param destination Iterable destinaion. ```Array``` or ```Set``` to be exact.
-   * @param transform A callback function that accepts an argument. The method calls the ```transform``` one time for each entry in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Array<ResultDataType> | Set<ResultDataType>} destination Iterable destination. ```Array``` or ```Set``` to be exact.
+   *
+   * @param {Transformer<Entry<KeyType, ValueType>, ResultDataType | null>} transform A callback function that accepts an argument. The method calls the ```transform``` one time for each entry in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutMap<KeyType, ValueType>}
    *
    * @since 1.0.10
    *
@@ -1995,9 +2088,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    */
   mapNotNullTo<ResultDataType>(
     destination: Array<ResultDataType> | Set<ResultDataType>,
-    transform: (
-      entry: Entry<KeyType, ValueType>,
-    ) => ResultDataType | null | Promise<ResultDataType | null>,
+    transform: Transformer<Entry<KeyType, ValueType>, ResultDataType | null>,
     thisArg: any = null,
   ): KoconutMap<KeyType, ValueType> {
     return KoconutMap.fromIterable(
@@ -2006,11 +2097,15 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
   }
 
   /**
-   * Returns a new ```Map``` with entries having the keys obatined by applying the
+   * Returns a new ```Map``` with entries having the keys obtained by applying the
    * ```transform``` function to each entry in this object. The value of each of them would be the same
    * as the original entry.
-   * @param transform A callback function that accepts an argument. The method calls the ```transform``` one time for each entry in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Transformer<Entry<KeyType, ValueType>, ResultDataType>} transform A callback function that accepts an argument. The method calls the ```transform``` one time for each entry in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutMap<ResultDataType, ValueType>}
    *
    * @since 1.0.10
    *
@@ -2043,9 +2138,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    * ```
    */
   mapKeys<ResultDataType>(
-    transform: (
-      entry: Entry<KeyType, ValueType>,
-    ) => ResultDataType | Promise<ResultDataType>,
+    transform: Transformer<Entry<KeyType, ValueType>, ResultDataType>,
     thisArg: any = null,
   ): KoconutMap<ResultDataType, ValueType> {
     transform = transform.bind(thisArg);
@@ -2067,9 +2160,14 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    * Populates the given ```destination``` map with entries having keys obtained by applying
    * the ```transform``` function to each entry in this object. The value of each of them would be the same
    * as the original entry.
-   * @param destination Iterable destinaion. ```Map``` to be exact.
-   * @param transform A callback function that accepts an argument. The method calls the ```transform``` one time for each entry in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Map<ResultDataType, ValueType>} destination Iterable destination. ```Map``` to be exact.
+   *
+   * @param {Transformer<Entry<KeyType, ValueType>, ResultDataType>} transform A callback function that accepts an argument. The method calls the ```transform``` one time for each entry in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutMap<KeyType, ValueType>}
    *
    * @since 1.0.10
    *
@@ -2111,9 +2209,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    */
   mapKeysTo<ResultDataType>(
     destination: Map<ResultDataType, ValueType>,
-    transform: (
-      entry: Entry<KeyType, ValueType>,
-    ) => ResultDataType | Promise<ResultDataType>,
+    transform: Transformer<Entry<KeyType, ValueType>, ResultDataType>,
     thisArg: any = null,
   ): KoconutMap<KeyType, ValueType> {
     transform = transform.bind(thisArg);
@@ -2133,8 +2229,12 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
   /**
    * Returns a new ```Map``` with entries having the keys of this object and the values obtained by applying
    * the ```transform``` function to each entry.
-   * @param transform A callback function that accepts an argument. The method calls the ```transform``` one time for each entry in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Transformer<Entry<KeyType, ValueType>, ResultDataType>} transform A callback function that accepts an argument. The method calls the ```transform``` one time for each entry in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutMap<KeyType, ResultDataType>}
    *
    * @since 1.0.10
    *
@@ -2146,19 +2246,19 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    *                   .associateWith(eachNumber => eachNumber)
    *
    * const doubledValueMap = await koconutMap
-   *                       .mapVaues(eachEntry => eachEntry.value * 2)
+   *                       .mapValues(eachEntry => eachEntry.value * 2)
    *                       .yield()
    * console.log(doubledValueMap)
    * // ↑ Map { 1 => 2, 2 => 4, 3 => 6, 4 => 8, 5 => 10 }
    *
    * const stringifiedValueMap = await koconutMap
-   *                       .mapVaues(async eachEntry => eachEntry.value.toString())
+   *                       .mapValues(async eachEntry => eachEntry.value.toString())
    *                       .yield()
    * console.log(stringifiedValueMap)
    * // ↑ Map { 1 => '1', 2 => '2', 3 => '3', 4 => '4', 5 => '5' }
    *
    * const squaredValueMap = await koconutMap
-   *                       .mapVaues(eachEntry => new Promise(resolve => {
+   *                       .mapValues(eachEntry => new Promise(resolve => {
    *                           resolve(eachEntry.value * eachEntry.value)
    *                       }))
    *                       .yield()
@@ -2167,9 +2267,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    * ```
    */
   mapValues<ResultDataType>(
-    transform: (
-      entry: Entry<KeyType, ValueType>,
-    ) => ResultDataType | Promise<ResultDataType>,
+    transform: Transformer<Entry<KeyType, ValueType>, ResultDataType>,
     thisArg: any = null,
   ): KoconutMap<KeyType, ResultDataType> {
     transform = transform.bind(thisArg);
@@ -2189,11 +2287,16 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
   }
 
   /**
-   * Populates the given ```destinaion``` ```Map``` with the entires having the keys of this object and
+   * Populates the given ```destination``` ```Map``` with the entries having the keys of this object and
    * the values obtained by applying the ```transform``` function to each entry.
-   * @param destination Iterable destinaion. ```Map``` to be exact.
-   * @param transform A callback function that accepts an argument. The method calls the ```transform``` one time for each entry in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Map<KeyType, ResultDataType>} destination Iterable destination. ```Map``` to be exact.
+   *
+   * @param {Transformer<Entry<KeyType, ValueType>, ResultDataType>} transform A callback function that accepts an argument. The method calls the ```transform``` one time for each entry in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutMap<KeyType, ValueType>}
    *
    * @since 1.0.10
    *
@@ -2235,9 +2338,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
    */
   mapValuesTo<ResultDataType>(
     destination: Map<KeyType, ResultDataType>,
-    transform: (
-      entry: Entry<KeyType, ValueType>,
-    ) => ResultDataType | Promise<ResultDataType>,
+    transform: Transformer<Entry<KeyType, ValueType>, ResultDataType>,
     thisArg: any = null,
   ): KoconutMap<KeyType, ValueType> {
     transform = transform.bind(thisArg);

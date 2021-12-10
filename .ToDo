@@ -1,21 +1,8 @@
-README.npm.md 작성
-
 API 문서화 -- 참조 : https://typedoc.org/guides/doccomments/
 
 로고/프로젝트 카드 작성
 
-Exception 정리
-
-tsconfig 정리
-
-ioShield 정리 -- 참조 : https://simpleicons.org/, https://stackoverflow.com/questions/38985050/how-do-i-use-the-logo-option-in-shields-io-badges
-
-CHANGELOG.md 작성 -- 참조 : https://github.com/tensorflow/tensorflow/blob/master/RELEASE.md
-
 Container 내부에서 Git 커맨드 사용 (SSH 키 써서)
-
-v 1.0.162 - 변경사항
-IDE 상에서 주석 코드 예시 제대로 출력되지 않았던 문제 해결
 
 v 1.0.163 - 변경사항
 메소드 오타 체크
@@ -28,6 +15,7 @@ KoconutCollection
 
 
 
+// Currently working on...
 ---
 iterable -> maxOf // maxOfOrNull 함수에 대해서는 매뉴얼 테스트 진행 해봐야 할 듯...
 

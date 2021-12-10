@@ -1,4 +1,4 @@
 export declare enum KoconutLoopSignal {
-    CONTINUE = 0,
-    BREAK = 1
+  CONTINUE = 0,
+  BREAK = 1,
 }

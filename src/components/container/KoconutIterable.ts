@@ -24,6 +24,8 @@ import {
   Predicator,
   Selector,
   Comparator,
+  Action,
+  Transformer,
 } from '../../module';
 
 export class KoconutIterable<
@@ -365,11 +367,11 @@ export class KoconutIterable<
   /**
    * Returns the largest value among all values produced by ```selector``` function applied to each element in the collection or
    * throws {@link KoconutNoSuchElementException} if there are no elements.
-   * @param {Selector<CombinedDataType, number | string | ComparableDataType>} selector A callback function that accepts an argument. The method calls the ```selector``` one time for each element in object.
+   * @param {Selector<CombinedDataType, number | string | ComparableType>} selector A callback function that accepts an argument. The method calls the ```selector``` one time for each element in object.
    *
    * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```selector```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
    *
-   * @returns {KoconutPrimitive<number | string | ComparableDataType> }
+   * @return {KoconutPrimitive<number | string | ComparableType> }
    *
    * @throws {@link KoconutNoSuchElementException}
    *
@@ -453,42 +455,35 @@ export class KoconutIterable<
    * // ↑ 5
    * ```
    */
-  maxOf(
-    selector: (element: CombinedDataType) => number | Promise<number>,
-    thisArg: any,
-  ): KoconutPrimitive<number>;
-  /** @ignore */
-  maxOf(
-    selector: (element: CombinedDataType) => number | Promise<number>,
-  ): KoconutPrimitive<number>;
-  maxOf(
-    selector: (element: CombinedDataType) => string | Promise<string>,
-    thisArg: any,
-  ): KoconutPrimitive<string>;
-  /** @ignore */
-  maxOf(
-    selector: (element: CombinedDataType) => string | Promise<string>,
-  ): KoconutPrimitive<string>;
   maxOf<ComparableType extends KoconutComparable>(
-    selector: (
-      element: CombinedDataType,
-    ) => ComparableType | Promise<ComparableType>,
+    selector: Selector<CombinedDataType, number | string | ComparableType>,
+    thisArg: any,
+  ): KoconutPrimitive<number | string | ComparableType>;
+  /** @ignore */
+  maxOf(
+    selector: Selector<CombinedDataType, number>,
+    thisArg: any,
+  ): KoconutPrimitive<number>;
+  /** @ignore */
+  maxOf(selector: Selector<CombinedDataType, number>): KoconutPrimitive<number>;
+  /** @ignore */
+  maxOf(
+    selector: Selector<CombinedDataType, string>,
+    thisArg: any,
+  ): KoconutPrimitive<string>;
+  /** @ignore */
+  maxOf(selector: Selector<CombinedDataType, string>): KoconutPrimitive<string>;
+  /** @ignore */
+  maxOf<ComparableType extends KoconutComparable>(
+    selector: Selector<CombinedDataType, ComparableType>,
     thisArg: any,
   ): KoconutPrimitive<ComparableType>;
   /** @ignore */
   maxOf<ComparableType extends KoconutComparable>(
-    selector: (
-      element: CombinedDataType,
-    ) => ComparableType | Promise<ComparableType>,
+    selector: Selector<CombinedDataType, ComparableType>,
   ): KoconutPrimitive<ComparableType>;
   maxOf<ComparableType extends KoconutComparable>(
-    selector: (
-      element: CombinedDataType,
-    ) =>
-      | number
-      | string
-      | ComparableType
-      | Promise<number | string | ComparableType>,
+    selector: Selector<CombinedDataType, number | string | ComparableType>,
     thisArg: any = null,
   ): KoconutPrimitive<number | string | ComparableType> {
     selector = selector.bind(thisArg);
@@ -536,11 +531,11 @@ export class KoconutIterable<
   /**
    * Returns the largest value among all values produced by ```selector``` function applied to each element in the collection or
    * null if there are no elements.
-   * @param {Selector<CombinedDataType, number | string | ComparableDataType>} selector A callback function that accepts an argument. The method calls the ```selector``` one time for each element in object.
+   * @param {Selector<CombinedDataType, number | string | ComparableType>} selector A callback function that accepts an argument. The method calls the ```selector``` one time for each element in object.
    *
    * @param {this} thisArg An object to which the ```this``` keyword can refer in the ```selector```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
    *
-   * @returns {KoconutPrimitive<number | string | CombinedDataType | null>}
+   * @returns {KoconutPrimitive<number | string | ComparableType | null>}
    *
    * @category Calculator
    *
@@ -617,39 +612,39 @@ export class KoconutIterable<
    * // ↑ 5
    * ```
    */
-  maxOfOrNull(
-    selector: (element: CombinedDataType) => number | Promise<number>,
-  ): KoconutPrimitive<number | null>;
-  maxOfOrNull(
-    selector: (element: CombinedDataType) => number | Promise<number>,
-    thisArg: any,
-  ): KoconutPrimitive<number | null>;
-  maxOfOrNull(
-    selector: (element: CombinedDataType) => string | Promise<string>,
-  ): KoconutPrimitive<string | null>;
-  maxOfOrNull(
-    selector: (element: CombinedDataType) => string | Promise<string>,
-    thisArg: any,
-  ): KoconutPrimitive<string | null>;
   maxOfOrNull<ComparableType extends KoconutComparable>(
-    selector: (
-      element: CombinedDataType,
-    ) => ComparableType | Promise<ComparableType>,
+    selector: Selector<CombinedDataType, number | string | ComparableType>,
+    thisArg: any,
+  ): KoconutPrimitive<number | string | ComparableType | null>;
+  /** @ignore */
+  maxOfOrNull(
+    selector: Selector<CombinedDataType, number>,
+  ): KoconutPrimitive<number | null>;
+  /** @ignore */
+  maxOfOrNull(
+    selector: Selector<CombinedDataType, number>,
+    thisArg: any,
+  ): KoconutPrimitive<number | null>;
+  /** @ignore */
+  maxOfOrNull(
+    selector: Selector<CombinedDataType, string>,
+  ): KoconutPrimitive<string | null>;
+  /** @ignore */
+  maxOfOrNull(
+    selector: Selector<CombinedDataType, string>,
+    thisArg: any,
+  ): KoconutPrimitive<string | null>;
+  /** @ignore */
+  maxOfOrNull<ComparableType extends KoconutComparable>(
+    selector: Selector<CombinedDataType, ComparableType>,
+  ): KoconutPrimitive<ComparableType | null>;
+  /** @ignore */
+  maxOfOrNull<ComparableType extends KoconutComparable>(
+    selector: Selector<CombinedDataType, ComparableType>,
+    thisArg: any,
   ): KoconutPrimitive<ComparableType | null>;
   maxOfOrNull<ComparableType extends KoconutComparable>(
-    selector: (
-      element: CombinedDataType,
-    ) => ComparableType | Promise<ComparableType>,
-    thisArg: any,
-  ): KoconutPrimitive<ComparableType | null>;
-  maxOfOrNull<ComparableType extends KoconutComparable>(
-    selector: (
-      element: CombinedDataType,
-    ) =>
-      | number
-      | string
-      | ComparableType
-      | Promise<number | string | ComparableType>,
+    selector: Selector<CombinedDataType, number | string | ComparableType>,
     thisArg: any = null,
   ): KoconutPrimitive<number | string | ComparableType | null> {
     selector = selector.bind(thisArg);
@@ -1468,42 +1463,35 @@ export class KoconutIterable<
    * // ↑ 0
    * ```
    */
-  minOf(
-    selector: (element: CombinedDataType) => number | Promise<number>,
-    thisArg: any,
-  ): KoconutPrimitive<number>;
-  /** @ignore */
-  minOf(
-    selector: (element: CombinedDataType) => number | Promise<number>,
-  ): KoconutPrimitive<number>;
-  minOf(
-    selector: (element: CombinedDataType) => string | Promise<string>,
-    thisArg: any,
-  ): KoconutPrimitive<string>;
-  /** @ignore */
-  minOf(
-    selector: (element: CombinedDataType) => string | Promise<string>,
-  ): KoconutPrimitive<string>;
   minOf<ComparableType extends KoconutComparable>(
-    selector: (
-      element: CombinedDataType,
-    ) => ComparableType | Promise<ComparableType>,
+    selector: Selector<CombinedDataType, number | string | ComparableType>,
+    thisArg: any,
+  ): KoconutPrimitive<number | string | ComparableType>;
+  /** @ignore */
+  minOf(
+    selector: Selector<CombinedDataType, number>,
+    thisArg: any,
+  ): KoconutPrimitive<number>;
+  /** @ignore */
+  minOf(selector: Selector<CombinedDataType, number>): KoconutPrimitive<number>;
+  /** @ignore */
+  minOf(
+    selector: Selector<CombinedDataType, string>,
+    thisArg: any,
+  ): KoconutPrimitive<string>;
+  /** @ignore */
+  minOf(selector: Selector<CombinedDataType, string>): KoconutPrimitive<string>;
+  /** @ignore */
+  minOf<ComparableType extends KoconutComparable>(
+    selector: Selector<CombinedDataType, ComparableType>,
     thisArg: any,
   ): KoconutPrimitive<ComparableType>;
   /** @ignore */
   minOf<ComparableType extends KoconutComparable>(
-    selector: (
-      element: CombinedDataType,
-    ) => ComparableType | Promise<ComparableType>,
+    selector: Selector<CombinedDataType, ComparableType>,
   ): KoconutPrimitive<ComparableType>;
   minOf<ComparableType extends KoconutComparable>(
-    selector: (
-      element: CombinedDataType,
-    ) =>
-      | number
-      | string
-      | ComparableType
-      | Promise<number | string | ComparableType>,
+    selector: Selector<CombinedDataType, number | string | ComparableType>,
     thisArg: any = null,
   ): KoconutPrimitive<number | string | ComparableType> {
     selector = selector.bind(thisArg);
@@ -1632,42 +1620,39 @@ export class KoconutIterable<
    * // ↑ 0
    * ```
    */
-  minOfOrNull(
-    selector: (element: CombinedDataType) => number | Promise<number>,
-    thisArg: any,
-  ): KoconutPrimitive<number | null>;
-  /** @ignore */
-  minOfOrNull(
-    selector: (element: CombinedDataType) => number | Promise<number>,
-  ): KoconutPrimitive<number | null>;
-  minOfOrNull(
-    selector: (element: CombinedDataType) => string | Promise<string>,
-    thisArg: any,
-  ): KoconutPrimitive<string | null>;
-  /** @ignore */
-  minOfOrNull(
-    selector: (element: CombinedDataType) => string | Promise<string>,
-  ): KoconutPrimitive<string | null>;
   minOfOrNull<ComparableType extends KoconutComparable>(
-    selector: (
-      element: CombinedDataType,
-    ) => ComparableType | Promise<ComparableType>,
+    selector: Selector<CombinedDataType, number | string | ComparableType>,
+    thisArg: any,
+  ): KoconutPrimitive<number | string | ComparableType | null>;
+  /** @ignore */
+  minOfOrNull(
+    selector: Selector<CombinedDataType, number>,
+    thisArg: any,
+  ): KoconutPrimitive<number | null>;
+  /** @ignore */
+  minOfOrNull(
+    selector: Selector<CombinedDataType, number>,
+  ): KoconutPrimitive<number | null>;
+  /** @ignore */
+  minOfOrNull(
+    selector: Selector<CombinedDataType, string>,
+    thisArg: any,
+  ): KoconutPrimitive<string | null>;
+  /** @ignore */
+  minOfOrNull(
+    selector: Selector<CombinedDataType, string>,
+  ): KoconutPrimitive<string | null>;
+  /** @ignore */
+  minOfOrNull<ComparableType extends KoconutComparable>(
+    selector: Selector<CombinedDataType, ComparableType>,
     thisArg: any,
   ): KoconutPrimitive<ComparableType | null>;
   /** @ignore */
   minOfOrNull<ComparableType extends KoconutComparable>(
-    selector: (
-      element: CombinedDataType,
-    ) => ComparableType | Promise<ComparableType>,
+    selector: Selector<CombinedDataType, ComparableType>,
   ): KoconutPrimitive<ComparableType>;
   minOfOrNull<ComparableType extends KoconutComparable>(
-    selector: (
-      element: CombinedDataType,
-    ) =>
-      | number
-      | string
-      | ComparableType
-      | Promise<number | string | ComparableType>,
+    selector: Selector<CombinedDataType, number | string | ComparableType>,
     thisArg: any = null,
   ): KoconutPrimitive<number | string | ComparableType | null> {
     selector = selector.bind(thisArg);
@@ -1977,9 +1962,11 @@ export class KoconutIterable<
   /**
    * Returns the first element having the smallest value according to the provided ```comparator``` or throws {@link KoconutNoSuchElementException}
    * if elements are empty.
-   * @param comparator A callback function that accepts two arguements. The method calls the ```comparator``` to compare two selected values.
+   * @param {Comparator<CombinedDataType>} comparator A callback function that accepts two arguements. The method calls the ```comparator``` to compare two selected values.
    * In case the result is larger than 0, front is bigger than rear, and if it's less than 0 judge vice versa.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```comparator```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```comparator```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutPrimitive<CombinedDataType>}
    *
    * @throws {@link KoconutNoSuchElementException}
    *
@@ -2048,10 +2035,7 @@ export class KoconutIterable<
    * ```
    */
   minWith(
-    comparator: (
-      front: CombinedDataType,
-      rear: CombinedDataType,
-    ) => number | Promise<number>,
+    comparator: Comparator<CombinedDataType>,
     thisArg: any = null,
   ): KoconutPrimitive<CombinedDataType> {
     comparator = comparator.bind(thisArg);
@@ -2079,9 +2063,11 @@ export class KoconutIterable<
   /**
    * Returns the first element having the smallest value according to the provided ```comparator``` or ```null```
    * if elements are empty.
-   * @param comparator A callback function that accepts two arguements. The method calls the ```comparator``` to compare two selected values.
+   * @param {Comparator<CombinedDataType>} comparator A callback function that accepts two arguements. The method calls the ```comparator``` to compare two selected values.
    * In case the result is larger than 0, front is bigger than rear, and if it's less than 0 judge vice versa.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```comparator```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```comparator```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutPrimitive<CombinedDataType | null>}
    *
    * @category Calculator
    *
@@ -2143,10 +2129,7 @@ export class KoconutIterable<
    * ```
    */
   minWithOrNull(
-    comparator: (
-      front: CombinedDataType,
-      rear: CombinedDataType,
-    ) => number | Promise<number>,
+    comparator: Comparator<CombinedDataType>,
     thisArg: any = null,
   ): KoconutPrimitive<CombinedDataType | null> {
     comparator = comparator.bind(thisArg);
@@ -2171,6 +2154,8 @@ export class KoconutIterable<
   // Caster
   /**
    * Creates an {@link KoconutArray} instance that wraps original data.
+   *
+   * @return {KoconutArray<CombinedDataType>}
    *
    * @since 1.0.13
    *
@@ -2243,6 +2228,8 @@ export class KoconutIterable<
   /**
    * Creates an {@link KoconutSet} instance that wraps original data.
    *
+   * @return {KoconutSet<CombinedDataType>}
+   *
    * @since 1.0.13
    *
    * @category Caster
@@ -2312,12 +2299,12 @@ export class KoconutIterable<
   }
 
   /**
-   * Creats an {@link KoconutFlow} instance that wraps original data.
+   * Creates an {@link KoconutFlow} instance that wraps original data.
    *
    * @since 1.0.13
    *
    * @category Caster
-   *
+   *c
    * @example
    * ```typescript
    * // Case 1 -- KoconutArray
@@ -2389,8 +2376,12 @@ export class KoconutIterable<
   // Inspector
   /**
    * Return ```true``` if all elements match te given ```predicate```.
-   * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Predicator<CombinedDataType>} predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutBoolean}
    *
    * @since 1.0.10
    *
@@ -2469,7 +2460,7 @@ export class KoconutIterable<
    * ```
    */
   all(
-    predicate: (element: CombinedDataType) => boolean | Promise<boolean>,
+    predicate: Predicator<CombinedDataType>,
     thisArg: any = null,
   ): KoconutBoolean {
     predicate = predicate.bind(thisArg);
@@ -2487,8 +2478,12 @@ export class KoconutIterable<
 
   /**
    * Returns ```true``` if the collection has at least one element matches the given ```predicate```.
-   * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Predicator<CombinedDataType>} predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutBoolean}
    *
    * @since 1.0.10
    *
@@ -2565,7 +2560,7 @@ export class KoconutIterable<
    * ```
    */
   any(
-    predicate: (element: CombinedDataType) => boolean | Promise<boolean>,
+    predicate: Predicator<CombinedDataType>,
     thisArg: any = null,
   ): KoconutBoolean {
     predicate = predicate.bind(thisArg);
@@ -2583,6 +2578,8 @@ export class KoconutIterable<
 
   /**
    * Returns ```true``` if the collection is empty (contains no elements), ```false``` otherwise.
+   *
+   * @return {KoconutBoolean}
    *
    * @since 1.0.10
    *
@@ -2632,6 +2629,8 @@ export class KoconutIterable<
   /**
    * Returns ```true``` if the collection is not empty.
    *
+   * @return {KoconutBoolean}
+   *
    * @since 1.0.10
    *
    * @category Inspector
@@ -2680,8 +2679,12 @@ export class KoconutIterable<
   /**
    * Returns ```true``` if this nullable collection is either null or empty.
    *
+   * @return {KoconutBoolean}
+   *
    * @since 1.0.10
+   *
    * @deprecated Use {@link isEmpty} instead.
+   *
    * @until 1.3.0
    *
    * @category Inspector
@@ -2731,8 +2734,12 @@ export class KoconutIterable<
   /**
    * ```predicate``` callback function is optional. If it's omitted the method returns ```true``` if the collection has no elements.
    * Otherwise, returns ```true``` if no elements match the given ```predicate```.
-   * @param predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Predicator<CombinedDataType> | null} predicate A callback function that accepts an argument. The method calls the ```predicate``` one time for each element in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```predicate```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutBoolean}
    *
    * @since 1.0.10
    *
@@ -2788,9 +2795,7 @@ export class KoconutIterable<
    * ```
    */
   none(
-    predicate:
-      | ((element: CombinedDataType) => boolean | Promise<boolean>)
-      | null = null,
+    predicate: Predicator<CombinedDataType> | null = null,
     thisArg: any = null,
   ): KoconutBoolean {
     if (predicate) predicate = predicate.bind(thisArg);
@@ -2813,8 +2818,12 @@ export class KoconutIterable<
   /**
    * Performs the given ```action``` on each element.
    * When you want to stop iteration in the meantime ```return``` ```false``` or {@link KoconutLoopSignal.BREAK}.
-   * @param action A callback function that accepts an argument. The method calls the ```action``` one time for each element in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```action```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Action<CombinedDataType>} action A callback function that accepts an argument. The method calls the ```action``` one time for each element in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```action```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutPrimitive<void>}
    *
    * @since 1.0.10
    *
@@ -2881,13 +2890,7 @@ export class KoconutIterable<
    * ```
    */
   forEach(
-    action: (
-      element: CombinedDataType,
-    ) =>
-      | boolean
-      | KoconutLoopSignal
-      | void
-      | Promise<boolean | KoconutLoopSignal | void>,
+    action: Action<CombinedDataType>,
     thisArg: any = null,
   ): KoconutPrimitive<void> {
     action = action.bind(thisArg);
@@ -2907,13 +2910,7 @@ export class KoconutIterable<
 
   // No Comment - KoconutArray/KoconutSet/KoconutMap
   onEach(
-    action: (
-      element: CombinedDataType,
-    ) =>
-      | boolean
-      | KoconutLoopSignal
-      | void
-      | Promise<boolean | KoconutLoopSignal | void>,
+    action: Action<CombinedDataType>,
     thisArg: any = null,
   ): KoconutIterable<
     DataType,
@@ -2945,7 +2942,7 @@ export class KoconutIterable<
   // Manipulator
   // No Comment - KoconutArray/KoconutSet/KoconutMap
   filter(
-    predicate: (element: CombinedDataType) => boolean | Promise<boolean>,
+    predicate: Predicator<CombinedDataType>,
     thisArg: any = null,
   ): KoconutIterable<
     DataType,
@@ -2987,7 +2984,7 @@ export class KoconutIterable<
 
   // No Comment - KoconutArray/KoconutSet/KoconutMap
   filterNot(
-    predicate: (element: CombinedDataType) => boolean | Promise<boolean>,
+    predicate: Predicator<CombinedDataType>,
     thisArg: any = null,
   ): KoconutIterable<
     DataType,
@@ -3030,8 +3027,12 @@ export class KoconutIterable<
   // Transformer
   /**
    * Returns a single list of all elements yielded from results of ```transform``` function being invoked on each element of original collection.
-   * @param transform A callback function that accepts an argument. The method calls the ```transform``` one time for each element in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Transformer<CombinedDataType, Iterable<ResultDataType>>} transform A callback function that accepts an argument. The method calls the ```transform``` one time for each element in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutArray<ResultDataType>}
    *
    * @since 1.0.10
    *
@@ -3098,9 +3099,7 @@ export class KoconutIterable<
    * ```
    */
   flatMap<ResultDataType>(
-    transform: (
-      element: CombinedDataType,
-    ) => Iterable<ResultDataType> | Promise<Iterable<ResultDataType>>,
+    transform: Transformer<CombinedDataType, Iterable<ResultDataType>>,
     thisArg: any = null,
   ): KoconutArray<ResultDataType> {
     transform = transform.bind(thisArg);
@@ -3122,9 +3121,7 @@ export class KoconutIterable<
   // No Comment - KoconutArray/KoconutSet/KoconutMap
   flatMapTo<ResultDataType>(
     destination: Array<ResultDataType> | Set<ResultDataType>,
-    transform: (
-      element: CombinedDataType,
-    ) => Iterable<ResultDataType> | Promise<Iterable<ResultDataType>>,
+    transform: Transformer<CombinedDataType, Iterable<ResultDataType>>,
     thisArg: any = null,
   ): KoconutIterable<
     DataType,
@@ -3165,8 +3162,12 @@ export class KoconutIterable<
   /**
    * Returns a list containing the results of applying the given ```transform``` function
    * to each element in the original collection.
-   * @param transform A callback function that accepts an argument. The method calls the ```transform``` one time for each element in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Transformer<CombinedDataType, ResultDataType>} transform A callback function that accepts an argument. The method calls the ```transform``` one time for each element in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutArray<ResultDataType>}
    *
    * @since 1.0.10
    *
@@ -3221,9 +3222,7 @@ export class KoconutIterable<
    * ```
    */
   map<ResultDataType>(
-    transform: (
-      element: CombinedDataType,
-    ) => ResultDataType | Promise<ResultDataType>,
+    transform: Transformer<CombinedDataType, ResultDataType>,
     thisArg: any = null,
   ): KoconutArray<ResultDataType> {
     transform = transform.bind(thisArg);
@@ -3245,9 +3244,7 @@ export class KoconutIterable<
   // No Comment -- KoconutArray/KoconutSet/KoconutMap
   mapTo<ResultDataType>(
     destination: Array<ResultDataType> | Set<ResultDataType>,
-    transform: (
-      element: CombinedDataType,
-    ) => ResultDataType | Promise<ResultDataType>,
+    transform: Transformer<CombinedDataType, ResultDataType>,
     thisArg: any = null,
   ): KoconutIterable<
     DataType,
@@ -3288,8 +3285,12 @@ export class KoconutIterable<
   /**
    * Returns a list containing results that are not ```null``` nor ```undefined``` of applying
    * the given ```transfrom``` function to each element in the original collection. You can use this method as ```filter``` then ```map```.
-   * @param transform A callback function that accepts an argument. The method calls the ```transform``` one time for each element in object.
-   * @param thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @param {Transformer<CombinedDataType,ResultDataType | void | null | undefined>} transform A callback function that accepts an argument. The method calls the ```transform``` one time for each element in object.
+   *
+   * @param {any} thisArg An object to which the ```this``` keyword can refer in the ```transform```. If ```thisArg``` is omitted, ```null``` is used as the ```this``` value.
+   *
+   * @return {KoconutArray<ResultDataType>}
    *
    * @since 1.0.10
    *
@@ -3363,14 +3364,10 @@ export class KoconutIterable<
    * ```
    */
   mapNotNull<ResultDataType>(
-    transform: (
-      element: CombinedDataType,
-    ) =>
-      | ResultDataType
-      | void
-      | null
-      | undefined
-      | Promise<ResultDataType | void | null | undefined>,
+    transform: Transformer<
+      CombinedDataType,
+      ResultDataType | void | null | undefined
+    >,
     thisArg: any = null,
   ): KoconutArray<ResultDataType> {
     transform = transform.bind(thisArg);
@@ -3394,14 +3391,10 @@ export class KoconutIterable<
   // No Comment -- KoconutArray/KoconutSet/KoconutMap
   mapNotNullTo<ResultDataType>(
     destination: Array<ResultDataType> | Set<ResultDataType>,
-    transform: (
-      element: CombinedDataType,
-    ) =>
-      | ResultDataType
-      | void
-      | null
-      | undefined
-      | Promise<ResultDataType | void | null | undefined>,
+    transform: Transformer<
+      CombinedDataType,
+      ResultDataType | void | null | undefined
+    >,
     thisArg: any = null,
   ): KoconutIterable<
     DataType,
