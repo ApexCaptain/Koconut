@@ -1,0 +1,34 @@
+{
+  "name": "koconut",
+  "description": "Promise-Friendly Kotlin style collection lib for nodejs.",
+  "main": "dist/index.js",
+  "authors": [
+    "ApexCaptain <ayteneve93@gmail.com>"
+  ],
+  "license": "Apache-2.0",
+  "keywords": [
+    "nodejs",
+    "typescript-library",
+    "typescript",
+    "collection",
+    "promise",
+    "iteration-process",
+    "async-await",
+    "data-structures",
+    "javascript",
+    "async",
+    "async-methods",
+    "async-iteration",
+    "array",
+    "async-functions",
+    "await"
+  ],
+  "homepage": "https://github.com/ApexCaptain/Koconut",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
