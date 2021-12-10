@@ -25,10 +25,25 @@
   ],
   "homepage": "https://github.com/ApexCaptain/Koconut",
   "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
+    ".devContainer",
+    ".github",
+    ".vscode",
+    "commands",
+    "coverage",
+    "docs",
+    "res",
+    "src",
     "test",
-    "tests"
+    ".babelrc",
+    ".eslintrc.js",
+    ".gitignore",
+    ".prettierrc",
+    ".ToDo",
+    "CHANGELOG.md",
+    "desktop.ini",
+    "package.json",
+    "tsconfig.json",
+    "typedoc.json",
+    "yarn.lock"
   ]
 }
