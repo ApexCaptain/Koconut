@@ -97,3 +97,5 @@ Object.defineProperty(exports, 'Pair', {
 var _module = require('./module');
 
 ('use strict');
+
+('use strict');

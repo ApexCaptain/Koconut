@@ -2,14 +2,44 @@
 <a href="#koconut-release-note" id="koconut-release-note" style="color: inherit; text-decoration: none;">
   <h1>Koconut Release Note</h1>
 </a>
+
+<a href="#release-v10163" id="release-v10163" style="color: inherit; text-decoration: none;">
+  <h2>Release <strong>v1.0.163</strong></h2>
+</a>
+<div style="text-align: right; font-weight : bold; color : orange">
+13 Dec 2021
+</div>
+
+
+<a href="#buf-fixes-and-other-changes" id="buf-fixes-and-other-changes" style="color: inherit; text-decoration: none;">
+  <h3>Buf Fixes and Other Changes</h3>
+</a>
+<ul>
+<li>Fix misspelled words in descriptive comments.</li>
+</ul>
+
+<a href="#known-caveats" id="known-caveats" style="color: inherit; text-decoration: none;">
+  <h3>Known Caveats</h3>
+</a>
+<ul>
+<li>Fix misspelled methods.<ul>
+<li>Rename <code>mapVaues</code> to <code>mapValues</code> of <a href="https://apexcaptain.github.io/Koconut/classes/KoconutMap.html#mapValues">KoconutMap</a>.</li>
+<li>Rename <code>substract</code> to <code>subtract</code> of [KoconutCollection].</li>
+<li>Rename <code>runningFoldindexed</code> to <code>runningFoldIndexed</code> of <a href="https://apexcaptain.github.io/Koconut/classes/Reference.KoconutCollection.html#runningFoldIndexed">KoconutCollection</a>.</li>
+</ul>
+</li>
+</ul>
+<br>
+<br>
 <hr>
+<br>
 
 
 <a href="#release-v10162" id="release-v10162" style="color: inherit; text-decoration: none;">
   <h2>Release <strong>v1.0.162</strong></h2>
 </a>
 <div style="text-align: right; font-weight : bold; color : orange">
-8 Dec 2021 
+8 Dec 2021
 </div>
 
 
@@ -20,7 +50,7 @@
 <li>Fix some methods that did not print out intelliSence description of method example source.</li>
 </ul>
 
-<a href="#known-caveats" id="known-caveats" style="color: inherit; text-decoration: none;">
+<a href="#known-caveats-1" id="known-caveats-1" style="color: inherit; text-decoration: none;">
   <h3>Known Caveats</h3>
 </a>
 <ul>
@@ -33,12 +63,17 @@
 <ul>
 <li><a href="https://apexcaptain.github.io/Koconut/">API Document Page</a> supports dark mode theme.<br></li>
 </ul>
+<br>
+<br>
+<hr>
+<br>
+
 
 <a href="#release-v1015" id="release-v1015" style="color: inherit; text-decoration: none;">
   <h2>Release <strong>v1.0.15</strong></h2>
 </a>
 <div style="text-align: right; font-weight : bold; color : orange">
-1 Oct 2020 
+1 Oct 2020
 </div>
 
 
@@ -67,18 +102,20 @@
 </li>
 </ul>
 
-<a href="#known-caveats-1" id="known-caveats-1" style="color: inherit; text-decoration: none;">
+<a href="#known-caveats-2" id="known-caveats-2" style="color: inherit; text-decoration: none;">
   <h3>Known Caveats</h3>
 </a>
 <ul>
 <li><p>Following methods are deprecated.</p>
 <pre><code><span class="hl-1">- </span><span class="hl-7">`toArray`</span><span class="hl-1"> -- </span><span class="hl-5">Commonly</span><span class="hl-1"> </span><span class="hl-6">// `asArray` instead.</span><br/><span class="hl-1">- </span><span class="hl-7">`toSet`</span><span class="hl-1"> -- </span><span class="hl-5">Commonly</span><span class="hl-1"> </span><span class="hl-6">// `asSet` instead.</span><br/><span class="hl-1">- </span><span class="hl-7">`forEachIndexed`</span><span class="hl-1"> -- </span><span class="hl-0">in</span><span class="hl-1"> </span><span class="hl-7">`KoconutMap`</span><br/><span class="hl-1">- </span><span class="hl-7">`onEachIndexed`</span><span class="hl-1"> -- </span><span class="hl-0">in</span><span class="hl-1"> </span><span class="hl-7">`KoconutMap`</span>
 </code></pre>
+</li>
+</ul>
 <br>
 <br>
 <hr>
-<br></li>
-</ul>
+<br>
+
 
 <a href="#release-v1014" id="release-v1014" style="color: inherit; text-decoration: none;">
   <h2>Release <strong>v1.0.14</strong></h2>
@@ -104,11 +141,13 @@
 <ul>
 <li>Mapping and filtering methods of collections with specified target destination is now propery applied to <code>Set</code> when the value is instance of
 your custom class that inherits <code>KoconutEquatable</code>.
-Applied Methods - <code>flatMapTo</code> - <code>mapTo</code> - <code>mapNotNullTo</code> - <code>flatMapIndexedTo</code> - <code>mapIndexedTo</code> - <code>mapIndexedNotNullTo</code> - <code>filterTo</code> - <code>filterNotTo</code> - <code>filterIndexedTo</code> - <code>filterNotNullTo</code><br>
+Applied Methods - <code>flatMapTo</code> - <code>mapTo</code> - <code>mapNotNullTo</code> - <code>flatMapIndexedTo</code> - <code>mapIndexedTo</code> - <code>mapIndexedNotNullTo</code> - <code>filterTo</code> - <code>filterNotTo</code> - <code>filterIndexedTo</code> - <code>filterNotNullTo</code></li>
+</ul>
+<br>
 <br>
 <hr>
-<br></li>
-</ul>
+<br>
+
 
 <a href="#release-v1013" id="release-v1013" style="color: inherit; text-decoration: none;">
   <h2>Release <strong>v1.0.13</strong></h2>
@@ -125,7 +164,7 @@ Applied Methods - <code>flatMapTo</code> - <code>mapTo</code> - <code>mapNotNull
 <li>I&#39;m planning to design 2 new data container classes for sequential and parallel promise chain. Those are quite similar to <code>Sequence</code> or <code>Stream</code> in <code>Java</code> and <code>Kotlin</code>.</li>
 </ul>
 
-<a href="#known-caveats-2" id="known-caveats-2" style="color: inherit; text-decoration: none;">
+<a href="#known-caveats-3" id="known-caveats-3" style="color: inherit; text-decoration: none;">
   <h3>Known Caveats</h3>
 </a>
 <ul>
@@ -137,11 +176,13 @@ Applied Methods - <code>flatMapTo</code> - <code>mapTo</code> - <code>mapNotNull
   <h3>Repository</h3>
 </a>
 <ul>
-<li>API documentation of <code>KoconutMap</code> is completed.<br>
+<li>API documentation of <code>KoconutMap</code> is completed.</li>
+</ul>
+<br>
 <br>
 <hr>
-<br></li>
-</ul>
+<br>
+
 
 <a href="#release-v1012" id="release-v1012" style="color: inherit; text-decoration: none;">
   <h2>Release <strong>v1.0.12</strong></h2>
@@ -155,11 +196,13 @@ Applied Methods - <code>flatMapTo</code> - <code>mapTo</code> - <code>mapNotNull
   <h3>Bug Fixes and Other Changes</h3>
 </a>
 <ul>
-<li>Babel@runtime is now moved to common dependencies section. I&#39;m sorry I didn&#39;t catch that.<br>
+<li>Babel@runtime is now moved to common dependencies section. I&#39;m sorry I didn&#39;t catch that.</li>
+</ul>
+<br>
 <br>
 <hr>
-<br></li>
-</ul>
+<br>
+
 
 <a href="#release-v1011" id="release-v1011" style="color: inherit; text-decoration: none;">
   <h2>Release <strong>v1.0.11</strong></h2>
@@ -184,11 +227,13 @@ Applied Methods - <code>flatMapTo</code> - <code>mapTo</code> - <code>mapNotNull
   <h3>Repository</h3>
 </a>
 <ul>
-<li>README for NPM is now separated. Not very different from the original <a href="https://github.com/ApexCaptain/Koconut/blob/master/README.md">README.md</a>. Since the column on NPM README is quite narrow and table of contents navigation does not work properly. I think it&#39;s because anchor links are generated differently on GitHub and NPM. I&#39;ll only leave brief introductions and examples in the NPM README.<br>
+<li>README for NPM is now separated. Not very different from the original <a href="https://github.com/ApexCaptain/Koconut/blob/master/README.md">README.md</a>. Since the column on NPM README is quite narrow and table of contents navigation does not work properly. I think it&#39;s because anchor links are generated differently on GitHub and NPM. I&#39;ll only leave brief introductions and examples in the NPM README.</li>
+</ul>
+<br>
 <br>
 <hr>
-<br></li>
-</ul>
+<br>
+
 
 <a href="#release-v1010" id="release-v1010" style="color: inherit; text-decoration: none;">
   <h2>Release <strong>v1.0.10</strong></h2>
@@ -205,7 +250,7 @@ Applied Methods - <code>flatMapTo</code> - <code>mapTo</code> - <code>mapNotNull
 <li>Iterative functions, such as <code>forEach</code>, <code>forEachIndexed</code>, <code>onEach</code> and <code>onEachIndexed</code> now can be interrupted with <code>KoconutLoopSignal.BREAK</code>. Of course it is still available by simple <code>boolean</code>. To stop the iteration in the mean time, you can simply <code>return false</code> or <code>return KoconutLoopSignal.BREAK</code>. You can check <a href="https://apexcaptain.github.io/Koconut/classes/KoconutArray.html#forEach">example</a> if you want to.</li>
 </ul>
 
-<a href="#known-caveats-3" id="known-caveats-3" style="color: inherit; text-decoration: none;">
+<a href="#known-caveats-4" id="known-caveats-4" style="color: inherit; text-decoration: none;">
   <h3>Known Caveats</h3>
 </a>
 <ul>

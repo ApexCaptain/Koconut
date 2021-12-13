@@ -1,5 +1,4 @@
 import { KoconutComparable, KoconutPrimitive } from '../../../module';
-declare type targetBooleanLikeType = boolean | KoconutPrimitive<boolean>;
 export declare class KoconutBoolean
   extends KoconutPrimitive<boolean>
   implements Boolean, KoconutComparable
@@ -21,7 +20,9 @@ export declare class KoconutBoolean
    */
   constructor(boolean?: boolean | null);
   private static fromPrimitive;
-  compareTo(other: targetBooleanLikeType): KoconutPrimitive<number>;
+  compareTo(
+    other: boolean | KoconutPrimitive<boolean>,
+  ): KoconutPrimitive<number>;
   /**
    * Processed all the chained object and returns original {@link KoconutBoolean} instance.
    *
@@ -40,12 +41,11 @@ export declare class KoconutBoolean
   retrieve(): Promise<KoconutBoolean>;
   valueOf(): boolean;
   not(): KoconutBoolean;
-  and(other: targetBooleanLikeType): KoconutBoolean;
-  nand(other: targetBooleanLikeType): KoconutBoolean;
-  or(other: targetBooleanLikeType): KoconutBoolean;
-  nor(other: targetBooleanLikeType): KoconutBoolean;
-  xor(other: targetBooleanLikeType): KoconutBoolean;
-  xnor(other: targetBooleanLikeType): KoconutBoolean;
-  eqv(other: targetBooleanLikeType): KoconutBoolean;
+  and(other: boolean | KoconutPrimitive<boolean>): KoconutBoolean;
+  nand(other: boolean | KoconutPrimitive<boolean>): KoconutBoolean;
+  or(other: boolean | KoconutPrimitive<boolean>): KoconutBoolean;
+  nor(other: boolean | KoconutPrimitive<boolean>): KoconutBoolean;
+  xor(other: boolean | KoconutPrimitive<boolean>): KoconutBoolean;
+  xnor(other: boolean | KoconutPrimitive<boolean>): KoconutBoolean;
+  eqv(other: boolean | KoconutPrimitive<boolean>): KoconutBoolean;
 }
-export {};

@@ -3,7 +3,7 @@ name: Pipeline
 on:
   push:
     tags:
-      - "*.*.*"
+      - '*.*.*'
 
 jobs:
   ci:
@@ -11,7 +11,17 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, windows-2016, macos-latest] # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
+        os: [
+            # Ubuntu
+            ubuntu-18.04,
+            ubuntu-latest,
+            # Windows
+            windows-2022,
+            windows-latest,
+            # Mac
+            macos-11,
+            macos-latest,
+          ] # https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#github-hosted-runners
         node-version: [12.x, 13.x, 14.x, 15.x, 16.x]
 
     runs-on: ${{matrix.os}}
@@ -44,7 +54,7 @@ jobs:
       - name: Use Node.js v16
         uses: actions/setup-node@v2
         with:
-          node-version: "16.x"
+          node-version: '16.x'
           registry-url: https://registry.npmjs.org/
       - run: npm publish
         env:

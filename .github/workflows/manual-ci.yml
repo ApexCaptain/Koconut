@@ -10,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest] # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
+        os: [ubuntu-latest]
         node-version: [12.x, 13.x, 14.x, 15.x, 16.x]
 
     steps:

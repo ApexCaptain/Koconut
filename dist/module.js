@@ -56,19 +56,6 @@ Object.keys(_KoconutDeprecation).forEach(function (key) {
   });
 });
 
-var _KoconutYieldable = require('./components/tool/KoconutYieldable');
-
-Object.keys(_KoconutYieldable).forEach(function (key) {
-  if (key === 'default' || key === '__esModule') return;
-  if (key in exports && exports[key] === _KoconutYieldable[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _KoconutYieldable[key];
-    },
-  });
-});
-
 var _KoconutOpener = require('./components/tool/KoconutOpener');
 
 Object.keys(_KoconutOpener).forEach(function (key) {
@@ -199,6 +186,19 @@ Object.keys(_KoconutEquatable).forEach(function (key) {
   });
 });
 
+var _KoconutYieldable = require('./components/protocol/KoconutYieldable');
+
+Object.keys(_KoconutYieldable).forEach(function (key) {
+  if (key === 'default' || key === '__esModule') return;
+  if (key in exports && exports[key] === _KoconutYieldable[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _KoconutYieldable[key];
+    },
+  });
+});
+
 var _KoconutIterable = require('./components/container/KoconutIterable');
 
 Object.keys(_KoconutIterable).forEach(function (key) {
@@ -289,3 +289,4 @@ Object.keys(_KoconutMap).forEach(function (key) {
     },
   });
 });
+('use strict');

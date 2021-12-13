@@ -43,7 +43,7 @@ Here is a short example on how to use it:
 ### TypeScript
 
 ```ts
-import { KoconutArray } from "koconut";
+import { KoconutArray } from 'koconut';
 
 const sampleProcess = async () => {
   const myArray = KoconutArray.of(1, 2, 3, 4, 5, 6);
@@ -61,7 +61,7 @@ sampleProcess();
 ### JavaScript (CommonJs)
 
 ```js
-const { KoconutArray } = require("koconut");
+const { KoconutArray } = require('koconut');
 
 const sampleProcess = async () => {
   const myArray = KoconutArray.of(1, 2, 3, 4, 5, 6);
@@ -132,24 +132,24 @@ Imagine if there are 3 different http requests info. Each and every one of them 
 ```ts
 const requestInfoList = [
   {
-    method: "POST",
-    uri: "https://myServer",
+    method: 'POST',
+    uri: 'https://myServer',
     data: {
-      some: "payload1",
+      some: 'payload1',
     },
   },
   {
-    method: "GET",
-    uri: "https://myServer",
+    method: 'GET',
+    uri: 'https://myServer',
     data: {
-      some: "payload2",
+      some: 'payload2',
     },
   },
   {
-    method: "DELETE",
-    uri: "https://myServer",
+    method: 'DELETE',
+    uri: 'https://myServer',
     data: {
-      some: "payload3",
+      some: 'payload3',
     },
   },
 ];
@@ -166,7 +166,7 @@ const mainProcess = async () => {
   });
 
   console.log(results); // --- [1] : Empty List
-  console.log("Nailed it!");
+  console.log('Nailed it!');
 };
 mainProcess();
 ```
@@ -186,7 +186,7 @@ const mainProcess = async () => {
   }
 
   console.log(results); // --- [1] : [ result1, result2, result3 ]
-  console.log("Nailed it!");
+  console.log('Nailed it!');
 };
 mainProcess();
 ```
@@ -217,7 +217,7 @@ const mainProcess = async () => {
   }
 
   console.log(validResults); // --- [1] : Valid results matches the given condition
-  console.log("Nailed it!");
+  console.log('Nailed it!');
 };
 mainProcess();
 ```
@@ -229,7 +229,7 @@ It would be great just if you can use `filter` function instead, right?
 Well, here's an example using [KoconutArray].
 
 ```ts
-import { KoconutArray } from "koconut";
+import { KoconutArray } from 'koconut';
 const mainProcess = async () => {
   const validResults = await KoconutArray.from(requestInfoList)
     .map(axios)
@@ -237,7 +237,7 @@ const mainProcess = async () => {
     .yield();
 
   console.log(validresults);
-  console.log("Nailed it!");
+  console.log('Nailed it!');
 };
 mainProcess();
 ```
@@ -260,7 +260,7 @@ To create a [KoconutArray] instance, you can do it in 4 different ways.
    Very traditional way. You can create a new instance from an iterable object or if it's ommitted you may have an empty array. In case of that, you'd better declare generic type explicitly.
 
    ```typescript
-   import { KoconutArray } from "koconut";
+   import { KoconutArray } from 'koconut';
 
    const emptyKoconutNumbers = new KoconutArray<number>();
    // ↑ This is an empty Koconut number array
@@ -275,7 +275,7 @@ To create a [KoconutArray] instance, you can do it in 4 different ways.
    You can create a new instance from an iterable object.
 
    ```typescript
-   import { KoconutArray } from "koconut";
+   import { KoconutArray } from 'koconut';
 
    const numbers = Array.of(1, 2, 3, 4, 5);
    const koconutNumbers = KoconutArray.from(numbers);
@@ -287,7 +287,7 @@ To create a [KoconutArray] instance, you can do it in 4 different ways.
    You can create a new instance with a variable number of arguments
 
    ```typescript
-   import { KoconutArray } from "koconut";
+   import { KoconutArray } from 'koconut';
 
    const koconutNumbers = KoconutArray.of(1, 2, 3, 4, 5);
    // ↑ This is a Koconut number array consists of 1 to 5.
@@ -298,7 +298,7 @@ To create a [KoconutArray] instance, you can do it in 4 different ways.
    This method creates a new instance with length positions and fills it with values provided by `generator` function callback with each index in the range "`0...length - 1`" in increasing order as an argument. Given `count` must be non-negative number.
 
    ```typescript
-   import { KoconutArray } from "koconut";
+   import { KoconutArray } from 'koconut';
 
    const evenNumberArray = await KoconutArray.generate(5, (i) => i * 2);
    // ↑ This is a Koconut number array consists of 2, 4, 6, 8 and 10.
@@ -316,7 +316,7 @@ All the [Koconut] containers internally connected with each other within [Promis
    This method processes all the chained objects and returns the result.
 
    ```typescript
-   import { KoconutArray } from "koconut";
+   import { KoconutArray } from 'koconut';
 
    const mainProcess = async () => {
      const koconutNumbers = KoconutArray.of(1, 2, 3, 4, 5);
@@ -333,7 +333,7 @@ All the [Koconut] containers internally connected with each other within [Promis
    This method just simply processes all the chained objects, then return `Promise<void>`.
 
    ```typescript
-   import { KoconutArray } from "koconut";
+   import { KoconutArray } from 'koconut';
 
    const mainProcess = async () => {
      const koconutNumbers = KoconutArray.of(1, 2, 3, 4, 5);
@@ -349,7 +349,7 @@ All the [Koconut] containers internally connected with each other within [Promis
    This method processes all the chained objects and calls the specified function `block` with the reuslt value as its argument and returns the final result of the `block`.
 
    ```typescript
-   import { KoconutArray } from "koconut";
+   import { KoconutArray } from 'koconut';
 
    const mainProcess = async () => {
      const koconutNumbers = KoconutArray.of(1, 2, 3, 4, 5);
@@ -368,7 +368,7 @@ All the [Koconut] containers internally connected with each other within [Promis
    This method processes all the chained objects and calls the specified function `block` with the result value as its argument and return passed result object.
 
    ```typescript
-   import { KoconutArray } from "koconut";
+   import { KoconutArray } from 'koconut';
 
    const mainProcess = async () => {
      const koconutNumbers = KoconutArray.of(1, 2, 3, 4, 5);
@@ -393,7 +393,7 @@ Methods of which names start with `for` return nothing.
 Methods start with `on` return the original collection itself.
 
 ```typescript
-import { KoconutArray } from "koconut";
+import { KoconutArray } from 'koconut';
 
 const mainProcess = async () => {
   const koconutNumbers = KoconutArray.of(1, 2, 3, 4, 5);
@@ -426,7 +426,7 @@ If you want to interrupt, in other word `stop` the iteration process in the mean
 Each calculator method has its own purpose, performing calculation according to the established rules. For instance, [maxBy] method returns the first element yielding the largest value of the given function block.
 
 ```typescript
-import { KoconutArray } from "koconut";
+import { KoconutArray } from 'koconut';
 
 const mainProcess = async () => {
   const koconutArray = KoconutArray.of(1, 2, 3, 4, 5);
@@ -457,10 +457,10 @@ mainProcess();
 Manipulator methods rearrange the collection, add new elements or filter it by given condition. For instance, [sortedBy](https://apexcaptain.github.io/Koconut/classes/KoconutArray.html#sortedBy) method returns a collection of all elements sorted according to natural sort order(ASC) of the value returned by specified `selector` function block.
 
 ```typescript
-import { KoconutArray } from "koconut";
+import { KoconutArray } from 'koconut';
 
 const mainProcess = async () => {
-  const koconutArray = KoconutArray.of("abcd", "ab", "abc", "a");
+  const koconutArray = KoconutArray.of('abcd', 'ab', 'abc', 'a');
 
   const sortedStringArrayByLength = await koconutArray
     .sortedBy((eachString) => eachString.length)
@@ -476,7 +476,7 @@ mainProcess();
 Inspector methods check the elements at given condtion. For instance, [all](https://apexcaptain.github.io/Koconut/classes/KoconutArray.html#all) method return `true` if all elements match the given `predicate` function block. If any one of those elements doesn't meet the condtion, it'll return `false`.
 
 ```typescript
-import { KoconutArray } from "koconut";
+import { KoconutArray } from 'koconut';
 
 const mainProcess = async () => {
   const koconutArray = KoconutArray.of(1, 2, 3, 4, 5);
@@ -501,7 +501,7 @@ mainProcess();
 Transformer methods convert the collection into other format. The [map](https://apexcaptain.github.io/Koconut/classes/KoconutArray.html#map) method is representative. It returns a list containing the results of applying the given `transform` function block to each element in the original collection.
 
 ```typescript
-import { KoconutArray } from "koconut";
+import { KoconutArray } from 'koconut';
 
 const mainProcess = async () => {
   const koconutArray = KoconutArray.of(1, 2, 3, 4, 5);
@@ -534,7 +534,7 @@ What does that mean?
 For instance, [maxBy] method in [KoconutArray] returns the first element yielding the largest value of the given function or throw [KoconutNoSuchElementException] when there is no element. Following examples are same as written in document page.
 
 ```typescript
-import { KoconutArray } from "koconut";
+import { KoconutArray } from 'koconut';
 
 const main = async () => {
   // Create an 1 to 5 number array.
@@ -589,7 +589,7 @@ There are three options you can change for `Depreation Warning`.
   You can chagne the language explicitly. Default value depends on your actual region. If it's not supported, `en(English)` will be the default. For instance, if you're in China or Russia, default locale is just `English`. I'm sorry I cannot handle them all...
 
   ```typescript
-  import { KoconutOption, KoconutLocale } from "koconut";
+  import { KoconutOption, KoconutLocale } from 'koconut';
 
   KoconutOption.locale = KoconutLocale.en; // English
   KoconutOption.locale = KoconutLocale.ja; // Japanese
@@ -601,7 +601,7 @@ There are three options you can change for `Depreation Warning`.
   Simply, if you don't want to use `Depreaction Warning` set the flag to `false`. Default value is `true`.
 
   ```typescript
-  import { KoconutOption } from "koconut";
+  import { KoconutOption } from 'koconut';
 
   KoconutOption.isDeprecationWarningEnabled = true; // Enabled (Default)
   KoconutOption.isDeprecationWarningEnabled = false; // Disabled
@@ -612,7 +612,7 @@ There are three options you can change for `Depreation Warning`.
   If you don't want to see messy call stack of the warning, you just disable it by setting the flag to `false`.
 
   ```typescript
-  import { KoconutOption } from "koconut";
+  import { KoconutOption } from 'koconut';
 
   KoconutOption.doesDeprecationWarningShowCallStack = true; // Enabled (Default)
   KoconutOption.doesDeprecationWarningShowCallStack = false; // Disabled

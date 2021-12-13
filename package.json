@@ -1,6 +1,6 @@
 {
   "name": "koconut",
-  "version": "1.0.162",
+  "version": "1.0.163",
   "description": "Promise-Friendly Kotlin style collection lib for nodejs.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

@@ -1,11 +1,31 @@
 # Koconut Release Note
 
+## Release **v1.0.163**
+
+<div style="text-align: right; font-weight : bold; color : orange">
+13 Dec 2021
+</div>
+
+### Buf Fixes and Other Changes
+
+- Fix misspelled words in descriptive comments.
+
+### Known Caveats
+
+- Fix misspelled methods.
+  - Rename `mapVaues` to `mapValues` of [KoconutMap](https://apexcaptain.github.io/Koconut/classes/KoconutMap.html#mapValues).
+  - Rename `substract` to `subtract` of [KoconutCollection].
+  - Rename `runningFoldindexed` to `runningFoldIndexed` of [KoconutCollection](https://apexcaptain.github.io/Koconut/classes/Reference.KoconutCollection.html#runningFoldIndexed).
+
+<br>
+<br>
 <hr>
+<br>
 
 ## Release **v1.0.162**
 
 <div style="text-align: right; font-weight : bold; color : orange">
-8 Dec 2021 
+8 Dec 2021
 </div>
 
 ### Bug Fixes and Other Changes
@@ -21,10 +41,15 @@
 - [API Document Page](https://apexcaptain.github.io/Koconut/) supports dark mode theme.
   <br>
 
+<br>
+<br>
+<hr>
+<br>
+
 ## Release **v1.0.15**
 
 <div style="text-align: right; font-weight : bold; color : orange">
-1 Oct 2020 
+1 Oct 2020
 </div>
 
 ### Major Features and Improvements
@@ -60,10 +85,10 @@
       - `forEachIndexed` -- in `KoconutMap`
       - `onEachIndexed` -- in `KoconutMap`
 
-  <br>
-  <br>
-  <hr>
-  <br>
+<br>
+<br>
+<hr>
+<br>
 
 ## Release **v1.0.14**
 
@@ -104,10 +129,11 @@
 - Mapping and filtering methods of collections with specified target destination is now propery applied to `Set` when the value is instance of
   your custom class that inherits `KoconutEquatable`.
   Applied Methods - `flatMapTo` - `mapTo` - `mapNotNullTo` - `flatMapIndexedTo` - `mapIndexedTo` - `mapIndexedNotNullTo` - `filterTo` - `filterNotTo` - `filterIndexedTo` - `filterNotNullTo`
-  <br>
-  <br>
-  <hr>
-  <br>
+
+<br>
+<br>
+<hr>
+<br>
 
 ## Release **v1.0.13**
 
@@ -127,6 +153,7 @@
 ### Repository
 
 - API documentation of `KoconutMap` is completed.
+
 <br>
 <br>
 <hr>
@@ -141,6 +168,7 @@
 ### Bug Fixes and Other Changes
 
 - Babel@runtime is now moved to common dependencies section. I'm sorry I didn't catch that.
+
 <br>
 <br>
 <hr>
@@ -175,6 +203,7 @@
 ### Repository
 
 - README for NPM is now separated. Not very different from the original [README.md]. Since the column on NPM README is quite narrow and table of contents navigation does not work properly. I think it's because anchor links are generated differently on GitHub and NPM. I'll only leave brief introductions and examples in the NPM README.
+
 <br>
 <br>
 <hr>

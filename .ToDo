@@ -4,20 +4,4 @@ API 문서화 -- 참조 : https://typedoc.org/guides/doccomments/
 
 Container 내부에서 Git 커맨드 사용 (SSH 키 써서)
 
-v 1.0.163 - 변경사항
-메소드 오타 체크
-KoconutMap
-    mapVaues -> mapValues
-
-KoconutCollection
-    substract -> subtract
-    runningFoldindexed -> runningFoldIndexed
-
-
-
 // Currently working on...
----
-iterable -> maxOf // maxOfOrNull 함수에 대해서는 매뉴얼 테스트 진행 해봐야 할 듯...
-
----
-iterable -> minWith 부터 작업 재개

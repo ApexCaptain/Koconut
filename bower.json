@@ -35,6 +35,7 @@
     "src",
     "test",
     ".babelrc",
+    ".editorconfig",
     ".eslintrc.js",
     ".gitignore",
     ".prettierrc",
