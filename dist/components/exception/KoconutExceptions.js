@@ -11,6 +11,10 @@ exports.KoconutNoSuchElementException =
   exports.KoconutConflictException =
     void 0;
 
+var _createClass2 = _interopRequireDefault(
+  require('@babel/runtime/helpers/createClass'),
+);
+
 var _classCallCheck2 = _interopRequireDefault(
   require('@babel/runtime/helpers/classCallCheck'),
 );
@@ -84,7 +88,7 @@ var KoconutError = (function (_Error) {
     return _this;
   }
 
-  return KoconutError;
+  return (0, _createClass2['default'])(KoconutError);
 })((0, _wrapNativeSuper2['default'])(Error));
 
 var KoconutInvalidArgumentException = (function (_KoconutError) {
@@ -97,7 +101,7 @@ var KoconutInvalidArgumentException = (function (_KoconutError) {
     return _super2.apply(this, arguments);
   }
 
-  return KoconutInvalidArgumentException;
+  return (0, _createClass2['default'])(KoconutInvalidArgumentException);
 })(KoconutError);
 
 exports.KoconutInvalidArgumentException = KoconutInvalidArgumentException;
@@ -112,7 +116,7 @@ var KoconutIndexOutOfBoundsException = (function (_KoconutError2) {
     return _super3.apply(this, arguments);
   }
 
-  return KoconutIndexOutOfBoundsException;
+  return (0, _createClass2['default'])(KoconutIndexOutOfBoundsException);
 })(KoconutError);
 
 exports.KoconutIndexOutOfBoundsException = KoconutIndexOutOfBoundsException;
@@ -127,7 +131,7 @@ var KoconutNoSuchElementException = (function (_KoconutError3) {
     return _super4.apply(this, arguments);
   }
 
-  return KoconutNoSuchElementException;
+  return (0, _createClass2['default'])(KoconutNoSuchElementException);
 })(KoconutError);
 
 exports.KoconutNoSuchElementException = KoconutNoSuchElementException;
@@ -142,7 +146,7 @@ var KoconutConflictException = (function (_KoconutError4) {
     return _super5.apply(this, arguments);
   }
 
-  return KoconutConflictException;
+  return (0, _createClass2['default'])(KoconutConflictException);
 })(KoconutError);
 
 exports.KoconutConflictException = KoconutConflictException;

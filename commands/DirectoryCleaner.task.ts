@@ -13,3 +13,4 @@ const cleanDirectory = (dirPath: string) => {
 };
 cleanDirectory(normalize('./coverage'));
 cleanDirectory(normalize('./dist'));
+cleanDirectory(normalize('./webpack'));

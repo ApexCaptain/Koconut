@@ -15,7 +15,10 @@ const resolvePath = (dirPath: string) => {
       else {
         writeFileSync(
           eachFilePath,
-          readFileSync(eachFilePath, 'utf-8').replaceAll('../src', '../dist'),
+          readFileSync(eachFilePath, 'utf-8').replaceAll(
+            '../src',
+            '../../dist',
+          ),
           'utf-8',
         );
       }

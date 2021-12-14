@@ -13,7 +13,7 @@ module.exports = {
   plugins: ['@typescript-eslint', 'spellcheck'],
   overrides: [
     {
-      files: ['dist/**/*', 'coverage/**/*'],
+      files: ['dist/**/*'],
       rules: {
         'no-var': 'off',
         'spellcheck/spell-checker': ['off'],
@@ -89,6 +89,7 @@ module.exports = {
           'nand',
           'versa',
           'stringified',
+          'webpack',
         ],
       },
     ],
