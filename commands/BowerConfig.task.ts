@@ -2,7 +2,7 @@ import { readdirSync, readFileSync, writeFileSync } from 'fs';
 import { normalize, join } from 'path';
 const rootPath = normalize(`${__dirname}/../`);
 const bowerJsonPath = join(rootPath, 'bower.json');
-const includedFiles = ['dist', 'bower.json', 'LICENSE', 'README.md'];
+const includedFiles = ['webpack', 'bower.json', 'LICENSE', 'README.md'];
 const configBower = () => {
   const bowerConfig = JSON.parse(readFileSync(bowerJsonPath, 'utf-8'));
   const packageInfo = (({

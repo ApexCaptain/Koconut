@@ -1,4 +1,5 @@
 /node_modules
-Icon
 /log
 *.log
+.nyc_output
+.vscode

@@ -1,5 +1,3 @@
-# Koconut Release Note
-
 ## Release **v1.0.163**
 
 <div style="text-align: right; font-weight : bold; color : orange">
@@ -14,7 +12,7 @@
 
 - Fix misspelled methods.
   - Rename `mapVaues` to `mapValues` of [KoconutMap](https://apexcaptain.github.io/Koconut/classes/KoconutMap.html#mapValues).
-  - Rename `substract` to `subtract` of [KoconutCollection].
+  - Rename `substract` to `subtract` of [KoconutCollection](https://apexcaptain.github.io/Koconut/classes/Reference.KoconutCollection.html#runningFoldIndexed).
   - Rename `runningFoldindexed` to `runningFoldIndexed` of [KoconutCollection](https://apexcaptain.github.io/Koconut/classes/Reference.KoconutCollection.html#runningFoldIndexed).
 
 <br>
@@ -34,7 +32,7 @@
 
 ### Known Caveats
 
-- Changed the minimum Node.js version from 7 to 12 in order to follow [node.js release and maintenance policy](https://nodejs.org/en/about/releases/).
+- Change the minimum Node.js version from 7 to 12 in order to follow [node.js release and maintenance policy](https://nodejs.org/en/about/releases/).
 
 ### Repository
 
