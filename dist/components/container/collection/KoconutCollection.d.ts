@@ -278,16 +278,16 @@ export declare class KoconutCollection<
   ): KoconutPrimitive<void>;
   onEach(
     action: Action<DataType>,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType>;
   onEachIndexed(
     action: IndexedAction<DataType>,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType>;
   distinct(): KoconutCollection<DataType, WrapperType>;
   distinctBy<KeyType, EquatableKeyType extends KoconutEquatable>(
     selector: Selector<DataType, KeyType | EquatableKeyType>,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType>;
   drop(n: number): KoconutCollection<DataType, WrapperType>;
   dropLast(n: number): KoconutCollection<DataType, WrapperType>;

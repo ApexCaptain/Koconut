@@ -1417,10 +1417,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.9.tgz#879be3ad7af29f4c1a5c433421bf99fab7047185"
   integrity sha512-MKmdASMf3LtPzwLyRrFjtFFZ48cMf8jmX5VRYrDQiJa8Ybu5VAmkqBWqKU8fdCwD8ysw4mQ9nrEHvzg6gunR7A==
 
-"@types/node@^16.11.12":
-  version "16.11.12"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.12.tgz#ac7fb693ac587ee182c3780c26eb65546a1a3c10"
-  integrity sha512-+2Iggwg7PxoO5Kyhvsq9VarmPbIelXP070HMImEpbtGCoyWNINQj4wzjbQCXzdHTRXnqufutJb5KAURZANNBAw==
+"@types/node@^17.0.0":
+  version "17.0.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.0.tgz#62797cee3b8b497f6547503b2312254d4fe3c2bb"
+  integrity sha512-eMhwJXc931Ihh4tkU+Y7GiLzT/y/DBNpNtr4yU9O2w3SYBsr9NaOPhQlLKRmoWtI54uNwuo0IOUFQjVOTZYRvw==
 
 "@types/qs@*":
   version "6.9.7"
@@ -4102,10 +4102,10 @@ npm-bundled@^1.1.1:
   dependencies:
     npm-normalize-package-bin "^1.0.1"
 
-npm-check-updates@^12.0.3:
-  version "12.0.3"
-  resolved "https://registry.yarnpkg.com/npm-check-updates/-/npm-check-updates-12.0.3.tgz#860f8c20e4d05780929a0daa8ac52e006b878440"
-  integrity sha512-MTHzkDZY1ebhPaDvzWOU9bt4UYdHmY4tIcMCaZjgguGKUgwqokH/aB0Nrc4WcZ4rD491Spuj5DILo/RvKAefvw==
+npm-check-updates@^12.0.5:
+  version "12.0.5"
+  resolved "https://registry.yarnpkg.com/npm-check-updates/-/npm-check-updates-12.0.5.tgz#bd5606b4a645e5edfc31cc7a1c93e60dd3e14b9a"
+  integrity sha512-ns1liBBogwjmOVZY/PYgeIoarItwdOSBxccJDZKKkxsMkXges/Bp5CAnQIvYwlsz6fByQJFvqXSOqwIUBY6gpQ==
   dependencies:
     chalk "^4.1.2"
     cint "^8.2.1"

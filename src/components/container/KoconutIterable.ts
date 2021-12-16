@@ -34,7 +34,7 @@ export class KoconutIterable<
   WrapperType extends Iterable<DataType>,
   CombinedWrapperType extends Iterable<CombinedDataType>,
 > extends KoconutPrimitive<WrapperType> {
-  protected combinedDataWrapper: CombinedWrapperType | null = null;
+  protected combinedDataWrapper?: CombinedWrapperType;
   protected mSize: number = 0;
 
   // Calculator
@@ -128,9 +128,8 @@ export class KoconutIterable<
     (koconutToReturn as any as KoconutOpener<number>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.combinedDataWrapper == null) return 0;
         let count = 0;
-        for (const eachCombinedDatum of this.combinedDataWrapper) {
+        for (const eachCombinedDatum of this.combinedDataWrapper!) {
           if (!predicate) count++;
           else if (await predicate(eachCombinedDatum)) count++;
         }
@@ -225,12 +224,10 @@ export class KoconutIterable<
     (koconutToReturn as any as KoconutOpener<CombinedDataType>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.combinedDataWrapper == null)
-          throw new KoconutNoSuchElementException(`Source data is null`);
         let dataToReturn: CombinedDataType | null = null;
         let lastComparableDatum: number | string | KoconutComparable | null =
           null;
-        for (const eachCombinedDatum of this.combinedDataWrapper) {
+        for (const eachCombinedDatum of this.combinedDataWrapper!) {
           const eachComparableDatum = await selector(eachCombinedDatum);
 
           let shouldBeChanged = lastComparableDatum == null;
@@ -335,11 +332,10 @@ export class KoconutIterable<
     (koconutToReturn as any as KoconutOpener<CombinedDataType | null>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.combinedDataWrapper == null) return null;
         let dataToReturn: CombinedDataType | null = null;
         let lastComparableDatum: number | string | KoconutComparable | null =
           null;
-        for (const eachCombinedDatum of this.combinedDataWrapper) {
+        for (const eachCombinedDatum of this.combinedDataWrapper!) {
           const eachComparableDatum = await selector(eachCombinedDatum);
 
           let shouldBeChanged = lastComparableDatum == null;
@@ -493,14 +489,12 @@ export class KoconutIterable<
     (koconutToReturn as any as KoconutOpener<number | string | ComparableType>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.combinedDataWrapper == null)
-          throw new KoconutNoSuchElementException(`Source data is null`);
         let lastComparableDatumToReturn:
           | number
           | string
           | ComparableType
           | null = null;
-        for (const eachCombinedDatum of this.combinedDataWrapper) {
+        for (const eachCombinedDatum of this.combinedDataWrapper!) {
           const eachComparableDatum = await selector(eachCombinedDatum);
 
           let shouldBeChanged = lastComparableDatumToReturn == null;
@@ -658,13 +652,12 @@ export class KoconutIterable<
     )
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.combinedDataWrapper == null) return null;
         let lastComparableDatumToReturn:
           | number
           | string
           | ComparableType
           | null = null;
-        for (const eachCombinedDatum of this.combinedDataWrapper) {
+        for (const eachCombinedDatum of this.combinedDataWrapper!) {
           const eachComparableDatum = await selector(eachCombinedDatum);
 
           let shouldBeChanged = lastComparableDatumToReturn == null;
@@ -804,10 +797,8 @@ export class KoconutIterable<
     (koconutToReturn as any as KoconutOpener<ResultDataType>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.combinedDataWrapper == null)
-          throw new KoconutNoSuchElementException(`Source data is null`);
         let lastComparableDatumToReturn: ResultDataType | null = null;
-        for (const eachCombinedDatum of this.combinedDataWrapper) {
+        for (const eachCombinedDatum of this.combinedDataWrapper!) {
           const eachComparableDatum = await selector(eachCombinedDatum);
           if (
             lastComparableDatumToReturn == null ||
@@ -932,9 +923,8 @@ export class KoconutIterable<
     (koconutToReturn as any as KoconutOpener<ResultDataType | null>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.combinedDataWrapper == null) return null;
         let lastComparableDatumToReturn: ResultDataType | null = null;
-        for (const eachCombinedDatum of this.combinedDataWrapper) {
+        for (const eachCombinedDatum of this.combinedDataWrapper!) {
           const eachComparableDatum = await selector(eachCombinedDatum);
           if (
             lastComparableDatumToReturn == null ||
@@ -1036,10 +1026,8 @@ export class KoconutIterable<
     (koconutToReturn as any as KoconutOpener<CombinedDataType>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.combinedDataWrapper == null)
-          throw new KoconutNoSuchElementException(`Source data is null`);
         let dataToReturn: CombinedDataType | null = null;
-        for (const eachCombinedDatum of this.combinedDataWrapper) {
+        for (const eachCombinedDatum of this.combinedDataWrapper!) {
           if (
             dataToReturn == null ||
             (await comparator(dataToReturn, eachCombinedDatum)) < 0
@@ -1132,9 +1120,8 @@ export class KoconutIterable<
     (koconutToReturn as any as KoconutOpener<CombinedDataType | null>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.combinedDataWrapper == null) return null;
         let dataToReturn: CombinedDataType | null = null;
-        for (const eachCombinedDatum of this.combinedDataWrapper) {
+        for (const eachCombinedDatum of this.combinedDataWrapper!) {
           if (
             dataToReturn == null ||
             (await comparator(dataToReturn, eachCombinedDatum)) < 0
@@ -1234,12 +1221,10 @@ export class KoconutIterable<
     (koconutToReturn as any as KoconutOpener<CombinedDataType>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.combinedDataWrapper == null)
-          throw new KoconutNoSuchElementException(`Source data is null`);
         let dataToReturn: CombinedDataType | null = null;
         let lastComparableDatum: number | string | KoconutComparable | null =
           null;
-        for (const eachCombinedDatum of this.combinedDataWrapper) {
+        for (const eachCombinedDatum of this.combinedDataWrapper!) {
           const eachComparableDatum = await selector(eachCombinedDatum);
           let shouldBeChanged = lastComparableDatum == null;
 
@@ -1343,11 +1328,10 @@ export class KoconutIterable<
     (koconutToReturn as any as KoconutOpener<CombinedDataType | null>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.combinedDataWrapper == null) return null;
         let dataToReturn: CombinedDataType | null = null;
         let lastComparableDatum: number | string | KoconutComparable | null =
           null;
-        for (const eachCombinedDatum of this.combinedDataWrapper) {
+        for (const eachCombinedDatum of this.combinedDataWrapper!) {
           const eachComparableDatum = await selector(eachCombinedDatum);
           let shouldBeChanged = lastComparableDatum == null;
           if (!shouldBeChanged) {
@@ -1501,14 +1485,12 @@ export class KoconutIterable<
     (koconutToReturn as any as KoconutOpener<number | string | ComparableType>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.combinedDataWrapper == null)
-          throw new KoconutNoSuchElementException(`Source data is null`);
         let lastComparableDatumToReturn:
           | number
           | string
           | ComparableType
           | null = null;
-        for (const eachCombinedDatum of this.combinedDataWrapper) {
+        for (const eachCombinedDatum of this.combinedDataWrapper!) {
           const eachComparableDatum = await selector(eachCombinedDatum);
           let shouldBeChanged = lastComparableDatumToReturn == null;
           if (!shouldBeChanged) {
@@ -1666,13 +1648,12 @@ export class KoconutIterable<
     )
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.combinedDataWrapper == null) return null;
         let lastComparableDatumToReturn:
           | number
           | string
           | ComparableType
           | null = null;
-        for (const eachCombinedDatum of this.combinedDataWrapper) {
+        for (const eachCombinedDatum of this.combinedDataWrapper!) {
           const eachComparableDatum = await selector(eachCombinedDatum);
           let shouldBeChanged = lastComparableDatumToReturn == null;
           if (!shouldBeChanged) {
@@ -1811,10 +1792,8 @@ export class KoconutIterable<
     (koconutToReturn as any as KoconutOpener<ResultDataType>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.combinedDataWrapper == null)
-          throw new KoconutNoSuchElementException(`Source data is null`);
         let lastComparableDatumToReturn: ResultDataType | null = null;
-        for (const eachCombinedDatum of this.combinedDataWrapper) {
+        for (const eachCombinedDatum of this.combinedDataWrapper!) {
           const eachComparableDatum = await selector(eachCombinedDatum);
           if (
             lastComparableDatumToReturn == null ||
@@ -1941,9 +1920,8 @@ export class KoconutIterable<
     (koconutToReturn as any as KoconutOpener<ResultDataType | null>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.combinedDataWrapper == null) return null;
         let lastComparableDatumToReturn: ResultDataType | null = null;
-        for (const eachCombinedDatum of this.combinedDataWrapper) {
+        for (const eachCombinedDatum of this.combinedDataWrapper!) {
           const eachComparableDatum = await selector(eachCombinedDatum);
           if (
             lastComparableDatumToReturn == null ||
@@ -2043,10 +2021,8 @@ export class KoconutIterable<
     (koconutToReturn as any as KoconutOpener<CombinedDataType>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.combinedDataWrapper == null)
-          throw new KoconutNoSuchElementException(`Source data is null`);
         let dataToReturn: CombinedDataType | null = null;
-        for (const eachCombinedDatum of this.combinedDataWrapper) {
+        for (const eachCombinedDatum of this.combinedDataWrapper!) {
           if (
             dataToReturn == null ||
             (await comparator(dataToReturn, eachCombinedDatum)) > 0
@@ -2137,9 +2113,8 @@ export class KoconutIterable<
     (koconutToReturn as any as KoconutOpener<CombinedDataType | null>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.combinedDataWrapper == null) return null;
         let dataToReturn: CombinedDataType | null = null;
-        for (const eachCombinedDatum of this.combinedDataWrapper) {
+        for (const eachCombinedDatum of this.combinedDataWrapper!) {
           if (
             dataToReturn == null ||
             (await comparator(dataToReturn, eachCombinedDatum)) > 0
@@ -2468,8 +2443,7 @@ export class KoconutIterable<
     (koconutToReturn as any as KoconutOpener<boolean>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.combinedDataWrapper == null) return false;
-        for (const eachCombinedDatum of this.combinedDataWrapper)
+        for (const eachCombinedDatum of this.combinedDataWrapper!)
           if (!(await predicate(eachCombinedDatum))) return false;
         return true;
       });
@@ -2568,8 +2542,7 @@ export class KoconutIterable<
     (koconutToReturn as any as KoconutOpener<boolean>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.combinedDataWrapper == null) return false;
-        for (const eachCombinedDatum of this.combinedDataWrapper)
+        for (const eachCombinedDatum of this.combinedDataWrapper!)
           if (await predicate(eachCombinedDatum)) return true;
         return false;
       });
@@ -2726,7 +2699,7 @@ export class KoconutIterable<
     (koconutToReturn as any as KoconutOpener<boolean>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        return this.combinedDataWrapper == null || this.mSize == 0;
+        return this.mSize == 0;
       });
     return koconutToReturn;
   }
@@ -2803,9 +2776,9 @@ export class KoconutIterable<
     (koconutToReturn as any as KoconutOpener<boolean>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.combinedDataWrapper == null || this.mSize == 0) return true;
+        if (this.mSize == 0) return true;
         if (predicate) {
-          for (const eachCombinedDatum of this.combinedDataWrapper)
+          for (const eachCombinedDatum of this.combinedDataWrapper!)
             if (await predicate(eachCombinedDatum)) return false;
           return true;
         }
@@ -2898,6 +2871,7 @@ export class KoconutIterable<
     (koconutToReturn as any as KoconutOpener<void>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
+        /* istanbul ignore else */
         if (this.combinedDataWrapper != null) {
           for (const eachCombinedDatum of this.combinedDataWrapper) {
             const signal = await action(eachCombinedDatum);
@@ -2911,7 +2885,7 @@ export class KoconutIterable<
   // No Comment - KoconutArray/KoconutSet/KoconutMap
   onEach(
     action: Action<CombinedDataType>,
-    thisArg: any = null,
+    thisArg: any,
   ): KoconutIterable<
     DataType,
     CombinedDataType,
@@ -2928,6 +2902,7 @@ export class KoconutIterable<
     (koconutToReturn as any as KoconutOpener<WrapperType>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
+        /* istanbul ignore else */
         if (this.combinedDataWrapper != null) {
           for (const eachCombinedDatum of this.combinedDataWrapper) {
             const signal = await action(eachCombinedDatum);
@@ -2943,7 +2918,7 @@ export class KoconutIterable<
   // No Comment - KoconutArray/KoconutSet/KoconutMap
   filter(
     predicate: Predicator<CombinedDataType>,
-    thisArg: any = null,
+    thisArg: any,
   ): KoconutIterable<
     DataType,
     CombinedDataType,
@@ -2961,6 +2936,7 @@ export class KoconutIterable<
       .setPrevYieldable(this)
       .setProcessor(async () => {
         const processedArray = new Array<CombinedDataType>();
+        /* istanbul ignore else */
         if (this.combinedDataWrapper != null) {
           for (const eachCombinedDatum of this.combinedDataWrapper)
             if (await predicate(eachCombinedDatum))
@@ -2985,7 +2961,7 @@ export class KoconutIterable<
   // No Comment - KoconutArray/KoconutSet/KoconutMap
   filterNot(
     predicate: Predicator<CombinedDataType>,
-    thisArg: any = null,
+    thisArg: any,
   ): KoconutIterable<
     DataType,
     CombinedDataType,
@@ -3003,6 +2979,7 @@ export class KoconutIterable<
       .setPrevYieldable(this)
       .setProcessor(async () => {
         const processedArray = new Array<CombinedDataType>();
+        /* istanbul ignore else */
         if (this.combinedDataWrapper != null) {
           for (const eachCombinedDatum of this.combinedDataWrapper)
             if (!(await predicate(eachCombinedDatum)))
@@ -3108,6 +3085,7 @@ export class KoconutIterable<
       .setPrevYieldable(this)
       .setProcessor(async () => {
         const processedArray = new Array<ResultDataType>();
+        /* istanbul ignore else */
         if (this.combinedDataWrapper != null) {
           for (const eachCombinedDatum of this.combinedDataWrapper)
             for (const eachSubElement of await transform(eachCombinedDatum))
@@ -3122,7 +3100,7 @@ export class KoconutIterable<
   flatMapTo<ResultDataType>(
     destination: Array<ResultDataType> | Set<ResultDataType>,
     transform: Transformer<CombinedDataType, Iterable<ResultDataType>>,
-    thisArg: any = null,
+    thisArg: any,
   ): KoconutIterable<
     DataType,
     CombinedDataType,
@@ -3231,6 +3209,7 @@ export class KoconutIterable<
       .setPrevYieldable(this)
       .setProcessor(async () => {
         const processedArray = new Array<ResultDataType>();
+        /* istanbul ignore else */
         if (this.combinedDataWrapper != null) {
           for (const eachCombinedDatum of this.combinedDataWrapper) {
             processedArray.push(await transform(eachCombinedDatum));
@@ -3245,7 +3224,7 @@ export class KoconutIterable<
   mapTo<ResultDataType>(
     destination: Array<ResultDataType> | Set<ResultDataType>,
     transform: Transformer<CombinedDataType, ResultDataType>,
-    thisArg: any = null,
+    thisArg: any,
   ): KoconutIterable<
     DataType,
     CombinedDataType,
@@ -3376,6 +3355,7 @@ export class KoconutIterable<
       .setPrevYieldable(this)
       .setProcessor(async () => {
         const processedArray = new Array<ResultDataType>();
+        /* istanbul ignore else */
         if (this.combinedDataWrapper != null) {
           for (const eachCombinedDatum of this.combinedDataWrapper) {
             const dataToAdd = await transform(eachCombinedDatum);
@@ -3395,7 +3375,7 @@ export class KoconutIterable<
       CombinedDataType,
       ResultDataType | void | null | undefined
     >,
-    thisArg: any = null,
+    thisArg: any,
   ): KoconutIterable<
     DataType,
     CombinedDataType,

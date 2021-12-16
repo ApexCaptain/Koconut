@@ -16,7 +16,7 @@ export declare class KoconutIterable<
   WrapperType extends Iterable<DataType>,
   CombinedWrapperType extends Iterable<CombinedDataType>,
 > extends KoconutPrimitive<WrapperType> {
-  protected combinedDataWrapper: CombinedWrapperType | null;
+  protected combinedDataWrapper?: CombinedWrapperType;
   protected mSize: number;
   /**
    * Returns the number of the elements matching the given ```predicate```. If the ```predicate``` is ommitted it'll returns the whole number of elements.
@@ -2237,7 +2237,7 @@ export declare class KoconutIterable<
   ): KoconutPrimitive<void>;
   onEach(
     action: Action<CombinedDataType>,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutIterable<
     DataType,
     CombinedDataType,
@@ -2246,7 +2246,7 @@ export declare class KoconutIterable<
   >;
   filter(
     predicate: Predicator<CombinedDataType>,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutIterable<
     DataType,
     CombinedDataType,
@@ -2255,7 +2255,7 @@ export declare class KoconutIterable<
   >;
   filterNot(
     predicate: Predicator<CombinedDataType>,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutIterable<
     DataType,
     CombinedDataType,
@@ -2342,7 +2342,7 @@ export declare class KoconutIterable<
   flatMapTo<ResultDataType>(
     destination: Array<ResultDataType> | Set<ResultDataType>,
     transform: Transformer<CombinedDataType, Iterable<ResultDataType>>,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutIterable<
     DataType,
     CombinedDataType,
@@ -2418,7 +2418,7 @@ export declare class KoconutIterable<
   mapTo<ResultDataType>(
     destination: Array<ResultDataType> | Set<ResultDataType>,
     transform: Transformer<CombinedDataType, ResultDataType>,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutIterable<
     DataType,
     CombinedDataType,
@@ -2519,7 +2519,7 @@ export declare class KoconutIterable<
       CombinedDataType,
       ResultDataType | void | null | undefined
     >,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutIterable<
     DataType,
     CombinedDataType,

@@ -168,7 +168,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
     (0, _defineProperty2['default'])(
       (0, _assertThisInitialized2['default'])(_this),
       'combinedDataWrapper',
-      null,
+      void 0,
     );
     (0, _defineProperty2['default'])(
       (0, _assertThisInitialized2['default'])(_this),
@@ -207,76 +207,68 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                   while (1) {
                     switch ((_context.prev = _context.next)) {
                       case 0:
-                        if (!(_this2.combinedDataWrapper == null)) {
-                          _context.next = 2;
-                          break;
-                        }
-
-                        return _context.abrupt('return', 0);
-
-                      case 2:
                         count = 0;
                         _iterator = _createForOfIteratorHelper(
                           _this2.combinedDataWrapper,
                         );
-                        _context.prev = 4;
+                        _context.prev = 2;
 
                         _iterator.s();
 
-                      case 6:
+                      case 4:
                         if ((_step = _iterator.n()).done) {
-                          _context.next = 18;
+                          _context.next = 16;
                           break;
                         }
 
                         eachCombinedDatum = _step.value;
 
                         if (predicate) {
-                          _context.next = 12;
+                          _context.next = 10;
                           break;
                         }
 
                         count++;
-                        _context.next = 16;
+                        _context.next = 14;
                         break;
 
-                      case 12:
-                        _context.next = 14;
+                      case 10:
+                        _context.next = 12;
                         return predicate(eachCombinedDatum);
 
-                      case 14:
+                      case 12:
                         if (!_context.sent) {
-                          _context.next = 16;
+                          _context.next = 14;
                           break;
                         }
 
                         count++;
 
+                      case 14:
+                        _context.next = 4;
+                        break;
+
                       case 16:
-                        _context.next = 6;
+                        _context.next = 21;
                         break;
 
                       case 18:
-                        _context.next = 23;
-                        break;
-
-                      case 20:
-                        _context.prev = 20;
-                        _context.t0 = _context['catch'](4);
+                        _context.prev = 18;
+                        _context.t0 = _context['catch'](2);
 
                         _iterator.e(_context.t0);
 
-                      case 23:
-                        _context.prev = 23;
+                      case 21:
+                        _context.prev = 21;
 
                         _iterator.f();
 
-                        return _context.finish(23);
+                        return _context.finish(21);
 
-                      case 26:
+                      case 24:
                         return _context.abrupt('return', count);
 
-                      case 27:
+                      case 25:
                       case 'end':
                         return _context.stop();
                     }
@@ -284,7 +276,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                 },
                 _callee,
                 null,
-                [[4, 20, 23, 26]],
+                [[2, 18, 21, 24]],
               );
             }),
           ),
@@ -327,41 +319,31 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                   while (1) {
                     switch ((_context2.prev = _context2.next)) {
                       case 0:
-                        if (!(_this3.combinedDataWrapper == null)) {
-                          _context2.next = 2;
-                          break;
-                        }
-
-                        throw new _module.KoconutNoSuchElementException(
-                          'Source data is null',
-                        );
-
-                      case 2:
                         dataToReturn = null;
                         lastComparableDatum = null;
                         _iterator2 = _createForOfIteratorHelper(
                           _this3.combinedDataWrapper,
                         );
-                        _context2.prev = 5;
+                        _context2.prev = 3;
 
                         _iterator2.s();
 
-                      case 7:
+                      case 5:
                         if ((_step2 = _iterator2.n()).done) {
-                          _context2.next = 31;
+                          _context2.next = 29;
                           break;
                         }
 
                         eachCombinedDatum = _step2.value;
-                        _context2.next = 11;
+                        _context2.next = 9;
                         return selector(eachCombinedDatum);
 
-                      case 11:
+                      case 9:
                         eachComparableDatum = _context2.sent;
                         shouldBeChanged = lastComparableDatum == null;
 
                         if (shouldBeChanged) {
-                          _context2.next = 28;
+                          _context2.next = 26;
                           break;
                         }
 
@@ -370,7 +352,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                             eachComparableDatum,
                           )
                         ) {
-                          _context2.next = 27;
+                          _context2.next = 25;
                           break;
                         }
 
@@ -384,60 +366,60 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                             _module.KoconutPrimitive
                           )
                         ) {
-                          _context2.next = 23;
+                          _context2.next = 21;
                           break;
                         }
 
-                        _context2.next = 20;
+                        _context2.next = 18;
                         return eachCompareResult['yield']();
 
-                      case 20:
+                      case 18:
                         numberResult = _context2.sent;
-                        _context2.next = 24;
+                        _context2.next = 22;
                         break;
 
-                      case 23:
+                      case 21:
                         numberResult = eachCompareResult;
 
-                      case 24:
+                      case 22:
                         if (numberResult > 0) shouldBeChanged = true;
-                        _context2.next = 28;
+                        _context2.next = 26;
                         break;
 
-                      case 27:
+                      case 25:
                         shouldBeChanged =
                           lastComparableDatum < eachComparableDatum;
 
-                      case 28:
+                      case 26:
                         if (shouldBeChanged) {
                           dataToReturn = eachCombinedDatum;
                           lastComparableDatum = eachComparableDatum;
                         }
 
+                      case 27:
+                        _context2.next = 5;
+                        break;
+
                       case 29:
-                        _context2.next = 7;
+                        _context2.next = 34;
                         break;
 
                       case 31:
-                        _context2.next = 36;
-                        break;
-
-                      case 33:
-                        _context2.prev = 33;
-                        _context2.t0 = _context2['catch'](5);
+                        _context2.prev = 31;
+                        _context2.t0 = _context2['catch'](3);
 
                         _iterator2.e(_context2.t0);
 
-                      case 36:
-                        _context2.prev = 36;
+                      case 34:
+                        _context2.prev = 34;
 
                         _iterator2.f();
 
-                        return _context2.finish(36);
+                        return _context2.finish(34);
 
-                      case 39:
+                      case 37:
                         if (!(dataToReturn == null)) {
-                          _context2.next = 41;
+                          _context2.next = 39;
                           break;
                         }
 
@@ -445,10 +427,10 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                           'Source data is empty',
                         );
 
-                      case 41:
+                      case 39:
                         return _context2.abrupt('return', dataToReturn);
 
-                      case 42:
+                      case 40:
                       case 'end':
                         return _context2.stop();
                     }
@@ -456,7 +438,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                 },
                 _callee2,
                 null,
-                [[5, 33, 36, 39]],
+                [[3, 31, 34, 37]],
               );
             }),
           ),
@@ -493,39 +475,31 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                   while (1) {
                     switch ((_context3.prev = _context3.next)) {
                       case 0:
-                        if (!(_this4.combinedDataWrapper == null)) {
-                          _context3.next = 2;
-                          break;
-                        }
-
-                        return _context3.abrupt('return', null);
-
-                      case 2:
                         dataToReturn = null;
                         lastComparableDatum = null;
                         _iterator3 = _createForOfIteratorHelper(
                           _this4.combinedDataWrapper,
                         );
-                        _context3.prev = 5;
+                        _context3.prev = 3;
 
                         _iterator3.s();
 
-                      case 7:
+                      case 5:
                         if ((_step3 = _iterator3.n()).done) {
-                          _context3.next = 31;
+                          _context3.next = 29;
                           break;
                         }
 
                         eachCombinedDatum = _step3.value;
-                        _context3.next = 11;
+                        _context3.next = 9;
                         return selector(eachCombinedDatum);
 
-                      case 11:
+                      case 9:
                         eachComparableDatum = _context3.sent;
                         shouldBeChanged = lastComparableDatum == null;
 
                         if (shouldBeChanged) {
-                          _context3.next = 28;
+                          _context3.next = 26;
                           break;
                         }
 
@@ -534,7 +508,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                             eachComparableDatum,
                           )
                         ) {
-                          _context3.next = 27;
+                          _context3.next = 25;
                           break;
                         }
 
@@ -548,61 +522,61 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                             _module.KoconutPrimitive
                           )
                         ) {
-                          _context3.next = 23;
+                          _context3.next = 21;
                           break;
                         }
 
-                        _context3.next = 20;
+                        _context3.next = 18;
                         return eachCompareResult['yield']();
 
-                      case 20:
+                      case 18:
                         numberResult = _context3.sent;
-                        _context3.next = 24;
+                        _context3.next = 22;
                         break;
 
-                      case 23:
+                      case 21:
                         numberResult = eachCompareResult;
 
-                      case 24:
+                      case 22:
                         if (numberResult > 0) shouldBeChanged = true;
-                        _context3.next = 28;
+                        _context3.next = 26;
                         break;
 
-                      case 27:
+                      case 25:
                         shouldBeChanged =
                           lastComparableDatum < eachComparableDatum;
 
-                      case 28:
+                      case 26:
                         if (shouldBeChanged) {
                           dataToReturn = eachCombinedDatum;
                           lastComparableDatum = eachComparableDatum;
                         }
 
+                      case 27:
+                        _context3.next = 5;
+                        break;
+
                       case 29:
-                        _context3.next = 7;
+                        _context3.next = 34;
                         break;
 
                       case 31:
-                        _context3.next = 36;
-                        break;
-
-                      case 33:
-                        _context3.prev = 33;
-                        _context3.t0 = _context3['catch'](5);
+                        _context3.prev = 31;
+                        _context3.t0 = _context3['catch'](3);
 
                         _iterator3.e(_context3.t0);
 
-                      case 36:
-                        _context3.prev = 36;
+                      case 34:
+                        _context3.prev = 34;
 
                         _iterator3.f();
 
-                        return _context3.finish(36);
+                        return _context3.finish(34);
 
-                      case 39:
+                      case 37:
                         return _context3.abrupt('return', dataToReturn);
 
-                      case 40:
+                      case 38:
                       case 'end':
                         return _context3.stop();
                     }
@@ -610,7 +584,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                 },
                 _callee3,
                 null,
-                [[5, 33, 36, 39]],
+                [[3, 31, 34, 37]],
               );
             }),
           ),
@@ -646,40 +620,30 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                   while (1) {
                     switch ((_context4.prev = _context4.next)) {
                       case 0:
-                        if (!(_this5.combinedDataWrapper == null)) {
-                          _context4.next = 2;
-                          break;
-                        }
-
-                        throw new _module.KoconutNoSuchElementException(
-                          'Source data is null',
-                        );
-
-                      case 2:
                         lastComparableDatumToReturn = null;
                         _iterator4 = _createForOfIteratorHelper(
                           _this5.combinedDataWrapper,
                         );
-                        _context4.prev = 4;
+                        _context4.prev = 2;
 
                         _iterator4.s();
 
-                      case 6:
+                      case 4:
                         if ((_step4 = _iterator4.n()).done) {
-                          _context4.next = 30;
+                          _context4.next = 28;
                           break;
                         }
 
                         eachCombinedDatum = _step4.value;
-                        _context4.next = 10;
+                        _context4.next = 8;
                         return selector(eachCombinedDatum);
 
-                      case 10:
+                      case 8:
                         eachComparableDatum = _context4.sent;
                         shouldBeChanged = lastComparableDatumToReturn == null;
 
                         if (shouldBeChanged) {
-                          _context4.next = 27;
+                          _context4.next = 25;
                           break;
                         }
 
@@ -688,7 +652,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                             eachComparableDatum,
                           )
                         ) {
-                          _context4.next = 26;
+                          _context4.next = 24;
                           break;
                         }
 
@@ -703,58 +667,58 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                             _module.KoconutPrimitive
                           )
                         ) {
-                          _context4.next = 22;
+                          _context4.next = 20;
                           break;
                         }
 
-                        _context4.next = 19;
+                        _context4.next = 17;
                         return eachCompareResult['yield']();
 
-                      case 19:
+                      case 17:
                         numberResult = _context4.sent;
-                        _context4.next = 23;
+                        _context4.next = 21;
                         break;
 
-                      case 22:
+                      case 20:
                         numberResult = eachCompareResult;
 
-                      case 23:
+                      case 21:
                         if (numberResult > 0) shouldBeChanged = true;
-                        _context4.next = 27;
+                        _context4.next = 25;
                         break;
 
-                      case 26:
+                      case 24:
                         shouldBeChanged =
                           lastComparableDatumToReturn < eachComparableDatum;
 
-                      case 27:
+                      case 25:
                         if (shouldBeChanged)
                           lastComparableDatumToReturn = eachComparableDatum;
 
+                      case 26:
+                        _context4.next = 4;
+                        break;
+
                       case 28:
-                        _context4.next = 6;
+                        _context4.next = 33;
                         break;
 
                       case 30:
-                        _context4.next = 35;
-                        break;
-
-                      case 32:
-                        _context4.prev = 32;
-                        _context4.t0 = _context4['catch'](4);
+                        _context4.prev = 30;
+                        _context4.t0 = _context4['catch'](2);
 
                         _iterator4.e(_context4.t0);
 
-                      case 35:
-                        _context4.prev = 35;
+                      case 33:
+                        _context4.prev = 33;
 
                         _iterator4.f();
 
-                        return _context4.finish(35);
+                        return _context4.finish(33);
 
-                      case 38:
+                      case 36:
                         if (!(lastComparableDatumToReturn == null)) {
-                          _context4.next = 40;
+                          _context4.next = 38;
                           break;
                         }
 
@@ -762,13 +726,13 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                           'Source data is empty',
                         );
 
-                      case 40:
+                      case 38:
                         return _context4.abrupt(
                           'return',
                           lastComparableDatumToReturn,
                         );
 
-                      case 41:
+                      case 39:
                       case 'end':
                         return _context4.stop();
                     }
@@ -776,7 +740,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                 },
                 _callee4,
                 null,
-                [[4, 32, 35, 38]],
+                [[2, 30, 33, 36]],
               );
             }),
           ),
@@ -812,38 +776,30 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                   while (1) {
                     switch ((_context5.prev = _context5.next)) {
                       case 0:
-                        if (!(_this6.combinedDataWrapper == null)) {
-                          _context5.next = 2;
-                          break;
-                        }
-
-                        return _context5.abrupt('return', null);
-
-                      case 2:
                         lastComparableDatumToReturn = null;
                         _iterator5 = _createForOfIteratorHelper(
                           _this6.combinedDataWrapper,
                         );
-                        _context5.prev = 4;
+                        _context5.prev = 2;
 
                         _iterator5.s();
 
-                      case 6:
+                      case 4:
                         if ((_step5 = _iterator5.n()).done) {
-                          _context5.next = 30;
+                          _context5.next = 28;
                           break;
                         }
 
                         eachCombinedDatum = _step5.value;
-                        _context5.next = 10;
+                        _context5.next = 8;
                         return selector(eachCombinedDatum);
 
-                      case 10:
+                      case 8:
                         eachComparableDatum = _context5.sent;
                         shouldBeChanged = lastComparableDatumToReturn == null;
 
                         if (shouldBeChanged) {
-                          _context5.next = 27;
+                          _context5.next = 25;
                           break;
                         }
 
@@ -852,7 +808,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                             eachComparableDatum,
                           )
                         ) {
-                          _context5.next = 26;
+                          _context5.next = 24;
                           break;
                         }
 
@@ -867,62 +823,62 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                             _module.KoconutPrimitive
                           )
                         ) {
-                          _context5.next = 22;
+                          _context5.next = 20;
                           break;
                         }
 
-                        _context5.next = 19;
+                        _context5.next = 17;
                         return eachCompareResult['yield']();
 
-                      case 19:
+                      case 17:
                         numberResult = _context5.sent;
-                        _context5.next = 23;
+                        _context5.next = 21;
                         break;
 
-                      case 22:
+                      case 20:
                         numberResult = eachCompareResult;
 
-                      case 23:
+                      case 21:
                         if (numberResult > 0) shouldBeChanged = true;
-                        _context5.next = 27;
+                        _context5.next = 25;
                         break;
 
-                      case 26:
+                      case 24:
                         shouldBeChanged =
                           lastComparableDatumToReturn < eachComparableDatum;
 
-                      case 27:
+                      case 25:
                         if (shouldBeChanged)
                           lastComparableDatumToReturn = eachComparableDatum;
 
+                      case 26:
+                        _context5.next = 4;
+                        break;
+
                       case 28:
-                        _context5.next = 6;
+                        _context5.next = 33;
                         break;
 
                       case 30:
-                        _context5.next = 35;
-                        break;
-
-                      case 32:
-                        _context5.prev = 32;
-                        _context5.t0 = _context5['catch'](4);
+                        _context5.prev = 30;
+                        _context5.t0 = _context5['catch'](2);
 
                         _iterator5.e(_context5.t0);
 
-                      case 35:
-                        _context5.prev = 35;
+                      case 33:
+                        _context5.prev = 33;
 
                         _iterator5.f();
 
-                        return _context5.finish(35);
+                        return _context5.finish(33);
 
-                      case 38:
+                      case 36:
                         return _context5.abrupt(
                           'return',
                           lastComparableDatumToReturn,
                         );
 
-                      case 39:
+                      case 37:
                       case 'end':
                         return _context5.stop();
                     }
@@ -930,7 +886,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                 },
                 _callee5,
                 null,
-                [[4, 32, 35, 38]],
+                [[2, 30, 33, 36]],
               );
             }),
           ),
@@ -968,85 +924,75 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                   while (1) {
                     switch ((_context6.prev = _context6.next)) {
                       case 0:
-                        if (!(_this7.combinedDataWrapper == null)) {
-                          _context6.next = 2;
-                          break;
-                        }
-
-                        throw new _module.KoconutNoSuchElementException(
-                          'Source data is null',
-                        );
-
-                      case 2:
                         lastComparableDatumToReturn = null;
                         _iterator6 = _createForOfIteratorHelper(
                           _this7.combinedDataWrapper,
                         );
-                        _context6.prev = 4;
+                        _context6.prev = 2;
 
                         _iterator6.s();
 
-                      case 6:
+                      case 4:
                         if ((_step6 = _iterator6.n()).done) {
-                          _context6.next = 21;
+                          _context6.next = 19;
                           break;
                         }
 
                         eachCombinedDatum = _step6.value;
-                        _context6.next = 10;
+                        _context6.next = 8;
                         return selector(eachCombinedDatum);
 
-                      case 10:
+                      case 8:
                         eachComparableDatum = _context6.sent;
                         _context6.t0 = lastComparableDatumToReturn == null;
 
                         if (_context6.t0) {
-                          _context6.next = 17;
+                          _context6.next = 15;
                           break;
                         }
 
-                        _context6.next = 15;
+                        _context6.next = 13;
                         return comparator(
                           lastComparableDatumToReturn,
                           eachComparableDatum,
                         );
 
-                      case 15:
+                      case 13:
                         _context6.t1 = _context6.sent;
                         _context6.t0 = _context6.t1 < 0;
 
-                      case 17:
+                      case 15:
                         if (!_context6.t0) {
-                          _context6.next = 19;
+                          _context6.next = 17;
                           break;
                         }
 
                         lastComparableDatumToReturn = eachComparableDatum;
 
+                      case 17:
+                        _context6.next = 4;
+                        break;
+
                       case 19:
-                        _context6.next = 6;
+                        _context6.next = 24;
                         break;
 
                       case 21:
-                        _context6.next = 26;
-                        break;
-
-                      case 23:
-                        _context6.prev = 23;
-                        _context6.t2 = _context6['catch'](4);
+                        _context6.prev = 21;
+                        _context6.t2 = _context6['catch'](2);
 
                         _iterator6.e(_context6.t2);
 
-                      case 26:
-                        _context6.prev = 26;
+                      case 24:
+                        _context6.prev = 24;
 
                         _iterator6.f();
 
-                        return _context6.finish(26);
+                        return _context6.finish(24);
 
-                      case 29:
+                      case 27:
                         if (!(lastComparableDatumToReturn == null)) {
-                          _context6.next = 31;
+                          _context6.next = 29;
                           break;
                         }
 
@@ -1054,13 +1000,13 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                           'Source data is empty',
                         );
 
-                      case 31:
+                      case 29:
                         return _context6.abrupt(
                           'return',
                           lastComparableDatumToReturn,
                         );
 
-                      case 32:
+                      case 30:
                       case 'end':
                         return _context6.stop();
                     }
@@ -1068,7 +1014,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                 },
                 _callee6,
                 null,
-                [[4, 23, 26, 29]],
+                [[2, 21, 24, 27]],
               );
             }),
           ),
@@ -1106,87 +1052,79 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                   while (1) {
                     switch ((_context7.prev = _context7.next)) {
                       case 0:
-                        if (!(_this8.combinedDataWrapper == null)) {
-                          _context7.next = 2;
-                          break;
-                        }
-
-                        return _context7.abrupt('return', null);
-
-                      case 2:
                         lastComparableDatumToReturn = null;
                         _iterator7 = _createForOfIteratorHelper(
                           _this8.combinedDataWrapper,
                         );
-                        _context7.prev = 4;
+                        _context7.prev = 2;
 
                         _iterator7.s();
 
-                      case 6:
+                      case 4:
                         if ((_step7 = _iterator7.n()).done) {
-                          _context7.next = 21;
+                          _context7.next = 19;
                           break;
                         }
 
                         eachCombinedDatum = _step7.value;
-                        _context7.next = 10;
+                        _context7.next = 8;
                         return selector(eachCombinedDatum);
 
-                      case 10:
+                      case 8:
                         eachComparableDatum = _context7.sent;
                         _context7.t0 = lastComparableDatumToReturn == null;
 
                         if (_context7.t0) {
-                          _context7.next = 17;
+                          _context7.next = 15;
                           break;
                         }
 
-                        _context7.next = 15;
+                        _context7.next = 13;
                         return comparator(
                           lastComparableDatumToReturn,
                           eachComparableDatum,
                         );
 
-                      case 15:
+                      case 13:
                         _context7.t1 = _context7.sent;
                         _context7.t0 = _context7.t1 < 0;
 
-                      case 17:
+                      case 15:
                         if (!_context7.t0) {
-                          _context7.next = 19;
+                          _context7.next = 17;
                           break;
                         }
 
                         lastComparableDatumToReturn = eachComparableDatum;
 
+                      case 17:
+                        _context7.next = 4;
+                        break;
+
                       case 19:
-                        _context7.next = 6;
+                        _context7.next = 24;
                         break;
 
                       case 21:
-                        _context7.next = 26;
-                        break;
-
-                      case 23:
-                        _context7.prev = 23;
-                        _context7.t2 = _context7['catch'](4);
+                        _context7.prev = 21;
+                        _context7.t2 = _context7['catch'](2);
 
                         _iterator7.e(_context7.t2);
 
-                      case 26:
-                        _context7.prev = 26;
+                      case 24:
+                        _context7.prev = 24;
 
                         _iterator7.f();
 
-                        return _context7.finish(26);
+                        return _context7.finish(24);
 
-                      case 29:
+                      case 27:
                         return _context7.abrupt(
                           'return',
                           lastComparableDatumToReturn,
                         );
 
-                      case 30:
+                      case 28:
                       case 'end':
                         return _context7.stop();
                     }
@@ -1194,7 +1132,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                 },
                 _callee7,
                 null,
-                [[4, 23, 26, 29]],
+                [[2, 21, 24, 27]],
               );
             }),
           ),
@@ -1226,27 +1164,17 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                   while (1) {
                     switch ((_context8.prev = _context8.next)) {
                       case 0:
-                        if (!(_this9.combinedDataWrapper == null)) {
-                          _context8.next = 2;
-                          break;
-                        }
-
-                        throw new _module.KoconutNoSuchElementException(
-                          'Source data is null',
-                        );
-
-                      case 2:
                         dataToReturn = null;
                         _iterator8 = _createForOfIteratorHelper(
                           _this9.combinedDataWrapper,
                         );
-                        _context8.prev = 4;
+                        _context8.prev = 2;
 
                         _iterator8.s();
 
-                      case 6:
+                      case 4:
                         if ((_step8 = _iterator8.n()).done) {
-                          _context8.next = 18;
+                          _context8.next = 16;
                           break;
                         }
 
@@ -1254,49 +1182,49 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                         _context8.t0 = dataToReturn == null;
 
                         if (_context8.t0) {
-                          _context8.next = 14;
+                          _context8.next = 12;
                           break;
                         }
 
-                        _context8.next = 12;
+                        _context8.next = 10;
                         return comparator(dataToReturn, eachCombinedDatum);
 
-                      case 12:
+                      case 10:
                         _context8.t1 = _context8.sent;
                         _context8.t0 = _context8.t1 < 0;
 
-                      case 14:
+                      case 12:
                         if (!_context8.t0) {
-                          _context8.next = 16;
+                          _context8.next = 14;
                           break;
                         }
 
                         dataToReturn = eachCombinedDatum;
 
+                      case 14:
+                        _context8.next = 4;
+                        break;
+
                       case 16:
-                        _context8.next = 6;
+                        _context8.next = 21;
                         break;
 
                       case 18:
-                        _context8.next = 23;
-                        break;
-
-                      case 20:
-                        _context8.prev = 20;
-                        _context8.t2 = _context8['catch'](4);
+                        _context8.prev = 18;
+                        _context8.t2 = _context8['catch'](2);
 
                         _iterator8.e(_context8.t2);
 
-                      case 23:
-                        _context8.prev = 23;
+                      case 21:
+                        _context8.prev = 21;
 
                         _iterator8.f();
 
-                        return _context8.finish(23);
+                        return _context8.finish(21);
 
-                      case 26:
+                      case 24:
                         if (!(dataToReturn == null)) {
-                          _context8.next = 28;
+                          _context8.next = 26;
                           break;
                         }
 
@@ -1304,10 +1232,10 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                           'Source data is empty',
                         );
 
-                      case 28:
+                      case 26:
                         return _context8.abrupt('return', dataToReturn);
 
-                      case 29:
+                      case 27:
                       case 'end':
                         return _context8.stop();
                     }
@@ -1315,7 +1243,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                 },
                 _callee8,
                 null,
-                [[4, 20, 23, 26]],
+                [[2, 18, 21, 24]],
               );
             }),
           ),
@@ -1347,25 +1275,17 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                   while (1) {
                     switch ((_context9.prev = _context9.next)) {
                       case 0:
-                        if (!(_this10.combinedDataWrapper == null)) {
-                          _context9.next = 2;
-                          break;
-                        }
-
-                        return _context9.abrupt('return', null);
-
-                      case 2:
                         dataToReturn = null;
                         _iterator9 = _createForOfIteratorHelper(
                           _this10.combinedDataWrapper,
                         );
-                        _context9.prev = 4;
+                        _context9.prev = 2;
 
                         _iterator9.s();
 
-                      case 6:
+                      case 4:
                         if ((_step9 = _iterator9.n()).done) {
-                          _context9.next = 18;
+                          _context9.next = 16;
                           break;
                         }
 
@@ -1373,50 +1293,50 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                         _context9.t0 = dataToReturn == null;
 
                         if (_context9.t0) {
-                          _context9.next = 14;
+                          _context9.next = 12;
                           break;
                         }
 
-                        _context9.next = 12;
+                        _context9.next = 10;
                         return comparator(dataToReturn, eachCombinedDatum);
 
-                      case 12:
+                      case 10:
                         _context9.t1 = _context9.sent;
                         _context9.t0 = _context9.t1 < 0;
 
-                      case 14:
+                      case 12:
                         if (!_context9.t0) {
-                          _context9.next = 16;
+                          _context9.next = 14;
                           break;
                         }
 
                         dataToReturn = eachCombinedDatum;
 
+                      case 14:
+                        _context9.next = 4;
+                        break;
+
                       case 16:
-                        _context9.next = 6;
+                        _context9.next = 21;
                         break;
 
                       case 18:
-                        _context9.next = 23;
-                        break;
-
-                      case 20:
-                        _context9.prev = 20;
-                        _context9.t2 = _context9['catch'](4);
+                        _context9.prev = 18;
+                        _context9.t2 = _context9['catch'](2);
 
                         _iterator9.e(_context9.t2);
 
-                      case 23:
-                        _context9.prev = 23;
+                      case 21:
+                        _context9.prev = 21;
 
                         _iterator9.f();
 
-                        return _context9.finish(23);
+                        return _context9.finish(21);
 
-                      case 26:
+                      case 24:
                         return _context9.abrupt('return', dataToReturn);
 
-                      case 27:
+                      case 25:
                       case 'end':
                         return _context9.stop();
                     }
@@ -1424,7 +1344,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                 },
                 _callee9,
                 null,
-                [[4, 20, 23, 26]],
+                [[2, 18, 21, 24]],
               );
             }),
           ),
@@ -1467,41 +1387,31 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                   while (1) {
                     switch ((_context10.prev = _context10.next)) {
                       case 0:
-                        if (!(_this11.combinedDataWrapper == null)) {
-                          _context10.next = 2;
-                          break;
-                        }
-
-                        throw new _module.KoconutNoSuchElementException(
-                          'Source data is null',
-                        );
-
-                      case 2:
                         dataToReturn = null;
                         lastComparableDatum = null;
                         _iterator10 = _createForOfIteratorHelper(
                           _this11.combinedDataWrapper,
                         );
-                        _context10.prev = 5;
+                        _context10.prev = 3;
 
                         _iterator10.s();
 
-                      case 7:
+                      case 5:
                         if ((_step10 = _iterator10.n()).done) {
-                          _context10.next = 31;
+                          _context10.next = 29;
                           break;
                         }
 
                         eachCombinedDatum = _step10.value;
-                        _context10.next = 11;
+                        _context10.next = 9;
                         return selector(eachCombinedDatum);
 
-                      case 11:
+                      case 9:
                         eachComparableDatum = _context10.sent;
                         shouldBeChanged = lastComparableDatum == null;
 
                         if (shouldBeChanged) {
-                          _context10.next = 28;
+                          _context10.next = 26;
                           break;
                         }
 
@@ -1510,7 +1420,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                             eachComparableDatum,
                           )
                         ) {
-                          _context10.next = 27;
+                          _context10.next = 25;
                           break;
                         }
 
@@ -1524,60 +1434,60 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                             _module.KoconutPrimitive
                           )
                         ) {
-                          _context10.next = 23;
+                          _context10.next = 21;
                           break;
                         }
 
-                        _context10.next = 20;
+                        _context10.next = 18;
                         return eachCompareResult['yield']();
 
-                      case 20:
+                      case 18:
                         numberResult = _context10.sent;
-                        _context10.next = 24;
+                        _context10.next = 22;
                         break;
 
-                      case 23:
+                      case 21:
                         numberResult = eachCompareResult;
 
-                      case 24:
+                      case 22:
                         if (numberResult < 0) shouldBeChanged = true;
-                        _context10.next = 28;
+                        _context10.next = 26;
                         break;
 
-                      case 27:
+                      case 25:
                         shouldBeChanged =
                           lastComparableDatum > eachComparableDatum;
 
-                      case 28:
+                      case 26:
                         if (shouldBeChanged) {
                           dataToReturn = eachCombinedDatum;
                           lastComparableDatum = eachComparableDatum;
                         }
 
+                      case 27:
+                        _context10.next = 5;
+                        break;
+
                       case 29:
-                        _context10.next = 7;
+                        _context10.next = 34;
                         break;
 
                       case 31:
-                        _context10.next = 36;
-                        break;
-
-                      case 33:
-                        _context10.prev = 33;
-                        _context10.t0 = _context10['catch'](5);
+                        _context10.prev = 31;
+                        _context10.t0 = _context10['catch'](3);
 
                         _iterator10.e(_context10.t0);
 
-                      case 36:
-                        _context10.prev = 36;
+                      case 34:
+                        _context10.prev = 34;
 
                         _iterator10.f();
 
-                        return _context10.finish(36);
+                        return _context10.finish(34);
 
-                      case 39:
+                      case 37:
                         if (!(dataToReturn == null)) {
-                          _context10.next = 41;
+                          _context10.next = 39;
                           break;
                         }
 
@@ -1585,10 +1495,10 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                           'Source data is empty',
                         );
 
-                      case 41:
+                      case 39:
                         return _context10.abrupt('return', dataToReturn);
 
-                      case 42:
+                      case 40:
                       case 'end':
                         return _context10.stop();
                     }
@@ -1596,7 +1506,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                 },
                 _callee10,
                 null,
-                [[5, 33, 36, 39]],
+                [[3, 31, 34, 37]],
               );
             }),
           ),
@@ -1633,39 +1543,31 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                   while (1) {
                     switch ((_context11.prev = _context11.next)) {
                       case 0:
-                        if (!(_this12.combinedDataWrapper == null)) {
-                          _context11.next = 2;
-                          break;
-                        }
-
-                        return _context11.abrupt('return', null);
-
-                      case 2:
                         dataToReturn = null;
                         lastComparableDatum = null;
                         _iterator11 = _createForOfIteratorHelper(
                           _this12.combinedDataWrapper,
                         );
-                        _context11.prev = 5;
+                        _context11.prev = 3;
 
                         _iterator11.s();
 
-                      case 7:
+                      case 5:
                         if ((_step11 = _iterator11.n()).done) {
-                          _context11.next = 31;
+                          _context11.next = 29;
                           break;
                         }
 
                         eachCombinedDatum = _step11.value;
-                        _context11.next = 11;
+                        _context11.next = 9;
                         return selector(eachCombinedDatum);
 
-                      case 11:
+                      case 9:
                         eachComparableDatum = _context11.sent;
                         shouldBeChanged = lastComparableDatum == null;
 
                         if (shouldBeChanged) {
-                          _context11.next = 28;
+                          _context11.next = 26;
                           break;
                         }
 
@@ -1674,7 +1576,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                             eachComparableDatum,
                           )
                         ) {
-                          _context11.next = 27;
+                          _context11.next = 25;
                           break;
                         }
 
@@ -1688,61 +1590,61 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                             _module.KoconutPrimitive
                           )
                         ) {
-                          _context11.next = 23;
+                          _context11.next = 21;
                           break;
                         }
 
-                        _context11.next = 20;
+                        _context11.next = 18;
                         return eachCompareResult['yield']();
 
-                      case 20:
+                      case 18:
                         numberResult = _context11.sent;
-                        _context11.next = 24;
+                        _context11.next = 22;
                         break;
 
-                      case 23:
+                      case 21:
                         numberResult = eachCompareResult;
 
-                      case 24:
+                      case 22:
                         if (numberResult < 0) shouldBeChanged = true;
-                        _context11.next = 28;
+                        _context11.next = 26;
                         break;
 
-                      case 27:
+                      case 25:
                         shouldBeChanged =
                           lastComparableDatum > eachComparableDatum;
 
-                      case 28:
+                      case 26:
                         if (shouldBeChanged) {
                           dataToReturn = eachCombinedDatum;
                           lastComparableDatum = eachComparableDatum;
                         }
 
+                      case 27:
+                        _context11.next = 5;
+                        break;
+
                       case 29:
-                        _context11.next = 7;
+                        _context11.next = 34;
                         break;
 
                       case 31:
-                        _context11.next = 36;
-                        break;
-
-                      case 33:
-                        _context11.prev = 33;
-                        _context11.t0 = _context11['catch'](5);
+                        _context11.prev = 31;
+                        _context11.t0 = _context11['catch'](3);
 
                         _iterator11.e(_context11.t0);
 
-                      case 36:
-                        _context11.prev = 36;
+                      case 34:
+                        _context11.prev = 34;
 
                         _iterator11.f();
 
-                        return _context11.finish(36);
+                        return _context11.finish(34);
 
-                      case 39:
+                      case 37:
                         return _context11.abrupt('return', dataToReturn);
 
-                      case 40:
+                      case 38:
                       case 'end':
                         return _context11.stop();
                     }
@@ -1750,7 +1652,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                 },
                 _callee11,
                 null,
-                [[5, 33, 36, 39]],
+                [[3, 31, 34, 37]],
               );
             }),
           ),
@@ -1786,40 +1688,30 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                   while (1) {
                     switch ((_context12.prev = _context12.next)) {
                       case 0:
-                        if (!(_this13.combinedDataWrapper == null)) {
-                          _context12.next = 2;
-                          break;
-                        }
-
-                        throw new _module.KoconutNoSuchElementException(
-                          'Source data is null',
-                        );
-
-                      case 2:
                         lastComparableDatumToReturn = null;
                         _iterator12 = _createForOfIteratorHelper(
                           _this13.combinedDataWrapper,
                         );
-                        _context12.prev = 4;
+                        _context12.prev = 2;
 
                         _iterator12.s();
 
-                      case 6:
+                      case 4:
                         if ((_step12 = _iterator12.n()).done) {
-                          _context12.next = 30;
+                          _context12.next = 28;
                           break;
                         }
 
                         eachCombinedDatum = _step12.value;
-                        _context12.next = 10;
+                        _context12.next = 8;
                         return selector(eachCombinedDatum);
 
-                      case 10:
+                      case 8:
                         eachComparableDatum = _context12.sent;
                         shouldBeChanged = lastComparableDatumToReturn == null;
 
                         if (shouldBeChanged) {
-                          _context12.next = 27;
+                          _context12.next = 25;
                           break;
                         }
 
@@ -1828,7 +1720,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                             eachComparableDatum,
                           )
                         ) {
-                          _context12.next = 26;
+                          _context12.next = 24;
                           break;
                         }
 
@@ -1843,58 +1735,58 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                             _module.KoconutPrimitive
                           )
                         ) {
-                          _context12.next = 22;
+                          _context12.next = 20;
                           break;
                         }
 
-                        _context12.next = 19;
+                        _context12.next = 17;
                         return eachCompareResult['yield']();
 
-                      case 19:
+                      case 17:
                         numberResult = _context12.sent;
-                        _context12.next = 23;
+                        _context12.next = 21;
                         break;
 
-                      case 22:
+                      case 20:
                         numberResult = eachCompareResult;
 
-                      case 23:
+                      case 21:
                         if (numberResult < 0) shouldBeChanged = true;
-                        _context12.next = 27;
+                        _context12.next = 25;
                         break;
 
-                      case 26:
+                      case 24:
                         shouldBeChanged =
                           lastComparableDatumToReturn > eachComparableDatum;
 
-                      case 27:
+                      case 25:
                         if (shouldBeChanged)
                           lastComparableDatumToReturn = eachComparableDatum;
 
+                      case 26:
+                        _context12.next = 4;
+                        break;
+
                       case 28:
-                        _context12.next = 6;
+                        _context12.next = 33;
                         break;
 
                       case 30:
-                        _context12.next = 35;
-                        break;
-
-                      case 32:
-                        _context12.prev = 32;
-                        _context12.t0 = _context12['catch'](4);
+                        _context12.prev = 30;
+                        _context12.t0 = _context12['catch'](2);
 
                         _iterator12.e(_context12.t0);
 
-                      case 35:
-                        _context12.prev = 35;
+                      case 33:
+                        _context12.prev = 33;
 
                         _iterator12.f();
 
-                        return _context12.finish(35);
+                        return _context12.finish(33);
 
-                      case 38:
+                      case 36:
                         if (!(lastComparableDatumToReturn == null)) {
-                          _context12.next = 40;
+                          _context12.next = 38;
                           break;
                         }
 
@@ -1902,13 +1794,13 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                           'Source data is empty',
                         );
 
-                      case 40:
+                      case 38:
                         return _context12.abrupt(
                           'return',
                           lastComparableDatumToReturn,
                         );
 
-                      case 41:
+                      case 39:
                       case 'end':
                         return _context12.stop();
                     }
@@ -1916,7 +1808,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                 },
                 _callee12,
                 null,
-                [[4, 32, 35, 38]],
+                [[2, 30, 33, 36]],
               );
             }),
           ),
@@ -1952,38 +1844,30 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                   while (1) {
                     switch ((_context13.prev = _context13.next)) {
                       case 0:
-                        if (!(_this14.combinedDataWrapper == null)) {
-                          _context13.next = 2;
-                          break;
-                        }
-
-                        return _context13.abrupt('return', null);
-
-                      case 2:
                         lastComparableDatumToReturn = null;
                         _iterator13 = _createForOfIteratorHelper(
                           _this14.combinedDataWrapper,
                         );
-                        _context13.prev = 4;
+                        _context13.prev = 2;
 
                         _iterator13.s();
 
-                      case 6:
+                      case 4:
                         if ((_step13 = _iterator13.n()).done) {
-                          _context13.next = 30;
+                          _context13.next = 28;
                           break;
                         }
 
                         eachCombinedDatum = _step13.value;
-                        _context13.next = 10;
+                        _context13.next = 8;
                         return selector(eachCombinedDatum);
 
-                      case 10:
+                      case 8:
                         eachComparableDatum = _context13.sent;
                         shouldBeChanged = lastComparableDatumToReturn == null;
 
                         if (shouldBeChanged) {
-                          _context13.next = 27;
+                          _context13.next = 25;
                           break;
                         }
 
@@ -1992,7 +1876,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                             eachComparableDatum,
                           )
                         ) {
-                          _context13.next = 26;
+                          _context13.next = 24;
                           break;
                         }
 
@@ -2007,62 +1891,62 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                             _module.KoconutPrimitive
                           )
                         ) {
-                          _context13.next = 22;
+                          _context13.next = 20;
                           break;
                         }
 
-                        _context13.next = 19;
+                        _context13.next = 17;
                         return eachCompareResult['yield']();
 
-                      case 19:
+                      case 17:
                         numberResult = _context13.sent;
-                        _context13.next = 23;
+                        _context13.next = 21;
                         break;
 
-                      case 22:
+                      case 20:
                         numberResult = eachCompareResult;
 
-                      case 23:
+                      case 21:
                         if (numberResult < 0) shouldBeChanged = true;
-                        _context13.next = 27;
+                        _context13.next = 25;
                         break;
 
-                      case 26:
+                      case 24:
                         shouldBeChanged =
                           lastComparableDatumToReturn > eachComparableDatum;
 
-                      case 27:
+                      case 25:
                         if (shouldBeChanged)
                           lastComparableDatumToReturn = eachComparableDatum;
 
+                      case 26:
+                        _context13.next = 4;
+                        break;
+
                       case 28:
-                        _context13.next = 6;
+                        _context13.next = 33;
                         break;
 
                       case 30:
-                        _context13.next = 35;
-                        break;
-
-                      case 32:
-                        _context13.prev = 32;
-                        _context13.t0 = _context13['catch'](4);
+                        _context13.prev = 30;
+                        _context13.t0 = _context13['catch'](2);
 
                         _iterator13.e(_context13.t0);
 
-                      case 35:
-                        _context13.prev = 35;
+                      case 33:
+                        _context13.prev = 33;
 
                         _iterator13.f();
 
-                        return _context13.finish(35);
+                        return _context13.finish(33);
 
-                      case 38:
+                      case 36:
                         return _context13.abrupt(
                           'return',
                           lastComparableDatumToReturn,
                         );
 
-                      case 39:
+                      case 37:
                       case 'end':
                         return _context13.stop();
                     }
@@ -2070,7 +1954,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                 },
                 _callee13,
                 null,
-                [[4, 32, 35, 38]],
+                [[2, 30, 33, 36]],
               );
             }),
           ),
@@ -2108,85 +1992,75 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                   while (1) {
                     switch ((_context14.prev = _context14.next)) {
                       case 0:
-                        if (!(_this15.combinedDataWrapper == null)) {
-                          _context14.next = 2;
-                          break;
-                        }
-
-                        throw new _module.KoconutNoSuchElementException(
-                          'Source data is null',
-                        );
-
-                      case 2:
                         lastComparableDatumToReturn = null;
                         _iterator14 = _createForOfIteratorHelper(
                           _this15.combinedDataWrapper,
                         );
-                        _context14.prev = 4;
+                        _context14.prev = 2;
 
                         _iterator14.s();
 
-                      case 6:
+                      case 4:
                         if ((_step14 = _iterator14.n()).done) {
-                          _context14.next = 21;
+                          _context14.next = 19;
                           break;
                         }
 
                         eachCombinedDatum = _step14.value;
-                        _context14.next = 10;
+                        _context14.next = 8;
                         return selector(eachCombinedDatum);
 
-                      case 10:
+                      case 8:
                         eachComparableDatum = _context14.sent;
                         _context14.t0 = lastComparableDatumToReturn == null;
 
                         if (_context14.t0) {
-                          _context14.next = 17;
+                          _context14.next = 15;
                           break;
                         }
 
-                        _context14.next = 15;
+                        _context14.next = 13;
                         return comparator(
                           lastComparableDatumToReturn,
                           eachComparableDatum,
                         );
 
-                      case 15:
+                      case 13:
                         _context14.t1 = _context14.sent;
                         _context14.t0 = _context14.t1 > 0;
 
-                      case 17:
+                      case 15:
                         if (!_context14.t0) {
-                          _context14.next = 19;
+                          _context14.next = 17;
                           break;
                         }
 
                         lastComparableDatumToReturn = eachComparableDatum;
 
+                      case 17:
+                        _context14.next = 4;
+                        break;
+
                       case 19:
-                        _context14.next = 6;
+                        _context14.next = 24;
                         break;
 
                       case 21:
-                        _context14.next = 26;
-                        break;
-
-                      case 23:
-                        _context14.prev = 23;
-                        _context14.t2 = _context14['catch'](4);
+                        _context14.prev = 21;
+                        _context14.t2 = _context14['catch'](2);
 
                         _iterator14.e(_context14.t2);
 
-                      case 26:
-                        _context14.prev = 26;
+                      case 24:
+                        _context14.prev = 24;
 
                         _iterator14.f();
 
-                        return _context14.finish(26);
+                        return _context14.finish(24);
 
-                      case 29:
+                      case 27:
                         if (!(lastComparableDatumToReturn == null)) {
-                          _context14.next = 31;
+                          _context14.next = 29;
                           break;
                         }
 
@@ -2194,13 +2068,13 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                           'Source data is empty',
                         );
 
-                      case 31:
+                      case 29:
                         return _context14.abrupt(
                           'return',
                           lastComparableDatumToReturn,
                         );
 
-                      case 32:
+                      case 30:
                       case 'end':
                         return _context14.stop();
                     }
@@ -2208,7 +2082,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                 },
                 _callee14,
                 null,
-                [[4, 23, 26, 29]],
+                [[2, 21, 24, 27]],
               );
             }),
           ),
@@ -2246,87 +2120,79 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                   while (1) {
                     switch ((_context15.prev = _context15.next)) {
                       case 0:
-                        if (!(_this16.combinedDataWrapper == null)) {
-                          _context15.next = 2;
-                          break;
-                        }
-
-                        return _context15.abrupt('return', null);
-
-                      case 2:
                         lastComparableDatumToReturn = null;
                         _iterator15 = _createForOfIteratorHelper(
                           _this16.combinedDataWrapper,
                         );
-                        _context15.prev = 4;
+                        _context15.prev = 2;
 
                         _iterator15.s();
 
-                      case 6:
+                      case 4:
                         if ((_step15 = _iterator15.n()).done) {
-                          _context15.next = 21;
+                          _context15.next = 19;
                           break;
                         }
 
                         eachCombinedDatum = _step15.value;
-                        _context15.next = 10;
+                        _context15.next = 8;
                         return selector(eachCombinedDatum);
 
-                      case 10:
+                      case 8:
                         eachComparableDatum = _context15.sent;
                         _context15.t0 = lastComparableDatumToReturn == null;
 
                         if (_context15.t0) {
-                          _context15.next = 17;
+                          _context15.next = 15;
                           break;
                         }
 
-                        _context15.next = 15;
+                        _context15.next = 13;
                         return comparator(
                           lastComparableDatumToReturn,
                           eachComparableDatum,
                         );
 
-                      case 15:
+                      case 13:
                         _context15.t1 = _context15.sent;
                         _context15.t0 = _context15.t1 > 0;
 
-                      case 17:
+                      case 15:
                         if (!_context15.t0) {
-                          _context15.next = 19;
+                          _context15.next = 17;
                           break;
                         }
 
                         lastComparableDatumToReturn = eachComparableDatum;
 
+                      case 17:
+                        _context15.next = 4;
+                        break;
+
                       case 19:
-                        _context15.next = 6;
+                        _context15.next = 24;
                         break;
 
                       case 21:
-                        _context15.next = 26;
-                        break;
-
-                      case 23:
-                        _context15.prev = 23;
-                        _context15.t2 = _context15['catch'](4);
+                        _context15.prev = 21;
+                        _context15.t2 = _context15['catch'](2);
 
                         _iterator15.e(_context15.t2);
 
-                      case 26:
-                        _context15.prev = 26;
+                      case 24:
+                        _context15.prev = 24;
 
                         _iterator15.f();
 
-                        return _context15.finish(26);
+                        return _context15.finish(24);
 
-                      case 29:
+                      case 27:
                         return _context15.abrupt(
                           'return',
                           lastComparableDatumToReturn,
                         );
 
-                      case 30:
+                      case 28:
                       case 'end':
                         return _context15.stop();
                     }
@@ -2334,7 +2200,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                 },
                 _callee15,
                 null,
-                [[4, 23, 26, 29]],
+                [[2, 21, 24, 27]],
               );
             }),
           ),
@@ -2366,27 +2232,17 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                   while (1) {
                     switch ((_context16.prev = _context16.next)) {
                       case 0:
-                        if (!(_this17.combinedDataWrapper == null)) {
-                          _context16.next = 2;
-                          break;
-                        }
-
-                        throw new _module.KoconutNoSuchElementException(
-                          'Source data is null',
-                        );
-
-                      case 2:
                         dataToReturn = null;
                         _iterator16 = _createForOfIteratorHelper(
                           _this17.combinedDataWrapper,
                         );
-                        _context16.prev = 4;
+                        _context16.prev = 2;
 
                         _iterator16.s();
 
-                      case 6:
+                      case 4:
                         if ((_step16 = _iterator16.n()).done) {
-                          _context16.next = 18;
+                          _context16.next = 16;
                           break;
                         }
 
@@ -2394,49 +2250,49 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                         _context16.t0 = dataToReturn == null;
 
                         if (_context16.t0) {
-                          _context16.next = 14;
+                          _context16.next = 12;
                           break;
                         }
 
-                        _context16.next = 12;
+                        _context16.next = 10;
                         return comparator(dataToReturn, eachCombinedDatum);
 
-                      case 12:
+                      case 10:
                         _context16.t1 = _context16.sent;
                         _context16.t0 = _context16.t1 > 0;
 
-                      case 14:
+                      case 12:
                         if (!_context16.t0) {
-                          _context16.next = 16;
+                          _context16.next = 14;
                           break;
                         }
 
                         dataToReturn = eachCombinedDatum;
 
+                      case 14:
+                        _context16.next = 4;
+                        break;
+
                       case 16:
-                        _context16.next = 6;
+                        _context16.next = 21;
                         break;
 
                       case 18:
-                        _context16.next = 23;
-                        break;
-
-                      case 20:
-                        _context16.prev = 20;
-                        _context16.t2 = _context16['catch'](4);
+                        _context16.prev = 18;
+                        _context16.t2 = _context16['catch'](2);
 
                         _iterator16.e(_context16.t2);
 
-                      case 23:
-                        _context16.prev = 23;
+                      case 21:
+                        _context16.prev = 21;
 
                         _iterator16.f();
 
-                        return _context16.finish(23);
+                        return _context16.finish(21);
 
-                      case 26:
+                      case 24:
                         if (!(dataToReturn == null)) {
-                          _context16.next = 28;
+                          _context16.next = 26;
                           break;
                         }
 
@@ -2444,10 +2300,10 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                           'Source data is empty',
                         );
 
-                      case 28:
+                      case 26:
                         return _context16.abrupt('return', dataToReturn);
 
-                      case 29:
+                      case 27:
                       case 'end':
                         return _context16.stop();
                     }
@@ -2455,7 +2311,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                 },
                 _callee16,
                 null,
-                [[4, 20, 23, 26]],
+                [[2, 18, 21, 24]],
               );
             }),
           ),
@@ -2487,25 +2343,17 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                   while (1) {
                     switch ((_context17.prev = _context17.next)) {
                       case 0:
-                        if (!(_this18.combinedDataWrapper == null)) {
-                          _context17.next = 2;
-                          break;
-                        }
-
-                        return _context17.abrupt('return', null);
-
-                      case 2:
                         dataToReturn = null;
                         _iterator17 = _createForOfIteratorHelper(
                           _this18.combinedDataWrapper,
                         );
-                        _context17.prev = 4;
+                        _context17.prev = 2;
 
                         _iterator17.s();
 
-                      case 6:
+                      case 4:
                         if ((_step17 = _iterator17.n()).done) {
-                          _context17.next = 18;
+                          _context17.next = 16;
                           break;
                         }
 
@@ -2513,50 +2361,50 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                         _context17.t0 = dataToReturn == null;
 
                         if (_context17.t0) {
-                          _context17.next = 14;
+                          _context17.next = 12;
                           break;
                         }
 
-                        _context17.next = 12;
+                        _context17.next = 10;
                         return comparator(dataToReturn, eachCombinedDatum);
 
-                      case 12:
+                      case 10:
                         _context17.t1 = _context17.sent;
                         _context17.t0 = _context17.t1 > 0;
 
-                      case 14:
+                      case 12:
                         if (!_context17.t0) {
-                          _context17.next = 16;
+                          _context17.next = 14;
                           break;
                         }
 
                         dataToReturn = eachCombinedDatum;
 
+                      case 14:
+                        _context17.next = 4;
+                        break;
+
                       case 16:
-                        _context17.next = 6;
+                        _context17.next = 21;
                         break;
 
                       case 18:
-                        _context17.next = 23;
-                        break;
-
-                      case 20:
-                        _context17.prev = 20;
-                        _context17.t2 = _context17['catch'](4);
+                        _context17.prev = 18;
+                        _context17.t2 = _context17['catch'](2);
 
                         _iterator17.e(_context17.t2);
 
-                      case 23:
-                        _context17.prev = 23;
+                      case 21:
+                        _context17.prev = 21;
 
                         _iterator17.f();
 
-                        return _context17.finish(23);
+                        return _context17.finish(21);
 
-                      case 26:
+                      case 24:
                         return _context17.abrupt('return', dataToReturn);
 
-                      case 27:
+                      case 25:
                       case 'end':
                         return _context17.stop();
                     }
@@ -2564,7 +2412,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                 },
                 _callee17,
                 null,
-                [[4, 20, 23, 26]],
+                [[2, 18, 21, 24]],
               );
             }),
           ),
@@ -2661,64 +2509,56 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                   while (1) {
                     switch ((_context20.prev = _context20.next)) {
                       case 0:
-                        if (!(_this21.combinedDataWrapper == null)) {
-                          _context20.next = 2;
-                          break;
-                        }
-
-                        return _context20.abrupt('return', false);
-
-                      case 2:
                         _iterator18 = _createForOfIteratorHelper(
                           _this21.combinedDataWrapper,
                         );
-                        _context20.prev = 3;
+                        _context20.prev = 1;
 
                         _iterator18.s();
 
-                      case 5:
+                      case 3:
                         if ((_step18 = _iterator18.n()).done) {
-                          _context20.next = 13;
-                          break;
-                        }
-
-                        eachCombinedDatum = _step18.value;
-                        _context20.next = 9;
-                        return predicate(eachCombinedDatum);
-
-                      case 9:
-                        if (_context20.sent) {
                           _context20.next = 11;
                           break;
                         }
 
+                        eachCombinedDatum = _step18.value;
+                        _context20.next = 7;
+                        return predicate(eachCombinedDatum);
+
+                      case 7:
+                        if (_context20.sent) {
+                          _context20.next = 9;
+                          break;
+                        }
+
                         return _context20.abrupt('return', false);
 
+                      case 9:
+                        _context20.next = 3;
+                        break;
+
                       case 11:
-                        _context20.next = 5;
+                        _context20.next = 16;
                         break;
 
                       case 13:
-                        _context20.next = 18;
-                        break;
-
-                      case 15:
-                        _context20.prev = 15;
-                        _context20.t0 = _context20['catch'](3);
+                        _context20.prev = 13;
+                        _context20.t0 = _context20['catch'](1);
 
                         _iterator18.e(_context20.t0);
 
-                      case 18:
-                        _context20.prev = 18;
+                      case 16:
+                        _context20.prev = 16;
 
                         _iterator18.f();
 
-                        return _context20.finish(18);
+                        return _context20.finish(16);
 
-                      case 21:
+                      case 19:
                         return _context20.abrupt('return', true);
 
-                      case 22:
+                      case 20:
                       case 'end':
                         return _context20.stop();
                     }
@@ -2726,7 +2566,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                 },
                 _callee20,
                 null,
-                [[3, 15, 18, 21]],
+                [[1, 13, 16, 19]],
               );
             }),
           ),
@@ -2757,64 +2597,56 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                   while (1) {
                     switch ((_context21.prev = _context21.next)) {
                       case 0:
-                        if (!(_this22.combinedDataWrapper == null)) {
-                          _context21.next = 2;
-                          break;
-                        }
-
-                        return _context21.abrupt('return', false);
-
-                      case 2:
                         _iterator19 = _createForOfIteratorHelper(
                           _this22.combinedDataWrapper,
                         );
-                        _context21.prev = 3;
+                        _context21.prev = 1;
 
                         _iterator19.s();
 
-                      case 5:
+                      case 3:
                         if ((_step19 = _iterator19.n()).done) {
-                          _context21.next = 13;
+                          _context21.next = 11;
                           break;
                         }
 
                         eachCombinedDatum = _step19.value;
-                        _context21.next = 9;
+                        _context21.next = 7;
                         return predicate(eachCombinedDatum);
 
-                      case 9:
+                      case 7:
                         if (!_context21.sent) {
-                          _context21.next = 11;
+                          _context21.next = 9;
                           break;
                         }
 
                         return _context21.abrupt('return', true);
 
+                      case 9:
+                        _context21.next = 3;
+                        break;
+
                       case 11:
-                        _context21.next = 5;
+                        _context21.next = 16;
                         break;
 
                       case 13:
-                        _context21.next = 18;
-                        break;
-
-                      case 15:
-                        _context21.prev = 15;
-                        _context21.t0 = _context21['catch'](3);
+                        _context21.prev = 13;
+                        _context21.t0 = _context21['catch'](1);
 
                         _iterator19.e(_context21.t0);
 
-                      case 18:
-                        _context21.prev = 18;
+                      case 16:
+                        _context21.prev = 16;
 
                         _iterator19.f();
 
-                        return _context21.finish(18);
+                        return _context21.finish(16);
 
-                      case 21:
+                      case 19:
                         return _context21.abrupt('return', false);
 
-                      case 22:
+                      case 20:
                       case 'end':
                         return _context21.stop();
                     }
@@ -2822,7 +2654,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                 },
                 _callee21,
                 null,
-                [[3, 15, 18, 21]],
+                [[1, 13, 16, 19]],
               );
             }),
           ),
@@ -2914,11 +2746,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                 while (1) {
                   switch ((_context24.prev = _context24.next)) {
                     case 0:
-                      return _context24.abrupt(
-                        'return',
-                        _this25.combinedDataWrapper == null ||
-                          _this25.mSize == 0,
-                      );
+                      return _context24.abrupt('return', _this25.mSize == 0);
 
                     case 1:
                     case 'end':
@@ -2960,12 +2788,7 @@ var KoconutIterable = (function (_KoconutPrimitive) {
                   while (1) {
                     switch ((_context25.prev = _context25.next)) {
                       case 0:
-                        if (
-                          !(
-                            _this26.combinedDataWrapper == null ||
-                            _this26.mSize == 0
-                          )
-                        ) {
+                        if (!(_this26.mSize == 0)) {
                           _context25.next = 2;
                           break;
                         }
@@ -3146,13 +2969,9 @@ var KoconutIterable = (function (_KoconutPrimitive) {
     },
     {
       key: 'onEach',
-      value: function onEach(action) {
+      value: function onEach(action, thisArg) {
         var _this28 = this;
 
-        var thisArg =
-          arguments.length > 1 && arguments[1] !== undefined
-            ? arguments[1]
-            : null;
         action = action.bind(thisArg);
         var koconutToReturn = new KoconutIterable();
         koconutToReturn.setPrevYieldable(this).setProcessor(
@@ -3247,13 +3066,9 @@ var KoconutIterable = (function (_KoconutPrimitive) {
     },
     {
       key: 'filter',
-      value: function filter(predicate) {
+      value: function filter(predicate, thisArg) {
         var _this29 = this;
 
-        var thisArg =
-          arguments.length > 1 && arguments[1] !== undefined
-            ? arguments[1]
-            : null;
         predicate = predicate.bind(thisArg);
         var koconutToReturn = new KoconutIterable();
         koconutToReturn.setPrevYieldable(this).setProcessor(
@@ -3368,13 +3183,9 @@ var KoconutIterable = (function (_KoconutPrimitive) {
     },
     {
       key: 'filterNot',
-      value: function filterNot(predicate) {
+      value: function filterNot(predicate, thisArg) {
         var _this30 = this;
 
-        var thisArg =
-          arguments.length > 1 && arguments[1] !== undefined
-            ? arguments[1]
-            : null;
         predicate = predicate.bind(thisArg);
         var koconutToReturn = new KoconutIterable();
         koconutToReturn.setPrevYieldable(this).setProcessor(
@@ -3600,13 +3411,9 @@ var KoconutIterable = (function (_KoconutPrimitive) {
     },
     {
       key: 'flatMapTo',
-      value: function flatMapTo(destination, transform) {
+      value: function flatMapTo(destination, transform, thisArg) {
         var _this32 = this;
 
-        var thisArg =
-          arguments.length > 2 && arguments[2] !== undefined
-            ? arguments[2]
-            : null;
         transform = transform.bind(thisArg);
         var koconutToReturn = new KoconutIterable();
         koconutToReturn.setPrevYieldable(this).setProcessor(
@@ -3758,13 +3565,9 @@ var KoconutIterable = (function (_KoconutPrimitive) {
     },
     {
       key: 'mapTo',
-      value: function mapTo(destination, transform) {
+      value: function mapTo(destination, transform, thisArg) {
         var _this34 = this;
 
-        var thisArg =
-          arguments.length > 2 && arguments[2] !== undefined
-            ? arguments[2]
-            : null;
         transform = transform.bind(thisArg);
         var koconutToReturn = new KoconutIterable();
         koconutToReturn.setPrevYieldable(this).setProcessor(
@@ -3916,13 +3719,9 @@ var KoconutIterable = (function (_KoconutPrimitive) {
     },
     {
       key: 'mapNotNullTo',
-      value: function mapNotNullTo(destination, transform) {
+      value: function mapNotNullTo(destination, transform, thisArg) {
         var _this36 = this;
 
-        var thisArg =
-          arguments.length > 2 && arguments[2] !== undefined
-            ? arguments[2]
-            : null;
         transform = transform.bind(thisArg);
         var koconutToReturn = new KoconutIterable();
         koconutToReturn.setPrevYieldable(this).setProcessor(

@@ -31,7 +31,7 @@ var KoconutOption = (function () {
       key: 'locale',
       get: function get() {
         if (this._locale == null)
-          this._locale = _module.KoconutLocale.fromString(
+          this.locale = _module.KoconutLocale.fromString(
             new Intl.DateTimeFormat().resolvedOptions().locale,
           );
         return this._locale;

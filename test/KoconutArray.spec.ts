@@ -9,6 +9,7 @@ import {
   Pair,
   KoconutPair,
   Entry,
+  KoconutBoolean,
 
   /* Container */
   KoconutArray,
@@ -19,12 +20,30 @@ import {
 
   /* Exception */
   KoconutNoSuchElementException,
+  KoconutInvalidArgumentException,
   KoconutConflictException,
-  KoconutBoolean,
-} from '../src/module';
-import { Person, ProductInfo } from './TestDataClasses';
 
-KoconutDeprecation.isRunningOnDevUnitTesting = true;
+  /* Protocol */
+  KoconutComparable,
+  KoconutLoopSignal,
+} from '../src/module';
+import { Person, ProductInfo, Worker, Dog } from './TestDataClasses';
+
+describe(`${KoconutArray.name} -- Creator`, () => {
+  it(KoconutArray.from.name, async () => {
+    /* Case 1 */
+    const koconutCase1 = KoconutArray.from([1, 2, 3, 4, 5]);
+    expect(koconutCase1).to.be.instanceOf(KoconutArray);
+    const resultCase1 = await koconutCase1.yield();
+    expect(resultCase1).to.be.eqls([1, 2, 3, 4, 5]);
+
+    /* Case 2 */
+    const koconutCase2 = KoconutArray.from();
+    expect(koconutCase2).to.be.instanceOf(KoconutArray);
+    const resultCase2 = await koconutCase2.yield();
+    expect(resultCase2).to.be.eqls(<unknown>[]);
+  });
+});
 
 describe(`${KoconutArray.name} -- Property Getter`, () => {
   it(KoconutArray.prototype.size.name, async () => {
@@ -115,6 +134,18 @@ describe(`${KoconutArray.name} -- Calculator`, () => {
     } catch (error) {
       expect(error).to.be.instanceOf(KoconutNoSuchElementException);
     }
+
+    /* Case 4 */
+    const koconutCase4 = KoconutArray.of(
+      new Worker('Jacob', 'Bernoulli', 50),
+      new Worker('Jinyoung', 'Luvya', 60),
+      new Worker('Grace', 'Hopper', 100),
+      new Worker('Johann', 'Bernoulli', 80),
+    );
+    const yieldableCase4 = koconutCase4.maxBy((eachElement) => eachElement);
+    expect(yieldableCase4).to.be.instanceOf(KoconutPrimitive);
+    const resultCase4 = await yieldableCase4.yield();
+    expect(resultCase4).to.be.eqls(new Worker('Grace', 'Hopper', 100));
   });
 
   it(KoconutArray.prototype.maxByOrNull.name, async () => {
@@ -147,6 +178,20 @@ describe(`${KoconutArray.name} -- Calculator`, () => {
     expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive);
     const resultCase3 = await yieldableCase3.yield();
     expect(resultCase3).equals(null);
+
+    /* Case 4 */
+    const koconutCase4 = KoconutArray.of(
+      new Worker('Jacob', 'Bernoulli', 50),
+      new Worker('Jinyoung', 'Luvya', 60),
+      new Worker('Grace', 'Hopper', 100),
+      new Worker('Johann', 'Bernoulli', 80),
+    );
+    const yieldableCase4 = koconutCase4.maxByOrNull(
+      (eachElement) => eachElement,
+    );
+    expect(yieldableCase4).to.be.instanceOf(KoconutPrimitive);
+    const resultCase4 = await yieldableCase4.yield();
+    expect(resultCase4).to.be.eqls(new Worker('Grace', 'Hopper', 100));
   });
 
   it(KoconutArray.prototype.maxOf.name, async () => {
@@ -169,6 +214,18 @@ describe(`${KoconutArray.name} -- Calculator`, () => {
     expect(resultCase2).eqls(
       new ProductInfo('A-1', 'Mac Book Pro -- May', 2000),
     );
+
+    /* Case 3 */
+    const koconutCase3 = KoconutArray.of(
+      new Worker('Jacob', 'Bernoulli', 50),
+      new Worker('Jinyoung', 'Luvya', 60),
+      new Worker('Grace', 'Hopper', 100),
+      new Worker('Johann', 'Bernoulli', 80),
+    );
+    const yieldableCase3 = koconutCase3.maxOf((eachElement) => eachElement);
+    expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive);
+    const resultCase3 = await yieldableCase3.yield();
+    expect(resultCase3).eqls(new Worker('Grace', 'Hopper', 100));
   });
 
   it(KoconutArray.prototype.maxOfOrNull.name, async () => {
@@ -201,6 +258,20 @@ describe(`${KoconutArray.name} -- Calculator`, () => {
     expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive);
     const resultCase3 = await yieldableCase3.yield();
     expect(resultCase3).equals(null);
+
+    /* Case 4 */
+    const koconutCase4 = KoconutArray.of(
+      new Worker('Jacob', 'Bernoulli', 50),
+      new Worker('Jinyoung', 'Luvya', 60),
+      new Worker('Grace', 'Hopper', 100),
+      new Worker('Johann', 'Bernoulli', 80),
+    );
+    const yieldableCase4 = koconutCase4.maxOfOrNull(
+      (eachElement) => eachElement,
+    );
+    expect(yieldableCase4).to.be.instanceOf(KoconutPrimitive);
+    const resultCase4 = await yieldableCase4.yield();
+    expect(resultCase4).eqls(new Worker('Grace', 'Hopper', 100));
   });
 
   it(KoconutArray.prototype.maxOfWith.name, async () => {
@@ -322,6 +393,18 @@ describe(`${KoconutArray.name} -- Calculator`, () => {
     } catch (error) {
       expect(error).to.be.instanceOf(KoconutNoSuchElementException);
     }
+
+    /* Case 4 */
+    const koconutCase4 = KoconutArray.of(
+      new Worker('Jinyoung', 'Luvya', 60),
+      new Worker('Grace', 'Hopper', 100),
+      new Worker('Jacob', 'Bernoulli', 50),
+      new Worker('Johann', 'Bernoulli', 80),
+    );
+    const yieldableCase4 = koconutCase4.minBy((eachElement) => eachElement);
+    expect(yieldableCase4).to.be.instanceOf(KoconutPrimitive);
+    const resultCase4 = await yieldableCase4.yield();
+    expect(resultCase4).to.be.eqls(new Worker('Jacob', 'Bernoulli', 50));
   });
 
   it(KoconutArray.prototype.minByOrNull.name, async () => {
@@ -355,6 +438,20 @@ describe(`${KoconutArray.name} -- Calculator`, () => {
       .minByOrNull((eachElement) => eachElement);
     const resultCase3 = await yieldableCase3.yield();
     expect(resultCase3).equals(null);
+
+    /* Case 4 */
+    const koconutCase4 = KoconutArray.of(
+      new Worker('Jinyoung', 'Luvya', 60),
+      new Worker('Grace', 'Hopper', 100),
+      new Worker('Jacob', 'Bernoulli', 50),
+      new Worker('Johann', 'Bernoulli', 80),
+    );
+    const yieldableCase4 = koconutCase4.minByOrNull(
+      (eachElement) => eachElement,
+    );
+    expect(yieldableCase4).to.be.instanceOf(KoconutPrimitive);
+    const resultCase4 = await yieldableCase4.yield();
+    expect(resultCase4).to.be.eqls(new Worker('Jacob', 'Bernoulli', 50));
   });
 
   it(KoconutArray.prototype.minOf.name, async () => {
@@ -377,6 +474,18 @@ describe(`${KoconutArray.name} -- Calculator`, () => {
     expect(resultCase2).eqls(
       new ProductInfo('A-2', 'Mac Book Air -- September', 1200),
     );
+
+    /* Case 3 */
+    const koconutCase3 = KoconutArray.of(
+      new Worker('Jacob', 'Bernoulli', 50),
+      new Worker('Jinyoung', 'Luvya', 60),
+      new Worker('Grace', 'Hopper', 100),
+      new Worker('Johann', 'Bernoulli', 80),
+    );
+    const yieldableCase3 = koconutCase3.minOf((eachElement) => eachElement);
+    expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive);
+    const resultCase3 = await yieldableCase3.yield();
+    expect(resultCase3).eqls(new Worker('Jacob', 'Bernoulli', 50));
   });
 
   it(KoconutArray.prototype.minOfOrNull.name, async () => {
@@ -409,6 +518,20 @@ describe(`${KoconutArray.name} -- Calculator`, () => {
     expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive);
     const resultCase3 = await yieldableCase3.yield();
     expect(resultCase3).equals(null);
+
+    /* Case 4 */
+    const koconutCase4 = KoconutArray.of(
+      new Worker('Jacob', 'Bernoulli', 50),
+      new Worker('Jinyoung', 'Luvya', 60),
+      new Worker('Grace', 'Hopper', 100),
+      new Worker('Johann', 'Bernoulli', 80),
+    );
+    const yieldableCase4 = koconutCase4.minOfOrNull(
+      (eachElement) => eachElement,
+    );
+    expect(yieldableCase4).to.be.instanceOf(KoconutPrimitive);
+    const resultCase4 = await yieldableCase4.yield();
+    expect(resultCase4).eqls(new Worker('Jacob', 'Bernoulli', 50));
   });
 
   it(KoconutArray.prototype.minOfWith.name, async () => {
@@ -647,6 +770,18 @@ describe(`${KoconutArray.name} -- Inspector`, () => {
     expect(yieldableCase3).to.be.instanceOf(KoconutBoolean);
     const resultCase3 = await yieldableCase3.yield();
     expect(resultCase3).to.equal(true);
+
+    /* Case 4 */
+    const koconutCase4 = KoconutArray.of(
+      new Dog('Brie', 3, 0),
+      new Dog('Mike', 5, 1),
+      new Dog('unknown', 3, 0),
+    );
+
+    const yieldableCase4 = koconutCase4.contains(new Dog('no-name', 3, 2));
+    expect(yieldableCase4).to.be.instanceOf(KoconutBoolean);
+    const resultCase4 = await yieldableCase4.yield();
+    expect(resultCase4).to.equal(false);
   });
 
   it(KoconutArray.prototype.containsAll.name, async () => {
@@ -695,6 +830,20 @@ describe(`${KoconutArray.name} -- Inspector`, () => {
     expect(yieldableCase4).to.be.instanceOf(KoconutBoolean);
     const resultCase4 = await yieldableCase4.yield();
     expect(resultCase4).to.equals(false);
+
+    /* Case 5 */
+    const koconutCase5 = KoconutArray.of(
+      new Dog('Brie', 3, 0),
+      new Dog('Mike', 5, 1),
+    );
+
+    const yieldableCase5 = koconutCase5.containsAll([
+      new Dog('Brie', 3, 0),
+      new Dog('Mike', 5, 1),
+    ]);
+    expect(yieldableCase5).to.be.instanceOf(KoconutBoolean);
+    const resultCase5 = await yieldableCase5.yield();
+    expect(resultCase5).to.be.eqls(true);
   });
 
   it(KoconutArray.prototype.none.name, async () => {
@@ -732,41 +881,83 @@ describe(`${KoconutArray.name} -- Iterator`, () => {
   it(KoconutArray.prototype.forEach.name, async () => {
     const koconut = KoconutArray.from([1, 2, 3, 4, 5]);
 
-    const yieldable = koconut.forEach((eachElement) => {
+    /* Case 1 */
+    const yieldableCase1 = koconut.forEach((eachElement) => {
       expect(eachElement).to.be.a('number');
     });
-    expect(yieldable).to.be.instanceOf(KoconutPrimitive);
-    await yieldable.process();
+    expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive);
+    await yieldableCase1.process();
+
+    /* Case 2 */
+    const resultCase2 = new Array<number>();
+    const yieldableCase2 = koconut.forEach((eachElement) => {
+      if (eachElement > 3) return false;
+      resultCase2.push(eachElement);
+    });
+    await yieldableCase2.process();
+    expect(resultCase2).to.be.eqls([1, 2, 3]);
   });
 
   it(KoconutArray.prototype.forEachIndexed.name, async () => {
     const koconut = KoconutArray.from([1, 2, 3, 4, 5]);
 
-    const yieldable = koconut.forEachIndexed((eachIndex, eachElement) => {
+    /* Case 1 */
+    const yieldableCase1 = koconut.forEachIndexed((eachIndex, eachElement) => {
       expect(eachElement - eachIndex).equals(1);
     });
-    expect(yieldable).to.be.instanceOf(KoconutPrimitive);
-    await yieldable.process();
+    expect(yieldableCase1).to.be.instanceOf(KoconutPrimitive);
+    await yieldableCase1.process();
+
+    /* Case 2*/
+    const resultCase2 = new Array<number>();
+    const yieldableCase2 = koconut.forEachIndexed((eachIndex, eachElement) => {
+      if (eachIndex > 2) return false;
+      else resultCase2.push(eachElement);
+    });
+    expect(yieldableCase2).to.be.instanceOf(KoconutPrimitive);
+    await yieldableCase2.process();
+    expect(resultCase2).to.be.eqls([1, 2, 3]);
   });
 
   it(KoconutArray.prototype.onEach.name, async () => {
     const koconut = KoconutArray.from([1, 2, 3, 4, 5]);
 
-    const yieldable = koconut.onEach((eachElement) => {
+    /* Case 1 */
+    const yieldableCase1 = koconut.onEach((eachElement) => {
       expect(eachElement).to.be.a('number');
     });
-    expect(yieldable).to.be.instanceOf(KoconutArray);
-    await yieldable.process();
+    expect(yieldableCase1).to.be.instanceOf(KoconutArray);
+    await yieldableCase1.process();
+
+    /* Case 2 */
+    const resultCase2 = new Array<number>();
+    const yieldableCase2 = koconut.onEach((eachElement) => {
+      if (eachElement > 3) return false;
+      resultCase2.push(eachElement);
+    });
+    await yieldableCase2.process();
+    expect(resultCase2).to.be.eqls([1, 2, 3]);
   });
 
   it(KoconutArray.prototype.onEachIndexed.name, async () => {
     const koconut = KoconutArray.from([1, 2, 3, 4, 5]);
 
-    const yieldable = koconut.onEachIndexed((eachIndex, eachElement) => {
+    /* Case 1 */
+    const yieldableCase1 = koconut.onEachIndexed((eachIndex, eachElement) => {
       expect(eachElement - eachIndex).equals(1);
     });
-    expect(yieldable).to.be.instanceOf(KoconutArray);
-    await yieldable.process();
+    expect(yieldableCase1).to.be.instanceOf(KoconutArray);
+    await yieldableCase1.process();
+
+    /* Case 2 */
+    const resultCase2 = new Array<number>();
+    const yieldableCase2 = koconut.onEachIndexed((eachIndex, eachElement) => {
+      if (eachIndex > 2) return false;
+      resultCase2.push(eachElement);
+    });
+    expect(yieldableCase2).to.be.instanceOf(KoconutArray);
+    await yieldableCase2.process();
+    expect(resultCase2).to.be.eqls([1, 2, 3]);
   });
 });
 
@@ -797,6 +988,16 @@ describe(`${KoconutArray.name} -- Manipulator`, () => {
       new Person('Jinyoung', 'Luvya'),
     ];
     expect(resultCase2!).to.eql(expectedResultArrayCase2);
+
+    /* Case 3 */
+    const koconutCase3 = KoconutArray.of(
+      new Dog('no-name 1', 3, 0),
+      new Dog('no-name 2', 4, 0),
+    );
+    const yieldableCase3 = koconutCase3.distinct();
+    expect(yieldableCase3).to.be.instanceOf(KoconutArray);
+    const resultCase3 = await yieldableCase3.yield();
+    expect(resultCase3).to.be.eqls([new Dog('no-name 1', 3, 0)]);
   });
 
   it(KoconutArray.prototype.distinctBy.name, async () => {
@@ -829,24 +1030,56 @@ describe(`${KoconutArray.name} -- Manipulator`, () => {
       new Person('Jinyoung', 'Luvya'),
     ];
     expect(resultCase2!).to.eql(expectedResultArrayCase2);
+
+    /* Case 3 */
+    const koconutCase3 = KoconutArray.of(
+      new Dog('no-name 1', 3, 0),
+      new Dog('no-name 2', 4, 0),
+    );
+    const yieldableCase3 = koconutCase3.distinctBy(
+      (eachElement) => eachElement,
+    );
+    expect(yieldableCase3).to.be.instanceOf(KoconutArray);
+    const resultCase3 = await yieldableCase3.yield();
+    expect(resultCase3).to.be.eqls([new Dog('no-name 1', 3, 0)]);
   });
 
   it(KoconutArray.prototype.drop.name, async () => {
     const koconut = KoconutArray.from('ABCDEFG');
 
-    const yieldable = koconut.drop(3);
-    expect(yieldable).to.be.instanceOf(KoconutArray);
-    const result = await yieldable.yield();
-    expect(result!.join('')).equals('DEFG');
+    /* Case 1 */
+    const yieldableCase1 = koconut.drop(3);
+    expect(yieldableCase1).to.be.instanceOf(KoconutArray);
+    const resultCase1 = await yieldableCase1.yield();
+    expect(resultCase1!.join('')).equals('DEFG');
+
+    /* Case 2 */
+    const yieldableCase2 = koconut.drop(-2);
+    expect(yieldableCase2).to.be.instanceOf(KoconutArray);
+    try {
+      await yieldableCase2.process();
+    } catch (error) {
+      expect(error).to.be.instanceOf(KoconutInvalidArgumentException);
+    }
   });
 
   it(KoconutArray.prototype.dropLast.name, async () => {
     const koconut = KoconutArray.from('ABCDEFG');
 
+    /* Case 1 */
     const yieldable = koconut.dropLast(3);
     expect(yieldable).to.be.instanceOf(KoconutArray);
     const result = await yieldable.yield();
     expect(result!.join('')).equals('ABCD');
+
+    /* Case 2 */
+    const yieldableCase2 = koconut.dropLast(-2);
+    expect(yieldableCase2).to.be.instanceOf(KoconutArray);
+    try {
+      await yieldableCase2.process();
+    } catch (error) {
+      expect(error).to.be.instanceOf(KoconutInvalidArgumentException);
+    }
   });
 
   it(KoconutArray.prototype.dropLastWhile.name, async () => {

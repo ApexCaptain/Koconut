@@ -1,6 +1,6 @@
 {
   "name": "koconut",
-  "description": "Promise-Friendly Kotlin style collection lib for nodejs.",
+  "description": "Provide interchainable array, set, map and etc supporting both normal and async callbacks as their action arguments.",
   "main": "dist/index.js",
   "authors": [
     "ApexCaptain <ayteneve93@gmail.com>"
@@ -21,7 +21,11 @@
     "async-iteration",
     "array",
     "async-functions",
-    "await"
+    "await",
+    "loops",
+    "async-callback",
+    "array-processing",
+    "array-utils"
   ],
   "homepage": "https://apexcaptain.github.io/Koconut/",
   "ignore": [
@@ -37,6 +41,7 @@
     ".prettierrc",
     ".ToDo",
     "CHANGELOG.md",
+    "CODE_OF_CONDUCT.md",
     "commands",
     "coverage",
     "desktop.ini",

@@ -3,3 +3,4 @@
 *.log
 .nyc_output
 .vscode
+coverage/browser/*.LICENSE.txt

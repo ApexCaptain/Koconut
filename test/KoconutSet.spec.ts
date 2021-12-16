@@ -1527,13 +1527,13 @@ describe(`${KoconutSet.name} -- Transformer`, () => {
   it(KoconutSet.prototype.flatMapTo.name, async () => {
     const koconut = KoconutSet.from(['abc', 'de']);
 
-    const destination = new Array<string>();
+    const destination = new Set<string>();
     const yieldable = koconut.flatMapTo(destination, (eachElement) =>
       eachElement.split(''),
     );
     expect(yieldable).to.be.instanceOf(KoconutSet);
     await yieldable.process();
-    expect(destination).eqls(['a', 'b', 'c', 'd', 'e']);
+    expect(destination).eqls(new Set(['a', 'b', 'c', 'd', 'e']));
   });
 
   it(KoconutSet.prototype.flatMapIndexedTo.name, async () => {

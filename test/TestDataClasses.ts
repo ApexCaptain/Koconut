@@ -1,14 +1,15 @@
 `use strict`;
 
-import { KoconutEquatable, KoconutComparable } from '../src/module';
-
+import {
+  KoconutDeprecation,
+  KoconutEquatable,
+  KoconutComparable,
+  KoconutPrimitive,
+  KoconutBoolean,
+} from '../src/module';
+KoconutDeprecation.isRunningOnDevUnitTesting = true;
 export class Person implements KoconutEquatable {
-  firstName: string;
-  lastName: string;
-  constructor(firstName: string, lastName: string) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-  }
+  constructor(public firstName: string, public lastName: string) {}
 
   /* Override */
   equalsTo(other: Person): boolean {
@@ -16,15 +17,25 @@ export class Person implements KoconutEquatable {
   }
 }
 
-export class ProductInfo implements KoconutEquatable, KoconutComparable {
-  id: string;
-  name: string;
-  price: number;
-  constructor(id: string, name: string, price: number) {
-    this.id = id;
-    this.name = name;
-    this.price = price;
+export class Dog implements KoconutEquatable {
+  constructor(public name: string, public age: number, public id: number) {}
+  equalsTo(other: Dog): KoconutBoolean {
+    return new KoconutBoolean(this.id == other.id);
   }
+}
+
+export class Worker extends Person implements KoconutComparable {
+  constructor(firstName: string, lastName: string, public pay: number) {
+    super(firstName, lastName);
+  }
+
+  compareTo(other: Worker): KoconutPrimitive<number> {
+    return new KoconutPrimitive(this.pay - other.pay);
+  }
+}
+
+export class ProductInfo implements KoconutEquatable, KoconutComparable {
+  constructor(public id: string, public name: string, public price: number) {}
 
   /* Override */
   equalsTo(other: ProductInfo): boolean {

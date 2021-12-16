@@ -2441,7 +2441,7 @@ describe("".concat(_module.KoconutSet.name, " -- Transformer"), function () {
         switch (_context73.prev = _context73.next) {
           case 0:
             koconut = _module.KoconutSet.from(['abc', 'de']);
-            destination = new Array();
+            destination = new Set();
             yieldable = koconut.flatMapTo(destination, function (eachElement) {
               return eachElement.split('');
             });
@@ -2450,7 +2450,7 @@ describe("".concat(_module.KoconutSet.name, " -- Transformer"), function () {
             return yieldable.process();
 
           case 6:
-            (0, _chai.expect)(destination).eqls(['a', 'b', 'c', 'd', 'e']);
+            (0, _chai.expect)(destination).eqls(new Set(['a', 'b', 'c', 'd', 'e']));
 
           case 7:
           case "end":

@@ -12,7 +12,7 @@ export class KoconutOption {
   private static _locale: KoconutLocale;
   static get locale(): KoconutLocale {
     if (this._locale == null)
-      this._locale = KoconutLocale.fromString(
+      this.locale = KoconutLocale.fromString(
         new Intl.DateTimeFormat().resolvedOptions().locale,
       );
     return this._locale;
