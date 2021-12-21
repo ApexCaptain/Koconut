@@ -1,5 +1,7 @@
 API 문서화 -- 참조 : https://typedoc.org/guides/doccomments/
 
+1. typeParam 추가
+
 로고/프로젝트 카드 작성
 
 Container 내부에서 Git 커맨드 사용 (SSH 키 써서)

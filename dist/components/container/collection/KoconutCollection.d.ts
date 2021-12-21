@@ -293,38 +293,38 @@ export declare class KoconutCollection<
   dropLast(n: number): KoconutCollection<DataType, WrapperType>;
   dropLastWhile(
     predicate: Predicator<DataType>,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType>;
   dropWhile(
     predicate: Predicator<DataType>,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType>;
   filter(
     predicate: Predicator<DataType>,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType>;
   filterNot(
     predicate: Predicator<DataType>,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType>;
   filterTo(
     destination: Array<DataType> | Set<DataType>,
     predicate: Predicator<DataType>,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType>;
   filterNotTo(
     destination: Array<DataType> | Set<DataType>,
     predicate: Predicator<DataType>,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType>;
   filterIndexed(
     predicate: IndexedPredicator<DataType>,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType>;
   filterIndexedTo(
     destination: Array<DataType> | Set<DataType>,
     predicate: IndexedPredicator<DataType>,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType>;
   filterNotNull(): KoconutCollection<DataType, WrapperType>;
   filterNotNullTo(
@@ -332,25 +332,25 @@ export declare class KoconutCollection<
   ): KoconutCollection<DataType, WrapperType>;
   sortedBy(
     selector: Selector<DataType, number | string | KoconutComparable>,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType>;
   sortedByDescending(
     selector: Selector<DataType, number | string | KoconutComparable>,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType>;
   sortedWith(
     comparator: Comparator<DataType>,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType>;
   take(n: number): KoconutCollection<DataType, WrapperType>;
   takeLast(n: number): KoconutCollection<DataType, WrapperType>;
   takeLastWhile(
     predicate: Predicator<DataType>,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType>;
   takeWhile(
     predicate: Predicator<DataType>,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType>;
   /**
    * Returns an element at the given ```index``` or throws an {@link KoconutIndexOutOfBoundsException} if the ```index``` is out of bounds of this collection.

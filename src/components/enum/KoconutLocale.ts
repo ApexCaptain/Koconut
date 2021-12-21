@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 `use strict`;
-// http://www.lingoes.net/en/translator/langcode.htm
+// ref http://www.lingoes.net/en/translator/langcode.html
 export enum KoconutLocale {
   // English
   en = 'en', // English

@@ -149,11 +149,8 @@ export class KoconutCollection<
       .setPrevYieldable(this)
       .setProcessor(async () => {
         let dataToReturn = initial;
-        /* istanbul ignore else */
-        if (this.data != null) {
-          for (const eachDatum of this.data)
-            dataToReturn = await operation(dataToReturn, eachDatum);
-        }
+        for (const eachDatum of this.data!)
+          dataToReturn = await operation(dataToReturn, eachDatum);
         return dataToReturn;
       });
     return koconutToReturn;
@@ -214,15 +211,13 @@ export class KoconutCollection<
       .setPrevYieldable(this)
       .setProcessor(async () => {
         let dataToReturn = initial;
-        /* istanbul ignore else */
-        if (this.data != null) {
-          for (const [eachIndex, eachDatum] of Array.from(this.data).entries())
-            dataToReturn = await operation(
-              eachIndex as number,
-              dataToReturn,
-              eachDatum,
-            );
-        }
+        for (const [eachIndex, eachDatum] of Array.from(this.data!).entries())
+          dataToReturn = await operation(
+            eachIndex as number,
+            dataToReturn,
+            eachDatum,
+          );
+
         return dataToReturn;
       });
     return koconutToReturn;
@@ -588,7 +583,7 @@ export class KoconutCollection<
   // No Comment - KoconutArray/KoconutSet
   dropLastWhile(
     predicate: Predicator<DataType>,
-    thisArg: any = null,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType> {
     predicate = predicate.bind(thisArg);
     const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
@@ -596,21 +591,19 @@ export class KoconutCollection<
       .setPrevYieldable(this)
       .setProcessor(async () => {
         let processedArray = new Array<DataType>();
-        if (this.data != null) {
-          const dataArray = Array.from(this.data);
-          let indexNumber = 0;
-          for (
-            let eachIndex = dataArray.length - 1;
-            eachIndex >= 0;
-            eachIndex--
-          ) {
-            if (!(await predicate(dataArray[eachIndex]))) {
-              indexNumber = eachIndex;
-              break;
-            }
+        const dataArray = Array.from(this.data!);
+        let indexNumber = 0;
+        for (
+          let eachIndex = dataArray.length - 1;
+          eachIndex >= 0;
+          eachIndex--
+        ) {
+          if (!(await predicate(dataArray[eachIndex]))) {
+            indexNumber = eachIndex;
+            break;
           }
-          processedArray = dataArray.slice(0, indexNumber + 1);
         }
+        processedArray = dataArray.slice(0, indexNumber + 1);
         if (this.data instanceof Array) return processedArray as WrapperType;
         else return new Set(processedArray) as WrapperType;
       });
@@ -620,7 +613,7 @@ export class KoconutCollection<
   // No Comment - KoconutArray/KoconutSet
   dropWhile(
     predicate: Predicator<DataType>,
-    thisArg: any = null,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType> {
     predicate = predicate.bind(thisArg);
     const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
@@ -628,17 +621,15 @@ export class KoconutCollection<
       .setPrevYieldable(this)
       .setProcessor(async () => {
         let processedArray = new Array<DataType>();
-        if (this.data != null) {
-          const dataArray = Array.from(this.data);
-          let indexNumber = dataArray.length;
-          for (const eachIndex in dataArray) {
-            if (!(await predicate(dataArray[eachIndex]))) {
-              indexNumber = parseInt(eachIndex);
-              break;
-            }
+        const dataArray = Array.from(this.data!);
+        let indexNumber = dataArray.length;
+        for (const eachIndex in dataArray) {
+          if (!(await predicate(dataArray[eachIndex]))) {
+            indexNumber = parseInt(eachIndex);
+            break;
           }
-          processedArray = dataArray.slice(indexNumber);
         }
+        processedArray = dataArray.slice(indexNumber);
         if (this.data instanceof Array) return processedArray as WrapperType;
         else return new Set(processedArray) as WrapperType;
       });
@@ -648,7 +639,7 @@ export class KoconutCollection<
   // No Comment - KoconutArray/KoconutSet
   filter(
     predicate: Predicator<DataType>,
-    thisArg: any = null,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType> {
     return KoconutCollection.fromIterable(super.filter(predicate, thisArg));
   }
@@ -656,7 +647,7 @@ export class KoconutCollection<
   // No Comment - KoconutArray/KoconutSet
   filterNot(
     predicate: Predicator<DataType>,
-    thisArg: any = null,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType> {
     return KoconutCollection.fromIterable(super.filterNot(predicate, thisArg));
   }
@@ -665,7 +656,7 @@ export class KoconutCollection<
   filterTo(
     destination: Array<DataType> | Set<DataType>,
     predicate: Predicator<DataType>,
-    thisArg: any = null,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType> {
     predicate = predicate.bind(thisArg);
     const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
@@ -696,7 +687,7 @@ export class KoconutCollection<
   filterNotTo(
     destination: Array<DataType> | Set<DataType>,
     predicate: Predicator<DataType>,
-    thisArg: any = null,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType> {
     predicate = predicate.bind(thisArg);
     const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
@@ -726,7 +717,7 @@ export class KoconutCollection<
   // No Comment - KoconutArray/KoconutSet
   filterIndexed(
     predicate: IndexedPredicator<DataType>,
-    thisArg: any = null,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType> {
     predicate = predicate.bind(thisArg);
     const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
@@ -734,11 +725,9 @@ export class KoconutCollection<
       .setPrevYieldable(this)
       .setProcessor(async () => {
         const processedArray = new Array<DataType>();
-        if (this.data != null) {
-          for (const [eachIndex, eachDatum] of Array.from(this.data).entries())
-            if (await predicate(eachIndex as number, eachDatum))
-              processedArray.push(eachDatum);
-        }
+        for (const [eachIndex, eachDatum] of Array.from(this.data!).entries())
+          if (await predicate(eachIndex as number, eachDatum))
+            processedArray.push(eachDatum);
         if (this.data instanceof Array) return processedArray as WrapperType;
         else return new Set(processedArray) as WrapperType;
       });
@@ -749,7 +738,7 @@ export class KoconutCollection<
   filterIndexedTo(
     destination: Array<DataType> | Set<DataType>,
     predicate: IndexedPredicator<DataType>,
-    thisArg: any = null,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType> {
     predicate = predicate.bind(thisArg);
     const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
@@ -786,10 +775,8 @@ export class KoconutCollection<
       .setPrevYieldable(this)
       .setProcessor(async () => {
         const processedArray = new Array<DataType>();
-        if (this.data != null) {
-          for (const eachDatum of this.data)
-            if (eachDatum != null) processedArray.push(eachDatum);
-        }
+        for (const eachDatum of this.data!)
+          if (eachDatum != null) processedArray.push(eachDatum);
         if (this.data instanceof Array) return processedArray as WrapperType;
         else return new Set(processedArray) as WrapperType;
       });
@@ -827,7 +814,7 @@ export class KoconutCollection<
   // No Comment - KoconutArray/KoconutSet
   sortedBy(
     selector: Selector<DataType, number | string | KoconutComparable>,
-    thisArg: any = null,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType> {
     selector = selector.bind(thisArg);
     const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
@@ -835,36 +822,36 @@ export class KoconutCollection<
       .setPrevYieldable(this)
       .setProcessor(async () => {
         const processedArray = new Array<DataType>();
-        if (this.data != null) {
-          const dataArray = Array.from(this.data);
-          for (const eachIndex in dataArray) {
-            if (Object.prototype.hasOwnProperty.call(dataArray, eachIndex)) {
-              const currentComparable = await selector(dataArray[eachIndex]);
-              let startIndex = 0;
-              let middleIndex: number;
-              let endIndex = processedArray.length;
-              while (startIndex < endIndex) {
-                middleIndex = Math.floor((startIndex + endIndex) / 2);
-                const targetComparable = await selector(
-                  processedArray[middleIndex],
-                );
-                let isCurrentGreater = false;
-                if (KoconutTypeChecker.checkIsComparable(currentComparable)) {
-                  const eachCompareResult =
-                    currentComparable.compareTo(targetComparable);
-                  let numberResult = 0;
-                  if (eachCompareResult instanceof KoconutPrimitive)
-                    numberResult = await eachCompareResult.yield();
-                  else numberResult = eachCompareResult;
-                  if (numberResult > 0) isCurrentGreater = true;
-                } else isCurrentGreater = targetComparable < currentComparable;
-                if (isCurrentGreater) startIndex = middleIndex + 1;
-                else endIndex = middleIndex;
-              }
-              processedArray.splice(endIndex, 0, dataArray[eachIndex]);
+        const dataArray = Array.from(this.data!);
+        for (const eachIndex in dataArray) {
+          /* istanbul ignore else */
+          if (Object.prototype.hasOwnProperty.call(dataArray, eachIndex)) {
+            const currentComparable = await selector(dataArray[eachIndex]);
+            let startIndex = 0;
+            let middleIndex: number;
+            let endIndex = processedArray.length;
+            while (startIndex < endIndex) {
+              middleIndex = Math.floor((startIndex + endIndex) / 2);
+              const targetComparable = await selector(
+                processedArray[middleIndex],
+              );
+              let isCurrentGreater = false;
+              if (KoconutTypeChecker.checkIsComparable(currentComparable)) {
+                const eachCompareResult =
+                  currentComparable.compareTo(targetComparable);
+                let numberResult = 0;
+                if (eachCompareResult instanceof KoconutPrimitive)
+                  numberResult = await eachCompareResult.yield();
+                else numberResult = eachCompareResult;
+                if (numberResult > 0) isCurrentGreater = true;
+              } else isCurrentGreater = targetComparable < currentComparable;
+              if (isCurrentGreater) startIndex = middleIndex + 1;
+              else endIndex = middleIndex;
             }
+            processedArray.splice(endIndex, 0, dataArray[eachIndex]);
           }
         }
+
         if (this.data instanceof Array) return processedArray as WrapperType;
         else return new Set(processedArray) as WrapperType;
       });
@@ -874,7 +861,7 @@ export class KoconutCollection<
   // No Comment - KoconutArray/KoconutSet
   sortedByDescending(
     selector: Selector<DataType, number | string | KoconutComparable>,
-    thisArg: any = null,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType> {
     selector = selector.bind(thisArg);
     const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
@@ -882,34 +869,33 @@ export class KoconutCollection<
       .setPrevYieldable(this)
       .setProcessor(async () => {
         const processedArray = new Array<DataType>();
-        if (this.data != null) {
-          const dataArray = Array.from(this.data);
-          for (const eachIndex in dataArray) {
-            if (Object.prototype.hasOwnProperty.call(dataArray, eachIndex)) {
-              const currentComparable = await selector(dataArray[eachIndex]);
-              let startIndex = 0;
-              let middleIndex: number;
-              let endIndex = processedArray.length;
-              while (startIndex < endIndex) {
-                middleIndex = Math.floor((startIndex + endIndex) / 2);
-                const targetComparable = await selector(
-                  processedArray[middleIndex],
-                );
-                let isCurrentLesser = false;
-                if (KoconutTypeChecker.checkIsComparable(currentComparable)) {
-                  const eachCompareResult =
-                    currentComparable.compareTo(targetComparable);
-                  let numberResult = 0;
-                  if (eachCompareResult instanceof KoconutPrimitive)
-                    numberResult = await eachCompareResult.yield();
-                  else numberResult = eachCompareResult;
-                  if (numberResult < 0) isCurrentLesser = true;
-                } else isCurrentLesser = targetComparable > currentComparable;
-                if (isCurrentLesser) startIndex = middleIndex + 1;
-                else endIndex = middleIndex;
-              }
-              processedArray.splice(endIndex, 0, dataArray[eachIndex]);
+        const dataArray = Array.from(this.data!);
+        for (const eachIndex in dataArray) {
+          /* istanbul ignore else */
+          if (Object.prototype.hasOwnProperty.call(dataArray, eachIndex)) {
+            const currentComparable = await selector(dataArray[eachIndex]);
+            let startIndex = 0;
+            let middleIndex: number;
+            let endIndex = processedArray.length;
+            while (startIndex < endIndex) {
+              middleIndex = Math.floor((startIndex + endIndex) / 2);
+              const targetComparable = await selector(
+                processedArray[middleIndex],
+              );
+              let isCurrentLesser = false;
+              if (KoconutTypeChecker.checkIsComparable(currentComparable)) {
+                const eachCompareResult =
+                  currentComparable.compareTo(targetComparable);
+                let numberResult = 0;
+                if (eachCompareResult instanceof KoconutPrimitive)
+                  numberResult = await eachCompareResult.yield();
+                else numberResult = eachCompareResult;
+                if (numberResult < 0) isCurrentLesser = true;
+              } else isCurrentLesser = targetComparable > currentComparable;
+              if (isCurrentLesser) startIndex = middleIndex + 1;
+              else endIndex = middleIndex;
             }
+            processedArray.splice(endIndex, 0, dataArray[eachIndex]);
           }
         }
         if (this.data instanceof Array) return processedArray as WrapperType;
@@ -921,7 +907,7 @@ export class KoconutCollection<
   // No Comment - KoconutArray/KoconutSet
   sortedWith(
     comparator: Comparator<DataType>,
-    thisArg: any = null,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType> {
     comparator = comparator.bind(thisArg);
     const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
@@ -929,28 +915,28 @@ export class KoconutCollection<
       .setPrevYieldable(this)
       .setProcessor(async () => {
         const processedArray = new Array<DataType>();
-        if (this.data != null) {
-          const dataArray = Array.from(this.data);
-          for (const eachIndex in dataArray) {
-            if (Object.prototype.hasOwnProperty.call(dataArray, eachIndex)) {
-              let startIndex = 0;
-              let middleIndex: number;
-              let endIndex = processedArray.length;
-              while (startIndex < endIndex) {
-                middleIndex = Math.floor((startIndex + endIndex) / 2);
-                if (
-                  (await comparator(
-                    dataArray[eachIndex],
-                    processedArray[middleIndex],
-                  )) >= 0
-                )
-                  startIndex = middleIndex + 1;
-                else endIndex = middleIndex;
-              }
-              processedArray.splice(endIndex, 0, dataArray[eachIndex]);
+        const dataArray = Array.from(this.data!);
+        for (const eachIndex in dataArray) {
+          /* istanbul ignore else */
+          if (Object.prototype.hasOwnProperty.call(dataArray, eachIndex)) {
+            let startIndex = 0;
+            let middleIndex: number;
+            let endIndex = processedArray.length;
+            while (startIndex < endIndex) {
+              middleIndex = Math.floor((startIndex + endIndex) / 2);
+              if (
+                (await comparator(
+                  dataArray[eachIndex],
+                  processedArray[middleIndex],
+                )) >= 0
+              )
+                startIndex = middleIndex + 1;
+              else endIndex = middleIndex;
             }
+            processedArray.splice(endIndex, 0, dataArray[eachIndex]);
           }
         }
+
         if (this.data instanceof Array) return processedArray as WrapperType;
         else return new Set(processedArray) as WrapperType;
       });
@@ -963,9 +949,7 @@ export class KoconutCollection<
     (koconutToReturn as any as KoconutOpener<WrapperType>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        const processedArray = this.data
-          ? Array.from(this.data).slice(0, n)
-          : new Array<DataType>();
+        const processedArray = Array.from(this.data!).slice(0, n);
         if (this.data instanceof Array) return processedArray as WrapperType;
         else return new Set(processedArray) as WrapperType;
       });
@@ -978,9 +962,10 @@ export class KoconutCollection<
     (koconutToReturn as any as KoconutOpener<WrapperType>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        const processedArray = this.data
-          ? Array.from(this.data).slice(this.mSize - n, this.mSize)
-          : new Array<DataType>();
+        const processedArray = Array.from(this.data!).slice(
+          this.mSize - n,
+          this.mSize,
+        );
         if (this.data instanceof Array) return processedArray as WrapperType;
         else return new Set(processedArray) as WrapperType;
       });
@@ -990,7 +975,7 @@ export class KoconutCollection<
   // No Comment - KoconutArray/KoconutSet
   takeLastWhile(
     predicate: Predicator<DataType>,
-    thisArg: any = null,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType> {
     predicate = predicate.bind(thisArg);
     const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
@@ -998,14 +983,12 @@ export class KoconutCollection<
       .setPrevYieldable(this)
       .setProcessor(async () => {
         let processedArray = new Array<DataType>();
-        if (this.data != null) {
-          const dataArray = Array.from(this.data);
-          let targetIndex = this.mSize - 1;
-          for (; targetIndex >= 0; targetIndex--) {
-            if (!(await predicate(dataArray[targetIndex]))) break;
-          }
-          processedArray = dataArray.slice(targetIndex + 1, this.mSize);
+        const dataArray = Array.from(this.data!);
+        let targetIndex = this.mSize - 1;
+        for (; targetIndex >= 0; targetIndex--) {
+          if (!(await predicate(dataArray[targetIndex]))) break;
         }
+        processedArray = dataArray.slice(targetIndex + 1, this.mSize);
         if (this.data instanceof Array) return processedArray as WrapperType;
         else return new Set(processedArray) as WrapperType;
       });
@@ -1015,7 +998,7 @@ export class KoconutCollection<
   // No Comment - KoconutArray/KoconutSet
   takeWhile(
     predicate: Predicator<DataType>,
-    thisArg: any = null,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType> {
     predicate = predicate.bind(thisArg);
     const koconutToReturn = new KoconutCollection<DataType, WrapperType>();
@@ -1023,14 +1006,12 @@ export class KoconutCollection<
       .setPrevYieldable(this)
       .setProcessor(async () => {
         let processedArray = new Array<DataType>();
-        if (this.data != null) {
-          let predicateIndex = 0;
-          for (const eachDatum of this.data) {
-            if (!(await predicate(eachDatum))) break;
-            predicateIndex++;
-          }
-          processedArray = Array.from(this.data).slice(0, predicateIndex);
+        let predicateIndex = 0;
+        for (const eachDatum of this.data!) {
+          if (!(await predicate(eachDatum))) break;
+          predicateIndex++;
         }
+        processedArray = Array.from(this.data!).slice(0, predicateIndex);
         if (this.data instanceof Array) return processedArray as WrapperType;
         else return new Set(processedArray) as WrapperType;
       });
@@ -1276,8 +1257,7 @@ export class KoconutCollection<
     (koconutToReturn as any as KoconutOpener<DataType | null>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.data == null) return null;
-        for (const eachDatum of this.data)
+        for (const eachDatum of this.data!)
           if (await predicate(eachDatum)) return eachDatum;
         return null;
       });
@@ -1339,8 +1319,7 @@ export class KoconutCollection<
     (koconutToReturn as any as KoconutOpener<DataType | null>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.data == null) return null;
-        const dataArray = Array.from(this.data);
+        const dataArray = Array.from(this.data!);
         for (
           let eachIndex = dataArray.length - 1;
           eachIndex >= 0;
@@ -1552,20 +1531,18 @@ export class KoconutCollection<
     (koconutToReturn as any as KoconutOpener<number>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.data != null) {
-          for (const [index, element] of Array.from(this.data).entries()) {
-            if (KoconutTypeChecker.checkIsEquatable(element)) {
-              const equalityResult = element.equalsTo(elementToFind);
-              if (
-                (equalityResult instanceof KoconutPrimitive &&
-                  (await equalityResult.yield())) ||
-                (!(equalityResult instanceof KoconutPrimitive) &&
-                  equalityResult)
-              )
-                return index as number;
-            } else if (element == elementToFind) return index as number;
-          }
+        for (const [index, element] of Array.from(this.data!).entries()) {
+          if (KoconutTypeChecker.checkIsEquatable(element)) {
+            const equalityResult = element.equalsTo(elementToFind);
+            if (
+              (equalityResult instanceof KoconutPrimitive &&
+                (await equalityResult.yield())) ||
+              (!(equalityResult instanceof KoconutPrimitive) && equalityResult)
+            )
+              return index as number;
+          } else if (element == elementToFind) return index as number;
         }
+
         return -1;
       });
     return koconutToReturn;
@@ -1615,10 +1592,8 @@ export class KoconutCollection<
     (koconutToReturn as any as KoconutOpener<number>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.data != null) {
-          for (const [index, element] of Array.from(this.data).entries())
-            if (await predicate(element)) return index as number;
-        }
+        for (const [index, element] of Array.from(this.data!).entries())
+          if (await predicate(element)) return index as number;
         return -1;
       });
     return koconutToReturn;
@@ -1668,15 +1643,9 @@ export class KoconutCollection<
     (koconutToReturn as any as KoconutOpener<number>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.data != null) {
-          const dataArray = Array.from(this.data);
-          for (
-            let eachIndex = dataArray.length - 1;
-            eachIndex >= 0;
-            eachIndex--
-          )
-            if (await predicate(dataArray[eachIndex])) return eachIndex;
-        }
+        const dataArray = Array.from(this.data!);
+        for (let eachIndex = dataArray.length - 1; eachIndex >= 0; eachIndex--)
+          if (await predicate(dataArray[eachIndex])) return eachIndex;
         return -1;
       });
     return koconutToReturn;
@@ -1759,30 +1728,27 @@ export class KoconutCollection<
       .setPrevYieldable(this)
       .setProcessor(async () => {
         const processedMap = new Map<KeyType, ValueType>();
-        if (this.data != null) {
-          for (const eachDatum of this.data) {
-            const eachTransformResult = await transform(eachDatum);
-            if (eachTransformResult instanceof KoconutPair) {
-              const eachPair = await eachTransformResult.yield();
-              if (eachPair != null)
-                processedMap.set(eachPair.first, eachPair.second);
-            } else if (eachTransformResult instanceof Pair)
-              processedMap.set(
-                eachTransformResult.first,
-                eachTransformResult.second,
-              );
-            else if (eachTransformResult instanceof KoconutEntry) {
-              const eachEntry = await eachTransformResult.yield();
-              if (eachEntry != null)
-                processedMap.set(eachEntry.key, eachEntry.value);
-            } else if (eachTransformResult instanceof Entry)
-              processedMap.set(
-                eachTransformResult.key,
-                eachTransformResult.value,
-              );
-            else
-              processedMap.set(eachTransformResult[0], eachTransformResult[1]);
-          }
+        for (const eachDatum of this.data!) {
+          const eachTransformResult = await transform(eachDatum);
+          if (eachTransformResult instanceof KoconutPair) {
+            const eachPair = await eachTransformResult.yield();
+            if (eachPair != null)
+              processedMap.set(eachPair.first, eachPair.second);
+          } else if (eachTransformResult instanceof Pair)
+            processedMap.set(
+              eachTransformResult.first,
+              eachTransformResult.second,
+            );
+          else if (eachTransformResult instanceof KoconutEntry) {
+            const eachEntry = await eachTransformResult.yield();
+            if (eachEntry != null)
+              processedMap.set(eachEntry.key, eachEntry.value);
+          } else if (eachTransformResult instanceof Entry)
+            processedMap.set(
+              eachTransformResult.key,
+              eachTransformResult.value,
+            );
+          else processedMap.set(eachTransformResult[0], eachTransformResult[1]);
         }
         return processedMap;
       });

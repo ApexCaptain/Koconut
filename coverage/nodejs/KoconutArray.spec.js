@@ -1834,7 +1834,7 @@ describe("".concat(_module.KoconutArray.name, " -- Manipulator"), function () {
     }, _callee50);
   })));
   it(_module.KoconutArray.prototype.sortedBy.name, (0, _asyncToGenerator2["default"])(_regenerator["default"].mark(function _callee51() {
-    var koconutCase1, yieldableCase1, resultCase1, koconutCase2, yieldableCase2, resultCase2, koconutCase3, yieldableCase3, resultCase3, expectedResultArrayCase3;
+    var koconutCase1, yieldableCase1, resultCase1, koconutCase2, yieldableCase2, resultCase2, koconutCase3, yieldableCase3, resultCase3, expectedResultArrayCase3, koconutCase4, yieldableCase4, resultCase4, expectedResultArrayCase4;
     return _regenerator["default"].wrap(function _callee51$(_context51) {
       while (1) {
         switch (_context51.prev = _context51.next) {
@@ -1873,8 +1873,20 @@ describe("".concat(_module.KoconutArray.name, " -- Manipulator"), function () {
             resultCase3 = _context51.sent;
             expectedResultArrayCase3 = [new _TestDataClasses.ProductInfo('A-2', 'Mac Book Air -- September', 1200), new _TestDataClasses.ProductInfo('A-3', 'iPhone -- June', 1500), new _TestDataClasses.ProductInfo('A-1', 'Mac Book Pro -- May', 2000)];
             (0, _chai.expect)(resultCase3).eqls(expectedResultArrayCase3);
+            koconutCase4 = _module.KoconutArray.of(new _TestDataClasses.Worker('Jinyoung', 'Luvya', 60), new _TestDataClasses.Worker('Grace', 'Hopper', 100), new _TestDataClasses.Worker('Johann', 'Bernoulli', 80), new _TestDataClasses.Worker('Jacob', 'Bernoulli', 50));
+            yieldableCase4 = koconutCase4.sortedBy(function (eachElement) {
+              return eachElement;
+            });
+            (0, _chai.expect)(yieldableCase4).to.be.instanceOf(_module.KoconutArray);
+            _context51.next = 27;
+            return yieldableCase4["yield"]();
 
-          case 22:
+          case 27:
+            resultCase4 = _context51.sent;
+            expectedResultArrayCase4 = [new _TestDataClasses.Worker('Jacob', 'Bernoulli', 50), new _TestDataClasses.Worker('Jinyoung', 'Luvya', 60), new _TestDataClasses.Worker('Johann', 'Bernoulli', 80), new _TestDataClasses.Worker('Grace', 'Hopper', 100)];
+            (0, _chai.expect)(resultCase4).eqls(expectedResultArrayCase4);
+
+          case 30:
           case "end":
             return _context51.stop();
         }
@@ -1882,7 +1894,7 @@ describe("".concat(_module.KoconutArray.name, " -- Manipulator"), function () {
     }, _callee51);
   })));
   it(_module.KoconutArray.prototype.sortedByDescending.name, (0, _asyncToGenerator2["default"])(_regenerator["default"].mark(function _callee52() {
-    var koconutCase1, yieldableCase1, resultCase1, koconutCase2, yieldableCase2, resultCase2, koconutCase3, yieldableCase3, resultCase3, expectedResultArrayCase3;
+    var koconutCase1, yieldableCase1, resultCase1, koconutCase2, yieldableCase2, resultCase2, koconutCase3, yieldableCase3, resultCase3, expectedResultArrayCase3, koconutCase4, yieldableCase4, resultCase4, expectedResultArrayCase4;
     return _regenerator["default"].wrap(function _callee52$(_context52) {
       while (1) {
         switch (_context52.prev = _context52.next) {
@@ -1921,8 +1933,20 @@ describe("".concat(_module.KoconutArray.name, " -- Manipulator"), function () {
             resultCase3 = _context52.sent;
             expectedResultArrayCase3 = [new _TestDataClasses.ProductInfo('A-1', 'Mac Book Pro -- May', 2000), new _TestDataClasses.ProductInfo('A-3', 'iPhone -- June', 1500), new _TestDataClasses.ProductInfo('A-2', 'Mac Book Air -- September', 1200)];
             (0, _chai.expect)(resultCase3).eqls(expectedResultArrayCase3);
+            koconutCase4 = _module.KoconutArray.of(new _TestDataClasses.Worker('Jinyoung', 'Luvya', 60), new _TestDataClasses.Worker('Grace', 'Hopper', 100), new _TestDataClasses.Worker('Johann', 'Bernoulli', 80), new _TestDataClasses.Worker('Jacob', 'Bernoulli', 50));
+            yieldableCase4 = koconutCase4.sortedByDescending(function (eachElement) {
+              return eachElement;
+            });
+            (0, _chai.expect)(yieldableCase4).to.be.instanceOf(_module.KoconutArray);
+            _context52.next = 27;
+            return yieldableCase4["yield"]();
 
-          case 22:
+          case 27:
+            resultCase4 = _context52.sent;
+            expectedResultArrayCase4 = [new _TestDataClasses.Worker('Grace', 'Hopper', 100), new _TestDataClasses.Worker('Johann', 'Bernoulli', 80), new _TestDataClasses.Worker('Jinyoung', 'Luvya', 60), new _TestDataClasses.Worker('Jacob', 'Bernoulli', 50)];
+            (0, _chai.expect)(resultCase4).eqls(expectedResultArrayCase4);
+
+          case 30:
           case "end":
             return _context52.stop();
         }
@@ -2065,27 +2089,41 @@ describe("".concat(_module.KoconutArray.name, " -- Manipulator"), function () {
 });
 describe("".concat(_module.KoconutArray.name, " -- Selector"), function () {
   it(_module.KoconutArray.prototype.elementAt.name, (0, _asyncToGenerator2["default"])(_regenerator["default"].mark(function _callee58() {
-    var koconut, yieldable, result;
+    var koconut, yieldableCase1, resultCase1, yieldableCase2;
     return _regenerator["default"].wrap(function _callee58$(_context58) {
       while (1) {
         switch (_context58.prev = _context58.next) {
           case 0:
             koconut = _module.KoconutArray.from([1, 2, 3]);
-            yieldable = koconut.elementAt(0);
-            (0, _chai.expect)(yieldable).to.be.instanceOf(_module.KoconutPrimitive);
+            yieldableCase1 = koconut.elementAt(0);
+            (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutPrimitive);
             _context58.next = 5;
-            return yieldable["yield"]();
+            return yieldableCase1["yield"]();
 
           case 5:
-            result = _context58.sent;
-            (0, _chai.expect)(result).equals(1);
+            resultCase1 = _context58.sent;
+            (0, _chai.expect)(resultCase1).equals(1);
+            yieldableCase2 = koconut.elementAt(5);
+            (0, _chai.expect)(yieldableCase2).to.be.instanceOf(_module.KoconutPrimitive);
+            _context58.prev = 9;
+            _context58.next = 12;
+            return yieldableCase2.process();
 
-          case 7:
+          case 12:
+            _context58.next = 17;
+            break;
+
+          case 14:
+            _context58.prev = 14;
+            _context58.t0 = _context58["catch"](9);
+            (0, _chai.expect)(_context58.t0).instanceOf(_module.KoconutIndexOutOfBoundsException);
+
+          case 17:
           case "end":
             return _context58.stop();
         }
       }
-    }, _callee58);
+    }, _callee58, null, [[9, 14]]);
   })));
   it(_module.KoconutArray.prototype.elementAtOrElse.name, (0, _asyncToGenerator2["default"])(_regenerator["default"].mark(function _callee59() {
     var koconut, yieldableCase1, resultCase1, yieldableCase2, resultCase2;
@@ -2154,24 +2192,34 @@ describe("".concat(_module.KoconutArray.name, " -- Selector"), function () {
     }, _callee60);
   })));
   it(_module.KoconutArray.prototype.find.name, (0, _asyncToGenerator2["default"])(_regenerator["default"].mark(function _callee61() {
-    var koconut, yieldable, result;
+    var koconut, yieldableCase1, resultCase1, yieldableCase2, resultCase2;
     return _regenerator["default"].wrap(function _callee61$(_context61) {
       while (1) {
         switch (_context61.prev = _context61.next) {
           case 0:
             koconut = _module.KoconutArray.from([1, 2, 3, 4, 5, 6, 7]);
-            yieldable = koconut.find(function (eachElement) {
+            yieldableCase1 = koconut.find(function (eachElement) {
               return eachElement % 2 == 0;
             });
-            (0, _chai.expect)(yieldable).to.be.instanceOf(_module.KoconutPrimitive);
+            (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutPrimitive);
             _context61.next = 5;
-            return yieldable["yield"]();
+            return yieldableCase1["yield"]();
 
           case 5:
-            result = _context61.sent;
-            (0, _chai.expect)(result).equals(2);
+            resultCase1 = _context61.sent;
+            (0, _chai.expect)(resultCase1).equals(2);
+            yieldableCase2 = koconut.find(function (eachElement) {
+              return eachElement < 1;
+            });
+            (0, _chai.expect)(yieldableCase2).to.be.instanceOf(_module.KoconutPrimitive);
+            _context61.next = 11;
+            return yieldableCase2["yield"]();
 
-          case 7:
+          case 11:
+            resultCase2 = _context61.sent;
+            (0, _chai.expect)(resultCase2).to.be.equals(null);
+
+          case 13:
           case "end":
             return _context61.stop();
         }
@@ -2179,24 +2227,34 @@ describe("".concat(_module.KoconutArray.name, " -- Selector"), function () {
     }, _callee61);
   })));
   it(_module.KoconutArray.prototype.findLast.name, (0, _asyncToGenerator2["default"])(_regenerator["default"].mark(function _callee62() {
-    var koconut, yieldable, result;
+    var koconut, yieldableCase1, resultCase1, yieldableCase2, resultCase2;
     return _regenerator["default"].wrap(function _callee62$(_context62) {
       while (1) {
         switch (_context62.prev = _context62.next) {
           case 0:
             koconut = _module.KoconutArray.from([1, 2, 3, 4, 5, 6, 7]);
-            yieldable = koconut.findLast(function (eachElement) {
+            yieldableCase1 = koconut.findLast(function (eachElement) {
               return eachElement % 2 == 1;
             });
-            (0, _chai.expect)(yieldable).to.be.instanceOf(_module.KoconutPrimitive);
+            (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutPrimitive);
             _context62.next = 5;
-            return yieldable["yield"]();
+            return yieldableCase1["yield"]();
 
           case 5:
-            result = _context62.sent;
-            (0, _chai.expect)(result).equals(7);
+            resultCase1 = _context62.sent;
+            (0, _chai.expect)(resultCase1).equals(7);
+            yieldableCase2 = koconut.findLast(function (eachElement) {
+              return eachElement < 1;
+            });
+            (0, _chai.expect)(yieldableCase2).to.be.instanceOf(_module.KoconutPrimitive);
+            _context62.next = 11;
+            return yieldableCase2["yield"]();
 
-          case 7:
+          case 11:
+            resultCase2 = _context62.sent;
+            (0, _chai.expect)(resultCase2).to.be.equals(null);
+
+          case 13:
           case "end":
             return _context62.stop();
         }
@@ -2276,7 +2334,7 @@ describe("".concat(_module.KoconutArray.name, " -- Selector"), function () {
     }, _callee63, null, [[3, 8], [14, 19]]);
   })));
   it(_module.KoconutArray.prototype.firstOrNull.name, (0, _asyncToGenerator2["default"])(_regenerator["default"].mark(function _callee64() {
-    var koconutCase1, yieldableCase1, resultCase1, koconutCase2, yieldableCase2, resultCase2, koconutCase3, yieldableCase3, resultCase3, koconutCase4, yieldableCase4, resultCase4;
+    var koconutCase1, yieldableCase1, resultCase1, koconutCase2, yieldableCase2, resultCase2, koconutCase3, yieldableCase3, resultCase3, koconutCase4, yieldableCase4, resultCase4, koconutCase5, yieldableCase5, resultCase5;
     return _regenerator["default"].wrap(function _callee64$(_context64) {
       while (1) {
         switch (_context64.prev = _context64.next) {
@@ -2313,7 +2371,7 @@ describe("".concat(_module.KoconutArray.name, " -- Selector"), function () {
             resultCase3 = _context64.sent;
             (0, _chai.expect)(resultCase3).equals(1);
             koconutCase4 = _module.KoconutArray.from([1, 2, 3, 4, 5, 6, 7]);
-            yieldableCase4 = koconutCase4.first(function (eachElement) {
+            yieldableCase4 = koconutCase4.firstOrNull(function (eachElement) {
               return eachElement % 3 == 0;
             });
             (0, _chai.expect)(yieldableCase4).to.be.instanceOf(_module.KoconutPrimitive);
@@ -2323,8 +2381,19 @@ describe("".concat(_module.KoconutArray.name, " -- Selector"), function () {
           case 26:
             resultCase4 = _context64.sent;
             (0, _chai.expect)(resultCase4).equals(3);
+            koconutCase5 = _module.KoconutArray.of(1, 3, 5, 7, 9);
+            yieldableCase5 = koconutCase5.firstOrNull(function (eachElement) {
+              return eachElement % 2 == 0;
+            });
+            (0, _chai.expect)(yieldableCase5).to.be.instanceOf(_module.KoconutPrimitive);
+            _context64.next = 33;
+            return yieldableCase5["yield"]();
 
-          case 28:
+          case 33:
+            resultCase5 = _context64.sent;
+            (0, _chai.expect)(resultCase5).to.be.equals(null);
+
+          case 35:
           case "end":
             return _context64.stop();
         }
@@ -3005,7 +3074,7 @@ describe("".concat(_module.KoconutArray.name, " -- Transformer"), function () {
 });
 describe("".concat(_module.KoconutArray.name, " -- Function"), function () {
   it(_module.KoconutArray.prototype.indexOf.name, (0, _asyncToGenerator2["default"])(_regenerator["default"].mark(function _callee86() {
-    var koconutCase1, yieldableCase1, resultCase1, koconutCase2, yieldableCase2, resultCase2, koconutCase3, yieldableCase3, resultCase3;
+    var koconutCase1, yieldableCase1, resultCase1, koconutCase2, yieldableCase2, resultCase2, koconutCase3, yieldableCase3, resultCase3, koconutCase4, yieldableCase4, resultCase4;
     return _regenerator["default"].wrap(function _callee86$(_context86) {
       while (1) {
         switch (_context86.prev = _context86.next) {
@@ -3037,8 +3106,17 @@ describe("".concat(_module.KoconutArray.name, " -- Function"), function () {
           case 19:
             resultCase3 = _context86.sent;
             (0, _chai.expect)(resultCase3).equals(0);
+            koconutCase4 = _module.KoconutArray.of(new _TestDataClasses.Dog('Brie', 3, 0), new _TestDataClasses.Dog('Mike', 5, 1), new _TestDataClasses.Dog('unknown', 6, 2));
+            yieldableCase4 = koconutCase4.indexOf(new _TestDataClasses.Dog('unknown', -1, 2));
+            (0, _chai.expect)(yieldableCase4).to.be.instanceOf(_module.KoconutPrimitive);
+            _context86.next = 26;
+            return yieldableCase4["yield"]();
 
-          case 21:
+          case 26:
+            resultCase4 = _context86.sent;
+            (0, _chai.expect)(resultCase4).to.be.eqls(2);
+
+          case 28:
           case "end":
             return _context86.stop();
         }

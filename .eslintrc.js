@@ -10,7 +10,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint', 'spellcheck'],
+  plugins: ['@typescript-eslint', 'spellcheck', 'progress'],
   overrides: [
     {
       files: ['dist/**/*'],
@@ -26,6 +26,7 @@ module.exports = {
     },
   ],
   rules: {
+    'progress/activate': 1,
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
     'require-jsdoc': 'off',
     'no-unused-vars': 'warn',
