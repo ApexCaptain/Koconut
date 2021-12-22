@@ -21,10 +21,46 @@ import {
   /* Exception */
   KoconutNoSuchElementException,
   KoconutConflictException,
+  KoconutInvalidArgumentException,
 } from '../src/module';
 import { Person, ProductInfo } from './TestDataClasses';
 
 KoconutDeprecation.isRunningOnDevUnitTesting = true;
+
+describe(`${KoconutSet.name} -- Creator`, () => {
+  it(KoconutSet.from.name, async () => {
+    const koconut = KoconutSet.from<number>();
+
+    const result = await koconut.yield();
+    expect(result).eqls(new Set<number>());
+  });
+
+  it(KoconutSet.generate.name, async () => {
+    /* Case 1 */
+    const koconutCase1 = KoconutSet.generate(5, (index) => `${index}`);
+
+    const resultCase1 = await koconutCase1.yield();
+    expect(resultCase1).to.be.eqls(new Set(['0', '1', '2', '3', '4']));
+
+    /* Case 2 */
+    const koconutCase2 = KoconutSet.generate(-1, (index) => `${index}`);
+    try {
+      await koconutCase2.process();
+    } catch (error) {
+      expect(error).to.be.instanceOf(KoconutInvalidArgumentException);
+    }
+  });
+});
+
+describe(`${KoconutSet.name} -- Processor`, () => {
+  it(KoconutSet.prototype.retrieve.name, async () => {
+    const koconut = KoconutSet.of(1, 2, 3, 4, 5);
+
+    const yieldable = await koconut.retrieve();
+    const result = await yieldable.yield();
+    expect(result).eqls(new Set([1, 2, 3, 4, 5]));
+  });
+});
 
 describe(`${KoconutSet.name} -- Property Getter`, () => {
   it(KoconutSet.prototype.size.name, async () => {

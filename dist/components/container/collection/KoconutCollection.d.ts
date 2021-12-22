@@ -971,9 +971,9 @@ export declare class KoconutCollection<
   associateByTo<KeyType, ValueType = DataType>(
     destination: Map<KeyType, ValueType>,
     keySelector: Selector<DataType, KeyType>,
-    valueTransform?: Transformer<DataType, ValueType> | null,
-    keySelectorThisArg?: any,
-    valueTransformThisArg?: any,
+    valueTransform: Transformer<DataType, ValueType> | null,
+    keySelectorThisArg: any,
+    valueTransformThisArg: any,
   ): KoconutCollection<DataType, WrapperType>;
   associateTo<KeyType, ValueType>(
     destination: Map<KeyType, ValueType>,
@@ -985,7 +985,7 @@ export declare class KoconutCollection<
       | Entry<KeyType, ValueType>
       | KoconutEntry<KeyType, ValueType>
     >,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType>;
   /**
    * Returns a {@link KoconutMap} where keys are original elements of the current object and values
@@ -1046,7 +1046,7 @@ export declare class KoconutCollection<
   associateWithTo<ValueType>(
     destination: Map<DataType, ValueType>,
     valueSelector: Selector<DataType, ValueType>,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType>;
   /**
    * Splits this collection into a {@link KoconutArray} of ```Arrays```
@@ -1225,12 +1225,12 @@ export declare class KoconutCollection<
   flatMapTo<ResultDataType>(
     destination: Array<ResultDataType> | Set<ResultDataType>,
     transform: Transformer<DataType, Iterable<ResultDataType>>,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType>;
   flatMapIndexedTo<ResultDataType>(
     destination: Array<ResultDataType> | Set<ResultDataType>,
     transform: IndexedTransformer<DataType, Iterable<ResultDataType>>,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType>;
   /**
    * Groups values returned by the ```valueTransform``` function applied to each element of the original collection
@@ -1286,19 +1286,19 @@ export declare class KoconutCollection<
   groupByTo<KeyType, ValueType = DataType>(
     destination: Map<KeyType, Array<ValueType>>,
     keySelector: Selector<DataType, KeyType>,
-    valueTransform?: Transformer<DataType, ValueType> | null,
-    keySelectorThisArg?: any,
-    valueTransformThisArg?: any,
+    valueTransform: Transformer<DataType, ValueType> | null,
+    keySelectorThisArg: any,
+    valueTransformThisArg: any,
   ): KoconutCollection<DataType, WrapperType>;
   mapTo<ResultDataType>(
     destination: Array<ResultDataType> | Set<ResultDataType>,
     transform: Transformer<DataType, ResultDataType>,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType>;
   mapNotNullTo<ResultDataType>(
     destination: Array<ResultDataType> | Set<ResultDataType>,
     transform: Transformer<DataType, ResultDataType | void | null | undefined>,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType>;
   /**
    * Returns a list of all elements yielded from results of ```transform``` function being invoked
@@ -1359,7 +1359,7 @@ export declare class KoconutCollection<
   mapIndexedTo<ResultDataType>(
     destination: Array<ResultDataType> | Set<ResultDataType>,
     transform: IndexedTransformer<DataType, ResultDataType>,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType>;
   /**
    * Returns a {@link KoconutArray} containing only the results that are not ```null``` nor ```undefined``` of applying
@@ -1442,7 +1442,7 @@ export declare class KoconutCollection<
       DataType,
       ResultDataType | void | null | undefined
     >,
-    thisArg?: any,
+    thisArg: any,
   ): KoconutCollection<DataType, WrapperType>;
   intersect(other: Iterable<DataType>): KoconutSet<DataType>;
   join(

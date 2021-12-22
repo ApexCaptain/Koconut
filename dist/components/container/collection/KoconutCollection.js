@@ -3768,77 +3768,71 @@ var KoconutCollection = (function (_KoconutIterable) {
                       switch ((_context40.prev = _context40.next)) {
                         case 0:
                           processedMap = new Map();
-
-                          if (!(_this41.data != null)) {
-                            _context40.next = 29;
-                            break;
-                          }
-
                           _iterator21 = _createForOfIteratorHelper(
                             _this41.data,
                           );
-                          _context40.prev = 3;
+                          _context40.prev = 2;
 
                           _iterator21.s();
 
-                        case 5:
+                        case 4:
                           if ((_step21 = _iterator21.n()).done) {
-                            _context40.next = 21;
+                            _context40.next = 20;
                             break;
                           }
 
                           eachDatum = _step21.value;
-                          _context40.next = 9;
+                          _context40.next = 8;
                           return keySelector(eachDatum);
 
-                        case 9:
+                        case 8:
                           eachKey = _context40.sent;
 
                           if (!valueTransform) {
-                            _context40.next = 16;
+                            _context40.next = 15;
                             break;
                           }
 
-                          _context40.next = 13;
+                          _context40.next = 12;
                           return valueTransform(eachDatum);
 
-                        case 13:
+                        case 12:
                           _context40.t0 = _context40.sent;
-                          _context40.next = 17;
+                          _context40.next = 16;
                           break;
 
-                        case 16:
+                        case 15:
                           _context40.t0 = eachDatum;
 
-                        case 17:
+                        case 16:
                           eachValue = _context40.t0;
                           processedMap.set(eachKey, eachValue);
 
-                        case 19:
-                          _context40.next = 5;
+                        case 18:
+                          _context40.next = 4;
                           break;
 
-                        case 21:
-                          _context40.next = 26;
+                        case 20:
+                          _context40.next = 25;
                           break;
 
-                        case 23:
-                          _context40.prev = 23;
-                          _context40.t1 = _context40['catch'](3);
+                        case 22:
+                          _context40.prev = 22;
+                          _context40.t1 = _context40['catch'](2);
 
                           _iterator21.e(_context40.t1);
 
-                        case 26:
-                          _context40.prev = 26;
+                        case 25:
+                          _context40.prev = 25;
 
                           _iterator21.f();
 
-                          return _context40.finish(26);
+                          return _context40.finish(25);
 
-                        case 29:
+                        case 28:
                           return _context40.abrupt('return', processedMap);
 
-                        case 30:
+                        case 29:
                         case 'end':
                           return _context40.stop();
                       }
@@ -3846,7 +3840,7 @@ var KoconutCollection = (function (_KoconutIterable) {
                   },
                   _callee40,
                   null,
-                  [[3, 23, 26, 29]],
+                  [[2, 22, 25, 28]],
                 );
               }),
             ),
@@ -3856,21 +3850,15 @@ var KoconutCollection = (function (_KoconutIterable) {
       },
       {
         key: 'associateByTo',
-        value: function associateByTo(destination, keySelector) {
+        value: function associateByTo(
+          destination,
+          keySelector,
+          valueTransform,
+          keySelectorThisArg,
+          valueTransformThisArg,
+        ) {
           var _this42 = this;
 
-          var valueTransform =
-            arguments.length > 2 && arguments[2] !== undefined
-              ? arguments[2]
-              : null;
-          var keySelectorThisArg =
-            arguments.length > 3 && arguments[3] !== undefined
-              ? arguments[3]
-              : null;
-          var valueTransformThisArg =
-            arguments.length > 4 && arguments[4] !== undefined
-              ? arguments[4]
-              : null;
           keySelector = keySelector.bind(keySelectorThisArg);
           if (valueTransform)
             valueTransform = valueTransform.bind(valueTransformThisArg);
@@ -3915,13 +3903,9 @@ var KoconutCollection = (function (_KoconutIterable) {
       },
       {
         key: 'associateTo',
-        value: function associateTo(destination, transform) {
+        value: function associateTo(destination, transform, thisArg) {
           var _this43 = this;
 
-          var thisArg =
-            arguments.length > 2 && arguments[2] !== undefined
-              ? arguments[2]
-              : null;
           transform = transform.bind(thisArg);
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
@@ -3983,58 +3967,52 @@ var KoconutCollection = (function (_KoconutIterable) {
                       switch ((_context43.prev = _context43.next)) {
                         case 0:
                           processedMap = new Map();
-
-                          if (!(_this44.data != null)) {
-                            _context43.next = 21;
-                            break;
-                          }
-
                           _iterator22 = _createForOfIteratorHelper(
                             _this44.data,
                           );
-                          _context43.prev = 3;
+                          _context43.prev = 2;
 
                           _iterator22.s();
 
-                        case 5:
+                        case 4:
                           if ((_step22 = _iterator22.n()).done) {
-                            _context43.next = 13;
+                            _context43.next = 12;
                             break;
                           }
 
                           eachDatum = _step22.value;
-                          _context43.next = 9;
+                          _context43.next = 8;
                           return valueSelector(eachDatum);
 
-                        case 9:
+                        case 8:
                           eachValue = _context43.sent;
                           processedMap.set(eachDatum, eachValue);
 
-                        case 11:
-                          _context43.next = 5;
+                        case 10:
+                          _context43.next = 4;
                           break;
 
-                        case 13:
-                          _context43.next = 18;
+                        case 12:
+                          _context43.next = 17;
                           break;
 
-                        case 15:
-                          _context43.prev = 15;
-                          _context43.t0 = _context43['catch'](3);
+                        case 14:
+                          _context43.prev = 14;
+                          _context43.t0 = _context43['catch'](2);
 
                           _iterator22.e(_context43.t0);
 
-                        case 18:
-                          _context43.prev = 18;
+                        case 17:
+                          _context43.prev = 17;
 
                           _iterator22.f();
 
-                          return _context43.finish(18);
+                          return _context43.finish(17);
 
-                        case 21:
+                        case 20:
                           return _context43.abrupt('return', processedMap);
 
-                        case 22:
+                        case 21:
                         case 'end':
                           return _context43.stop();
                       }
@@ -4042,7 +4020,7 @@ var KoconutCollection = (function (_KoconutIterable) {
                   },
                   _callee43,
                   null,
-                  [[3, 15, 18, 21]],
+                  [[2, 14, 17, 20]],
                 );
               }),
             ),
@@ -4052,13 +4030,9 @@ var KoconutCollection = (function (_KoconutIterable) {
       },
       {
         key: 'associateWithTo',
-        value: function associateWithTo(destination, valueSelector) {
+        value: function associateWithTo(destination, valueSelector, thisArg) {
           var _this45 = this;
 
-          var thisArg =
-            arguments.length > 2 && arguments[2] !== undefined
-              ? arguments[2]
-              : null;
           valueSelector = valueSelector.bind(thisArg);
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
@@ -4137,24 +4111,18 @@ var KoconutCollection = (function (_KoconutIterable) {
 
                       case 2:
                         processedArray = new Array();
+                        currentIndex = 0;
+                        dataArray = Array.from(_this46.data);
 
-                        if (_this46.data != null) {
-                          currentIndex = 0;
-                          dataArray = Array.from(_this46.data);
-
-                          while (currentIndex < dataArray.length) {
-                            processedArray.push(
-                              dataArray.slice(
-                                currentIndex,
-                                currentIndex + size,
-                              ),
-                            );
-                            currentIndex += size;
-                          }
+                        while (currentIndex < dataArray.length) {
+                          processedArray.push(
+                            dataArray.slice(currentIndex, currentIndex + size),
+                          );
+                          currentIndex += size;
                         }
 
                         if (!transform) {
-                          _context45.next = 18;
+                          _context45.next = 20;
                           break;
                         }
 
@@ -4162,9 +4130,9 @@ var KoconutCollection = (function (_KoconutIterable) {
                         _context45.t0 =
                           _regenerator['default'].keys(processedArray);
 
-                      case 7:
+                      case 9:
                         if ((_context45.t1 = _context45.t0()).done) {
-                          _context45.next = 17;
+                          _context45.next = 19;
                           break;
                         }
 
@@ -4176,30 +4144,30 @@ var KoconutCollection = (function (_KoconutIterable) {
                             eachProcessedIndex,
                           )
                         ) {
-                          _context45.next = 15;
+                          _context45.next = 17;
                           break;
                         }
 
                         _context45.t2 = transformedArray;
-                        _context45.next = 13;
+                        _context45.next = 15;
                         return transform(processedArray[eachProcessedIndex]);
 
-                      case 13:
+                      case 15:
                         _context45.t3 = _context45.sent;
 
                         _context45.t2.push.call(_context45.t2, _context45.t3);
 
-                      case 15:
-                        _context45.next = 7;
+                      case 17:
+                        _context45.next = 9;
                         break;
 
-                      case 17:
+                      case 19:
                         return _context45.abrupt('return', transformedArray);
 
-                      case 18:
+                      case 20:
                         return _context45.abrupt('return', processedArray);
 
-                      case 19:
+                      case 21:
                       case 'end':
                         return _context45.stop();
                     }
@@ -4241,32 +4209,26 @@ var KoconutCollection = (function (_KoconutIterable) {
                       switch ((_context46.prev = _context46.next)) {
                         case 0:
                           processedArray = new Array();
-
-                          if (!(_this47.data != null)) {
-                            _context46.next = 24;
-                            break;
-                          }
-
                           eachIndex = 0;
                           _iterator23 = _createForOfIteratorHelper(
                             _this47.data,
                           );
-                          _context46.prev = 4;
+                          _context46.prev = 3;
 
                           _iterator23.s();
 
-                        case 6:
+                        case 5:
                           if ((_step23 = _iterator23.n()).done) {
-                            _context46.next = 16;
+                            _context46.next = 15;
                             break;
                           }
 
                           eachDatum = _step23.value;
                           _context46.t0 = _createForOfIteratorHelper;
-                          _context46.next = 11;
+                          _context46.next = 10;
                           return transform(eachIndex++, eachDatum);
 
-                        case 11:
+                        case 10:
                           _context46.t1 = _context46.sent;
                           _iterator24 = (0, _context46.t0)(_context46.t1);
 
@@ -4285,31 +4247,31 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _iterator24.f();
                           }
 
-                        case 14:
-                          _context46.next = 6;
+                        case 13:
+                          _context46.next = 5;
                           break;
 
-                        case 16:
-                          _context46.next = 21;
+                        case 15:
+                          _context46.next = 20;
                           break;
 
-                        case 18:
-                          _context46.prev = 18;
-                          _context46.t2 = _context46['catch'](4);
+                        case 17:
+                          _context46.prev = 17;
+                          _context46.t2 = _context46['catch'](3);
 
                           _iterator23.e(_context46.t2);
 
-                        case 21:
-                          _context46.prev = 21;
+                        case 20:
+                          _context46.prev = 20;
 
                           _iterator23.f();
 
-                          return _context46.finish(21);
+                          return _context46.finish(20);
 
-                        case 24:
+                        case 23:
                           return _context46.abrupt('return', processedArray);
 
-                        case 25:
+                        case 24:
                         case 'end':
                           return _context46.stop();
                       }
@@ -4317,7 +4279,7 @@ var KoconutCollection = (function (_KoconutIterable) {
                   },
                   _callee46,
                   null,
-                  [[4, 18, 21, 24]],
+                  [[3, 17, 20, 23]],
                 );
               }),
             ),
@@ -4327,11 +4289,7 @@ var KoconutCollection = (function (_KoconutIterable) {
       },
       {
         key: 'flatMapTo',
-        value: function flatMapTo(destination, transform) {
-          var thisArg =
-            arguments.length > 2 && arguments[2] !== undefined
-              ? arguments[2]
-              : null;
+        value: function flatMapTo(destination, transform, thisArg) {
           return KoconutCollection.fromIterable(
             (0, _get2['default'])(
               (0, _getPrototypeOf2['default'])(KoconutCollection.prototype),
@@ -4343,13 +4301,9 @@ var KoconutCollection = (function (_KoconutIterable) {
       },
       {
         key: 'flatMapIndexedTo',
-        value: function flatMapIndexedTo(destination, transform) {
+        value: function flatMapIndexedTo(destination, transform, thisArg) {
           var _this48 = this;
 
-          var thisArg =
-            arguments.length > 2 && arguments[2] !== undefined
-              ? arguments[2]
-              : null;
           transform = transform.bind(thisArg);
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
@@ -4446,49 +4400,43 @@ var KoconutCollection = (function (_KoconutIterable) {
                       switch ((_context48.prev = _context48.next)) {
                         case 0:
                           processedMap = new Map();
-
-                          if (!(_this49.data != null)) {
-                            _context48.next = 30;
-                            break;
-                          }
-
                           _iterator25 = _createForOfIteratorHelper(
                             _this49.data,
                           );
-                          _context48.prev = 3;
+                          _context48.prev = 2;
 
                           _iterator25.s();
 
-                        case 5:
+                        case 4:
                           if ((_step25 = _iterator25.n()).done) {
-                            _context48.next = 22;
+                            _context48.next = 21;
                             break;
                           }
 
                           eachDatum = _step25.value;
-                          _context48.next = 9;
+                          _context48.next = 8;
                           return keySelector(eachDatum);
 
-                        case 9:
+                        case 8:
                           eachKey = _context48.sent;
 
                           if (!valueTransform) {
-                            _context48.next = 16;
+                            _context48.next = 15;
                             break;
                           }
 
-                          _context48.next = 13;
+                          _context48.next = 12;
                           return valueTransform(eachDatum);
 
-                        case 13:
+                        case 12:
                           _context48.t0 = _context48.sent;
-                          _context48.next = 17;
+                          _context48.next = 16;
                           break;
 
-                        case 16:
+                        case 15:
                           _context48.t0 = eachDatum;
 
-                        case 17:
+                        case 16:
                           eachValue = _context48.t0;
                           if (!processedMap.has(eachKey))
                             processedMap.set(eachKey, new Array());
@@ -4497,31 +4445,31 @@ var KoconutCollection = (function (_KoconutIterable) {
                             ? void 0
                             : _processedMap$get.push(eachValue);
 
-                        case 20:
-                          _context48.next = 5;
+                        case 19:
+                          _context48.next = 4;
                           break;
 
-                        case 22:
-                          _context48.next = 27;
+                        case 21:
+                          _context48.next = 26;
                           break;
 
-                        case 24:
-                          _context48.prev = 24;
-                          _context48.t1 = _context48['catch'](3);
+                        case 23:
+                          _context48.prev = 23;
+                          _context48.t1 = _context48['catch'](2);
 
                           _iterator25.e(_context48.t1);
 
-                        case 27:
-                          _context48.prev = 27;
+                        case 26:
+                          _context48.prev = 26;
 
                           _iterator25.f();
 
-                          return _context48.finish(27);
+                          return _context48.finish(26);
 
-                        case 30:
+                        case 29:
                           return _context48.abrupt('return', processedMap);
 
-                        case 31:
+                        case 30:
                         case 'end':
                           return _context48.stop();
                       }
@@ -4529,7 +4477,7 @@ var KoconutCollection = (function (_KoconutIterable) {
                   },
                   _callee48,
                   null,
-                  [[3, 24, 27, 30]],
+                  [[2, 23, 26, 29]],
                 );
               }),
             ),
@@ -4539,21 +4487,15 @@ var KoconutCollection = (function (_KoconutIterable) {
       },
       {
         key: 'groupByTo',
-        value: function groupByTo(destination, keySelector) {
+        value: function groupByTo(
+          destination,
+          keySelector,
+          valueTransform,
+          keySelectorThisArg,
+          valueTransformThisArg,
+        ) {
           var _this50 = this;
 
-          var valueTransform =
-            arguments.length > 2 && arguments[2] !== undefined
-              ? arguments[2]
-              : null;
-          var keySelectorThisArg =
-            arguments.length > 3 && arguments[3] !== undefined
-              ? arguments[3]
-              : null;
-          var valueTransformThisArg =
-            arguments.length > 4 && arguments[4] !== undefined
-              ? arguments[4]
-              : null;
           keySelector = keySelector.bind(keySelectorThisArg);
           if (valueTransform)
             valueTransform = valueTransform.bind(valueTransformThisArg);
@@ -4573,48 +4515,43 @@ var KoconutCollection = (function (_KoconutIterable) {
                     while (1) {
                       switch ((_context49.prev = _context49.next)) {
                         case 0:
-                          if (!(_this50.data != null)) {
-                            _context49.next = 29;
-                            break;
-                          }
-
                           _iterator26 = _createForOfIteratorHelper(
                             _this50.data,
                           );
-                          _context49.prev = 2;
+                          _context49.prev = 1;
 
                           _iterator26.s();
 
-                        case 4:
+                        case 3:
                           if ((_step26 = _iterator26.n()).done) {
-                            _context49.next = 21;
+                            _context49.next = 20;
                             break;
                           }
 
                           eachDatum = _step26.value;
-                          _context49.next = 8;
+                          _context49.next = 7;
                           return keySelector(eachDatum);
 
-                        case 8:
+                        case 7:
                           eachKey = _context49.sent;
 
                           if (!valueTransform) {
-                            _context49.next = 15;
+                            _context49.next = 14;
                             break;
                           }
 
-                          _context49.next = 12;
+                          _context49.next = 11;
                           return valueTransform(eachDatum);
 
-                        case 12:
+                        case 11:
                           _context49.t0 = _context49.sent;
-                          _context49.next = 16;
+                          _context49.next = 15;
                           break;
 
-                        case 15:
+                        case 14:
                           _context49.t0 = eachDatum;
 
-                        case 16:
+                        case 15:
                           eachValue = _context49.t0;
                           if (!destination.has(eachKey))
                             destination.set(eachKey, new Array());
@@ -4623,31 +4560,31 @@ var KoconutCollection = (function (_KoconutIterable) {
                             ? void 0
                             : _destination$get.push(eachValue);
 
-                        case 19:
-                          _context49.next = 4;
+                        case 18:
+                          _context49.next = 3;
                           break;
 
-                        case 21:
-                          _context49.next = 26;
+                        case 20:
+                          _context49.next = 25;
                           break;
 
-                        case 23:
-                          _context49.prev = 23;
-                          _context49.t1 = _context49['catch'](2);
+                        case 22:
+                          _context49.prev = 22;
+                          _context49.t1 = _context49['catch'](1);
 
                           _iterator26.e(_context49.t1);
 
-                        case 26:
-                          _context49.prev = 26;
+                        case 25:
+                          _context49.prev = 25;
 
                           _iterator26.f();
 
-                          return _context49.finish(26);
+                          return _context49.finish(25);
 
-                        case 29:
+                        case 28:
                           return _context49.abrupt('return', _this50.data);
 
-                        case 30:
+                        case 29:
                         case 'end':
                           return _context49.stop();
                       }
@@ -4655,7 +4592,7 @@ var KoconutCollection = (function (_KoconutIterable) {
                   },
                   _callee49,
                   null,
-                  [[2, 23, 26, 29]],
+                  [[1, 22, 25, 28]],
                 );
               }),
             ),
@@ -4665,11 +4602,7 @@ var KoconutCollection = (function (_KoconutIterable) {
       },
       {
         key: 'mapTo',
-        value: function mapTo(destination, transform) {
-          var thisArg =
-            arguments.length > 2 && arguments[2] !== undefined
-              ? arguments[2]
-              : null;
+        value: function mapTo(destination, transform, thisArg) {
           return KoconutCollection.fromIterable(
             (0, _get2['default'])(
               (0, _getPrototypeOf2['default'])(KoconutCollection.prototype),
@@ -4681,11 +4614,7 @@ var KoconutCollection = (function (_KoconutIterable) {
       },
       {
         key: 'mapNotNullTo',
-        value: function mapNotNullTo(destination, transform) {
-          var thisArg =
-            arguments.length > 2 && arguments[2] !== undefined
-              ? arguments[2]
-              : null;
+        value: function mapNotNullTo(destination, transform, thisArg) {
           return KoconutCollection.fromIterable(
             (0, _get2['default'])(
               (0, _getPrototypeOf2['default'])(KoconutCollection.prototype),
@@ -4722,22 +4651,16 @@ var KoconutCollection = (function (_KoconutIterable) {
                       switch ((_context50.prev = _context50.next)) {
                         case 0:
                           processedArray = new Array();
-
-                          if (!(_this51.data != null)) {
-                            _context50.next = 22;
-                            break;
-                          }
-
                           _iterator27 = _createForOfIteratorHelper(
                             Array.from(_this51.data).entries(),
                           );
-                          _context50.prev = 3;
+                          _context50.prev = 2;
 
                           _iterator27.s();
 
-                        case 5:
+                        case 4:
                           if ((_step27 = _iterator27.n()).done) {
-                            _context50.next = 14;
+                            _context50.next = 13;
                             break;
                           }
 
@@ -4748,39 +4671,39 @@ var KoconutCollection = (function (_KoconutIterable) {
                             (eachIndex = _step27$value[0]),
                             (eachDatum = _step27$value[1]);
                           _context50.t0 = processedArray;
-                          _context50.next = 10;
+                          _context50.next = 9;
                           return transform(eachIndex, eachDatum);
 
-                        case 10:
+                        case 9:
                           _context50.t1 = _context50.sent;
 
                           _context50.t0.push.call(_context50.t0, _context50.t1);
 
-                        case 12:
-                          _context50.next = 5;
+                        case 11:
+                          _context50.next = 4;
                           break;
 
-                        case 14:
-                          _context50.next = 19;
+                        case 13:
+                          _context50.next = 18;
                           break;
 
-                        case 16:
-                          _context50.prev = 16;
-                          _context50.t2 = _context50['catch'](3);
+                        case 15:
+                          _context50.prev = 15;
+                          _context50.t2 = _context50['catch'](2);
 
                           _iterator27.e(_context50.t2);
 
-                        case 19:
-                          _context50.prev = 19;
+                        case 18:
+                          _context50.prev = 18;
 
                           _iterator27.f();
 
-                          return _context50.finish(19);
+                          return _context50.finish(18);
 
-                        case 22:
+                        case 21:
                           return _context50.abrupt('return', processedArray);
 
-                        case 23:
+                        case 22:
                         case 'end':
                           return _context50.stop();
                       }
@@ -4788,7 +4711,7 @@ var KoconutCollection = (function (_KoconutIterable) {
                   },
                   _callee50,
                   null,
-                  [[3, 16, 19, 22]],
+                  [[2, 15, 18, 21]],
                 );
               }),
             ),
@@ -4798,13 +4721,9 @@ var KoconutCollection = (function (_KoconutIterable) {
       },
       {
         key: 'mapIndexedTo',
-        value: function mapIndexedTo(destination, transform) {
+        value: function mapIndexedTo(destination, transform, thisArg) {
           var _this52 = this;
 
-          var thisArg =
-            arguments.length > 2 && arguments[2] !== undefined
-              ? arguments[2]
-              : null;
           transform = transform.bind(thisArg);
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
@@ -4891,22 +4810,16 @@ var KoconutCollection = (function (_KoconutIterable) {
                       switch ((_context52.prev = _context52.next)) {
                         case 0:
                           processedArray = new Array();
-
-                          if (!(_this53.data != null)) {
-                            _context52.next = 21;
-                            break;
-                          }
-
                           _iterator28 = _createForOfIteratorHelper(
                             Array.from(_this53.data).entries(),
                           );
-                          _context52.prev = 3;
+                          _context52.prev = 2;
 
                           _iterator28.s();
 
-                        case 5:
+                        case 4:
                           if ((_step28 = _iterator28.n()).done) {
-                            _context52.next = 13;
+                            _context52.next = 12;
                             break;
                           }
 
@@ -4916,10 +4829,10 @@ var KoconutCollection = (function (_KoconutIterable) {
                           )),
                             (eachIndex = _step28$value[0]),
                             (eachDatum = _step28$value[1]);
-                          _context52.next = 9;
+                          _context52.next = 8;
                           return transform(eachIndex, eachDatum);
 
-                        case 9:
+                        case 8:
                           eachResultData = _context52.sent;
                           if (
                             eachResultData != null &&
@@ -4927,31 +4840,31 @@ var KoconutCollection = (function (_KoconutIterable) {
                           )
                             processedArray.push(eachResultData);
 
-                        case 11:
-                          _context52.next = 5;
+                        case 10:
+                          _context52.next = 4;
                           break;
 
-                        case 13:
-                          _context52.next = 18;
+                        case 12:
+                          _context52.next = 17;
                           break;
 
-                        case 15:
-                          _context52.prev = 15;
-                          _context52.t0 = _context52['catch'](3);
+                        case 14:
+                          _context52.prev = 14;
+                          _context52.t0 = _context52['catch'](2);
 
                           _iterator28.e(_context52.t0);
 
-                        case 18:
-                          _context52.prev = 18;
+                        case 17:
+                          _context52.prev = 17;
 
                           _iterator28.f();
 
-                          return _context52.finish(18);
+                          return _context52.finish(17);
 
-                        case 21:
+                        case 20:
                           return _context52.abrupt('return', processedArray);
 
-                        case 22:
+                        case 21:
                         case 'end':
                           return _context52.stop();
                       }
@@ -4959,7 +4872,7 @@ var KoconutCollection = (function (_KoconutIterable) {
                   },
                   _callee52,
                   null,
-                  [[3, 15, 18, 21]],
+                  [[2, 14, 17, 20]],
                 );
               }),
             ),
@@ -4969,13 +4882,9 @@ var KoconutCollection = (function (_KoconutIterable) {
       },
       {
         key: 'mapIndexedNotNullTo',
-        value: function mapIndexedNotNullTo(destination, transform) {
+        value: function mapIndexedNotNullTo(destination, transform, thisArg) {
           var _this54 = this;
 
-          var thisArg =
-            arguments.length > 2 && arguments[2] !== undefined
-              ? arguments[2]
-              : null;
           transform = transform.bind(thisArg);
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
@@ -5055,63 +4964,57 @@ var KoconutCollection = (function (_KoconutIterable) {
                       switch ((_context54.prev = _context54.next)) {
                         case 0:
                           processedSet = new Set();
-
-                          if (!_this55.data) {
-                            _context54.next = 22;
-                            break;
-                          }
-
                           otherArray = _module.KoconutArray.from(other);
                           _iterator29 = _createForOfIteratorHelper(
                             _this55.data,
                           );
-                          _context54.prev = 4;
+                          _context54.prev = 3;
 
                           _iterator29.s();
 
-                        case 6:
+                        case 5:
                           if ((_step29 = _iterator29.n()).done) {
-                            _context54.next = 14;
+                            _context54.next = 13;
                             break;
                           }
 
                           eachDatum = _step29.value;
-                          _context54.next = 10;
+                          _context54.next = 9;
                           return otherArray.contains(eachDatum)['yield']();
 
-                        case 10:
+                        case 9:
                           if (!_context54.sent) {
-                            _context54.next = 12;
+                            _context54.next = 11;
                             break;
                           }
 
                           processedSet.add(eachDatum);
 
-                        case 12:
-                          _context54.next = 6;
+                        case 11:
+                          _context54.next = 5;
                           break;
 
-                        case 14:
-                          _context54.next = 19;
+                        case 13:
+                          _context54.next = 18;
                           break;
 
-                        case 16:
-                          _context54.prev = 16;
-                          _context54.t0 = _context54['catch'](4);
+                        case 15:
+                          _context54.prev = 15;
+                          _context54.t0 = _context54['catch'](3);
 
                           _iterator29.e(_context54.t0);
 
-                        case 19:
-                          _context54.prev = 19;
+                        case 18:
+                          _context54.prev = 18;
 
                           _iterator29.f();
 
-                          return _context54.finish(19);
+                          return _context54.finish(18);
 
-                        case 22:
+                        case 21:
                           return _context54.abrupt('return', processedSet);
 
-                        case 23:
+                        case 22:
                         case 'end':
                           return _context54.stop();
                       }
@@ -5119,7 +5022,7 @@ var KoconutCollection = (function (_KoconutIterable) {
                   },
                   _callee54,
                   null,
-                  [[4, 16, 19, 22]],
+                  [[3, 15, 18, 21]],
                 );
               }),
             ),
@@ -5178,88 +5081,82 @@ var KoconutCollection = (function (_KoconutIterable) {
                       switch ((_context55.prev = _context55.next)) {
                         case 0:
                           resultString = prefix;
-
-                          if (!(_this56.data != null)) {
-                            _context55.next = 33;
-                            break;
-                          }
-
                           currentCount = 0;
                           length = _this56.mSize;
                           _iterator30 = _createForOfIteratorHelper(
                             _this56.data,
                           );
-                          _context55.prev = 5;
+                          _context55.prev = 4;
 
                           _iterator30.s();
 
-                        case 7:
+                        case 6:
                           if ((_step30 = _iterator30.n()).done) {
-                            _context55.next = 25;
+                            _context55.next = 24;
                             break;
                           }
 
                           eachDatum = _step30.value;
 
                           if (!(currentCount == limit)) {
-                            _context55.next = 12;
+                            _context55.next = 11;
                             break;
                           }
 
                           resultString += truncated;
-                          return _context55.abrupt('break', 25);
+                          return _context55.abrupt('break', 24);
 
-                        case 12:
+                        case 11:
                           _context55.t0 = resultString;
 
                           if (!transform) {
-                            _context55.next = 19;
+                            _context55.next = 18;
                             break;
                           }
 
-                          _context55.next = 16;
+                          _context55.next = 15;
                           return transform(eachDatum);
 
-                        case 16:
+                        case 15:
                           _context55.t1 = _context55.sent;
-                          _context55.next = 20;
+                          _context55.next = 19;
                           break;
 
-                        case 19:
+                        case 18:
                           _context55.t1 = eachDatum;
 
-                        case 20:
+                        case 19:
                           resultString = _context55.t0 += _context55.t1;
                           currentCount++;
                           if (currentCount != length && currentCount != limit)
                             resultString += separator;
 
-                        case 23:
-                          _context55.next = 7;
+                        case 22:
+                          _context55.next = 6;
                           break;
 
-                        case 25:
-                          _context55.next = 30;
+                        case 24:
+                          _context55.next = 29;
                           break;
 
-                        case 27:
-                          _context55.prev = 27;
-                          _context55.t2 = _context55['catch'](5);
+                        case 26:
+                          _context55.prev = 26;
+                          _context55.t2 = _context55['catch'](4);
 
                           _iterator30.e(_context55.t2);
 
-                        case 30:
-                          _context55.prev = 30;
+                        case 29:
+                          _context55.prev = 29;
 
                           _iterator30.f();
 
-                          return _context55.finish(30);
+                          return _context55.finish(29);
 
-                        case 33:
+                        case 32:
                           resultString += postfix;
                           return _context55.abrupt('return', resultString);
 
-                        case 35:
+                        case 34:
                         case 'end':
                           return _context55.stop();
                       }
@@ -5267,7 +5164,7 @@ var KoconutCollection = (function (_KoconutIterable) {
                   },
                   _callee55,
                   null,
-                  [[5, 27, 30, 33]],
+                  [[4, 26, 29, 32]],
                 );
               }),
             ),
@@ -5388,17 +5285,12 @@ var KoconutCollection = (function (_KoconutIterable) {
                   while (1) {
                     switch ((_context57.prev = _context57.next)) {
                       case 0:
-                        if (!(_this58.data != null)) {
-                          _context57.next = 24;
-                          break;
-                        }
-
                         dataArray = Array.from(_this58.data);
                         eachIndex = dataArray.length - 1;
 
-                      case 3:
+                      case 2:
                         if (!(eachIndex >= 0)) {
-                          _context57.next = 24;
+                          _context57.next = 23;
                           break;
                         }
 
@@ -5409,7 +5301,7 @@ var KoconutCollection = (function (_KoconutIterable) {
                             eachElement,
                           )
                         ) {
-                          _context57.next = 19;
+                          _context57.next = 18;
                           break;
                         }
 
@@ -5418,21 +5310,21 @@ var KoconutCollection = (function (_KoconutIterable) {
                           equalityResult instanceof _module.KoconutPrimitive;
 
                         if (!_context57.t1) {
-                          _context57.next = 12;
+                          _context57.next = 11;
                           break;
                         }
 
-                        _context57.next = 11;
+                        _context57.next = 10;
                         return equalityResult['yield']();
 
-                      case 11:
+                      case 10:
                         _context57.t1 = _context57.sent;
 
-                      case 12:
+                      case 11:
                         _context57.t0 = _context57.t1;
 
                         if (_context57.t0) {
-                          _context57.next = 15;
+                          _context57.next = 14;
                           break;
                         }
 
@@ -5441,35 +5333,35 @@ var KoconutCollection = (function (_KoconutIterable) {
                             equalityResult instanceof _module.KoconutPrimitive
                           ) && equalityResult;
 
-                      case 15:
+                      case 14:
                         if (!_context57.t0) {
-                          _context57.next = 17;
+                          _context57.next = 16;
                           break;
                         }
 
                         return _context57.abrupt('return', eachIndex);
 
-                      case 17:
-                        _context57.next = 21;
+                      case 16:
+                        _context57.next = 20;
                         break;
 
-                      case 19:
+                      case 18:
                         if (!(eachElement == element)) {
-                          _context57.next = 21;
+                          _context57.next = 20;
                           break;
                         }
 
                         return _context57.abrupt('return', eachIndex);
 
-                      case 21:
+                      case 20:
                         eachIndex--;
-                        _context57.next = 3;
+                        _context57.next = 2;
                         break;
 
-                      case 24:
+                      case 23:
                         return _context57.abrupt('return', -1);
 
-                      case 25:
+                      case 24:
                       case 'end':
                         return _context57.stop();
                     }
@@ -5509,22 +5401,17 @@ var KoconutCollection = (function (_KoconutIterable) {
                   while (1) {
                     switch ((_context58.prev = _context58.next)) {
                       case 0:
-                        if (!(_this59.data != null)) {
-                          _context58.next = 18;
-                          break;
-                        }
-
                         dataArray = Array.from(_this59.data);
                         length = dataArray.length;
 
                         if (!(length == 0)) {
-                          _context58.next = 5;
+                          _context58.next = 4;
                           break;
                         }
 
                         return _context58.abrupt('return', null);
 
-                      case 5:
+                      case 4:
                         if (!predicate) {
                           _context58.next = 17;
                           break;
@@ -5532,49 +5419,41 @@ var KoconutCollection = (function (_KoconutIterable) {
 
                         eachIndex = length - 1;
 
-                      case 7:
+                      case 6:
                         if (!(eachIndex >= 0)) {
-                          _context58.next = 15;
+                          _context58.next = 14;
                           break;
                         }
 
-                        _context58.next = 10;
+                        _context58.next = 9;
                         return predicate(dataArray[eachIndex]);
 
-                      case 10:
+                      case 9:
                         if (!_context58.sent) {
-                          _context58.next = 12;
+                          _context58.next = 11;
                           break;
                         }
 
                         return _context58.abrupt(
                           'return',
-                          dataArray[eachIndex] != undefined
-                            ? dataArray[eachIndex]
-                            : null,
+                          dataArray[eachIndex],
                         );
 
-                      case 12:
+                      case 11:
                         eachIndex--;
-                        _context58.next = 7;
+                        _context58.next = 6;
                         break;
 
-                      case 15:
-                        _context58.next = 18;
-                        break;
+                      case 14:
+                        return _context58.abrupt('return', null);
 
                       case 17:
                         return _context58.abrupt(
                           'return',
-                          dataArray[length - 1] != undefined
-                            ? dataArray[length - 1]
-                            : null,
+                          dataArray[length - 1],
                         );
 
                       case 18:
-                        return _context58.abrupt('return', null);
-
-                      case 19:
                       case 'end':
                         return _context58.stop();
                     }
@@ -5609,12 +5488,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                       switch ((_context59.prev = _context59.next)) {
                         case 0:
                           processedArray = new Array();
-
-                          if (!(_this60.data != null)) {
-                            _context59.next = 24;
-                            break;
-                          }
-
                           dataToExcept = new Array();
                           if (typeof elements[Symbol.iterator] === 'function')
                             dataToExcept = Array.from(elements);
@@ -5624,66 +5497,66 @@ var KoconutCollection = (function (_KoconutIterable) {
                           _iterator31 = _createForOfIteratorHelper(
                             _this60.data,
                           );
-                          _context59.prev = 6;
+                          _context59.prev = 5;
 
                           _iterator31.s();
 
-                        case 8:
+                        case 7:
                           if ((_step31 = _iterator31.n()).done) {
-                            _context59.next = 16;
+                            _context59.next = 15;
                             break;
                           }
 
                           eachDatum = _step31.value;
-                          _context59.next = 12;
+                          _context59.next = 11;
                           return koconutDataToExceptArray
                             .contains(eachDatum)
                             ['yield']();
 
-                        case 12:
+                        case 11:
                           if (_context59.sent) {
-                            _context59.next = 14;
+                            _context59.next = 13;
                             break;
                           }
 
                           processedArray.push(eachDatum);
 
-                        case 14:
-                          _context59.next = 8;
+                        case 13:
+                          _context59.next = 7;
                           break;
 
-                        case 16:
-                          _context59.next = 21;
+                        case 15:
+                          _context59.next = 20;
                           break;
 
-                        case 18:
-                          _context59.prev = 18;
-                          _context59.t0 = _context59['catch'](6);
+                        case 17:
+                          _context59.prev = 17;
+                          _context59.t0 = _context59['catch'](5);
 
                           _iterator31.e(_context59.t0);
 
-                        case 21:
-                          _context59.prev = 21;
+                        case 20:
+                          _context59.prev = 20;
 
                           _iterator31.f();
 
-                          return _context59.finish(21);
+                          return _context59.finish(20);
 
-                        case 24:
+                        case 23:
                           if (!(_this60.data instanceof Array)) {
-                            _context59.next = 28;
+                            _context59.next = 27;
                             break;
                           }
 
                           return _context59.abrupt('return', processedArray);
 
-                        case 28:
+                        case 27:
                           return _context59.abrupt(
                             'return',
                             new Set(processedArray),
                           );
 
-                        case 29:
+                        case 28:
                         case 'end':
                           return _context59.stop();
                       }
@@ -5691,7 +5564,7 @@ var KoconutCollection = (function (_KoconutIterable) {
                   },
                   _callee59,
                   null,
-                  [[6, 18, 21, 24]],
+                  [[5, 17, 20, 23]],
                 );
               }),
             ),
@@ -5732,66 +5605,60 @@ var KoconutCollection = (function (_KoconutIterable) {
                         case 0:
                           processedFirstArray = new Array();
                           processedSecondArray = new Array();
-
-                          if (!(_this61.data != null)) {
-                            _context60.next = 25;
-                            break;
-                          }
-
                           _iterator32 = _createForOfIteratorHelper(
                             _this61.data,
                           );
-                          _context60.prev = 4;
+                          _context60.prev = 3;
 
                           _iterator32.s();
 
-                        case 6:
+                        case 5:
                           if ((_step32 = _iterator32.n()).done) {
-                            _context60.next = 17;
+                            _context60.next = 16;
                             break;
                           }
 
                           eachDatum = _step32.value;
-                          _context60.next = 10;
+                          _context60.next = 9;
                           return predicate(eachDatum);
 
-                        case 10:
+                        case 9:
                           if (!_context60.sent) {
-                            _context60.next = 14;
+                            _context60.next = 13;
                             break;
                           }
 
                           processedFirstArray.push(eachDatum);
-                          _context60.next = 15;
+                          _context60.next = 14;
                           break;
 
-                        case 14:
+                        case 13:
                           processedSecondArray.push(eachDatum);
 
-                        case 15:
-                          _context60.next = 6;
+                        case 14:
+                          _context60.next = 5;
                           break;
 
-                        case 17:
-                          _context60.next = 22;
+                        case 16:
+                          _context60.next = 21;
                           break;
 
-                        case 19:
-                          _context60.prev = 19;
-                          _context60.t0 = _context60['catch'](4);
+                        case 18:
+                          _context60.prev = 18;
+                          _context60.t0 = _context60['catch'](3);
 
                           _iterator32.e(_context60.t0);
 
-                        case 22:
-                          _context60.prev = 22;
+                        case 21:
+                          _context60.prev = 21;
 
                           _iterator32.f();
 
-                          return _context60.finish(22);
+                          return _context60.finish(21);
 
-                        case 25:
+                        case 24:
                           if (!(_this61.data instanceof Array)) {
-                            _context60.next = 29;
+                            _context60.next = 28;
                             break;
                           }
 
@@ -5803,7 +5670,7 @@ var KoconutCollection = (function (_KoconutIterable) {
                             ),
                           );
 
-                        case 29:
+                        case 28:
                           return _context60.abrupt(
                             'return',
                             new _module.Pair(
@@ -5812,7 +5679,7 @@ var KoconutCollection = (function (_KoconutIterable) {
                             ),
                           );
 
-                        case 30:
+                        case 29:
                         case 'end':
                           return _context60.stop();
                       }
@@ -5820,7 +5687,7 @@ var KoconutCollection = (function (_KoconutIterable) {
                   },
                   _callee60,
                   null,
-                  [[4, 19, 22, 25]],
+                  [[3, 18, 21, 24]],
                 );
               }),
             ),
@@ -5849,9 +5716,7 @@ var KoconutCollection = (function (_KoconutIterable) {
                   while (1) {
                     switch ((_context61.prev = _context61.next)) {
                       case 0:
-                        processedArray = _this62.data
-                          ? Array.from(_this62.data)
-                          : new Array();
+                        processedArray = Array.from(_this62.data);
 
                         if (typeof elements[Symbol.iterator] === 'function') {
                           elementsArray = Array.from(elements);
@@ -6282,9 +6147,7 @@ var KoconutCollection = (function (_KoconutIterable) {
                   while (1) {
                     switch ((_context68.prev = _context68.next)) {
                       case 0:
-                        processedArray = _this69.data
-                          ? Array.from(_this69.data).reverse()
-                          : new Array();
+                        processedArray = Array.from(_this69.data).reverse();
 
                         if (!(_this69.data instanceof Array)) {
                           _context68.next = 5;
@@ -6338,58 +6201,52 @@ var KoconutCollection = (function (_KoconutIterable) {
                         case 0:
                           processedArray = new Array();
                           processedArray.push(initial);
-
-                          if (!(_this70.data != null)) {
-                            _context69.next = 22;
-                            break;
-                          }
-
                           _iterator33 = _createForOfIteratorHelper(
                             _this70.data,
                           );
-                          _context69.prev = 4;
+                          _context69.prev = 3;
 
                           _iterator33.s();
 
-                        case 6:
+                        case 5:
                           if ((_step33 = _iterator33.n()).done) {
-                            _context69.next = 14;
+                            _context69.next = 13;
                             break;
                           }
 
                           eachDatum = _step33.value;
-                          _context69.next = 10;
+                          _context69.next = 9;
                           return operation(initial, eachDatum);
 
-                        case 10:
+                        case 9:
                           initial = _context69.sent;
                           processedArray.push(initial);
 
-                        case 12:
-                          _context69.next = 6;
+                        case 11:
+                          _context69.next = 5;
                           break;
 
-                        case 14:
-                          _context69.next = 19;
+                        case 13:
+                          _context69.next = 18;
                           break;
 
-                        case 16:
-                          _context69.prev = 16;
-                          _context69.t0 = _context69['catch'](4);
+                        case 15:
+                          _context69.prev = 15;
+                          _context69.t0 = _context69['catch'](3);
 
                           _iterator33.e(_context69.t0);
 
-                        case 19:
-                          _context69.prev = 19;
+                        case 18:
+                          _context69.prev = 18;
 
                           _iterator33.f();
 
-                          return _context69.finish(19);
+                          return _context69.finish(18);
 
-                        case 22:
+                        case 21:
                           return _context69.abrupt('return', processedArray);
 
-                        case 23:
+                        case 22:
                         case 'end':
                           return _context69.stop();
                       }
@@ -6397,7 +6254,7 @@ var KoconutCollection = (function (_KoconutIterable) {
                   },
                   _callee69,
                   null,
-                  [[4, 16, 19, 22]],
+                  [[3, 15, 18, 21]],
                 );
               }),
             ),
@@ -6433,22 +6290,16 @@ var KoconutCollection = (function (_KoconutIterable) {
                         case 0:
                           processedArray = new Array();
                           processedArray.push(initial);
-
-                          if (!(_this71.data != null)) {
-                            _context70.next = 22;
-                            break;
-                          }
-
                           _iterator34 = _createForOfIteratorHelper(
                             Array.from(_this71.data).entries(),
                           );
-                          _context70.prev = 4;
+                          _context70.prev = 3;
 
                           _iterator34.s();
 
-                        case 6:
+                        case 5:
                           if ((_step34 = _iterator34.n()).done) {
-                            _context70.next = 14;
+                            _context70.next = 13;
                             break;
                           }
 
@@ -6458,38 +6309,38 @@ var KoconutCollection = (function (_KoconutIterable) {
                           )),
                             (eachIndex = _step34$value[0]),
                             (eachDatum = _step34$value[1]);
-                          _context70.next = 10;
+                          _context70.next = 9;
                           return operation(eachIndex, initial, eachDatum);
 
-                        case 10:
+                        case 9:
                           initial = _context70.sent;
                           processedArray.push(initial);
 
-                        case 12:
-                          _context70.next = 6;
+                        case 11:
+                          _context70.next = 5;
                           break;
 
-                        case 14:
-                          _context70.next = 19;
+                        case 13:
+                          _context70.next = 18;
                           break;
 
-                        case 16:
-                          _context70.prev = 16;
-                          _context70.t0 = _context70['catch'](4);
+                        case 15:
+                          _context70.prev = 15;
+                          _context70.t0 = _context70['catch'](3);
 
                           _iterator34.e(_context70.t0);
 
-                        case 19:
-                          _context70.prev = 19;
+                        case 18:
+                          _context70.prev = 18;
 
                           _iterator34.f();
 
-                          return _context70.finish(19);
+                          return _context70.finish(18);
 
-                        case 22:
+                        case 21:
                           return _context70.abrupt('return', processedArray);
 
-                        case 23:
+                        case 22:
                         case 'end':
                           return _context70.stop();
                       }
@@ -6497,7 +6348,7 @@ var KoconutCollection = (function (_KoconutIterable) {
                   },
                   _callee70,
                   null,
-                  [[4, 16, 19, 22]],
+                  [[3, 15, 18, 21]],
                 );
               }),
             ),
@@ -6679,58 +6530,52 @@ var KoconutCollection = (function (_KoconutIterable) {
                         case 0:
                           processedArray = new Array();
                           processedArray.push(initial);
-
-                          if (!(_this74.data != null)) {
-                            _context73.next = 22;
-                            break;
-                          }
-
                           _iterator35 = _createForOfIteratorHelper(
                             _this74.data,
                           );
-                          _context73.prev = 4;
+                          _context73.prev = 3;
 
                           _iterator35.s();
 
-                        case 6:
+                        case 5:
                           if ((_step35 = _iterator35.n()).done) {
-                            _context73.next = 14;
+                            _context73.next = 13;
                             break;
                           }
 
                           eachDatum = _step35.value;
-                          _context73.next = 10;
+                          _context73.next = 9;
                           return operation(initial, eachDatum);
 
-                        case 10:
+                        case 9:
                           initial = _context73.sent;
                           processedArray.push(initial);
 
-                        case 12:
-                          _context73.next = 6;
+                        case 11:
+                          _context73.next = 5;
                           break;
 
-                        case 14:
-                          _context73.next = 19;
+                        case 13:
+                          _context73.next = 18;
                           break;
 
-                        case 16:
-                          _context73.prev = 16;
-                          _context73.t0 = _context73['catch'](4);
+                        case 15:
+                          _context73.prev = 15;
+                          _context73.t0 = _context73['catch'](3);
 
                           _iterator35.e(_context73.t0);
 
-                        case 19:
-                          _context73.prev = 19;
+                        case 18:
+                          _context73.prev = 18;
 
                           _iterator35.f();
 
-                          return _context73.finish(19);
+                          return _context73.finish(18);
 
-                        case 22:
+                        case 21:
                           return _context73.abrupt('return', processedArray);
 
-                        case 23:
+                        case 22:
                         case 'end':
                           return _context73.stop();
                       }
@@ -6738,7 +6583,7 @@ var KoconutCollection = (function (_KoconutIterable) {
                   },
                   _callee73,
                   null,
-                  [[4, 16, 19, 22]],
+                  [[3, 15, 18, 21]],
                 );
               }),
             ),
@@ -6774,22 +6619,16 @@ var KoconutCollection = (function (_KoconutIterable) {
                         case 0:
                           processedArray = new Array();
                           processedArray.push(initial);
-
-                          if (!(_this75.data != null)) {
-                            _context74.next = 22;
-                            break;
-                          }
-
                           _iterator36 = _createForOfIteratorHelper(
                             Array.from(_this75.data).entries(),
                           );
-                          _context74.prev = 4;
+                          _context74.prev = 3;
 
                           _iterator36.s();
 
-                        case 6:
+                        case 5:
                           if ((_step36 = _iterator36.n()).done) {
-                            _context74.next = 14;
+                            _context74.next = 13;
                             break;
                           }
 
@@ -6799,38 +6638,38 @@ var KoconutCollection = (function (_KoconutIterable) {
                           )),
                             (eachIndex = _step36$value[0]),
                             (eachDatum = _step36$value[1]);
-                          _context74.next = 10;
+                          _context74.next = 9;
                           return operation(eachIndex, initial, eachDatum);
 
-                        case 10:
+                        case 9:
                           initial = _context74.sent;
                           processedArray.push(initial);
 
-                        case 12:
-                          _context74.next = 6;
+                        case 11:
+                          _context74.next = 5;
                           break;
 
-                        case 14:
-                          _context74.next = 19;
+                        case 13:
+                          _context74.next = 18;
                           break;
 
-                        case 16:
-                          _context74.prev = 16;
-                          _context74.t0 = _context74['catch'](4);
+                        case 15:
+                          _context74.prev = 15;
+                          _context74.t0 = _context74['catch'](3);
 
                           _iterator36.e(_context74.t0);
 
-                        case 19:
-                          _context74.prev = 19;
+                        case 18:
+                          _context74.prev = 18;
 
                           _iterator36.f();
 
-                          return _context74.finish(19);
+                          return _context74.finish(18);
 
-                        case 22:
+                        case 21:
                           return _context74.abrupt('return', processedArray);
 
-                        case 23:
+                        case 22:
                         case 'end':
                           return _context74.stop();
                       }
@@ -6838,7 +6677,7 @@ var KoconutCollection = (function (_KoconutIterable) {
                   },
                   _callee74,
                   null,
-                  [[4, 16, 19, 22]],
+                  [[3, 15, 18, 21]],
                 );
               }),
             ),
@@ -6865,41 +6704,38 @@ var KoconutCollection = (function (_KoconutIterable) {
                     switch ((_context75.prev = _context75.next)) {
                       case 0:
                         processedArray = new Array();
+                        dataArray = Array.from(_this76.data);
+                        indexes = Object.keys(dataArray).map(function (
+                          eachIndex,
+                        ) {
+                          return parseInt(eachIndex);
+                        });
 
-                        if (_this76.data != null) {
-                          dataArray = Array.from(_this76.data);
-                          indexes = Object.keys(dataArray).map(function (
-                            eachIndex,
-                          ) {
-                            return parseInt(eachIndex);
-                          });
-
-                          while (indexes.length > 0) {
-                            processedArray.push(
-                              dataArray[
-                                indexes.splice(
-                                  Math.floor(Math.random() * indexes.length),
-                                  1,
-                                )[0]
-                              ],
-                            );
-                          }
+                        while (indexes.length > 0) {
+                          processedArray.push(
+                            dataArray[
+                              indexes.splice(
+                                Math.floor(Math.random() * indexes.length),
+                                1,
+                              )[0]
+                            ],
+                          );
                         }
 
                         if (!(_this76.data instanceof Array)) {
-                          _context75.next = 6;
+                          _context75.next = 8;
                           break;
                         }
 
                         return _context75.abrupt('return', processedArray);
 
-                      case 6:
+                      case 8:
                         return _context75.abrupt(
                           'return',
                           new Set(processedArray),
                         );
 
-                      case 7:
+                      case 9:
                       case 'end':
                         return _context75.stop();
                     }
@@ -7202,66 +7038,60 @@ var KoconutCollection = (function (_KoconutIterable) {
                       switch ((_context78.prev = _context78.next)) {
                         case 0:
                           processedSet = new Set();
-
-                          if (!(_this79.data != null)) {
-                            _context78.next = 22;
-                            break;
-                          }
-
                           koconutDataToExceptArray =
                             _module.KoconutArray.from(other);
                           _iterator39 = _createForOfIteratorHelper(
                             _this79.data,
                           );
-                          _context78.prev = 4;
+                          _context78.prev = 3;
 
                           _iterator39.s();
 
-                        case 6:
+                        case 5:
                           if ((_step39 = _iterator39.n()).done) {
-                            _context78.next = 14;
+                            _context78.next = 13;
                             break;
                           }
 
                           eachDatum = _step39.value;
-                          _context78.next = 10;
+                          _context78.next = 9;
                           return koconutDataToExceptArray
                             .contains(eachDatum)
                             ['yield']();
 
-                        case 10:
+                        case 9:
                           if (_context78.sent) {
-                            _context78.next = 12;
+                            _context78.next = 11;
                             break;
                           }
 
                           processedSet.add(eachDatum);
 
-                        case 12:
-                          _context78.next = 6;
+                        case 11:
+                          _context78.next = 5;
                           break;
 
-                        case 14:
-                          _context78.next = 19;
+                        case 13:
+                          _context78.next = 18;
                           break;
 
-                        case 16:
-                          _context78.prev = 16;
-                          _context78.t0 = _context78['catch'](4);
+                        case 15:
+                          _context78.prev = 15;
+                          _context78.t0 = _context78['catch'](3);
 
                           _iterator39.e(_context78.t0);
 
-                        case 19:
-                          _context78.prev = 19;
+                        case 18:
+                          _context78.prev = 18;
 
                           _iterator39.f();
 
-                          return _context78.finish(19);
+                          return _context78.finish(18);
 
-                        case 22:
+                        case 21:
                           return _context78.abrupt('return', processedSet);
 
-                        case 23:
+                        case 22:
                         case 'end':
                           return _context78.stop();
                       }
@@ -7269,7 +7099,7 @@ var KoconutCollection = (function (_KoconutIterable) {
                   },
                   _callee78,
                   null,
-                  [[4, 16, 19, 22]],
+                  [[3, 15, 18, 21]],
                 );
               }),
             ),
@@ -7302,58 +7132,52 @@ var KoconutCollection = (function (_KoconutIterable) {
                       switch ((_context79.prev = _context79.next)) {
                         case 0:
                           sum = 0;
-
-                          if (!(_this80.data != null)) {
-                            _context79.next = 21;
-                            break;
-                          }
-
                           _iterator40 = _createForOfIteratorHelper(
                             _this80.data,
                           );
-                          _context79.prev = 3;
+                          _context79.prev = 2;
 
                           _iterator40.s();
 
-                        case 5:
+                        case 4:
                           if ((_step40 = _iterator40.n()).done) {
-                            _context79.next = 13;
+                            _context79.next = 12;
                             break;
                           }
 
                           eachDatum = _step40.value;
                           _context79.t0 = sum;
-                          _context79.next = 10;
+                          _context79.next = 9;
                           return selector(eachDatum);
 
-                        case 10:
+                        case 9:
                           sum = _context79.t0 += _context79.sent;
 
-                        case 11:
-                          _context79.next = 5;
+                        case 10:
+                          _context79.next = 4;
                           break;
 
-                        case 13:
-                          _context79.next = 18;
+                        case 12:
+                          _context79.next = 17;
                           break;
 
-                        case 15:
-                          _context79.prev = 15;
-                          _context79.t1 = _context79['catch'](3);
+                        case 14:
+                          _context79.prev = 14;
+                          _context79.t1 = _context79['catch'](2);
 
                           _iterator40.e(_context79.t1);
 
-                        case 18:
-                          _context79.prev = 18;
+                        case 17:
+                          _context79.prev = 17;
 
                           _iterator40.f();
 
-                          return _context79.finish(18);
+                          return _context79.finish(17);
 
-                        case 21:
+                        case 20:
                           return _context79.abrupt('return', sum);
 
-                        case 22:
+                        case 21:
                         case 'end':
                           return _context79.stop();
                       }
@@ -7361,7 +7185,7 @@ var KoconutCollection = (function (_KoconutIterable) {
                   },
                   _callee79,
                   null,
-                  [[3, 15, 18, 21]],
+                  [[2, 14, 17, 20]],
                 );
               }),
             ),
@@ -7389,10 +7213,7 @@ var KoconutCollection = (function (_KoconutIterable) {
                   while (1) {
                     switch ((_context80.prev = _context80.next)) {
                       case 0:
-                        processedSet =
-                          _this81.data == null
-                            ? new Set()
-                            : new Set(_this81.data);
+                        processedSet = new Set(_this81.data);
                         _iterator41 = _createForOfIteratorHelper(other);
 
                         try {
@@ -7474,81 +7295,78 @@ var KoconutCollection = (function (_KoconutIterable) {
                       switch ((_context81.prev = _context81.next)) {
                         case 0:
                           processedArray = new Array();
+                          currentIndex = 0;
+                          dataArray = Array.from(_this82.data);
 
-                          if (_this82.data != null) {
-                            currentIndex = 0;
-                            dataArray = Array.from(_this82.data);
-
-                            while (currentIndex < dataArray.length) {
-                              eachChunkedData = dataArray.slice(
-                                currentIndex,
-                                currentIndex + size,
-                              );
-                              currentIndex += step;
-                              if (
-                                partialWindows ||
-                                eachChunkedData.length == size
-                              )
-                                processedArray.push(eachChunkedData);
-                            }
+                          while (currentIndex < dataArray.length) {
+                            eachChunkedData = dataArray.slice(
+                              currentIndex,
+                              currentIndex + size,
+                            );
+                            currentIndex += step;
+                            if (
+                              partialWindows ||
+                              eachChunkedData.length == size
+                            )
+                              processedArray.push(eachChunkedData);
                           }
 
                           if (!transform) {
-                            _context81.next = 25;
+                            _context81.next = 27;
                             break;
                           }
 
                           transformedArray = new Array();
                           _iterator42 =
                             _createForOfIteratorHelper(processedArray);
-                          _context81.prev = 5;
+                          _context81.prev = 7;
 
                           _iterator42.s();
 
-                        case 7:
+                        case 9:
                           if ((_step42 = _iterator42.n()).done) {
-                            _context81.next = 16;
+                            _context81.next = 18;
                             break;
                           }
 
                           eachProcessedDatum = _step42.value;
                           _context81.t0 = transformedArray;
-                          _context81.next = 12;
+                          _context81.next = 14;
                           return transform(eachProcessedDatum);
 
-                        case 12:
+                        case 14:
                           _context81.t1 = _context81.sent;
 
                           _context81.t0.push.call(_context81.t0, _context81.t1);
 
-                        case 14:
-                          _context81.next = 7;
-                          break;
-
                         case 16:
-                          _context81.next = 21;
+                          _context81.next = 9;
                           break;
 
                         case 18:
-                          _context81.prev = 18;
-                          _context81.t2 = _context81['catch'](5);
+                          _context81.next = 23;
+                          break;
+
+                        case 20:
+                          _context81.prev = 20;
+                          _context81.t2 = _context81['catch'](7);
 
                           _iterator42.e(_context81.t2);
 
-                        case 21:
-                          _context81.prev = 21;
+                        case 23:
+                          _context81.prev = 23;
 
                           _iterator42.f();
 
-                          return _context81.finish(21);
-
-                        case 24:
-                          return _context81.abrupt('return', transformedArray);
-
-                        case 25:
-                          return _context81.abrupt('return', processedArray);
+                          return _context81.finish(23);
 
                         case 26:
+                          return _context81.abrupt('return', transformedArray);
+
+                        case 27:
+                          return _context81.abrupt('return', processedArray);
+
+                        case 28:
                         case 'end':
                           return _context81.stop();
                       }
@@ -7556,7 +7374,7 @@ var KoconutCollection = (function (_KoconutIterable) {
                   },
                   _callee81,
                   null,
-                  [[5, 18, 21, 24]],
+                  [[7, 20, 23, 26]],
                 );
               }),
             ),
@@ -7587,38 +7405,35 @@ var KoconutCollection = (function (_KoconutIterable) {
                     switch ((_context82.prev = _context82.next)) {
                       case 0:
                         processedArray = new Array();
+                        _iterator43 = _createForOfIteratorHelper(
+                          Array.from(_this83.data).entries(),
+                        );
 
-                        if (_this83.data != null) {
-                          _iterator43 = _createForOfIteratorHelper(
-                            Array.from(_this83.data).entries(),
-                          );
+                        try {
+                          for (
+                            _iterator43.s();
+                            !(_step43 = _iterator43.n()).done;
 
-                          try {
-                            for (
-                              _iterator43.s();
-                              !(_step43 = _iterator43.n()).done;
-
-                            ) {
-                              (_step43$value = (0, _slicedToArray2['default'])(
-                                _step43.value,
-                                2,
-                              )),
-                                (index = _step43$value[0]),
-                                (element = _step43$value[1]);
-                              processedArray.push(
-                                new _module.Entry(index, element),
-                              );
-                            }
-                          } catch (err) {
-                            _iterator43.e(err);
-                          } finally {
-                            _iterator43.f();
+                          ) {
+                            (_step43$value = (0, _slicedToArray2['default'])(
+                              _step43.value,
+                              2,
+                            )),
+                              (index = _step43$value[0]),
+                              (element = _step43$value[1]);
+                            processedArray.push(
+                              new _module.Entry(index, element),
+                            );
                           }
+                        } catch (err) {
+                          _iterator43.e(err);
+                        } finally {
+                          _iterator43.f();
                         }
 
                         return _context82.abrupt('return', processedArray);
 
-                      case 3:
+                      case 4:
                       case 'end':
                         return _context82.stop();
                     }
@@ -7665,88 +7480,85 @@ var KoconutCollection = (function (_KoconutIterable) {
                       switch ((_context83.prev = _context83.next)) {
                         case 0:
                           processedArray = new Array();
+                          dataArray = Array.from(_this84.data);
+                          otherArray = Array.from(other);
+                          minLength =
+                            dataArray.length < otherArray.length
+                              ? dataArray.length
+                              : otherArray.length;
 
-                          if (_this84.data != null) {
-                            dataArray = Array.from(_this84.data);
-                            otherArray = Array.from(other);
-                            minLength =
-                              dataArray.length < otherArray.length
-                                ? dataArray.length
-                                : otherArray.length;
-
-                            for (
-                              eachIndex = 0;
-                              eachIndex < minLength;
-                              eachIndex++
-                            ) {
-                              processedArray.push(
-                                new _module.Pair(
-                                  dataArray[eachIndex],
-                                  otherArray[eachIndex],
-                                ),
-                              );
-                            }
+                          for (
+                            eachIndex = 0;
+                            eachIndex < minLength;
+                            eachIndex++
+                          ) {
+                            processedArray.push(
+                              new _module.Pair(
+                                dataArray[eachIndex],
+                                otherArray[eachIndex],
+                              ),
+                            );
                           }
 
                           if (!transform) {
-                            _context83.next = 25;
+                            _context83.next = 28;
                             break;
                           }
 
                           transformedArray = new Array();
                           _iterator44 =
                             _createForOfIteratorHelper(processedArray);
-                          _context83.prev = 5;
+                          _context83.prev = 8;
 
                           _iterator44.s();
 
-                        case 7:
+                        case 10:
                           if ((_step44 = _iterator44.n()).done) {
-                            _context83.next = 16;
+                            _context83.next = 19;
                             break;
                           }
 
                           eachProcessedData = _step44.value;
                           _context83.t0 = transformedArray;
-                          _context83.next = 12;
+                          _context83.next = 15;
                           return transform(
                             eachProcessedData.first,
                             eachProcessedData.second,
                           );
 
-                        case 12:
+                        case 15:
                           _context83.t1 = _context83.sent;
 
                           _context83.t0.push.call(_context83.t0, _context83.t1);
 
-                        case 14:
-                          _context83.next = 7;
+                        case 17:
+                          _context83.next = 10;
                           break;
 
-                        case 16:
-                          _context83.next = 21;
+                        case 19:
+                          _context83.next = 24;
                           break;
-
-                        case 18:
-                          _context83.prev = 18;
-                          _context83.t2 = _context83['catch'](5);
-
-                          _iterator44.e(_context83.t2);
 
                         case 21:
                           _context83.prev = 21;
+                          _context83.t2 = _context83['catch'](8);
+
+                          _iterator44.e(_context83.t2);
+
+                        case 24:
+                          _context83.prev = 24;
 
                           _iterator44.f();
 
-                          return _context83.finish(21);
+                          return _context83.finish(24);
 
-                        case 24:
+                        case 27:
                           return _context83.abrupt('return', transformedArray);
 
-                        case 25:
+                        case 28:
                           return _context83.abrupt('return', processedArray);
 
-                        case 26:
+                        case 29:
                         case 'end':
                           return _context83.stop();
                       }
@@ -7754,7 +7566,7 @@ var KoconutCollection = (function (_KoconutIterable) {
                   },
                   _callee83,
                   null,
-                  [[5, 18, 21, 24]],
+                  [[8, 21, 24, 27]],
                 );
               }),
             ),
@@ -7794,85 +7606,82 @@ var KoconutCollection = (function (_KoconutIterable) {
                       switch ((_context84.prev = _context84.next)) {
                         case 0:
                           processedArray = new Array();
+                          dataArray = Array.from(_this85.data);
 
-                          if (_this85.data != null) {
-                            dataArray = Array.from(_this85.data);
-
-                            if (dataArray.length >= 2) {
-                              for (
-                                eachIndex = 0;
-                                eachIndex < dataArray.length - 1;
-                                eachIndex++
-                              ) {
-                                processedArray.push(
-                                  new _module.Pair(
-                                    dataArray[eachIndex],
-                                    dataArray[eachIndex + 1],
-                                  ),
-                                );
-                              }
+                          if (dataArray.length >= 2) {
+                            for (
+                              eachIndex = 0;
+                              eachIndex < dataArray.length - 1;
+                              eachIndex++
+                            ) {
+                              processedArray.push(
+                                new _module.Pair(
+                                  dataArray[eachIndex],
+                                  dataArray[eachIndex + 1],
+                                ),
+                              );
                             }
                           }
 
                           if (!transform) {
-                            _context84.next = 25;
+                            _context84.next = 26;
                             break;
                           }
 
                           transformedArray = new Array();
                           _iterator45 =
                             _createForOfIteratorHelper(processedArray);
-                          _context84.prev = 5;
+                          _context84.prev = 6;
 
                           _iterator45.s();
 
-                        case 7:
+                        case 8:
                           if ((_step45 = _iterator45.n()).done) {
-                            _context84.next = 16;
+                            _context84.next = 17;
                             break;
                           }
 
                           eachProcessedDatum = _step45.value;
                           _context84.t0 = transformedArray;
-                          _context84.next = 12;
+                          _context84.next = 13;
                           return transform(
                             eachProcessedDatum.first,
                             eachProcessedDatum.second,
                           );
 
-                        case 12:
+                        case 13:
                           _context84.t1 = _context84.sent;
 
                           _context84.t0.push.call(_context84.t0, _context84.t1);
 
-                        case 14:
-                          _context84.next = 7;
+                        case 15:
+                          _context84.next = 8;
                           break;
 
-                        case 16:
-                          _context84.next = 21;
+                        case 17:
+                          _context84.next = 22;
                           break;
 
-                        case 18:
-                          _context84.prev = 18;
-                          _context84.t2 = _context84['catch'](5);
+                        case 19:
+                          _context84.prev = 19;
+                          _context84.t2 = _context84['catch'](6);
 
                           _iterator45.e(_context84.t2);
 
-                        case 21:
-                          _context84.prev = 21;
+                        case 22:
+                          _context84.prev = 22;
 
                           _iterator45.f();
 
-                          return _context84.finish(21);
-
-                        case 24:
-                          return _context84.abrupt('return', transformedArray);
+                          return _context84.finish(22);
 
                         case 25:
-                          return _context84.abrupt('return', processedArray);
+                          return _context84.abrupt('return', transformedArray);
 
                         case 26:
+                          return _context84.abrupt('return', processedArray);
+
+                        case 27:
                         case 'end':
                           return _context84.stop();
                       }
@@ -7880,7 +7689,7 @@ var KoconutCollection = (function (_KoconutIterable) {
                   },
                   _callee84,
                   null,
-                  [[5, 18, 21, 24]],
+                  [[6, 19, 22, 25]],
                 );
               }),
             ),

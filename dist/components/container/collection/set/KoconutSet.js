@@ -1053,10 +1053,6 @@ var KoconutSet = (function (_KoconutCollection) {
             arguments.length > 2 && arguments[2] !== undefined
               ? arguments[2]
               : null;
-          if (count < 0)
-            throw new _module.KoconutInvalidArgumentException(
-              'Count must be larger than 0. Given value : '.concat(count, '.'),
-            );
           generator = generator.bind(thisArg);
           var koconutToReturn = new KoconutSet();
           koconutToReturn.setProcessor(
@@ -1070,33 +1066,46 @@ var KoconutSet = (function (_KoconutCollection) {
                   while (1) {
                     switch ((_context3.prev = _context3.next)) {
                       case 0:
+                        if (!(count < 0)) {
+                          _context3.next = 2;
+                          break;
+                        }
+
+                        throw new _module.KoconutInvalidArgumentException(
+                          'Count must be larger than 0. Given value : '.concat(
+                            count,
+                            '.',
+                          ),
+                        );
+
+                      case 2:
                         processedSet = new Set();
                         eachIndex = 0;
 
-                      case 2:
+                      case 4:
                         if (!(eachIndex < count)) {
-                          _context3.next = 11;
+                          _context3.next = 13;
                           break;
                         }
 
                         _context3.t0 = processedSet;
-                        _context3.next = 6;
+                        _context3.next = 8;
                         return generator(eachIndex);
 
-                      case 6:
+                      case 8:
                         _context3.t1 = _context3.sent;
 
                         _context3.t0.add.call(_context3.t0, _context3.t1);
 
-                      case 8:
+                      case 10:
                         eachIndex++;
-                        _context3.next = 2;
+                        _context3.next = 4;
                         break;
 
-                      case 11:
+                      case 13:
                         return _context3.abrupt('return', processedSet);
 
-                      case 12:
+                      case 14:
                       case 'end':
                         return _context3.stop();
                     }

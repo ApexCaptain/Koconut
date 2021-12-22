@@ -792,10 +792,6 @@ var KoconutArray = (function (_KoconutCollection) {
             arguments.length > 2 && arguments[2] !== undefined
               ? arguments[2]
               : null;
-          if (count < 0)
-            throw new _module.KoconutInvalidArgumentException(
-              'Count must be larger than 0. Given value : '.concat(count),
-            );
           generator = generator.bind(thisArg);
           var koconutToReturn = new KoconutArray();
           koconutToReturn.setProcessor(
@@ -809,33 +805,45 @@ var KoconutArray = (function (_KoconutCollection) {
                   while (1) {
                     switch ((_context2.prev = _context2.next)) {
                       case 0:
+                        if (!(count < 0)) {
+                          _context2.next = 2;
+                          break;
+                        }
+
+                        throw new _module.KoconutInvalidArgumentException(
+                          'Count must be larger than 0. Given value : '.concat(
+                            count,
+                          ),
+                        );
+
+                      case 2:
                         processedArray = new Array();
                         eachIndex = 0;
 
-                      case 2:
+                      case 4:
                         if (!(eachIndex < count)) {
-                          _context2.next = 11;
+                          _context2.next = 13;
                           break;
                         }
 
                         _context2.t0 = processedArray;
-                        _context2.next = 6;
+                        _context2.next = 8;
                         return generator(eachIndex);
 
-                      case 6:
+                      case 8:
                         _context2.t1 = _context2.sent;
 
                         _context2.t0.push.call(_context2.t0, _context2.t1);
 
-                      case 8:
+                      case 10:
                         eachIndex++;
-                        _context2.next = 2;
+                        _context2.next = 4;
                         break;
 
-                      case 11:
+                      case 13:
                         return _context2.abrupt('return', processedArray);
 
-                      case 12:
+                      case 14:
                       case 'end':
                         return _context2.stop();
                     }

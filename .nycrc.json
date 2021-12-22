@@ -1,0 +1,12 @@
+{
+  "reporter" : [
+    "html"
+  ],
+  "report-dir" : "./docs/coverage",
+  "exclude" : [
+    "**/module.ts",
+    "src/components/tool/*.ts",
+    "test/*.ts",
+    "src/components/container/base/*.ts"
+  ]
+}

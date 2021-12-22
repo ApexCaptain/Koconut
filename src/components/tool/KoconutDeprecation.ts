@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 /* eslint-disable no-unused-vars */
 import {
   /* Tool */

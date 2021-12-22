@@ -37,6 +37,7 @@
     ".git",
     ".github",
     ".gitignore",
+    ".nycrc.json",
     ".nyc_output",
     ".prettierrc",
     ".ToDo",

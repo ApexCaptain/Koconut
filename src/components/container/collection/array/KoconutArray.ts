@@ -179,14 +179,14 @@ export class KoconutArray<DataType> extends KoconutCollection<
     generator: Generator<DataType>,
     thisArg: any = null,
   ): KoconutArray<DataType> {
-    if (count < 0)
-      throw new KoconutInvalidArgumentException(
-        `Count must be larger than 0. Given value : ${count}`,
-      );
     generator = generator.bind(thisArg);
     const koconutToReturn = new KoconutArray<DataType>();
     (koconutToReturn as any as KoconutOpener<Array<DataType>>).setProcessor(
       async () => {
+        if (count < 0)
+          throw new KoconutInvalidArgumentException(
+            `Count must be larger than 0. Given value : ${count}`,
+          );
         const processedArray = new Array<DataType>();
         for (let eachIndex = 0; eachIndex < count; eachIndex++)
           processedArray.push(await generator(eachIndex));

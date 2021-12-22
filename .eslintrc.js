@@ -36,6 +36,7 @@ module.exports = {
       'warn',
       {
         skipWords: [
+          'fs',
           'ecma',
           'jsdoc',
           'koconut',

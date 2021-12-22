@@ -41,6 +41,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
   Set<Entry<KeyType, ValueType>>
 > {
   protected async validate(data: Map<KeyType, ValueType> | null) {
+    /* istanbul ignore else */
     if (data != null) {
       this.combinedDataWrapper = new Set();
       for (const [key, value] of data.entries()) {
@@ -411,15 +412,15 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
     >,
     thisArg: any = null,
   ): KoconutMap<KeyType, ValueType> {
-    if (count < 0)
-      throw new KoconutInvalidArgumentException(
-        `Count must be larger than 0. Given value : ${count}`,
-      );
     generator = generator.bind(thisArg);
     const koconutToReturn = new KoconutMap<KeyType, ValueType>();
     (
       koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>
     ).setProcessor(async () => {
+      if (count < 0)
+        throw new KoconutInvalidArgumentException(
+          `Count must be larger than 0. Given value : ${count}`,
+        );
       const processedMap = new Map<KeyType, ValueType>();
       for (let eachIndex = 0; eachIndex < count; eachIndex++) {
         const generatedValue = await generator(eachIndex);
@@ -1173,6 +1174,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
         for (const eachKey of this.mKeys) {
           if (KoconutTypeChecker.checkIsEquatable(eachKey)) {
             const equalityResult = eachKey.equalsTo(key);
+            /* istanbul ignore else*/
             if (
               (equalityResult instanceof KoconutPrimitive &&
                 (await equalityResult.yield())) ||
@@ -1254,6 +1256,7 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
         for (const eachValue of this.mValues) {
           if (KoconutTypeChecker.checkIsEquatable(eachValue)) {
             const equalityResult = eachValue.equalsTo(value);
+            /* istanbul ignore else */
             if (
               (equalityResult instanceof KoconutPrimitive &&
                 (await equalityResult.yield())) ||
@@ -1431,11 +1434,10 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
     (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.combinedDataWrapper != null) {
-          for (const eachEntry of this.combinedDataWrapper)
-            if (await predicate(eachEntry))
-              destination.set(eachEntry.key, eachEntry.value);
-        }
+        for (const eachEntry of this.combinedDataWrapper!)
+          if (await predicate(eachEntry))
+            destination.set(eachEntry.key, eachEntry.value);
+
         return this.data!;
       });
     return koconutToReturn;
@@ -1484,11 +1486,9 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
     (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.combinedDataWrapper != null) {
-          for (const eachEntry of this.combinedDataWrapper)
-            if (!(await predicate(eachEntry)))
-              destination.set(eachEntry.key, eachEntry.value);
-        }
+        for (const eachEntry of this.combinedDataWrapper!)
+          if (!(await predicate(eachEntry)))
+            destination.set(eachEntry.key, eachEntry.value);
         return this.data!;
       });
     return koconutToReturn;
@@ -1529,11 +1529,9 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
       .setPrevYieldable(this)
       .setProcessor(async () => {
         const processedMap = new Map<KeyType, ValueType>();
-        if (this.combinedDataWrapper != null) {
-          for (const eachEntry of this.combinedDataWrapper)
-            if (await predicate(eachEntry.key))
-              processedMap.set(eachEntry.key, eachEntry.value);
-        }
+        for (const eachEntry of this.combinedDataWrapper!)
+          if (await predicate(eachEntry.key))
+            processedMap.set(eachEntry.key, eachEntry.value);
         return processedMap;
       });
     return koconutToReturn;
@@ -1574,11 +1572,9 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
       .setPrevYieldable(this)
       .setProcessor(async () => {
         const processedMap = new Map<KeyType, ValueType>();
-        if (this.combinedDataWrapper != null) {
-          for (const eachEntry of this.combinedDataWrapper)
-            if (await predicate(eachEntry.value))
-              processedMap.set(eachEntry.key, eachEntry.value);
-        }
+        for (const eachEntry of this.combinedDataWrapper!)
+          if (await predicate(eachEntry.value))
+            processedMap.set(eachEntry.key, eachEntry.value);
         return processedMap;
       });
     return koconutToReturn;
@@ -1620,14 +1616,10 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
       .setPrevYieldable(this)
       .setProcessor(async () => {
         const processedMap = new Map<KeyType, ValueType>();
-        if (this.combinedDataWrapper != null) {
-          const koconutKeysToExceptArray = KoconutArray.from(keys);
-          for (const eachEntry of this.combinedDataWrapper)
-            if (
-              !(await koconutKeysToExceptArray.contains(eachEntry.key).yield())
-            )
-              processedMap.set(eachEntry.key, eachEntry.value);
-        }
+        const koconutKeysToExceptArray = KoconutArray.from(keys);
+        for (const eachEntry of this.combinedDataWrapper!)
+          if (!(await koconutKeysToExceptArray.contains(eachEntry.key).yield()))
+            processedMap.set(eachEntry.key, eachEntry.value);
         return processedMap;
       });
     return koconutToReturn;
@@ -1687,21 +1679,20 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
     (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        const processedMap =
-          this.data == null
-            ? new Map<KeyType, ValueType>()
-            : new Map(this.data);
+        const processedMap = new Map(this.data!);
         for (const eachElement of entries) {
           if (eachElement instanceof Pair)
             processedMap.set(eachElement.first, eachElement.second);
           else if (eachElement instanceof KoconutPair) {
             const eachPair = await eachElement.yield();
+            /* istanbul ignore else */
             if (eachPair != null)
               processedMap.set(eachPair.first, eachPair.second);
-          } else if (eachElement instanceof Entry)
+          } else if (eachElement instanceof Entry) {
             processedMap.set(eachElement.key, eachElement.value);
-          else if (eachElement instanceof KoconutEntry) {
+          } else if (eachElement instanceof KoconutEntry) {
             const eachEntry = await eachElement.yield();
+            /* istanbul ignore else */
             if (eachEntry != null)
               processedMap.set(eachEntry.key, eachEntry.value);
           } else processedMap.set(eachElement[0], eachElement[1]);
@@ -1747,19 +1738,17 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
     (koconutToReturn as any as KoconutOpener<ValueType | null>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.combinedDataWrapper != null) {
-          for (const eachEntry of this.combinedDataWrapper) {
-            if (KoconutTypeChecker.checkIsEquatable(eachEntry.key)) {
-              const equalityResult = eachEntry.key.equalsTo(key);
-              if (
-                (equalityResult instanceof KoconutPrimitive &&
-                  (await equalityResult.yield())) ||
-                (!(equalityResult instanceof KoconutPrimitive) &&
-                  equalityResult)
-              )
-                return eachEntry.value;
-            } else if (eachEntry.key == key) return eachEntry.value;
-          }
+        for (const eachEntry of this.combinedDataWrapper!) {
+          if (KoconutTypeChecker.checkIsEquatable(eachEntry.key)) {
+            const equalityResult = eachEntry.key.equalsTo(key);
+            /* istanbul ignore else */
+            if (
+              (equalityResult instanceof KoconutPrimitive &&
+                (await equalityResult.yield())) ||
+              (!(equalityResult instanceof KoconutPrimitive) && equalityResult)
+            )
+              return eachEntry.value;
+          } else if (eachEntry.key == key) return eachEntry.value;
         }
         return null;
       });
@@ -1806,19 +1795,17 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
     (koconutToReturn as any as KoconutOpener<ValueType>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.combinedDataWrapper != null) {
-          for (const eachEntry of this.combinedDataWrapper) {
-            if (KoconutTypeChecker.checkIsEquatable(eachEntry.key)) {
-              const equalityResult = eachEntry.key.equalsTo(key);
-              if (
-                (equalityResult instanceof KoconutPrimitive &&
-                  (await equalityResult.yield())) ||
-                (!(equalityResult instanceof KoconutPrimitive) &&
-                  equalityResult)
-              )
-                return eachEntry.value;
-            } else if (eachEntry.key == key) return eachEntry.value;
-          }
+        for (const eachEntry of this.combinedDataWrapper!) {
+          if (KoconutTypeChecker.checkIsEquatable(eachEntry.key)) {
+            const equalityResult = eachEntry.key.equalsTo(key);
+            /* istanbul ignore else */
+            if (
+              (equalityResult instanceof KoconutPrimitive &&
+                (await equalityResult.yield())) ||
+              (!(equalityResult instanceof KoconutPrimitive) && equalityResult)
+            )
+              return eachEntry.value;
+          } else if (eachEntry.key == key) return eachEntry.value;
         }
         return defaultValue;
       });
@@ -1877,19 +1864,17 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
     (koconutToReturn as any as KoconutOpener<ValueType>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.combinedDataWrapper != null) {
-          for (const eachEntry of this.combinedDataWrapper) {
-            if (KoconutTypeChecker.checkIsEquatable(eachEntry.key)) {
-              const equalityResult = eachEntry.key.equalsTo(key);
-              if (
-                (equalityResult instanceof KoconutPrimitive &&
-                  (await equalityResult.yield())) ||
-                (!(equalityResult instanceof KoconutPrimitive) &&
-                  equalityResult)
-              )
-                return eachEntry.value;
-            } else if (eachEntry.key == key) return eachEntry.value;
-          }
+        for (const eachEntry of this.combinedDataWrapper!) {
+          if (KoconutTypeChecker.checkIsEquatable(eachEntry.key)) {
+            const equalityResult = eachEntry.key.equalsTo(key);
+            /* istanbul ignore else */
+            if (
+              (equalityResult instanceof KoconutPrimitive &&
+                (await equalityResult.yield())) ||
+              (!(equalityResult instanceof KoconutPrimitive) && equalityResult)
+            )
+              return eachEntry.value;
+          } else if (eachEntry.key == key) return eachEntry.value;
         }
         return await defaultValue();
       });
@@ -1935,19 +1920,17 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
     (koconutToReturn as any as KoconutOpener<ValueType>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.combinedDataWrapper != null) {
-          for (const eachEntry of this.combinedDataWrapper) {
-            if (KoconutTypeChecker.checkIsEquatable(eachEntry.key)) {
-              const equalityResult = eachEntry.key.equalsTo(key);
-              if (
-                (equalityResult instanceof KoconutPrimitive &&
-                  (await equalityResult.yield())) ||
-                (!(equalityResult instanceof KoconutPrimitive) &&
-                  equalityResult)
-              )
-                return eachEntry.value;
-            } else if (eachEntry.key == key) return eachEntry.value;
-          }
+        for (const eachEntry of this.combinedDataWrapper!) {
+          if (KoconutTypeChecker.checkIsEquatable(eachEntry.key)) {
+            const equalityResult = eachEntry.key.equalsTo(key);
+            /* istanbul ignore else */
+            if (
+              (equalityResult instanceof KoconutPrimitive &&
+                (await equalityResult.yield())) ||
+              (!(equalityResult instanceof KoconutPrimitive) && equalityResult)
+            )
+              return eachEntry.value;
+          } else if (eachEntry.key == key) return eachEntry.value;
         }
         throw new KoconutNoSuchElementException(
           `No such element matches given key ${key} is found`,
@@ -2147,10 +2130,8 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
       .setPrevYieldable(this)
       .setProcessor(async () => {
         const processedMap = new Map<ResultDataType, ValueType>();
-        if (this.combinedDataWrapper != null) {
-          for (const eachEntry of this.combinedDataWrapper)
-            processedMap.set(await transform(eachEntry), eachEntry.value);
-        }
+        for (const eachEntry of this.combinedDataWrapper!)
+          processedMap.set(await transform(eachEntry), eachEntry.value);
         return processedMap;
       });
     return koconutToReturn;
@@ -2217,10 +2198,8 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
     (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.combinedDataWrapper != null) {
-          for (const eachEntry of this.combinedDataWrapper)
-            destination.set(await transform(eachEntry), eachEntry.value);
-        }
+        for (const eachEntry of this.combinedDataWrapper!)
+          destination.set(await transform(eachEntry), eachEntry.value);
         return this.data!;
       });
     return koconutToReturn;
@@ -2276,10 +2255,8 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
       .setPrevYieldable(this)
       .setProcessor(async () => {
         const processedMap = new Map<KeyType, ResultDataType>();
-        if (this.combinedDataWrapper != null) {
-          for (const eachEntry of this.combinedDataWrapper) {
-            processedMap.set(eachEntry.key, await transform(eachEntry));
-          }
+        for (const eachEntry of this.combinedDataWrapper!) {
+          processedMap.set(eachEntry.key, await transform(eachEntry));
         }
         return processedMap;
       });
@@ -2346,10 +2323,8 @@ export class KoconutMap<KeyType, ValueType> extends KoconutIterable<
     (koconutToReturn as any as KoconutOpener<Map<KeyType, ValueType>>)
       .setPrevYieldable(this)
       .setProcessor(async () => {
-        if (this.combinedDataWrapper != null) {
-          for (const eachEntry of this.combinedDataWrapper) {
-            destination.set(eachEntry.key, await transform(eachEntry));
-          }
+        for (const eachEntry of this.combinedDataWrapper!) {
+          destination.set(eachEntry.key, await transform(eachEntry));
         }
         return this.data!;
       });

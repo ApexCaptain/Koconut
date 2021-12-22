@@ -97,6 +97,7 @@ export class KoconutSet<DataType> extends KoconutCollection<
 
   // Koconut Iterable
   async validate(data: Set<DataType> | null) {
+    /* istanbul ignore else */
     if (data != null) {
       let index = 0;
       const keys = new Array<DataType>();
@@ -212,14 +213,14 @@ export class KoconutSet<DataType> extends KoconutCollection<
     generator: Generator<DataType>,
     thisArg: any = null,
   ): KoconutSet<DataType> {
-    if (count < 0)
-      throw new KoconutInvalidArgumentException(
-        `Count must be larger than 0. Given value : ${count}.`,
-      );
     generator = generator.bind(thisArg);
     const koconutToReturn = new KoconutSet<DataType>();
     (koconutToReturn as any as KoconutOpener<Set<DataType>>).setProcessor(
       async () => {
+        if (count < 0)
+          throw new KoconutInvalidArgumentException(
+            `Count must be larger than 0. Given value : ${count}.`,
+          );
         const processedSet = new Set<DataType>();
         for (let eachIndex = 0; eachIndex < count; eachIndex++)
           processedSet.add(await generator(eachIndex));

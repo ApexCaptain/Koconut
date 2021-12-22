@@ -21,24 +21,111 @@ import {
 
   /* Exception */
   KoconutNoSuchElementException,
+  KoconutInvalidArgumentException,
 } from '../src/module';
-import { Person, ProductInfo } from './TestDataClasses';
+import { Person, ProductInfo, Dog } from './TestDataClasses';
 
 KoconutDeprecation.isRunningOnDevUnitTesting = true;
 
+describe(`${KoconutMap.name} -- Creator`, () => {
+  it(`constructor`, async () => {
+    const koconut = new KoconutMap([
+      [0, 'a'],
+      new Entry(1, 'b'),
+      new Pair(2, 'c'),
+    ]);
+    const result = await koconut.yield();
+    expect(result).eqls(
+      new Map([
+        [0, 'a'],
+        [1, 'b'],
+        [2, 'c'],
+      ]),
+    );
+  });
+
+  it(`${KoconutMap.from.name}`, async () => {
+    const koconut = KoconutMap.from<number, number>();
+    const result = await koconut.yield();
+    expect(result).eqls(new Map<number, number>());
+  });
+
+  it(`${KoconutMap.generate.name}`, async () => {
+    /* Case 1 */
+    const koconutCase1 = KoconutMap.generate(5, (index) => {
+      if (index == 0) return [index, index + 1];
+      else if (index == 1) return new Pair(index, index + 1);
+      else if (index == 2) return new KoconutPair(index, index + 1);
+      else if (index == 3) return new Entry(index, index + 1);
+      else return new KoconutEntry(index, index + 1);
+    });
+
+    const resultCase1 = await koconutCase1.yield();
+    expect(resultCase1).eqls(
+      new Map([
+        [0, 1],
+        [1, 2],
+        [2, 3],
+        [3, 4],
+        [4, 5],
+      ]),
+    );
+
+    /* Case 2 */
+    const koconutCase2 = KoconutMap.generate(-1, (index) => [index, index + 1]);
+    try {
+      await koconutCase2.process();
+    } catch (error) {
+      expect(error).to.be.instanceOf(KoconutInvalidArgumentException);
+    }
+  });
+});
+
+describe(`${KoconutMap.name} -- Processor`, () => {
+  it(`${KoconutMap.prototype.retrieve.name}`, async () => {
+    const koconut = KoconutMap.of([0, 1], [1, 2]);
+    const yieldable = await koconut.retrieve();
+    expect(yieldable).eqls(koconut);
+    const result = await yieldable.yield();
+    expect(result).eqls(
+      new Map([
+        [0, 1],
+        [1, 2],
+      ]),
+    );
+  });
+});
+
 describe(`${KoconutMap.name} -- Accessor`, () => {
   it('entries', async () => {
-    const koconut = KoconutMap.of([0, 'a'], [1, 'b'], [2, 'c']);
+    /* Case 1 */
+    const koconutCase1 = KoconutMap.of([0, 'a'], [1, 'b'], [2, 'c']);
 
-    const yieldable = koconut.entries;
-    expect(yieldable).to.be.instanceOf(KoconutSet);
-    const result = await yieldable.yield();
-    const expectedResultEntryArray = [
+    const yieldableCase1 = koconutCase1.entries;
+    expect(yieldableCase1).to.be.instanceOf(KoconutSet);
+    const resultCase1 = await yieldableCase1.yield();
+    const expectedResultEntryArrayCase1 = [
       new Entry(0, 'a'),
       new Entry(1, 'b'),
       new Entry(2, 'c'),
     ];
-    expect(result).eqls(new Set(expectedResultEntryArray));
+    expect(resultCase1).eqls(new Set(expectedResultEntryArrayCase1));
+
+    /* Case 2 */
+    const koconutCase2 = KoconutMap.of(
+      [new Dog('unknown', 0, 0), 1],
+      [new Dog('unknown', 2, 0), 2],
+      [new Dog('unknown', 0, 1), 3],
+    );
+
+    const yieldableCase2 = koconutCase2.entries;
+    expect(yieldableCase2).to.be.instanceOf(KoconutSet);
+    const resultCase2 = await yieldableCase2.yield();
+    const expectedResultEntryArrayCase2 = [
+      new Entry(new Dog('unknown', 0, 0), 1),
+      new Entry(new Dog('unknown', 0, 1), 3),
+    ];
+    expect(resultCase2).eqls(new Set(expectedResultEntryArrayCase2));
   });
 
   it('keys', async () => {
@@ -818,6 +905,18 @@ describe(`${KoconutMap.name} -- Inspector`, () => {
     expect(yieldableCase2).to.be.instanceOf(KoconutBoolean);
     const resultCase2 = await yieldableCase2.yield();
     expect(resultCase2).equals(true);
+
+    /* Case 3 */
+    const koconutCase3 = KoconutArray.of(
+      new Dog('Brie', 3, 0),
+      new Dog('Mike', 5, 1),
+      new Dog('unknown', 3, 0),
+    ).associate((eachElement) => [eachElement, eachElement.name]);
+
+    const yieldableCase3 = koconutCase3.contains(new Dog('unknown', -1, 4));
+    expect(yieldableCase1).to.be.instanceOf(KoconutBoolean);
+    const resultCase3 = await yieldableCase3.yield();
+    expect(resultCase3).equal(false);
   });
 
   it(KoconutMap.prototype.containsKey.name, async () => {
@@ -878,6 +977,20 @@ describe(`${KoconutMap.name} -- Inspector`, () => {
     expect(yieldableCase2).to.be.instanceOf(KoconutBoolean);
     const resultCase2 = await yieldableCase2.yield();
     expect(resultCase2).equals(true);
+
+    /* Case 3 */
+    const koconutCase3 = KoconutArray.of(
+      new Dog('Brie', 3, 0),
+      new Dog('Mike', 5, 1),
+      new Dog('unknown', 3, 0),
+    ).associate((eachElement) => [eachElement.name, eachElement]);
+
+    const yieldableCase3 = koconutCase3.containsValue(
+      new Dog('unknown', -1, 4),
+    );
+    expect(yieldableCase1).to.be.instanceOf(KoconutBoolean);
+    const resultCase3 = await yieldableCase3.yield();
+    expect(resultCase3).equal(false);
   });
 
   it(KoconutMap.prototype.none.name, async () => {
@@ -1141,6 +1254,12 @@ describe(`${KoconutMap.name} -- Manipulator`, () => {
     expect(yieldableCase8).to.be.instanceOf(KoconutMap);
     const resultCase8 = await yieldableCase8.yield();
     expect(resultCase8).eqls(expectedResultMap);
+
+    /* Case 9 */
+    const yieldableCase9 = koconut.plus([4, 4], [5, 5]);
+    expect(yieldableCase9).to.be.instanceOf(KoconutMap);
+    const resultCase9 = await yieldableCase9.yield();
+    expect(resultCase9).eqls(expectedResultMap);
   });
 });
 
@@ -1183,6 +1302,18 @@ describe(`${KoconutMap.name} -- Selector`, () => {
     expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive);
     const resultCase3 = await yieldableCase3.yield();
     expect(resultCase3).equals('GraceHopper');
+
+    /* Case 4 */
+    const koconutCase4 = KoconutMap.of(
+      [new Dog('unknown', 0, 0), 1],
+      [new Dog('unknown', 2, 0), 2],
+      [new Dog('unknown', 0, 1), 3],
+    );
+
+    const yieldableCase4 = koconutCase4.get(new Dog('Brie', 1, 1));
+    expect(yieldableCase4).to.be.instanceOf(KoconutPrimitive);
+    const resultCase4 = await yieldableCase4.yield();
+    expect(resultCase4).to.be.eqls(3);
   });
 
   it(KoconutMap.prototype.getOrDefault.name, async () => {
@@ -1226,6 +1357,18 @@ describe(`${KoconutMap.name} -- Selector`, () => {
     expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive);
     const resultCase3 = await yieldableCase3.yield();
     expect(resultCase3).equals('GraceHopper');
+
+    /* Case 4 */
+    const koconutCase4 = KoconutMap.of(
+      [new Dog('unknown', 0, 0), 1],
+      [new Dog('unknown', 2, 0), 2],
+      [new Dog('unknown', 0, 1), 3],
+    );
+
+    const yieldableCase4 = koconutCase4.getOrDefault(new Dog('Brie', 1, 2), 10);
+    expect(yieldableCase4).to.be.instanceOf(KoconutPrimitive);
+    const resultCase4 = await yieldableCase4.yield();
+    expect(resultCase4).to.be.eqls(10);
   });
 
   it(KoconutMap.prototype.getOrElse.name, async () => {
@@ -1269,6 +1412,21 @@ describe(`${KoconutMap.name} -- Selector`, () => {
     expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive);
     const resultCase3 = await yieldableCase3.yield();
     expect(resultCase3).equals('GraceHopper');
+
+    /* Case 4 */
+    const koconutCase4 = KoconutMap.of(
+      [new Dog('unknown', 0, 0), 1],
+      [new Dog('unknown', 2, 0), 2],
+      [new Dog('unknown', 0, 1), 3],
+    );
+
+    const yieldableCase4 = koconutCase4.getOrElse(
+      new Dog('Brie', 1, 2),
+      () => 10,
+    );
+    expect(yieldableCase4).to.be.instanceOf(KoconutPrimitive);
+    const resultCase4 = await yieldableCase4.yield();
+    expect(resultCase4).to.be.eqls(10);
   });
 
   it(KoconutMap.prototype.getValue.name, async () => {
@@ -1312,6 +1470,18 @@ describe(`${KoconutMap.name} -- Selector`, () => {
     expect(yieldableCase3).to.be.instanceOf(KoconutPrimitive);
     const resultCase3 = await yieldableCase3.yield();
     expect(resultCase3).equals('GraceHopper');
+
+    /* Case 4 */
+    const koconutCase4 = KoconutMap.of(
+      [new Dog('unknown', 0, 0), 1],
+      [new Dog('unknown', 2, 0), 2],
+      [new Dog('unknown', 0, 1), 3],
+    );
+
+    const yieldableCase4 = koconutCase4.getValue(new Dog('Brie', 1, 1));
+    expect(yieldableCase4).to.be.instanceOf(KoconutPrimitive);
+    const resultCase4 = await yieldableCase4.yield();
+    expect(resultCase4).to.be.eqls(3);
   });
 });
 
