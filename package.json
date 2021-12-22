@@ -1,6 +1,6 @@
 {
   "name": "koconut",
-  "version": "1.0.164",
+  "version": "1.0.165",
   "description": "Provide interchainable array, set, map and etc supporting both normal and async callbacks as their action arguments.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

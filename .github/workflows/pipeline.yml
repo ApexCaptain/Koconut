@@ -19,7 +19,6 @@ jobs:
             windows-2022,
             windows-latest,
             # Mac
-            macos-11,
             macos-latest,
           ] # https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#github-hosted-runners
         node-version: [12.x, 13.x, 14.x, 15.x, 16.x]
