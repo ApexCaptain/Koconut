@@ -2,6 +2,45 @@
 
 ## Currently Working on...
 
+<br>
+<br>
+<hr>
+<br>
+
+## Release **v1.0.165**
+
+<div style="text-align: right; font-weight : bold; color : orange">
+22 Dec 2021
+</div>
+
+### Buf Fixes and Other Changes
+
+- You can use koconut in browser env with [bower](https://bower.io/)
+  - To install, type
+    ```bash
+      bower install git@github.com:ApexCaptain/Koconut.git
+    ```
+  - Then, add src script to .html file
+    ```html
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="UTF-8" />
+        <title>Your page title</title>
+        <script src="bower_components/koconut/webpack/koconut.js"></script>
+      </head>
+      <body>
+        ...
+      </body>
+      <script>
+        KoconutArray.of(1, 2, 3, 4, 5)
+          .onEach(alert)
+          .process()
+          .then(() => alert('Nailed it!'));
+      </script>
+    </html>
+    ```
+
 ### Repository
 
 - [Code coverage page](https://apexcaptain.github.io/Koconut/coverage/index.html) added.
