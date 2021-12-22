@@ -24,12 +24,22 @@ This is a [Node.js](https://nodejs.org/en/) library available through the [npm r
 
 To install this lib you may use either `npm` or `yarn` command.
 
+### Using [npm](https://www.npmjs.com/)
+
 ```sh
 npm install koconut --save
+```
 
-# or
+### Using [yarn](https://yarnpkg.com/)
 
+```sh
 yarn add koconut
+```
+
+### Using [bower](https://bower.io/) (Browser env)
+
+```
+bower install git@github.com:ApexCaptain/Koconut.git
 ```
 
 But before that, please have a check whether [Node.js is correctly installed](https://nodejs.org/en/download/) into your dev env.

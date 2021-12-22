@@ -1,12 +1,5 @@
 # Change-Log
 
-## Currently Working on...
-
-<br>
-<br>
-<hr>
-<br>
-
 ## Release **v1.0.165**
 
 <div style="text-align: right; font-weight : bold; color : orange">
@@ -17,7 +10,7 @@
 
 - You can use koconut in browser env with [bower](https://bower.io/)
   - To install, type
-    ```bash
+    ```sh
       bower install git@github.com:ApexCaptain/Koconut.git
     ```
   - Then, add src script to .html file
