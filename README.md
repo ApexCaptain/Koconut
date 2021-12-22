@@ -20,10 +20,6 @@
 
 # Installation
 
-This is a [Node.js](https://nodejs.org/en/) library available through the [npm registry](https://www.npmjs.com/).
-
-To install this lib you may use either `npm` or `yarn` command.
-
 ### Using [npm](https://www.npmjs.com/)
 
 ```sh
@@ -41,8 +37,6 @@ yarn add koconut
 ```
 bower install git@github.com:ApexCaptain/Koconut.git
 ```
-
-But before that, please have a check whether [Node.js is correctly installed](https://nodejs.org/en/download/) into your dev env.
 
 # Introduction
 
