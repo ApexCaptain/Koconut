@@ -167,11 +167,6 @@ var KoconutIterable = (function (_KoconutPrimitive) {
     _this = _super.call.apply(_super, [this].concat(args));
     (0, _defineProperty2['default'])(
       (0, _assertThisInitialized2['default'])(_this),
-      'combinedDataWrapper',
-      void 0,
-    );
-    (0, _defineProperty2['default'])(
-      (0, _assertThisInitialized2['default'])(_this),
       'mSize',
       0,
     );

@@ -175,7 +175,7 @@ var _mInnerDataArray = new WeakMap();
 
 _Symbol$iterator = Symbol.iterator;
 
-var Sequence = (function (_Symbol$iterator2) {
+var Sequence = (function () {
   function Sequence() {
     var srcSequence =
       arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
@@ -229,7 +229,7 @@ var Sequence = (function (_Symbol$iterator2) {
     Sequence,
     [
       {
-        key: _Symbol$iterator2,
+        key: _Symbol$iterator,
         value: function value() {
           return (0, _classPrivateFieldGet2['default'])(this, _mInnerDataArray)[
             Symbol.iterator
@@ -492,7 +492,7 @@ var Sequence = (function (_Symbol$iterator2) {
     ],
   );
   return Sequence;
-})(_Symbol$iterator);
+})();
 
 exports.Sequence = Sequence;
 

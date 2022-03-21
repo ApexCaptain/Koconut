@@ -55,4 +55,3 @@ exports.KoconutOption = KoconutOption;
   'doesDeprecationWarningShowCallStack',
   true,
 );
-(0, _defineProperty2['default'])(KoconutOption, '_locale', void 0);

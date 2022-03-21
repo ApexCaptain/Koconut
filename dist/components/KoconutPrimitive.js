@@ -36,9 +36,6 @@ var KoconutPrimitive = (function () {
     var data =
       arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
     (0, _classCallCheck2['default'])(this, KoconutPrimitive);
-    (0, _defineProperty2['default'])(this, 'data', void 0);
-    (0, _defineProperty2['default'])(this, 'prevYieldable', void 0);
-    (0, _defineProperty2['default'])(this, 'processor', void 0);
     (0, _defineProperty2['default'])(this, 'isValidated', false);
     this.data = data;
   }

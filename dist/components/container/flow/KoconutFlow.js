@@ -156,7 +156,7 @@ function _isNativeReflectConstruct() {
 
 _Symbol$iterator = Symbol.iterator;
 
-var Flow = (function (_EventEmitter, _Symbol$iterator2) {
+var Flow = (function (_EventEmitter) {
   (0, _inherits2['default'])(Flow, _EventEmitter);
 
   var _super = _createSuper(Flow);
@@ -212,7 +212,7 @@ var Flow = (function (_EventEmitter, _Symbol$iterator2) {
     Flow,
     [
       {
-        key: _Symbol$iterator2,
+        key: _Symbol$iterator,
         value: function value() {
           return this.dataEntries[Symbol.iterator]();
         },
@@ -389,7 +389,7 @@ var Flow = (function (_EventEmitter, _Symbol$iterator2) {
     ],
   );
   return Flow;
-})(_events.EventEmitter, _Symbol$iterator);
+})(_events.EventEmitter);
 
 exports.Flow = Flow;
 (0, _defineProperty2['default'])(

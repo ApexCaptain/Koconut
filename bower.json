@@ -29,6 +29,7 @@
   ],
   "homepage": "https://apexcaptain.github.io/Koconut/",
   "ignore": [
+    ".ToDo",
     ".babelrc",
     ".devcontainer",
     ".editorconfig",
@@ -38,9 +39,7 @@
     ".github",
     ".gitignore",
     ".nycrc.json",
-    ".nyc_output",
     ".prettierrc",
-    ".ToDo",
     "CHANGELOG.md",
     "CODE_OF_CONDUCT.md",
     "commands",
@@ -48,7 +47,6 @@
     "desktop.ini",
     "dist",
     "docs",
-    "log",
     "mocha.html",
     "node_modules",
     "package.json",
@@ -58,7 +56,6 @@
     "tsconfig.json",
     "typedoc.json",
     "webpack.config.js",
-    "yarn-error.log",
     "yarn.lock"
   ]
 }

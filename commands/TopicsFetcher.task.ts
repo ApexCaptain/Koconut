@@ -14,6 +14,7 @@ const fetchTopics = async () => {
         repo: 'Koconut',
       })
     ).data.names;
+
     const packageToBeChanged = require(packageJsonPath);
     packageToBeChanged.keywords = topics;
     writeFileSync(packageJsonPath, JSON.stringify(packageToBeChanged, null, 2));
