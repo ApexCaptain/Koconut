@@ -325,6 +325,7 @@ var Sequence = (function () {
             _regenerator['default'].mark(function _callee2(index) {
               var fetchedResult;
               var _this$mLastPrevIndex;
+              var _this$mLastPrevIndex2;
               var result;
 
               return _regenerator['default'].wrap(
@@ -388,13 +389,15 @@ var Sequence = (function () {
                           ((0, _classPrivateFieldSet2['default'])(
                             this,
                             _mLastPrevIndex,
-                            (_this$mLastPrevIndex = +(0,
+                            ((_this$mLastPrevIndex = (0,
                             _classPrivateFieldGet2['default'])(
                               this,
                               _mLastPrevIndex,
-                            )) + 1,
+                            )),
+                            (_this$mLastPrevIndex2 = _this$mLastPrevIndex++),
+                            _this$mLastPrevIndex),
                           ),
-                          _this$mLastPrevIndex),
+                          _this$mLastPrevIndex2),
                           fetchedResult,
                         );
 

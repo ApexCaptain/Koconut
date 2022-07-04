@@ -1,28 +1,14 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
-// https://github.com/microsoft/vscode-dev-containers/tree/v0.187.0/containers/typescript-node
 {
-	"name": "Koconut DevContainer",
-	"build": {
-		"dockerfile": "Dockerfile",
-		"args": { 
-			"VARIANT": "16"
-		}
-	},
-
-	// Set *default* container specific settings.json values on container create.
-	"settings": {},
-
-
-	// Add the IDs of extensions you want installed when the container is created.
+	"name": "Dev Container - Koconut",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "workspace",
+	"workspaceFolder": "/workspace",
 	"extensions": [
-		"dbaeumer.vscode-eslint"
+	  "dbaeumer.vscode-eslint",
+	  "editorconfig.editorconfig",
+	  "hoovercj.vscode-power-mode",
+	  "esbenp.prettier-vscode"
 	],
-	
-	"forwardPorts": [5000],
-
-	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "yarn install",
-
-	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "node"
-}
+	"postCreateCommand": "sudo chown node node_modules"
+  }
+  

@@ -335,6 +335,11 @@ exports.KoconutDeprecation = KoconutDeprecation;
 );
 (0, _defineProperty2['default'])(
   KoconutDeprecation,
+  'devDeprecationListSet',
+  void 0,
+);
+(0, _defineProperty2['default'])(
+  KoconutDeprecation,
   'devDeprecationListTmpDirPath',
   './log',
 );

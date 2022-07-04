@@ -1,12 +1,22 @@
 # Change-Log
 
+## Release **v1.0.166**
+
+<div style="text-align: right; font-weight : bold; color : orange">
+04 Jul 2022
+</div>
+
+### Bug Fixes and Other Changes
+
+- All the package-deps updated
+
 ## Release **v1.0.165**
 
 <div style="text-align: right; font-weight : bold; color : orange">
 22 Dec 2021
 </div>
 
-### Buf Fixes and Other Changes
+### Bug Fixes and Other Changes
 
 - You can use koconut in browser env with [bower](https://bower.io/)
   - To install, type
