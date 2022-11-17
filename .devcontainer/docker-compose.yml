@@ -8,7 +8,7 @@ services:
       dockerfile: .devcontainer/Dockerfile
       args:
         NODE_VERSION: 16
-        NPM_VERSION: '8.13.1'
+        NPM_VERSION: 9.1.1
 
     volumes:
       - ..:/workspace:cached

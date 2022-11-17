@@ -38,6 +38,12 @@ yarn add koconut
 bower install git@github.com:ApexCaptain/Koconut.git
 ```
 
+### Using [unpkg](https://unpkg.com/) (Browser env)
+
+```html
+<script src="https://unpkg.com/koconut@latest/webpack/koconut"></script>
+```
+
 # Introduction
 
 This is a node.js library for collection(a.k.a data structure). It's fully written in TypeScript, but also compatible with JavaScript application. It's 100% [Apache-2.0](https://github.com/ApexCaptain/Koconut/blob/master/LICENSE) licensed.
