@@ -1,44 +1,33 @@
 'use strict';
 
 var _interopRequireDefault = require('@babel/runtime/helpers/interopRequireDefault');
-
 Object.defineProperty(exports, '__esModule', {
   value: true,
 });
 exports.KoconutEntry = exports.Entry = void 0;
-
 var _regenerator = _interopRequireDefault(
   require('@babel/runtime/regenerator'),
 );
-
 var _asyncToGenerator2 = _interopRequireDefault(
   require('@babel/runtime/helpers/asyncToGenerator'),
 );
-
 var _get2 = _interopRequireDefault(require('@babel/runtime/helpers/get'));
-
 var _inherits2 = _interopRequireDefault(
   require('@babel/runtime/helpers/inherits'),
 );
-
 var _possibleConstructorReturn2 = _interopRequireDefault(
   require('@babel/runtime/helpers/possibleConstructorReturn'),
 );
-
 var _getPrototypeOf2 = _interopRequireDefault(
   require('@babel/runtime/helpers/getPrototypeOf'),
 );
-
 var _classCallCheck2 = _interopRequireDefault(
   require('@babel/runtime/helpers/classCallCheck'),
 );
-
 var _createClass2 = _interopRequireDefault(
   require('@babel/runtime/helpers/createClass'),
 );
-
 var _module = require('../../../module');
-
 function _createSuper(Derived) {
   var hasNativeReflectConstruct = _isNativeReflectConstruct();
   return function _createSuperInternal() {
@@ -53,7 +42,6 @@ function _createSuper(Derived) {
     return (0, _possibleConstructorReturn2['default'])(this, result);
   };
 }
-
 function _isNativeReflectConstruct() {
   if (typeof Reflect === 'undefined' || !Reflect.construct) return false;
   if (Reflect.construct.sham) return false;
@@ -67,7 +55,6 @@ function _isNativeReflectConstruct() {
     return false;
   }
 }
-
 var Entry = (function () {
   function Entry(keyElement, valueElement) {
     (0, _classCallCheck2['default'])(this, Entry);
@@ -137,17 +124,12 @@ var Entry = (function () {
   );
   return Entry;
 })();
-
 exports.Entry = Entry;
-
-var KoconutEntry = (function (_KoconutPrimitive) {
-  (0, _inherits2['default'])(KoconutEntry, _KoconutPrimitive);
-
+var KoconutEntry = (function (_ref) {
+  (0, _inherits2['default'])(KoconutEntry, _ref);
   var _super = _createSuper(KoconutEntry);
-
   function KoconutEntry() {
     var _this;
-
     var key =
       arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
     var value =
@@ -178,10 +160,8 @@ var KoconutEntry = (function (_KoconutPrimitive) {
                         'retrieve',
                         this,
                       ).call(this);
-
                     case 2:
                       return _context.abrupt('return', this);
-
                     case 3:
                     case 'end':
                       return _context.stop();
@@ -193,11 +173,9 @@ var KoconutEntry = (function (_KoconutPrimitive) {
             );
           }),
         );
-
         function retrieve() {
           return _retrieve.apply(this, arguments);
         }
-
         return retrieve;
       })(),
     },
@@ -212,5 +190,4 @@ var KoconutEntry = (function (_KoconutPrimitive) {
   ]);
   return KoconutEntry;
 })(_module.KoconutPrimitive);
-
 exports.KoconutEntry = KoconutEntry;

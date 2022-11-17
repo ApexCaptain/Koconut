@@ -5,10 +5,8 @@ Object.defineProperty(exports, '__esModule', {
 });
 exports.KoconutLocale = void 0;
 ('use strict');
-
 var KoconutLocale;
 exports.KoconutLocale = KoconutLocale;
-
 (function (KoconutLocale) {
   KoconutLocale['en'] = 'en';
   KoconutLocale['en_AU'] = 'en-AU';
@@ -29,18 +27,15 @@ exports.KoconutLocale = KoconutLocale;
   KoconutLocale['ko'] = 'ko';
   KoconutLocale['ko_KR'] = 'ko-KR';
 })(KoconutLocale || (exports.KoconutLocale = KoconutLocale = {}));
-
 var localeNames = Object.values(KoconutLocale);
 var upperCaseLocaleNames = localeNames.map(function (eachName) {
   return eachName.toString().toUpperCase();
 });
-
 (function (_KoconutLocale) {
   function fromString(localeString) {
     return upperCaseLocaleNames.includes(localeString.toUpperCase())
       ? localeNames[upperCaseLocaleNames.indexOf(localeString.toUpperCase())]
       : KoconutLocale.en_US;
   }
-
   _KoconutLocale.fromString = fromString;
 })(KoconutLocale || (exports.KoconutLocale = KoconutLocale = {}));

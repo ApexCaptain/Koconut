@@ -5,10 +5,8 @@ Object.defineProperty(exports, '__esModule', {
 });
 exports.KoconutLoopSignal = void 0;
 ('use strict');
-
 var KoconutLoopSignal;
 exports.KoconutLoopSignal = KoconutLoopSignal;
-
 (function (KoconutLoopSignal) {
   KoconutLoopSignal[(KoconutLoopSignal['CONTINUE'] = 0)] = 'CONTINUE';
   KoconutLoopSignal[(KoconutLoopSignal['BREAK'] = 1)] = 'BREAK';

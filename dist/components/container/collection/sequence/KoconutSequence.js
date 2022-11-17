@@ -1,52 +1,39 @@
 'use strict';
 
 var _interopRequireDefault = require('@babel/runtime/helpers/interopRequireDefault');
-
 Object.defineProperty(exports, '__esModule', {
   value: true,
 });
 exports.Sequence = exports.KoconutSequence = void 0;
-
 var _regenerator = _interopRequireDefault(
   require('@babel/runtime/regenerator'),
 );
-
 var _inherits2 = _interopRequireDefault(
   require('@babel/runtime/helpers/inherits'),
 );
-
 var _possibleConstructorReturn2 = _interopRequireDefault(
   require('@babel/runtime/helpers/possibleConstructorReturn'),
 );
-
 var _getPrototypeOf2 = _interopRequireDefault(
   require('@babel/runtime/helpers/getPrototypeOf'),
 );
-
 var _asyncToGenerator2 = _interopRequireDefault(
   require('@babel/runtime/helpers/asyncToGenerator'),
 );
-
 var _classCallCheck2 = _interopRequireDefault(
   require('@babel/runtime/helpers/classCallCheck'),
 );
-
 var _createClass2 = _interopRequireDefault(
   require('@babel/runtime/helpers/createClass'),
 );
-
 var _classPrivateFieldSet2 = _interopRequireDefault(
   require('@babel/runtime/helpers/classPrivateFieldSet'),
 );
-
 var _classPrivateFieldGet2 = _interopRequireDefault(
   require('@babel/runtime/helpers/classPrivateFieldGet'),
 );
-
 var _module = require('../../../../module');
-
 var _Symbol$iterator;
-
 function _createSuper(Derived) {
   var hasNativeReflectConstruct = _isNativeReflectConstruct();
   return function _createSuperInternal() {
@@ -61,7 +48,6 @@ function _createSuper(Derived) {
     return (0, _possibleConstructorReturn2['default'])(this, result);
   };
 }
-
 function _isNativeReflectConstruct() {
   if (typeof Reflect === 'undefined' || !Reflect.construct) return false;
   if (Reflect.construct.sham) return false;
@@ -75,7 +61,6 @@ function _isNativeReflectConstruct() {
     return false;
   }
 }
-
 function _createForOfIteratorHelper(o, allowArrayLike) {
   var it =
     (typeof Symbol !== 'undefined' && o[Symbol.iterator]) || o['@@iterator'];
@@ -129,7 +114,6 @@ function _createForOfIteratorHelper(o, allowArrayLike) {
     },
   };
 }
-
 function _unsupportedIterableToArray(o, minLen) {
   if (!o) return;
   if (typeof o === 'string') return _arrayLikeToArray(o, minLen);
@@ -139,7 +123,6 @@ function _unsupportedIterableToArray(o, minLen) {
   if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
     return _arrayLikeToArray(o, minLen);
 }
-
 function _arrayLikeToArray(arr, len) {
   if (len == null || len > arr.length) len = arr.length;
   for (var i = 0, arr2 = new Array(len); i < len; i++) {
@@ -147,12 +130,10 @@ function _arrayLikeToArray(arr, len) {
   }
   return arr2;
 }
-
 function _classPrivateFieldInitSpec(obj, privateMap, value) {
   _checkPrivateRedeclaration(obj, privateMap);
   privateMap.set(obj, value);
 }
-
 function _checkPrivateRedeclaration(obj, privateCollection) {
   if (privateCollection.has(obj)) {
     throw new TypeError(
@@ -160,56 +141,41 @@ function _checkPrivateRedeclaration(obj, privateCollection) {
     );
   }
 }
-
 ('use strict');
-
 var _mIsFinished = new WeakMap();
-
 var _mLastPrevIndex = new WeakMap();
-
 var _mParentSequence = new WeakMap();
-
 var _mTransformer = new WeakMap();
-
 var _mInnerDataArray = new WeakMap();
-
 _Symbol$iterator = Symbol.iterator;
-
 var Sequence = (function () {
   function Sequence() {
     var srcSequence =
       arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
     (0, _classCallCheck2['default'])(this, Sequence);
-
     _classPrivateFieldInitSpec(this, _mIsFinished, {
       writable: true,
       value: false,
     });
-
     _classPrivateFieldInitSpec(this, _mLastPrevIndex, {
       writable: true,
       value: 0,
     });
-
     _classPrivateFieldInitSpec(this, _mParentSequence, {
       writable: true,
       value: null,
     });
-
     _classPrivateFieldInitSpec(this, _mTransformer, {
       writable: true,
       value: null,
     });
-
     _classPrivateFieldInitSpec(this, _mInnerDataArray, {
       writable: true,
       value: new Array(),
     });
-
     if (srcSequence != null) {
       var _iterator = _createForOfIteratorHelper(srcSequence);
       var _step;
-
       try {
         for (_iterator.s(); !(_step = _iterator.n()).done; ) {
           var eachDatum = _step.value;
@@ -224,7 +190,6 @@ var Sequence = (function () {
       }
     }
   }
-
   (0, _createClass2['default'])(
     Sequence,
     [
@@ -262,7 +227,6 @@ var Sequence = (function () {
                             _mIsFinished,
                             false,
                           );
-
                       case 2:
                         if (
                           (0, _classPrivateFieldGet2['default'])(
@@ -273,14 +237,11 @@ var Sequence = (function () {
                           _context.next = 7;
                           break;
                         }
-
                         _context.next = 5;
                         return this.getDatum(index++);
-
                       case 5:
                         _context.next = 2;
                         break;
-
                       case 7:
                         (0, _classPrivateFieldSet2['default'])(
                           this,
@@ -298,7 +259,6 @@ var Sequence = (function () {
                           0,
                         );
                         return _context.abrupt('return', this);
-
                       case 11:
                       case 'end':
                         return _context.stop();
@@ -310,11 +270,9 @@ var Sequence = (function () {
               );
             }),
           );
-
           function done() {
             return _done.apply(this, arguments);
           }
-
           return done;
         })(),
       },
@@ -327,7 +285,6 @@ var Sequence = (function () {
               var _this$mLastPrevIndex;
               var _this$mLastPrevIndex2;
               var result;
-
               return _regenerator['default'].wrap(
                 function _callee2$(_context2) {
                   while (1) {
@@ -344,7 +301,6 @@ var Sequence = (function () {
                           _context2.next = 5;
                           break;
                         }
-
                         if (
                           index ==
                           (0, _classPrivateFieldGet2['default'])(
@@ -365,22 +321,18 @@ var Sequence = (function () {
                             _mInnerDataArray,
                           )[index],
                         );
-
                       case 5:
                         _context2.next = 7;
                         return (0, _classPrivateFieldGet2['default'])(
                           this,
                           _mParentSequence,
                         ).getDatum(index);
-
                       case 7:
                         fetchedResult = _context2.sent;
-
                         if (!fetchedResult) {
                           _context2.next = 15;
                           break;
                         }
-
                         _context2.next = 11;
                         return (0, _classPrivateFieldGet2['default'])(
                           this,
@@ -400,7 +352,6 @@ var Sequence = (function () {
                           _this$mLastPrevIndex2),
                           fetchedResult,
                         );
-
                       case 11:
                         result = _context2.sent;
                         if (
@@ -423,7 +374,6 @@ var Sequence = (function () {
                             _mInnerDataArray,
                           ).push(result);
                         return _context2.abrupt('return', result);
-
                       case 15:
                       case 'end':
                         return _context2.stop();
@@ -435,11 +385,9 @@ var Sequence = (function () {
               );
             }),
           );
-
           function getDatum(_x) {
             return _getDatum.apply(this, arguments);
           }
-
           return getDatum;
         })(),
       },
@@ -478,7 +426,6 @@ var Sequence = (function () {
           ) {
             srcSequence[_key] = arguments[_key];
           }
-
           return new Sequence(srcSequence);
         },
       },
@@ -496,17 +443,12 @@ var Sequence = (function () {
   );
   return Sequence;
 })();
-
 exports.Sequence = Sequence;
-
 var KoconutSequence = (function (_KoconutCollection) {
   (0, _inherits2['default'])(KoconutSequence, _KoconutCollection);
-
   var _super = _createSuper(KoconutSequence);
-
   function KoconutSequence() {
     var _this;
-
     var srcSequence =
       arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
     (0, _classCallCheck2['default'])(this, KoconutSequence);
@@ -514,7 +456,6 @@ var KoconutSequence = (function (_KoconutCollection) {
     _this.data = new Sequence(srcSequence);
     return _this;
   }
-
   (0, _createClass2['default'])(
     KoconutSequence,
     [
@@ -522,7 +463,6 @@ var KoconutSequence = (function (_KoconutCollection) {
         key: 'onEach',
         value: function onEach(action) {
           var _this2 = this;
-
           var thisArg =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
@@ -562,10 +502,8 @@ var KoconutSequence = (function (_KoconutCollection) {
                                               _context3.next = 5;
                                               break;
                                             }
-
                                             _context3.next = 3;
                                             return action(srcDatum);
-
                                           case 3:
                                             signal = _context3.sent;
                                             if (
@@ -574,13 +512,11 @@ var KoconutSequence = (function (_KoconutCollection) {
                                                 _module.KoconutLoopSignal.BREAK
                                             )
                                               continueProcess = false;
-
                                           case 5:
                                             return _context3.abrupt(
                                               'return',
                                               srcDatum,
                                             );
-
                                           case 6:
                                           case 'end':
                                             return _context3.stop();
@@ -591,14 +527,12 @@ var KoconutSequence = (function (_KoconutCollection) {
                                   );
                                 }),
                               );
-
                               return function (_x2, _x3) {
                                 return _ref2.apply(this, arguments);
                               };
                             })(),
                           ),
                         );
-
                       case 2:
                       case 'end':
                         return _context4.stop();
@@ -616,7 +550,6 @@ var KoconutSequence = (function (_KoconutCollection) {
         key: 'onEachIndexed',
         value: function onEachIndexed(action) {
           var _this3 = this;
-
           var thisArg =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
@@ -656,10 +589,8 @@ var KoconutSequence = (function (_KoconutCollection) {
                                               _context5.next = 5;
                                               break;
                                             }
-
                                             _context5.next = 3;
                                             return action(index, srcDatum);
-
                                           case 3:
                                             signal = _context5.sent;
                                             if (
@@ -668,13 +599,11 @@ var KoconutSequence = (function (_KoconutCollection) {
                                                 _module.KoconutLoopSignal.BREAK
                                             )
                                               continueProcess = false;
-
                                           case 5:
                                             return _context5.abrupt(
                                               'return',
                                               srcDatum,
                                             );
-
                                           case 6:
                                           case 'end':
                                             return _context5.stop();
@@ -685,14 +614,12 @@ var KoconutSequence = (function (_KoconutCollection) {
                                   );
                                 }),
                               );
-
                               return function (_x4, _x5) {
                                 return _ref4.apply(this, arguments);
                               };
                             })(),
                           ),
                         );
-
                       case 2:
                       case 'end':
                         return _context6.stop();
@@ -710,7 +637,6 @@ var KoconutSequence = (function (_KoconutCollection) {
         key: 'filter',
         value: function filter(predicate) {
           var _this4 = this;
-
           var thisArg =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
@@ -745,18 +671,15 @@ var KoconutSequence = (function (_KoconutCollection) {
                                           case 0:
                                             _context7.next = 2;
                                             return predicate(srcDatum);
-
                                           case 2:
                                             if (!_context7.sent) {
                                               _context7.next = 4;
                                               break;
                                             }
-
                                             return _context7.abrupt(
                                               'return',
                                               srcDatum,
                                             );
-
                                           case 4:
                                           case 'end':
                                             return _context7.stop();
@@ -767,14 +690,12 @@ var KoconutSequence = (function (_KoconutCollection) {
                                   );
                                 }),
                               );
-
                               return function (_x6, _x7) {
                                 return _ref6.apply(this, arguments);
                               };
                             })(),
                           ),
                         );
-
                       case 1:
                       case 'end':
                         return _context8.stop();
@@ -792,7 +713,6 @@ var KoconutSequence = (function (_KoconutCollection) {
         key: 'filterIndexed',
         value: function filterIndexed(predicate) {
           var _this5 = this;
-
           var thisArg =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
@@ -827,18 +747,15 @@ var KoconutSequence = (function (_KoconutCollection) {
                                           case 0:
                                             _context9.next = 2;
                                             return predicate(index, srcDatum);
-
                                           case 2:
                                             if (!_context9.sent) {
                                               _context9.next = 4;
                                               break;
                                             }
-
                                             return _context9.abrupt(
                                               'return',
                                               srcDatum,
                                             );
-
                                           case 4:
                                           case 'end':
                                             return _context9.stop();
@@ -849,14 +766,12 @@ var KoconutSequence = (function (_KoconutCollection) {
                                   );
                                 }),
                               );
-
                               return function (_x8, _x9) {
                                 return _ref8.apply(this, arguments);
                               };
                             })(),
                           ),
                         );
-
                       case 1:
                       case 'end':
                         return _context10.stop();
@@ -884,7 +799,6 @@ var KoconutSequence = (function (_KoconutCollection) {
           ) {
             srcSequence[_key2] = arguments[_key2];
           }
-
           return new KoconutSequence(srcSequence);
         },
       },
@@ -902,5 +816,4 @@ var KoconutSequence = (function (_KoconutCollection) {
   );
   return KoconutSequence;
 })(_module.KoconutCollection);
-
 exports.KoconutSequence = KoconutSequence;

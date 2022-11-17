@@ -1,58 +1,43 @@
 'use strict';
 
 var _interopRequireDefault = require('@babel/runtime/helpers/interopRequireDefault');
-
 Object.defineProperty(exports, '__esModule', {
   value: true,
 });
 exports.KoconutCollection = void 0;
-
 var _regenerator = _interopRequireDefault(
   require('@babel/runtime/regenerator'),
 );
-
 var _slicedToArray2 = _interopRequireDefault(
   require('@babel/runtime/helpers/slicedToArray'),
 );
-
 var _asyncToGenerator2 = _interopRequireDefault(
   require('@babel/runtime/helpers/asyncToGenerator'),
 );
-
 var _classCallCheck2 = _interopRequireDefault(
   require('@babel/runtime/helpers/classCallCheck'),
 );
-
 var _createClass2 = _interopRequireDefault(
   require('@babel/runtime/helpers/createClass'),
 );
-
 var _assertThisInitialized2 = _interopRequireDefault(
   require('@babel/runtime/helpers/assertThisInitialized'),
 );
-
 var _get2 = _interopRequireDefault(require('@babel/runtime/helpers/get'));
-
 var _inherits2 = _interopRequireDefault(
   require('@babel/runtime/helpers/inherits'),
 );
-
 var _possibleConstructorReturn2 = _interopRequireDefault(
   require('@babel/runtime/helpers/possibleConstructorReturn'),
 );
-
 var _getPrototypeOf2 = _interopRequireDefault(
   require('@babel/runtime/helpers/getPrototypeOf'),
 );
-
 var _defineProperty2 = _interopRequireDefault(
   require('@babel/runtime/helpers/defineProperty'),
 );
-
 var _module = require('../../../module');
-
 var _KoconutEntry = require('../base/KoconutEntry');
-
 function _createForOfIteratorHelper(o, allowArrayLike) {
   var it =
     (typeof Symbol !== 'undefined' && o[Symbol.iterator]) || o['@@iterator'];
@@ -106,7 +91,6 @@ function _createForOfIteratorHelper(o, allowArrayLike) {
     },
   };
 }
-
 function _unsupportedIterableToArray(o, minLen) {
   if (!o) return;
   if (typeof o === 'string') return _arrayLikeToArray(o, minLen);
@@ -116,7 +100,6 @@ function _unsupportedIterableToArray(o, minLen) {
   if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
     return _arrayLikeToArray(o, minLen);
 }
-
 function _arrayLikeToArray(arr, len) {
   if (len == null || len > arr.length) len = arr.length;
   for (var i = 0, arr2 = new Array(len); i < len; i++) {
@@ -124,7 +107,6 @@ function _arrayLikeToArray(arr, len) {
   }
   return arr2;
 }
-
 function _createSuper(Derived) {
   var hasNativeReflectConstruct = _isNativeReflectConstruct();
   return function _createSuperInternal() {
@@ -139,7 +121,6 @@ function _createSuper(Derived) {
     return (0, _possibleConstructorReturn2['default'])(this, result);
   };
 }
-
 function _isNativeReflectConstruct() {
   if (typeof Reflect === 'undefined' || !Reflect.construct) return false;
   if (Reflect.construct.sham) return false;
@@ -153,19 +134,13 @@ function _isNativeReflectConstruct() {
     return false;
   }
 }
-
 ('use strict');
-
 var KoconutCollection = (function (_KoconutIterable) {
   (0, _inherits2['default'])(KoconutCollection, _KoconutIterable);
-
   var _super = _createSuper(KoconutCollection);
-
   function KoconutCollection() {
     var _this;
-
     (0, _classCallCheck2['default'])(this, KoconutCollection);
-
     for (
       var _len = arguments.length, args = new Array(_len), _key = 0;
       _key < _len;
@@ -173,7 +148,6 @@ var KoconutCollection = (function (_KoconutIterable) {
     ) {
       args[_key] = arguments[_key];
     }
-
     _this = _super.call.apply(_super, [this].concat(args));
     (0, _defineProperty2['default'])(
       (0, _assertThisInitialized2['default'])(_this),
@@ -182,7 +156,6 @@ var KoconutCollection = (function (_KoconutIterable) {
     );
     return _this;
   }
-
   (0, _createClass2['default'])(
     KoconutCollection,
     [
@@ -192,7 +165,6 @@ var KoconutCollection = (function (_KoconutIterable) {
           var _validate = (0, _asyncToGenerator2['default'])(
             _regenerator['default'].mark(function _callee(data) {
               var _this2 = this;
-
               var dataArray;
               return _regenerator['default'].wrap(
                 function _callee$(_context) {
@@ -211,7 +183,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                             });
                           this.combinedDataWrapper = data;
                         }
-
                       case 1:
                       case 'end':
                         return _context.stop();
@@ -223,11 +194,9 @@ var KoconutCollection = (function (_KoconutIterable) {
               );
             }),
           );
-
           function validate(_x) {
             return _validate.apply(this, arguments);
           }
-
           return validate;
         })(),
       },
@@ -235,7 +204,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'size',
         value: function size() {
           var _this3 = this;
-
           var koconutToReturn = new _module.KoconutPrimitive();
           koconutToReturn.setPrevYieldable(this).setProcessor(
             (0, _asyncToGenerator2['default'])(
@@ -247,7 +215,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                     switch ((_context2.prev = _context2.next)) {
                       case 0:
                         return _context2.abrupt('return', _this3.mSize);
-
                       case 1:
                       case 'end':
                         return _context2.stop();
@@ -265,7 +232,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'indices',
         value: function indices() {
           var _this4 = this;
-
           var koconutToReturn = new _module.KoconutArray();
           koconutToReturn.setPrevYieldable(this).setProcessor(
             (0, _asyncToGenerator2['default'])(
@@ -277,7 +243,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                     switch ((_context3.prev = _context3.next)) {
                       case 0:
                         return _context3.abrupt('return', _this4.mIndices);
-
                       case 1:
                       case 'end':
                         return _context3.stop();
@@ -295,7 +260,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'fold',
         value: function fold(initial, operation) {
           var _this5 = this;
-
           var thisArg =
             arguments.length > 2 && arguments[2] !== undefined
               ? arguments[2]
@@ -309,7 +273,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _iterator;
                 var _step;
                 var eachDatum;
-
                 return _regenerator['default'].wrap(
                   function _callee4$(_context4) {
                     while (1) {
@@ -318,46 +281,33 @@ var KoconutCollection = (function (_KoconutIterable) {
                           dataToReturn = initial;
                           _iterator = _createForOfIteratorHelper(_this5.data);
                           _context4.prev = 2;
-
                           _iterator.s();
-
                         case 4:
                           if ((_step = _iterator.n()).done) {
                             _context4.next = 11;
                             break;
                           }
-
                           eachDatum = _step.value;
                           _context4.next = 8;
                           return operation(dataToReturn, eachDatum);
-
                         case 8:
                           dataToReturn = _context4.sent;
-
                         case 9:
                           _context4.next = 4;
                           break;
-
                         case 11:
                           _context4.next = 16;
                           break;
-
                         case 13:
                           _context4.prev = 13;
                           _context4.t0 = _context4['catch'](2);
-
                           _iterator.e(_context4.t0);
-
                         case 16:
                           _context4.prev = 16;
-
                           _iterator.f();
-
                           return _context4.finish(16);
-
                         case 19:
                           return _context4.abrupt('return', dataToReturn);
-
                         case 20:
                         case 'end':
                           return _context4.stop();
@@ -378,7 +328,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'foldIndexed',
         value: function foldIndexed(initial, operation) {
           var _this6 = this;
-
           var thisArg =
             arguments.length > 2 && arguments[2] !== undefined
               ? arguments[2]
@@ -394,7 +343,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _step2$value;
                 var eachIndex;
                 var eachDatum;
-
                 return _regenerator['default'].wrap(
                   function _callee5$(_context5) {
                     while (1) {
@@ -405,15 +353,12 @@ var KoconutCollection = (function (_KoconutIterable) {
                             Array.from(_this6.data).entries(),
                           );
                           _context5.prev = 2;
-
                           _iterator2.s();
-
                         case 4:
                           if ((_step2 = _iterator2.n()).done) {
                             _context5.next = 11;
                             break;
                           }
-
                           (_step2$value = (0, _slicedToArray2['default'])(
                             _step2.value,
                             2,
@@ -422,34 +367,24 @@ var KoconutCollection = (function (_KoconutIterable) {
                             (eachDatum = _step2$value[1]);
                           _context5.next = 8;
                           return operation(eachIndex, dataToReturn, eachDatum);
-
                         case 8:
                           dataToReturn = _context5.sent;
-
                         case 9:
                           _context5.next = 4;
                           break;
-
                         case 11:
                           _context5.next = 16;
                           break;
-
                         case 13:
                           _context5.prev = 13;
                           _context5.t0 = _context5['catch'](2);
-
                           _iterator2.e(_context5.t0);
-
                         case 16:
                           _context5.prev = 16;
-
                           _iterator2.f();
-
                           return _context5.finish(16);
-
                         case 19:
                           return _context5.abrupt('return', dataToReturn);
-
                         case 20:
                         case 'end':
                           return _context5.stop();
@@ -470,7 +405,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'contains',
         value: function contains(element) {
           var _this7 = this;
-
           var koconutToReturn = new _module.KoconutBoolean();
           koconutToReturn.setPrevYieldable(this).setProcessor(
             (0, _asyncToGenerator2['default'])(
@@ -480,7 +414,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var eachDatum;
                 var isContained;
                 var equalityResult;
-
                 return _regenerator['default'].wrap(
                   function _callee6$(_context6) {
                     while (1) {
@@ -488,18 +421,14 @@ var KoconutCollection = (function (_KoconutIterable) {
                         case 0:
                           _iterator3 = _createForOfIteratorHelper(_this7.data);
                           _context6.prev = 1;
-
                           _iterator3.s();
-
                         case 3:
                           if ((_step3 = _iterator3.n()).done) {
                             _context6.next = 22;
                             break;
                           }
-
                           eachDatum = _step3.value;
                           isContained = false;
-
                           if (
                             !_module.KoconutTypeChecker.checkIsEquatable(
                               eachDatum,
@@ -508,9 +437,7 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _context6.next = 17;
                             break;
                           }
-
                           equalityResult = eachDatum.equalsTo(element);
-
                           if (
                             !(
                               equalityResult instanceof _module.KoconutPrimitive
@@ -519,57 +446,41 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _context6.next = 14;
                             break;
                           }
-
                           _context6.next = 11;
                           return equalityResult['yield']();
-
                         case 11:
                           isContained = _context6.sent;
                           _context6.next = 15;
                           break;
-
                         case 14:
                           isContained = equalityResult;
-
                         case 15:
                           _context6.next = 18;
                           break;
-
                         case 17:
                           isContained = eachDatum == element;
-
                         case 18:
                           if (!isContained) {
                             _context6.next = 20;
                             break;
                           }
-
                           return _context6.abrupt('return', true);
-
                         case 20:
                           _context6.next = 3;
                           break;
-
                         case 22:
                           _context6.next = 27;
                           break;
-
                         case 24:
                           _context6.prev = 24;
                           _context6.t0 = _context6['catch'](1);
-
                           _iterator3.e(_context6.t0);
-
                         case 27:
                           _context6.prev = 27;
-
                           _iterator3.f();
-
                           return _context6.finish(27);
-
                         case 30:
                           return _context6.abrupt('return', false);
-
                         case 31:
                         case 'end':
                           return _context6.stop();
@@ -590,7 +501,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'containsAll',
         value: function containsAll(elements) {
           var _this8 = this;
-
           var koconutToReturn = new _module.KoconutBoolean();
           koconutToReturn.setPrevYieldable(this).setProcessor(
             (0, _asyncToGenerator2['default'])(
@@ -604,7 +514,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _step5;
                 var eachDatum;
                 var equalityResult;
-
                 return _regenerator['default'].wrap(
                   function _callee7$(_context7) {
                     while (1) {
@@ -613,17 +522,13 @@ var KoconutCollection = (function (_KoconutIterable) {
                           dataArray = Array.from(_this8.data);
                           _iterator4 = _createForOfIteratorHelper(elements);
                           _context7.prev = 2;
-
                           _iterator4.s();
-
                         case 4:
                           if ((_step4 = _iterator4.n()).done) {
                             _context7.next = 43;
                             break;
                           }
-
                           eachElementToCheck = _step4.value;
-
                           if (
                             !_module.KoconutTypeChecker.checkIsEquatable(
                               eachElementToCheck,
@@ -632,123 +537,90 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _context7.next = 39;
                             break;
                           }
-
                           isIncluded = false;
                           _iterator5 = _createForOfIteratorHelper(dataArray);
                           _context7.prev = 9;
-
                           _iterator5.s();
-
                         case 11:
                           if ((_step5 = _iterator5.n()).done) {
                             _context7.next = 27;
                             break;
                           }
-
                           eachDatum = _step5.value;
                           equalityResult =
                             eachElementToCheck.equalsTo(eachDatum);
                           _context7.t1 =
                             equalityResult instanceof _module.KoconutPrimitive;
-
                           if (!_context7.t1) {
                             _context7.next = 19;
                             break;
                           }
-
                           _context7.next = 18;
                           return equalityResult['yield']();
-
                         case 18:
                           _context7.t1 = _context7.sent;
-
                         case 19:
                           _context7.t0 = _context7.t1;
-
                           if (_context7.t0) {
                             _context7.next = 22;
                             break;
                           }
-
                           _context7.t0 =
                             !(
                               equalityResult instanceof _module.KoconutPrimitive
                             ) && equalityResult;
-
                         case 22:
                           if (!_context7.t0) {
                             _context7.next = 25;
                             break;
                           }
-
                           isIncluded = true;
                           return _context7.abrupt('break', 27);
-
                         case 25:
                           _context7.next = 11;
                           break;
-
                         case 27:
                           _context7.next = 32;
                           break;
-
                         case 29:
                           _context7.prev = 29;
                           _context7.t2 = _context7['catch'](9);
-
                           _iterator5.e(_context7.t2);
-
                         case 32:
                           _context7.prev = 32;
-
                           _iterator5.f();
-
                           return _context7.finish(32);
-
                         case 35:
                           if (isIncluded) {
                             _context7.next = 37;
                             break;
                           }
-
                           return _context7.abrupt('return', false);
-
                         case 37:
                           _context7.next = 41;
                           break;
-
                         case 39:
                           if (dataArray.includes(eachElementToCheck)) {
                             _context7.next = 41;
                             break;
                           }
-
                           return _context7.abrupt('return', false);
-
                         case 41:
                           _context7.next = 4;
                           break;
-
                         case 43:
                           _context7.next = 48;
                           break;
-
                         case 45:
                           _context7.prev = 45;
                           _context7.t3 = _context7['catch'](2);
-
                           _iterator4.e(_context7.t3);
-
                         case 48:
                           _context7.prev = 48;
-
                           _iterator4.f();
-
                           return _context7.finish(48);
-
                         case 51:
                           return _context7.abrupt('return', true);
-
                         case 52:
                         case 'end':
                           return _context7.stop();
@@ -772,7 +644,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'forEachIndexed',
         value: function forEachIndexed(action) {
           var _this9 = this;
-
           var thisArg =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
@@ -787,7 +658,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _step6;
                 var eachCombinedDatum;
                 var signal;
-
                 return _regenerator['default'].wrap(
                   function _callee8$(_context8) {
                     while (1) {
@@ -796,22 +666,17 @@ var KoconutCollection = (function (_KoconutIterable) {
                           eachIndex = 0;
                           _iterator6 = _createForOfIteratorHelper(_this9.data);
                           _context8.prev = 2;
-
                           _iterator6.s();
-
                         case 4:
                           if ((_step6 = _iterator6.n()).done) {
                             _context8.next = 13;
                             break;
                           }
-
                           eachCombinedDatum = _step6.value;
                           _context8.next = 8;
                           return action(eachIndex++, eachCombinedDatum);
-
                         case 8:
                           signal = _context8.sent;
-
                           if (
                             !(
                               signal == false ||
@@ -821,30 +686,21 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _context8.next = 11;
                             break;
                           }
-
                           return _context8.abrupt('break', 13);
-
                         case 11:
                           _context8.next = 4;
                           break;
-
                         case 13:
                           _context8.next = 18;
                           break;
-
                         case 15:
                           _context8.prev = 15;
                           _context8.t0 = _context8['catch'](2);
-
                           _iterator6.e(_context8.t0);
-
                         case 18:
                           _context8.prev = 18;
-
                           _iterator6.f();
-
                           return _context8.finish(18);
-
                         case 21:
                         case 'end':
                           return _context8.stop();
@@ -877,7 +733,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'onEachIndexed',
         value: function onEachIndexed(action, thisArg) {
           var _this10 = this;
-
           action = action.bind(thisArg);
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
@@ -888,7 +743,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _step7;
                 var eachDatum;
                 var signal;
-
                 return _regenerator['default'].wrap(
                   function _callee9$(_context9) {
                     while (1) {
@@ -897,22 +751,17 @@ var KoconutCollection = (function (_KoconutIterable) {
                           eachIndex = 0;
                           _iterator7 = _createForOfIteratorHelper(_this10.data);
                           _context9.prev = 2;
-
                           _iterator7.s();
-
                         case 4:
                           if ((_step7 = _iterator7.n()).done) {
                             _context9.next = 13;
                             break;
                           }
-
                           eachDatum = _step7.value;
                           _context9.next = 8;
                           return action(eachIndex++, eachDatum);
-
                         case 8:
                           signal = _context9.sent;
-
                           if (
                             !(
                               signal == false ||
@@ -922,33 +771,23 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _context9.next = 11;
                             break;
                           }
-
                           return _context9.abrupt('break', 13);
-
                         case 11:
                           _context9.next = 4;
                           break;
-
                         case 13:
                           _context9.next = 18;
                           break;
-
                         case 15:
                           _context9.prev = 15;
                           _context9.t0 = _context9['catch'](2);
-
                           _iterator7.e(_context9.t0);
-
                         case 18:
                           _context9.prev = 18;
-
                           _iterator7.f();
-
                           return _context9.finish(18);
-
                         case 21:
                           return _context9.abrupt('return', _this10.data);
-
                         case 22:
                         case 'end':
                           return _context9.stop();
@@ -969,7 +808,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'distinct',
         value: function distinct() {
           var _this11 = this;
-
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
             (0, _asyncToGenerator2['default'])(
@@ -983,7 +821,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _step9;
                 var eachPrevEquatableDatum;
                 var equalityResult;
-
                 return _regenerator['default'].wrap(
                   function _callee10$(_context10) {
                     while (1) {
@@ -992,17 +829,13 @@ var KoconutCollection = (function (_KoconutIterable) {
                           processedArray = new Array();
                           _iterator8 = _createForOfIteratorHelper(_this11.data);
                           _context10.prev = 2;
-
                           _iterator8.s();
-
                         case 4:
                           if ((_step8 = _iterator8.n()).done) {
                             _context10.next = 42;
                             break;
                           }
-
                           eachDatum = _step8.value;
-
                           if (
                             !_module.KoconutTypeChecker.checkIsEquatable(
                               eachDatum,
@@ -1011,125 +844,93 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _context10.next = 38;
                             break;
                           }
-
                           isConflict = false;
                           _iterator9 =
                             _createForOfIteratorHelper(processedArray);
                           _context10.prev = 9;
-
                           _iterator9.s();
-
                         case 11:
                           if ((_step9 = _iterator9.n()).done) {
                             _context10.next = 27;
                             break;
                           }
-
                           eachPrevEquatableDatum = _step9.value;
                           equalityResult = eachDatum.equalsTo(
                             eachPrevEquatableDatum,
                           );
                           _context10.t1 =
                             equalityResult instanceof _module.KoconutPrimitive;
-
                           if (!_context10.t1) {
                             _context10.next = 19;
                             break;
                           }
-
                           _context10.next = 18;
                           return equalityResult['yield']();
-
                         case 18:
                           _context10.t1 = _context10.sent;
-
                         case 19:
                           _context10.t0 = _context10.t1;
-
                           if (_context10.t0) {
                             _context10.next = 22;
                             break;
                           }
-
                           _context10.t0 =
                             !(
                               equalityResult instanceof _module.KoconutPrimitive
                             ) && equalityResult;
-
                         case 22:
                           if (!_context10.t0) {
                             _context10.next = 25;
                             break;
                           }
-
                           isConflict = true;
                           return _context10.abrupt('break', 27);
-
                         case 25:
                           _context10.next = 11;
                           break;
-
                         case 27:
                           _context10.next = 32;
                           break;
-
                         case 29:
                           _context10.prev = 29;
                           _context10.t2 = _context10['catch'](9);
-
                           _iterator9.e(_context10.t2);
-
                         case 32:
                           _context10.prev = 32;
-
                           _iterator9.f();
-
                           return _context10.finish(32);
-
                         case 35:
                           if (!isConflict) processedArray.push(eachDatum);
                           _context10.next = 40;
                           break;
-
                         case 38:
                           processedArray = Array.from(new Set(_this11.data));
                           return _context10.abrupt('break', 42);
-
                         case 40:
                           _context10.next = 4;
                           break;
-
                         case 42:
                           _context10.next = 47;
                           break;
-
                         case 44:
                           _context10.prev = 44;
                           _context10.t3 = _context10['catch'](2);
-
                           _iterator8.e(_context10.t3);
-
                         case 47:
                           _context10.prev = 47;
-
                           _iterator8.f();
-
                           return _context10.finish(47);
-
                         case 50:
                           if (!(_this11.data instanceof Array)) {
                             _context10.next = 54;
                             break;
                           }
-
                           return _context10.abrupt('return', processedArray);
-
                         case 54:
                           return _context10.abrupt(
                             'return',
                             new Set(processedArray),
                           );
-
                         case 55:
                         case 'end':
                           return _context10.stop();
@@ -1153,7 +954,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'distinctBy',
         value: function distinctBy(selector, thisArg) {
           var _this12 = this;
-
           selector = selector.bind(thisArg);
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
@@ -1171,7 +971,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _step11;
                 var eachPrevEquatableKey;
                 var equalityResult;
-
                 return _regenerator['default'].wrap(
                   function _callee11$(_context11) {
                     while (1) {
@@ -1184,22 +983,17 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _this12.data,
                           );
                           _context11.prev = 4;
-
                           _iterator10.s();
-
                         case 6:
                           if ((_step10 = _iterator10.n()).done) {
                             _context11.next = 46;
                             break;
                           }
-
                           eachDatum = _step10.value;
                           _context11.next = 10;
                           return selector(eachDatum);
-
                         case 10:
                           eachKey = _context11.sent;
-
                           if (
                             !_module.KoconutTypeChecker.checkIsEquatable(
                               eachKey,
@@ -1208,130 +1002,97 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _context11.next = 43;
                             break;
                           }
-
                           isConflict = false;
                           _iterator11 =
                             _createForOfIteratorHelper(equatableKeyArray);
                           _context11.prev = 14;
-
                           _iterator11.s();
-
                         case 16:
                           if ((_step11 = _iterator11.n()).done) {
                             _context11.next = 32;
                             break;
                           }
-
                           eachPrevEquatableKey = _step11.value;
                           equalityResult =
                             eachPrevEquatableKey.equalsTo(eachKey);
                           _context11.t1 =
                             equalityResult instanceof _module.KoconutPrimitive;
-
                           if (!_context11.t1) {
                             _context11.next = 24;
                             break;
                           }
-
                           _context11.next = 23;
                           return equalityResult['yield']();
-
                         case 23:
                           _context11.t1 = _context11.sent;
-
                         case 24:
                           _context11.t0 = _context11.t1;
-
                           if (_context11.t0) {
                             _context11.next = 27;
                             break;
                           }
-
                           _context11.t0 =
                             !(
                               equalityResult instanceof _module.KoconutPrimitive
                             ) && equalityResult;
-
                         case 27:
                           if (!_context11.t0) {
                             _context11.next = 30;
                             break;
                           }
-
                           isConflict = true;
                           return _context11.abrupt('break', 32);
-
                         case 30:
                           _context11.next = 16;
                           break;
-
                         case 32:
                           _context11.next = 37;
                           break;
-
                         case 34:
                           _context11.prev = 34;
                           _context11.t2 = _context11['catch'](14);
-
                           _iterator11.e(_context11.t2);
-
                         case 37:
                           _context11.prev = 37;
-
                           _iterator11.f();
-
                           return _context11.finish(37);
-
                         case 40:
                           if (!isConflict) {
                             equatableKeyArray.push(eachKey);
                             processedArray.push(eachDatum);
                           }
-
                           _context11.next = 44;
                           break;
-
                         case 43:
                           if (!keyArray.includes(eachKey)) {
                             keyArray.push(eachKey);
                             processedArray.push(eachDatum);
                           }
-
                         case 44:
                           _context11.next = 6;
                           break;
-
                         case 46:
                           _context11.next = 51;
                           break;
-
                         case 48:
                           _context11.prev = 48;
                           _context11.t3 = _context11['catch'](4);
-
                           _iterator10.e(_context11.t3);
-
                         case 51:
                           _context11.prev = 51;
-
                           _iterator10.f();
-
                           return _context11.finish(51);
-
                         case 54:
                           if (!(_this12.data instanceof Array)) {
                             _context11.next = 58;
                             break;
                           }
-
                           return _context11.abrupt('return', processedArray);
-
                         case 58:
                           return _context11.abrupt(
                             'return',
                             new Set(processedArray),
                           );
-
                         case 59:
                         case 'end':
                           return _context11.stop();
@@ -1355,7 +1116,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'drop',
         value: function drop(n) {
           var _this13 = this;
-
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
             (0, _asyncToGenerator2['default'])(
@@ -1371,31 +1131,25 @@ var KoconutCollection = (function (_KoconutIterable) {
                           _context12.next = 2;
                           break;
                         }
-
                         throw new _module.KoconutInvalidArgumentException(
                           'Given argument '.concat(
                             n,
                             " is invalid, 'n' must be larger than 0.",
                           ),
                         );
-
                       case 2:
                         processedArray = new Array();
                         processedArray = Array.from(_this13.data).slice(n);
-
                         if (!(_this13.data instanceof Array)) {
                           _context12.next = 8;
                           break;
                         }
-
                         return _context12.abrupt('return', processedArray);
-
                       case 8:
                         return _context12.abrupt(
                           'return',
                           new Set(processedArray),
                         );
-
                       case 9:
                       case 'end':
                         return _context12.stop();
@@ -1413,7 +1167,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'dropLast',
         value: function dropLast(n) {
           var _this14 = this;
-
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
             (0, _asyncToGenerator2['default'])(
@@ -1429,31 +1182,25 @@ var KoconutCollection = (function (_KoconutIterable) {
                           _context13.next = 2;
                           break;
                         }
-
                         throw new _module.KoconutInvalidArgumentException(
                           'Given argument '.concat(
                             n,
                             " is invalid, 'n' must be larger than 0.",
                           ),
                         );
-
                       case 2:
                         processedArray = new Array();
                         processedArray = Array.from(_this14.data).slice(0, -n);
-
                         if (!(_this14.data instanceof Array)) {
                           _context13.next = 8;
                           break;
                         }
-
                         return _context13.abrupt('return', processedArray);
-
                       case 8:
                         return _context13.abrupt(
                           'return',
                           new Set(processedArray),
                         );
-
                       case 9:
                       case 'end':
                         return _context13.stop();
@@ -1471,7 +1218,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'dropLastWhile',
         value: function dropLastWhile(predicate, thisArg) {
           var _this15 = this;
-
           predicate = predicate.bind(thisArg);
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
@@ -1491,46 +1237,36 @@ var KoconutCollection = (function (_KoconutIterable) {
                         dataArray = Array.from(_this15.data);
                         indexNumber = 0;
                         eachIndex = dataArray.length - 1;
-
                       case 4:
                         if (!(eachIndex >= 0)) {
                           _context14.next = 13;
                           break;
                         }
-
                         _context14.next = 7;
                         return predicate(dataArray[eachIndex]);
-
                       case 7:
                         if (_context14.sent) {
                           _context14.next = 10;
                           break;
                         }
-
                         indexNumber = eachIndex;
                         return _context14.abrupt('break', 13);
-
                       case 10:
                         eachIndex--;
                         _context14.next = 4;
                         break;
-
                       case 13:
                         processedArray = dataArray.slice(0, indexNumber + 1);
-
                         if (!(_this15.data instanceof Array)) {
                           _context14.next = 18;
                           break;
                         }
-
                         return _context14.abrupt('return', processedArray);
-
                       case 18:
                         return _context14.abrupt(
                           'return',
                           new Set(processedArray),
                         );
-
                       case 19:
                       case 'end':
                         return _context14.stop();
@@ -1548,7 +1284,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'dropWhile',
         value: function dropWhile(predicate, thisArg) {
           var _this16 = this;
-
           predicate = predicate.bind(thisArg);
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
@@ -1568,46 +1303,36 @@ var KoconutCollection = (function (_KoconutIterable) {
                         dataArray = Array.from(_this16.data);
                         indexNumber = dataArray.length;
                         _context15.t0 = _regenerator['default'].keys(dataArray);
-
                       case 4:
                         if ((_context15.t1 = _context15.t0()).done) {
                           _context15.next = 13;
                           break;
                         }
-
                         eachIndex = _context15.t1.value;
                         _context15.next = 8;
                         return predicate(dataArray[eachIndex]);
-
                       case 8:
                         if (_context15.sent) {
                           _context15.next = 11;
                           break;
                         }
-
                         indexNumber = parseInt(eachIndex);
                         return _context15.abrupt('break', 13);
-
                       case 11:
                         _context15.next = 4;
                         break;
-
                       case 13:
                         processedArray = dataArray.slice(indexNumber);
-
                         if (!(_this16.data instanceof Array)) {
                           _context15.next = 18;
                           break;
                         }
-
                         return _context15.abrupt('return', processedArray);
-
                       case 18:
                         return _context15.abrupt(
                           'return',
                           new Set(processedArray),
                         );
-
                       case 19:
                       case 'end':
                         return _context15.stop();
@@ -1649,7 +1374,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'filterTo',
         value: function filterTo(destination, predicate, thisArg) {
           var _this17 = this;
-
           predicate = predicate.bind(thisArg);
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
@@ -1663,23 +1387,19 @@ var KoconutCollection = (function (_KoconutIterable) {
                     switch ((_context16.prev = _context16.next)) {
                       case 0:
                         filteredCollection = _this17.filter(predicate, thisArg);
-
                         if (!(destination instanceof Array)) {
                           _context16.next = 6;
                           break;
                         }
-
                         _context16.next = 4;
                         return filteredCollection
                           .forEach(function (eachElement) {
                             destination.push(eachElement);
                           })
                           .process();
-
                       case 4:
                         _context16.next = 8;
                         break;
-
                       case 6:
                         _context16.next = 8;
                         return filteredCollection
@@ -1688,10 +1408,8 @@ var KoconutCollection = (function (_KoconutIterable) {
                             destination.add(eachElement);
                           })
                           .process();
-
                       case 8:
                         return _context16.abrupt('return', _this17.data);
-
                       case 9:
                       case 'end':
                         return _context16.stop();
@@ -1709,7 +1427,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'filterNotTo',
         value: function filterNotTo(destination, predicate, thisArg) {
           var _this18 = this;
-
           predicate = predicate.bind(thisArg);
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
@@ -1726,23 +1443,19 @@ var KoconutCollection = (function (_KoconutIterable) {
                           predicate,
                           thisArg,
                         );
-
                         if (!(destination instanceof Array)) {
                           _context17.next = 6;
                           break;
                         }
-
                         _context17.next = 4;
                         return filteredCollection
                           .forEach(function (eachElement) {
                             destination.push(eachElement);
                           })
                           .process();
-
                       case 4:
                         _context17.next = 8;
                         break;
-
                       case 6:
                         _context17.next = 8;
                         return filteredCollection
@@ -1751,10 +1464,8 @@ var KoconutCollection = (function (_KoconutIterable) {
                             destination.add(eachElement);
                           })
                           .process();
-
                       case 8:
                         return _context17.abrupt('return', _this18.data);
-
                       case 9:
                       case 'end':
                         return _context17.stop();
@@ -1772,7 +1483,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'filterIndexed',
         value: function filterIndexed(predicate, thisArg) {
           var _this19 = this;
-
           predicate = predicate.bind(thisArg);
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
@@ -1784,7 +1494,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _step12$value;
                 var eachIndex;
                 var eachDatum;
-
                 return _regenerator['default'].wrap(
                   function _callee18$(_context18) {
                     while (1) {
@@ -1795,15 +1504,12 @@ var KoconutCollection = (function (_KoconutIterable) {
                             Array.from(_this19.data).entries(),
                           );
                           _context18.prev = 2;
-
                           _iterator12.s();
-
                         case 4:
                           if ((_step12 = _iterator12.n()).done) {
                             _context18.next = 12;
                             break;
                           }
-
                           (_step12$value = (0, _slicedToArray2['default'])(
                             _step12.value,
                             2,
@@ -1812,50 +1518,37 @@ var KoconutCollection = (function (_KoconutIterable) {
                             (eachDatum = _step12$value[1]);
                           _context18.next = 8;
                           return predicate(eachIndex, eachDatum);
-
                         case 8:
                           if (!_context18.sent) {
                             _context18.next = 10;
                             break;
                           }
-
                           processedArray.push(eachDatum);
-
                         case 10:
                           _context18.next = 4;
                           break;
-
                         case 12:
                           _context18.next = 17;
                           break;
-
                         case 14:
                           _context18.prev = 14;
                           _context18.t0 = _context18['catch'](2);
-
                           _iterator12.e(_context18.t0);
-
                         case 17:
                           _context18.prev = 17;
-
                           _iterator12.f();
-
                           return _context18.finish(17);
-
                         case 20:
                           if (!(_this19.data instanceof Array)) {
                             _context18.next = 24;
                             break;
                           }
-
                           return _context18.abrupt('return', processedArray);
-
                         case 24:
                           return _context18.abrupt(
                             'return',
                             new Set(processedArray),
                           );
-
                         case 25:
                         case 'end':
                           return _context18.stop();
@@ -1876,7 +1569,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'filterIndexedTo',
         value: function filterIndexedTo(destination, predicate, thisArg) {
           var _this20 = this;
-
           predicate = predicate.bind(thisArg);
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
@@ -1893,23 +1585,19 @@ var KoconutCollection = (function (_KoconutIterable) {
                           predicate,
                           thisArg,
                         );
-
                         if (!(destination instanceof Array)) {
                           _context19.next = 6;
                           break;
                         }
-
                         _context19.next = 4;
                         return filteredCollection
                           .forEach(function (eachElement) {
                             destination.push(eachElement);
                           })
                           .process();
-
                       case 4:
                         _context19.next = 8;
                         break;
-
                       case 6:
                         _context19.next = 8;
                         return filteredCollection
@@ -1918,10 +1606,8 @@ var KoconutCollection = (function (_KoconutIterable) {
                             destination.add(eachElement);
                           })
                           .process();
-
                       case 8:
                         return _context19.abrupt('return', _this20.data);
-
                       case 9:
                       case 'end':
                         return _context19.stop();
@@ -1939,7 +1625,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'filterNotNull',
         value: function filterNotNull() {
           var _this21 = this;
-
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
             (0, _asyncToGenerator2['default'])(
@@ -1948,7 +1633,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _iterator13;
                 var _step13;
                 var eachDatum;
-
                 return _regenerator['default'].wrap(function _callee20$(
                   _context20,
                 ) {
@@ -1957,7 +1641,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                       case 0:
                         processedArray = new Array();
                         _iterator13 = _createForOfIteratorHelper(_this21.data);
-
                         try {
                           for (
                             _iterator13.s();
@@ -1973,20 +1656,16 @@ var KoconutCollection = (function (_KoconutIterable) {
                         } finally {
                           _iterator13.f();
                         }
-
                         if (!(_this21.data instanceof Array)) {
                           _context20.next = 7;
                           break;
                         }
-
                         return _context20.abrupt('return', processedArray);
-
                       case 7:
                         return _context20.abrupt(
                           'return',
                           new Set(processedArray),
                         );
-
                       case 8:
                       case 'end':
                         return _context20.stop();
@@ -2004,7 +1683,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'filterNotNullTo',
         value: function filterNotNullTo(destination) {
           var _this22 = this;
-
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
             (0, _asyncToGenerator2['default'])(
@@ -2017,23 +1695,19 @@ var KoconutCollection = (function (_KoconutIterable) {
                     switch ((_context21.prev = _context21.next)) {
                       case 0:
                         filteredCollection = _this22.filterNotNull();
-
                         if (!(destination instanceof Array)) {
                           _context21.next = 6;
                           break;
                         }
-
                         _context21.next = 4;
                         return filteredCollection
                           .forEach(function (eachElement) {
                             destination.push(eachElement);
                           })
                           .process();
-
                       case 4:
                         _context21.next = 8;
                         break;
-
                       case 6:
                         _context21.next = 8;
                         return filteredCollection
@@ -2042,10 +1716,8 @@ var KoconutCollection = (function (_KoconutIterable) {
                             destination.add(eachElement);
                           })
                           .process();
-
                       case 8:
                         return _context21.abrupt('return', _this22.data);
-
                       case 9:
                       case 'end':
                         return _context21.stop();
@@ -2063,7 +1735,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'sortedBy',
         value: function sortedBy(selector, thisArg) {
           var _this23 = this;
-
           selector = selector.bind(thisArg);
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
@@ -2089,15 +1760,12 @@ var KoconutCollection = (function (_KoconutIterable) {
                         processedArray = new Array();
                         dataArray = Array.from(_this23.data);
                         _context22.t0 = _regenerator['default'].keys(dataArray);
-
                       case 3:
                         if ((_context22.t1 = _context22.t0()).done) {
                           _context22.next = 38;
                           break;
                         }
-
                         eachIndex = _context22.t1.value;
-
                         if (
                           !Object.prototype.hasOwnProperty.call(
                             dataArray,
@@ -2107,30 +1775,24 @@ var KoconutCollection = (function (_KoconutIterable) {
                           _context22.next = 36;
                           break;
                         }
-
                         _context22.next = 8;
                         return selector(dataArray[eachIndex]);
-
                       case 8:
                         currentComparable = _context22.sent;
                         startIndex = 0;
                         middleIndex = void 0;
                         endIndex = processedArray.length;
-
                       case 12:
                         if (!(startIndex < endIndex)) {
                           _context22.next = 35;
                           break;
                         }
-
                         middleIndex = Math.floor((startIndex + endIndex) / 2);
                         _context22.next = 16;
                         return selector(processedArray[middleIndex]);
-
                       case 16:
                         targetComparable = _context22.sent;
                         isCurrentGreater = false;
-
                         if (
                           !_module.KoconutTypeChecker.checkIsComparable(
                             currentComparable,
@@ -2139,11 +1801,9 @@ var KoconutCollection = (function (_KoconutIterable) {
                           _context22.next = 31;
                           break;
                         }
-
                         eachCompareResult =
                           currentComparable.compareTo(targetComparable);
                         numberResult = 0;
-
                         if (
                           !(
                             eachCompareResult instanceof
@@ -2153,57 +1813,45 @@ var KoconutCollection = (function (_KoconutIterable) {
                           _context22.next = 27;
                           break;
                         }
-
                         _context22.next = 24;
                         return eachCompareResult['yield']();
-
                       case 24:
                         numberResult = _context22.sent;
                         _context22.next = 28;
                         break;
-
                       case 27:
                         numberResult = eachCompareResult;
-
                       case 28:
                         if (numberResult > 0) isCurrentGreater = true;
                         _context22.next = 32;
                         break;
-
                       case 31:
                         isCurrentGreater = targetComparable < currentComparable;
-
                       case 32:
                         if (isCurrentGreater) startIndex = middleIndex + 1;
                         else endIndex = middleIndex;
                         _context22.next = 12;
                         break;
-
                       case 35:
                         processedArray.splice(
                           endIndex,
                           0,
                           dataArray[eachIndex],
                         );
-
                       case 36:
                         _context22.next = 3;
                         break;
-
                       case 38:
                         if (!(_this23.data instanceof Array)) {
                           _context22.next = 42;
                           break;
                         }
-
                         return _context22.abrupt('return', processedArray);
-
                       case 42:
                         return _context22.abrupt(
                           'return',
                           new Set(processedArray),
                         );
-
                       case 43:
                       case 'end':
                         return _context22.stop();
@@ -2221,7 +1869,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'sortedByDescending',
         value: function sortedByDescending(selector, thisArg) {
           var _this24 = this;
-
           selector = selector.bind(thisArg);
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
@@ -2247,15 +1894,12 @@ var KoconutCollection = (function (_KoconutIterable) {
                         processedArray = new Array();
                         dataArray = Array.from(_this24.data);
                         _context23.t0 = _regenerator['default'].keys(dataArray);
-
                       case 3:
                         if ((_context23.t1 = _context23.t0()).done) {
                           _context23.next = 38;
                           break;
                         }
-
                         eachIndex = _context23.t1.value;
-
                         if (
                           !Object.prototype.hasOwnProperty.call(
                             dataArray,
@@ -2265,30 +1909,24 @@ var KoconutCollection = (function (_KoconutIterable) {
                           _context23.next = 36;
                           break;
                         }
-
                         _context23.next = 8;
                         return selector(dataArray[eachIndex]);
-
                       case 8:
                         currentComparable = _context23.sent;
                         startIndex = 0;
                         middleIndex = void 0;
                         endIndex = processedArray.length;
-
                       case 12:
                         if (!(startIndex < endIndex)) {
                           _context23.next = 35;
                           break;
                         }
-
                         middleIndex = Math.floor((startIndex + endIndex) / 2);
                         _context23.next = 16;
                         return selector(processedArray[middleIndex]);
-
                       case 16:
                         targetComparable = _context23.sent;
                         isCurrentLesser = false;
-
                         if (
                           !_module.KoconutTypeChecker.checkIsComparable(
                             currentComparable,
@@ -2297,11 +1935,9 @@ var KoconutCollection = (function (_KoconutIterable) {
                           _context23.next = 31;
                           break;
                         }
-
                         eachCompareResult =
                           currentComparable.compareTo(targetComparable);
                         numberResult = 0;
-
                         if (
                           !(
                             eachCompareResult instanceof
@@ -2311,57 +1947,45 @@ var KoconutCollection = (function (_KoconutIterable) {
                           _context23.next = 27;
                           break;
                         }
-
                         _context23.next = 24;
                         return eachCompareResult['yield']();
-
                       case 24:
                         numberResult = _context23.sent;
                         _context23.next = 28;
                         break;
-
                       case 27:
                         numberResult = eachCompareResult;
-
                       case 28:
                         if (numberResult < 0) isCurrentLesser = true;
                         _context23.next = 32;
                         break;
-
                       case 31:
                         isCurrentLesser = targetComparable > currentComparable;
-
                       case 32:
                         if (isCurrentLesser) startIndex = middleIndex + 1;
                         else endIndex = middleIndex;
                         _context23.next = 12;
                         break;
-
                       case 35:
                         processedArray.splice(
                           endIndex,
                           0,
                           dataArray[eachIndex],
                         );
-
                       case 36:
                         _context23.next = 3;
                         break;
-
                       case 38:
                         if (!(_this24.data instanceof Array)) {
                           _context23.next = 42;
                           break;
                         }
-
                         return _context23.abrupt('return', processedArray);
-
                       case 42:
                         return _context23.abrupt(
                           'return',
                           new Set(processedArray),
                         );
-
                       case 43:
                       case 'end':
                         return _context23.stop();
@@ -2379,7 +2003,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'sortedWith',
         value: function sortedWith(comparator, thisArg) {
           var _this25 = this;
-
           comparator = comparator.bind(thisArg);
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
@@ -2400,15 +2023,12 @@ var KoconutCollection = (function (_KoconutIterable) {
                         processedArray = new Array();
                         dataArray = Array.from(_this25.data);
                         _context24.t0 = _regenerator['default'].keys(dataArray);
-
                       case 3:
                         if ((_context24.t1 = _context24.t0()).done) {
                           _context24.next = 24;
                           break;
                         }
-
                         eachIndex = _context24.t1.value;
-
                         if (
                           !Object.prototype.hasOwnProperty.call(
                             dataArray,
@@ -2418,68 +2038,54 @@ var KoconutCollection = (function (_KoconutIterable) {
                           _context24.next = 22;
                           break;
                         }
-
                         startIndex = 0;
                         middleIndex = void 0;
                         endIndex = processedArray.length;
-
                       case 9:
                         if (!(startIndex < endIndex)) {
                           _context24.next = 21;
                           break;
                         }
-
                         middleIndex = Math.floor((startIndex + endIndex) / 2);
                         _context24.next = 13;
                         return comparator(
                           dataArray[eachIndex],
                           processedArray[middleIndex],
                         );
-
                       case 13:
                         _context24.t2 = _context24.sent;
-
                         if (!(_context24.t2 >= 0)) {
                           _context24.next = 18;
                           break;
                         }
-
                         startIndex = middleIndex + 1;
                         _context24.next = 19;
                         break;
-
                       case 18:
                         endIndex = middleIndex;
-
                       case 19:
                         _context24.next = 9;
                         break;
-
                       case 21:
                         processedArray.splice(
                           endIndex,
                           0,
                           dataArray[eachIndex],
                         );
-
                       case 22:
                         _context24.next = 3;
                         break;
-
                       case 24:
                         if (!(_this25.data instanceof Array)) {
                           _context24.next = 28;
                           break;
                         }
-
                         return _context24.abrupt('return', processedArray);
-
                       case 28:
                         return _context24.abrupt(
                           'return',
                           new Set(processedArray),
                         );
-
                       case 29:
                       case 'end':
                         return _context24.stop();
@@ -2497,7 +2103,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'take',
         value: function take(n) {
           var _this26 = this;
-
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
             (0, _asyncToGenerator2['default'])(
@@ -2510,20 +2115,16 @@ var KoconutCollection = (function (_KoconutIterable) {
                     switch ((_context25.prev = _context25.next)) {
                       case 0:
                         processedArray = Array.from(_this26.data).slice(0, n);
-
                         if (!(_this26.data instanceof Array)) {
                           _context25.next = 5;
                           break;
                         }
-
                         return _context25.abrupt('return', processedArray);
-
                       case 5:
                         return _context25.abrupt(
                           'return',
                           new Set(processedArray),
                         );
-
                       case 6:
                       case 'end':
                         return _context25.stop();
@@ -2541,7 +2142,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'takeLast',
         value: function takeLast(n) {
           var _this27 = this;
-
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
             (0, _asyncToGenerator2['default'])(
@@ -2557,20 +2157,16 @@ var KoconutCollection = (function (_KoconutIterable) {
                           _this27.mSize - n,
                           _this27.mSize,
                         );
-
                         if (!(_this27.data instanceof Array)) {
                           _context26.next = 5;
                           break;
                         }
-
                         return _context26.abrupt('return', processedArray);
-
                       case 5:
                         return _context26.abrupt(
                           'return',
                           new Set(processedArray),
                         );
-
                       case 6:
                       case 'end':
                         return _context26.stop();
@@ -2588,7 +2184,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'takeLastWhile',
         value: function takeLastWhile(predicate, thisArg) {
           var _this28 = this;
-
           predicate = predicate.bind(thisArg);
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
@@ -2606,48 +2201,38 @@ var KoconutCollection = (function (_KoconutIterable) {
                         processedArray = new Array();
                         dataArray = Array.from(_this28.data);
                         targetIndex = _this28.mSize - 1;
-
                       case 3:
                         if (!(targetIndex >= 0)) {
                           _context27.next = 11;
                           break;
                         }
-
                         _context27.next = 6;
                         return predicate(dataArray[targetIndex]);
-
                       case 6:
                         if (_context27.sent) {
                           _context27.next = 8;
                           break;
                         }
-
                         return _context27.abrupt('break', 11);
-
                       case 8:
                         targetIndex--;
                         _context27.next = 3;
                         break;
-
                       case 11:
                         processedArray = dataArray.slice(
                           targetIndex + 1,
                           _this28.mSize,
                         );
-
                         if (!(_this28.data instanceof Array)) {
                           _context27.next = 16;
                           break;
                         }
-
                         return _context27.abrupt('return', processedArray);
-
                       case 16:
                         return _context27.abrupt(
                           'return',
                           new Set(processedArray),
                         );
-
                       case 17:
                       case 'end':
                         return _context27.stop();
@@ -2665,7 +2250,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'takeWhile',
         value: function takeWhile(predicate, thisArg) {
           var _this29 = this;
-
           predicate = predicate.bind(thisArg);
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
@@ -2676,7 +2260,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _iterator14;
                 var _step14;
                 var eachDatum;
-
                 return _regenerator['default'].wrap(
                   function _callee28$(_context28) {
                     while (1) {
@@ -2688,70 +2271,52 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _this29.data,
                           );
                           _context28.prev = 3;
-
                           _iterator14.s();
-
                         case 5:
                           if ((_step14 = _iterator14.n()).done) {
                             _context28.next = 14;
                             break;
                           }
-
                           eachDatum = _step14.value;
                           _context28.next = 9;
                           return predicate(eachDatum);
-
                         case 9:
                           if (_context28.sent) {
                             _context28.next = 11;
                             break;
                           }
-
                           return _context28.abrupt('break', 14);
-
                         case 11:
                           predicateIndex++;
-
                         case 12:
                           _context28.next = 5;
                           break;
-
                         case 14:
                           _context28.next = 19;
                           break;
-
                         case 16:
                           _context28.prev = 16;
                           _context28.t0 = _context28['catch'](3);
-
                           _iterator14.e(_context28.t0);
-
                         case 19:
                           _context28.prev = 19;
-
                           _iterator14.f();
-
                           return _context28.finish(19);
-
                         case 22:
                           processedArray = Array.from(_this29.data).slice(
                             0,
                             predicateIndex,
                           );
-
                           if (!(_this29.data instanceof Array)) {
                             _context28.next = 27;
                             break;
                           }
-
                           return _context28.abrupt('return', processedArray);
-
                         case 27:
                           return _context28.abrupt(
                             'return',
                             new Set(processedArray),
                           );
-
                         case 28:
                         case 'end':
                           return _context28.stop();
@@ -2772,7 +2337,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'elementAt',
         value: function elementAt(index) {
           var _this30 = this;
-
           var koconutToReturn = new _module.KoconutPrimitive();
           koconutToReturn.setPrevYieldable(this).setProcessor(
             (0, _asyncToGenerator2['default'])(
@@ -2787,17 +2351,14 @@ var KoconutCollection = (function (_KoconutIterable) {
                           _context29.next = 2;
                           break;
                         }
-
                         throw new _module.KoconutIndexOutOfBoundsException(
                           'Cannot search for data at index of '.concat(index),
                         );
-
                       case 2:
                         return _context29.abrupt(
                           'return',
                           Array.from(_this30.data)[index],
                         );
-
                       case 3:
                       case 'end':
                         return _context29.stop();
@@ -2815,7 +2376,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'elementAtOrElse',
         value: function elementAtOrElse(index, defaultValue) {
           var _this31 = this;
-
           var thisArg =
             arguments.length > 2 && arguments[2] !== undefined
               ? arguments[2]
@@ -2835,19 +2395,15 @@ var KoconutCollection = (function (_KoconutIterable) {
                           _context30.next = 6;
                           break;
                         }
-
                         _context30.next = 3;
                         return defaultValue(index);
-
                       case 3:
                         return _context30.abrupt('return', _context30.sent);
-
                       case 6:
                         return _context30.abrupt(
                           'return',
                           Array.from(_this31.data)[index],
                         );
-
                       case 7:
                       case 'end':
                         return _context30.stop();
@@ -2865,7 +2421,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'elementAtOrNull',
         value: function elementAtOrNull(index) {
           var _this32 = this;
-
           var koconutToReturn = new _module.KoconutPrimitive();
           koconutToReturn.setPrevYieldable(this).setProcessor(
             (0, _asyncToGenerator2['default'])(
@@ -2880,15 +2435,12 @@ var KoconutCollection = (function (_KoconutIterable) {
                           _context31.next = 2;
                           break;
                         }
-
                         return _context31.abrupt('return', null);
-
                       case 2:
                         return _context31.abrupt(
                           'return',
                           Array.from(_this32.data)[index],
                         );
-
                       case 3:
                       case 'end':
                         return _context31.stop();
@@ -2906,7 +2458,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'find',
         value: function find(predicate) {
           var _this33 = this;
-
           var thisArg =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
@@ -2919,7 +2470,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _iterator15;
                 var _step15;
                 var eachDatum;
-
                 return _regenerator['default'].wrap(
                   function _callee32$(_context32) {
                     while (1) {
@@ -2929,51 +2479,37 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _this33.data,
                           );
                           _context32.prev = 1;
-
                           _iterator15.s();
-
                         case 3:
                           if ((_step15 = _iterator15.n()).done) {
                             _context32.next = 11;
                             break;
                           }
-
                           eachDatum = _step15.value;
                           _context32.next = 7;
                           return predicate(eachDatum);
-
                         case 7:
                           if (!_context32.sent) {
                             _context32.next = 9;
                             break;
                           }
-
                           return _context32.abrupt('return', eachDatum);
-
                         case 9:
                           _context32.next = 3;
                           break;
-
                         case 11:
                           _context32.next = 16;
                           break;
-
                         case 13:
                           _context32.prev = 13;
                           _context32.t0 = _context32['catch'](1);
-
                           _iterator15.e(_context32.t0);
-
                         case 16:
                           _context32.prev = 16;
-
                           _iterator15.f();
-
                           return _context32.finish(16);
-
                         case 19:
                           return _context32.abrupt('return', null);
-
                         case 20:
                         case 'end':
                           return _context32.stop();
@@ -2994,7 +2530,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'findLast',
         value: function findLast(predicate) {
           var _this34 = this;
-
           var thisArg =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
@@ -3014,35 +2549,28 @@ var KoconutCollection = (function (_KoconutIterable) {
                       case 0:
                         dataArray = Array.from(_this34.data);
                         eachIndex = dataArray.length - 1;
-
                       case 2:
                         if (!(eachIndex >= 0)) {
                           _context33.next = 10;
                           break;
                         }
-
                         _context33.next = 5;
                         return predicate(dataArray[eachIndex]);
-
                       case 5:
                         if (!_context33.sent) {
                           _context33.next = 7;
                           break;
                         }
-
                         return _context33.abrupt(
                           'return',
                           dataArray[eachIndex],
                         );
-
                       case 7:
                         eachIndex--;
                         _context33.next = 2;
                         break;
-
                       case 10:
                         return _context33.abrupt('return', null);
-
                       case 11:
                       case 'end':
                         return _context33.stop();
@@ -3060,7 +2588,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'first',
         value: function first() {
           var _this35 = this;
-
           var predicate =
             arguments.length > 0 && arguments[0] !== undefined
               ? arguments[0]
@@ -3077,7 +2604,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _iterator16;
                 var _step16;
                 var eachDatum;
-
                 return _regenerator['default'].wrap(
                   function _callee34$(_context34) {
                     while (1) {
@@ -3087,74 +2613,56 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _context34.next = 2;
                             break;
                           }
-
                           throw new _module.KoconutNoSuchElementException(
                             'Source data is null or empty',
                           );
-
                         case 2:
                           if (!predicate) {
                             _context34.next = 23;
                             break;
                           }
-
                           _iterator16 = _createForOfIteratorHelper(
                             _this35.data,
                           );
                           _context34.prev = 4;
-
                           _iterator16.s();
-
                         case 6:
                           if ((_step16 = _iterator16.n()).done) {
                             _context34.next = 14;
                             break;
                           }
-
                           eachDatum = _step16.value;
                           _context34.next = 10;
                           return predicate(eachDatum);
-
                         case 10:
                           if (!_context34.sent) {
                             _context34.next = 12;
                             break;
                           }
-
                           return _context34.abrupt('return', eachDatum);
-
                         case 12:
                           _context34.next = 6;
                           break;
-
                         case 14:
                           _context34.next = 19;
                           break;
-
                         case 16:
                           _context34.prev = 16;
                           _context34.t0 = _context34['catch'](4);
-
                           _iterator16.e(_context34.t0);
-
                         case 19:
                           _context34.prev = 19;
-
                           _iterator16.f();
-
                           return _context34.finish(19);
-
                         case 22:
                           throw new _module.KoconutNoSuchElementException(
                             'No such element is found',
                           );
-
                         case 23:
                           return _context34.abrupt(
                             'return',
                             Array.from(_this35.data)[0],
                           );
-
                         case 24:
                         case 'end':
                           return _context34.stop();
@@ -3175,7 +2683,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'firstOrNull',
         value: function firstOrNull() {
           var _this36 = this;
-
           var predicate =
             arguments.length > 0 && arguments[0] !== undefined
               ? arguments[0]
@@ -3192,7 +2699,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _iterator17;
                 var _step17;
                 var eachDatum;
-
                 return _regenerator['default'].wrap(
                   function _callee35$(_context35) {
                     while (1) {
@@ -3202,70 +2708,52 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _context35.next = 2;
                             break;
                           }
-
                           return _context35.abrupt('return', null);
-
                         case 2:
                           if (!predicate) {
                             _context35.next = 23;
                             break;
                           }
-
                           _iterator17 = _createForOfIteratorHelper(
                             _this36.data,
                           );
                           _context35.prev = 4;
-
                           _iterator17.s();
-
                         case 6:
                           if ((_step17 = _iterator17.n()).done) {
                             _context35.next = 14;
                             break;
                           }
-
                           eachDatum = _step17.value;
                           _context35.next = 10;
                           return predicate(eachDatum);
-
                         case 10:
                           if (!_context35.sent) {
                             _context35.next = 12;
                             break;
                           }
-
                           return _context35.abrupt('return', eachDatum);
-
                         case 12:
                           _context35.next = 6;
                           break;
-
                         case 14:
                           _context35.next = 19;
                           break;
-
                         case 16:
                           _context35.prev = 16;
                           _context35.t0 = _context35['catch'](4);
-
                           _iterator17.e(_context35.t0);
-
                         case 19:
                           _context35.prev = 19;
-
                           _iterator17.f();
-
                           return _context35.finish(19);
-
                         case 22:
                           return _context35.abrupt('return', null);
-
                         case 23:
                           return _context35.abrupt(
                             'return',
                             Array.from(_this36.data)[0],
                           );
-
                         case 24:
                         case 'end':
                           return _context35.stop();
@@ -3286,7 +2774,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'indexOf',
         value: function indexOf(elementToFind) {
           var _this37 = this;
-
           var koconutToReturn = new _module.KoconutPrimitive();
           koconutToReturn.setPrevYieldable(this).setProcessor(
             (0, _asyncToGenerator2['default'])(
@@ -3297,7 +2784,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var index;
                 var element;
                 var equalityResult;
-
                 return _regenerator['default'].wrap(
                   function _callee36$(_context36) {
                     while (1) {
@@ -3307,22 +2793,18 @@ var KoconutCollection = (function (_KoconutIterable) {
                             Array.from(_this37.data).entries(),
                           );
                           _context36.prev = 1;
-
                           _iterator18.s();
-
                         case 3:
                           if ((_step18 = _iterator18.n()).done) {
                             _context36.next = 23;
                             break;
                           }
-
                           (_step18$value = (0, _slicedToArray2['default'])(
                             _step18.value,
                             2,
                           )),
                             (index = _step18$value[0]),
                             (element = _step18$value[1]);
-
                           if (
                             !_module.KoconutTypeChecker.checkIsEquatable(
                               element,
@@ -3331,79 +2813,58 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _context36.next = 19;
                             break;
                           }
-
                           equalityResult = element.equalsTo(elementToFind);
                           _context36.t1 =
                             equalityResult instanceof _module.KoconutPrimitive;
-
                           if (!_context36.t1) {
                             _context36.next = 12;
                             break;
                           }
-
                           _context36.next = 11;
                           return equalityResult['yield']();
-
                         case 11:
                           _context36.t1 = _context36.sent;
-
                         case 12:
                           _context36.t0 = _context36.t1;
-
                           if (_context36.t0) {
                             _context36.next = 15;
                             break;
                           }
-
                           _context36.t0 =
                             !(
                               equalityResult instanceof _module.KoconutPrimitive
                             ) && equalityResult;
-
                         case 15:
                           if (!_context36.t0) {
                             _context36.next = 17;
                             break;
                           }
-
                           return _context36.abrupt('return', index);
-
                         case 17:
                           _context36.next = 21;
                           break;
-
                         case 19:
                           if (!(element == elementToFind)) {
                             _context36.next = 21;
                             break;
                           }
-
                           return _context36.abrupt('return', index);
-
                         case 21:
                           _context36.next = 3;
                           break;
-
                         case 23:
                           _context36.next = 28;
                           break;
-
                         case 25:
                           _context36.prev = 25;
                           _context36.t2 = _context36['catch'](1);
-
                           _iterator18.e(_context36.t2);
-
                         case 28:
                           _context36.prev = 28;
-
                           _iterator18.f();
-
                           return _context36.finish(28);
-
                         case 31:
                           return _context36.abrupt('return', -1);
-
                         case 32:
                         case 'end':
                           return _context36.stop();
@@ -3424,7 +2885,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'indexOfFirst',
         value: function indexOfFirst(predicate) {
           var _this38 = this;
-
           var thisArg =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
@@ -3439,7 +2899,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _step19$value;
                 var index;
                 var element;
-
                 return _regenerator['default'].wrap(
                   function _callee37$(_context37) {
                     while (1) {
@@ -3449,15 +2908,12 @@ var KoconutCollection = (function (_KoconutIterable) {
                             Array.from(_this38.data).entries(),
                           );
                           _context37.prev = 1;
-
                           _iterator19.s();
-
                         case 3:
                           if ((_step19 = _iterator19.n()).done) {
                             _context37.next = 11;
                             break;
                           }
-
                           (_step19$value = (0, _slicedToArray2['default'])(
                             _step19.value,
                             2,
@@ -3466,39 +2922,28 @@ var KoconutCollection = (function (_KoconutIterable) {
                             (element = _step19$value[1]);
                           _context37.next = 7;
                           return predicate(element);
-
                         case 7:
                           if (!_context37.sent) {
                             _context37.next = 9;
                             break;
                           }
-
                           return _context37.abrupt('return', index);
-
                         case 9:
                           _context37.next = 3;
                           break;
-
                         case 11:
                           _context37.next = 16;
                           break;
-
                         case 13:
                           _context37.prev = 13;
                           _context37.t0 = _context37['catch'](1);
-
                           _iterator19.e(_context37.t0);
-
                         case 16:
                           _context37.prev = 16;
-
                           _iterator19.f();
-
                           return _context37.finish(16);
-
                         case 19:
                           return _context37.abrupt('return', -1);
-
                         case 20:
                         case 'end':
                           return _context37.stop();
@@ -3519,7 +2964,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'indexOfLast',
         value: function indexOfLast(predicate) {
           var _this39 = this;
-
           var thisArg =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
@@ -3539,32 +2983,25 @@ var KoconutCollection = (function (_KoconutIterable) {
                       case 0:
                         dataArray = Array.from(_this39.data);
                         eachIndex = dataArray.length - 1;
-
                       case 2:
                         if (!(eachIndex >= 0)) {
                           _context38.next = 10;
                           break;
                         }
-
                         _context38.next = 5;
                         return predicate(dataArray[eachIndex]);
-
                       case 5:
                         if (!_context38.sent) {
                           _context38.next = 7;
                           break;
                         }
-
                         return _context38.abrupt('return', eachIndex);
-
                       case 7:
                         eachIndex--;
                         _context38.next = 2;
                         break;
-
                       case 10:
                         return _context38.abrupt('return', -1);
-
                       case 11:
                       case 'end':
                         return _context38.stop();
@@ -3582,7 +3019,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'associate',
         value: function associate(transform) {
           var _this40 = this;
-
           var thisArg =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
@@ -3599,7 +3035,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var eachTransformResult;
                 var eachPair;
                 var eachEntry;
-
                 return _regenerator['default'].wrap(
                   function _callee39$(_context39) {
                     while (1) {
@@ -3610,22 +3045,17 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _this40.data,
                           );
                           _context39.prev = 2;
-
                           _iterator20.s();
-
                         case 4:
                           if ((_step20 = _iterator20.n()).done) {
                             _context39.next = 30;
                             break;
                           }
-
                           eachDatum = _step20.value;
                           _context39.next = 8;
                           return transform(eachDatum);
-
                         case 8:
                           eachTransformResult = _context39.sent;
-
                           if (
                             !(
                               eachTransformResult instanceof _module.KoconutPair
@@ -3634,30 +3064,25 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _context39.next = 16;
                             break;
                           }
-
                           _context39.next = 12;
                           return eachTransformResult['yield']();
-
                         case 12:
                           eachPair = _context39.sent;
                           if (eachPair != null)
                             processedMap.set(eachPair.first, eachPair.second);
                           _context39.next = 28;
                           break;
-
                         case 16:
                           if (!(eachTransformResult instanceof _module.Pair)) {
                             _context39.next = 20;
                             break;
                           }
-
                           processedMap.set(
                             eachTransformResult.first,
                             eachTransformResult.second,
                           );
                           _context39.next = 28;
                           break;
-
                         case 20:
                           if (
                             !(
@@ -3668,17 +3093,14 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _context39.next = 27;
                             break;
                           }
-
                           _context39.next = 23;
                           return eachTransformResult['yield']();
-
                         case 23:
                           eachEntry = _context39.sent;
                           if (eachEntry != null)
                             processedMap.set(eachEntry.key, eachEntry.value);
                           _context39.next = 28;
                           break;
-
                         case 27:
                           if (eachTransformResult instanceof _module.Entry)
                             processedMap.set(
@@ -3690,31 +3112,22 @@ var KoconutCollection = (function (_KoconutIterable) {
                               eachTransformResult[0],
                               eachTransformResult[1],
                             );
-
                         case 28:
                           _context39.next = 4;
                           break;
-
                         case 30:
                           _context39.next = 35;
                           break;
-
                         case 32:
                           _context39.prev = 32;
                           _context39.t0 = _context39['catch'](2);
-
                           _iterator20.e(_context39.t0);
-
                         case 35:
                           _context39.prev = 35;
-
                           _iterator20.f();
-
                           return _context39.finish(35);
-
                         case 38:
                           return _context39.abrupt('return', processedMap);
-
                         case 39:
                         case 'end':
                           return _context39.stop();
@@ -3735,7 +3148,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'associateBy',
         value: function associateBy(keySelector) {
           var _this41 = this;
-
           var valueTransform =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
@@ -3761,7 +3173,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var eachDatum;
                 var eachKey;
                 var eachValue;
-
                 return _regenerator['default'].wrap(
                   function _callee40$(_context40) {
                     while (1) {
@@ -3772,66 +3183,48 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _this41.data,
                           );
                           _context40.prev = 2;
-
                           _iterator21.s();
-
                         case 4:
                           if ((_step21 = _iterator21.n()).done) {
                             _context40.next = 20;
                             break;
                           }
-
                           eachDatum = _step21.value;
                           _context40.next = 8;
                           return keySelector(eachDatum);
-
                         case 8:
                           eachKey = _context40.sent;
-
                           if (!valueTransform) {
                             _context40.next = 15;
                             break;
                           }
-
                           _context40.next = 12;
                           return valueTransform(eachDatum);
-
                         case 12:
                           _context40.t0 = _context40.sent;
                           _context40.next = 16;
                           break;
-
                         case 15:
                           _context40.t0 = eachDatum;
-
                         case 16:
                           eachValue = _context40.t0;
                           processedMap.set(eachKey, eachValue);
-
                         case 18:
                           _context40.next = 4;
                           break;
-
                         case 20:
                           _context40.next = 25;
                           break;
-
                         case 22:
                           _context40.prev = 22;
                           _context40.t1 = _context40['catch'](2);
-
                           _iterator21.e(_context40.t1);
-
                         case 25:
                           _context40.prev = 25;
-
                           _iterator21.f();
-
                           return _context40.finish(25);
-
                         case 28:
                           return _context40.abrupt('return', processedMap);
-
                         case 29:
                         case 'end':
                           return _context40.stop();
@@ -3858,7 +3251,6 @@ var KoconutCollection = (function (_KoconutIterable) {
           valueTransformThisArg,
         ) {
           var _this42 = this;
-
           keySelector = keySelector.bind(keySelectorThisArg);
           if (valueTransform)
             valueTransform = valueTransform.bind(valueTransformThisArg);
@@ -3884,10 +3276,8 @@ var KoconutCollection = (function (_KoconutIterable) {
                             destination.set(eachEntry.key, eachEntry.value);
                           })
                           .process();
-
                       case 2:
                         return _context41.abrupt('return', _this42.data);
-
                       case 3:
                       case 'end':
                         return _context41.stop();
@@ -3905,7 +3295,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'associateTo',
         value: function associateTo(destination, transform, thisArg) {
           var _this43 = this;
-
           transform = transform.bind(thisArg);
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
@@ -3924,10 +3313,8 @@ var KoconutCollection = (function (_KoconutIterable) {
                             destination.set(eachEntry.key, eachEntry.value);
                           })
                           .process();
-
                       case 2:
                         return _context42.abrupt('return', _this43.data);
-
                       case 3:
                       case 'end':
                         return _context42.stop();
@@ -3945,7 +3332,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'associateWith',
         value: function associateWith(valueSelector) {
           var _this44 = this;
-
           var thisArg =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
@@ -3960,7 +3346,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _step22;
                 var eachDatum;
                 var eachValue;
-
                 return _regenerator['default'].wrap(
                   function _callee43$(_context43) {
                     while (1) {
@@ -3971,47 +3356,34 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _this44.data,
                           );
                           _context43.prev = 2;
-
                           _iterator22.s();
-
                         case 4:
                           if ((_step22 = _iterator22.n()).done) {
                             _context43.next = 12;
                             break;
                           }
-
                           eachDatum = _step22.value;
                           _context43.next = 8;
                           return valueSelector(eachDatum);
-
                         case 8:
                           eachValue = _context43.sent;
                           processedMap.set(eachDatum, eachValue);
-
                         case 10:
                           _context43.next = 4;
                           break;
-
                         case 12:
                           _context43.next = 17;
                           break;
-
                         case 14:
                           _context43.prev = 14;
                           _context43.t0 = _context43['catch'](2);
-
                           _iterator22.e(_context43.t0);
-
                         case 17:
                           _context43.prev = 17;
-
                           _iterator22.f();
-
                           return _context43.finish(17);
-
                         case 20:
                           return _context43.abrupt('return', processedMap);
-
                         case 21:
                         case 'end':
                           return _context43.stop();
@@ -4032,7 +3404,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'associateWithTo',
         value: function associateWithTo(destination, valueSelector, thisArg) {
           var _this45 = this;
-
           valueSelector = valueSelector.bind(thisArg);
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
@@ -4051,10 +3422,8 @@ var KoconutCollection = (function (_KoconutIterable) {
                             destination.set(eachEntry.key, eachEntry.value);
                           })
                           .process();
-
                       case 2:
                         return _context44.abrupt('return', _this45.data);
-
                       case 3:
                       case 'end':
                         return _context44.stop();
@@ -4072,7 +3441,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'chunked',
         value: function chunked(size) {
           var _this46 = this;
-
           var transform =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
@@ -4101,43 +3469,35 @@ var KoconutCollection = (function (_KoconutIterable) {
                           _context45.next = 2;
                           break;
                         }
-
                         throw new _module.KoconutInvalidArgumentException(
                           'Size must be greater than 0. Given size : '.concat(
                             size,
                             '.',
                           ),
                         );
-
                       case 2:
                         processedArray = new Array();
                         currentIndex = 0;
                         dataArray = Array.from(_this46.data);
-
                         while (currentIndex < dataArray.length) {
                           processedArray.push(
                             dataArray.slice(currentIndex, currentIndex + size),
                           );
                           currentIndex += size;
                         }
-
                         if (!transform) {
                           _context45.next = 20;
                           break;
                         }
-
                         transformedArray = new Array();
                         _context45.t0 =
                           _regenerator['default'].keys(processedArray);
-
                       case 9:
                         if ((_context45.t1 = _context45.t0()).done) {
                           _context45.next = 19;
                           break;
                         }
-
                         eachProcessedIndex = _context45.t1.value;
-
                         if (
                           !Object.prototype.hasOwnProperty.call(
                             processedArray,
@@ -4147,26 +3507,19 @@ var KoconutCollection = (function (_KoconutIterable) {
                           _context45.next = 17;
                           break;
                         }
-
                         _context45.t2 = transformedArray;
                         _context45.next = 15;
                         return transform(processedArray[eachProcessedIndex]);
-
                       case 15:
                         _context45.t3 = _context45.sent;
-
                         _context45.t2.push.call(_context45.t2, _context45.t3);
-
                       case 17:
                         _context45.next = 9;
                         break;
-
                       case 19:
                         return _context45.abrupt('return', transformedArray);
-
                       case 20:
                         return _context45.abrupt('return', processedArray);
-
                       case 21:
                       case 'end':
                         return _context45.stop();
@@ -4184,7 +3537,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'flatMapIndexed',
         value: function flatMapIndexed(transform) {
           var _this47 = this;
-
           var thisArg =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
@@ -4202,7 +3554,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _iterator24;
                 var _step24;
                 var eachSubElement;
-
                 return _regenerator['default'].wrap(
                   function _callee46$(_context46) {
                     while (1) {
@@ -4214,24 +3565,19 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _this47.data,
                           );
                           _context46.prev = 3;
-
                           _iterator23.s();
-
                         case 5:
                           if ((_step23 = _iterator23.n()).done) {
                             _context46.next = 15;
                             break;
                           }
-
                           eachDatum = _step23.value;
                           _context46.t0 = _createForOfIteratorHelper;
                           _context46.next = 10;
                           return transform(eachIndex++, eachDatum);
-
                         case 10:
                           _context46.t1 = _context46.sent;
                           _iterator24 = (0, _context46.t0)(_context46.t1);
-
                           try {
                             for (
                               _iterator24.s();
@@ -4246,31 +3592,22 @@ var KoconutCollection = (function (_KoconutIterable) {
                           } finally {
                             _iterator24.f();
                           }
-
                         case 13:
                           _context46.next = 5;
                           break;
-
                         case 15:
                           _context46.next = 20;
                           break;
-
                         case 17:
                           _context46.prev = 17;
                           _context46.t2 = _context46['catch'](3);
-
                           _iterator23.e(_context46.t2);
-
                         case 20:
                           _context46.prev = 20;
-
                           _iterator23.f();
-
                           return _context46.finish(20);
-
                         case 23:
                           return _context46.abrupt('return', processedArray);
-
                         case 24:
                         case 'end':
                           return _context46.stop();
@@ -4303,7 +3640,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'flatMapIndexedTo',
         value: function flatMapIndexedTo(destination, transform, thisArg) {
           var _this48 = this;
-
           transform = transform.bind(thisArg);
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
@@ -4320,23 +3656,19 @@ var KoconutCollection = (function (_KoconutIterable) {
                           transform,
                           thisArg,
                         );
-
                         if (!(destination instanceof Array)) {
                           _context47.next = 6;
                           break;
                         }
-
                         _context47.next = 4;
                         return flattenCollection
                           .forEach(function (eachElement) {
                             destination.push(eachElement);
                           })
                           .process();
-
                       case 4:
                         _context47.next = 8;
                         break;
-
                       case 6:
                         _context47.next = 8;
                         return flattenCollection
@@ -4345,10 +3677,8 @@ var KoconutCollection = (function (_KoconutIterable) {
                             destination.add(eachElement);
                           })
                           .process();
-
                       case 8:
                         return _context47.abrupt('return', _this48.data);
-
                       case 9:
                       case 'end':
                         return _context47.stop();
@@ -4366,7 +3696,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'groupBy',
         value: function groupBy(keySelector) {
           var _this49 = this;
-
           var valueTransform =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
@@ -4393,7 +3722,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var eachDatum;
                 var eachKey;
                 var eachValue;
-
                 return _regenerator['default'].wrap(
                   function _callee48$(_context48) {
                     while (1) {
@@ -4404,38 +3732,29 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _this49.data,
                           );
                           _context48.prev = 2;
-
                           _iterator25.s();
-
                         case 4:
                           if ((_step25 = _iterator25.n()).done) {
                             _context48.next = 21;
                             break;
                           }
-
                           eachDatum = _step25.value;
                           _context48.next = 8;
                           return keySelector(eachDatum);
-
                         case 8:
                           eachKey = _context48.sent;
-
                           if (!valueTransform) {
                             _context48.next = 15;
                             break;
                           }
-
                           _context48.next = 12;
                           return valueTransform(eachDatum);
-
                         case 12:
                           _context48.t0 = _context48.sent;
                           _context48.next = 16;
                           break;
-
                         case 15:
                           _context48.t0 = eachDatum;
-
                         case 16:
                           eachValue = _context48.t0;
                           if (!processedMap.has(eachKey))
@@ -4444,31 +3763,22 @@ var KoconutCollection = (function (_KoconutIterable) {
                             null || _processedMap$get === void 0
                             ? void 0
                             : _processedMap$get.push(eachValue);
-
                         case 19:
                           _context48.next = 4;
                           break;
-
                         case 21:
                           _context48.next = 26;
                           break;
-
                         case 23:
                           _context48.prev = 23;
                           _context48.t1 = _context48['catch'](2);
-
                           _iterator25.e(_context48.t1);
-
                         case 26:
                           _context48.prev = 26;
-
                           _iterator25.f();
-
                           return _context48.finish(26);
-
                         case 29:
                           return _context48.abrupt('return', processedMap);
-
                         case 30:
                         case 'end':
                           return _context48.stop();
@@ -4495,7 +3805,6 @@ var KoconutCollection = (function (_KoconutIterable) {
           valueTransformThisArg,
         ) {
           var _this50 = this;
-
           keySelector = keySelector.bind(keySelectorThisArg);
           if (valueTransform)
             valueTransform = valueTransform.bind(valueTransformThisArg);
@@ -4509,7 +3818,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var eachDatum;
                 var eachKey;
                 var eachValue;
-
                 return _regenerator['default'].wrap(
                   function _callee49$(_context49) {
                     while (1) {
@@ -4519,38 +3827,29 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _this50.data,
                           );
                           _context49.prev = 1;
-
                           _iterator26.s();
-
                         case 3:
                           if ((_step26 = _iterator26.n()).done) {
                             _context49.next = 20;
                             break;
                           }
-
                           eachDatum = _step26.value;
                           _context49.next = 7;
                           return keySelector(eachDatum);
-
                         case 7:
                           eachKey = _context49.sent;
-
                           if (!valueTransform) {
                             _context49.next = 14;
                             break;
                           }
-
                           _context49.next = 11;
                           return valueTransform(eachDatum);
-
                         case 11:
                           _context49.t0 = _context49.sent;
                           _context49.next = 15;
                           break;
-
                         case 14:
                           _context49.t0 = eachDatum;
-
                         case 15:
                           eachValue = _context49.t0;
                           if (!destination.has(eachKey))
@@ -4559,31 +3858,22 @@ var KoconutCollection = (function (_KoconutIterable) {
                             null || _destination$get === void 0
                             ? void 0
                             : _destination$get.push(eachValue);
-
                         case 18:
                           _context49.next = 3;
                           break;
-
                         case 20:
                           _context49.next = 25;
                           break;
-
                         case 22:
                           _context49.prev = 22;
                           _context49.t1 = _context49['catch'](1);
-
                           _iterator26.e(_context49.t1);
-
                         case 25:
                           _context49.prev = 25;
-
                           _iterator26.f();
-
                           return _context49.finish(25);
-
                         case 28:
                           return _context49.abrupt('return', _this50.data);
-
                         case 29:
                         case 'end':
                           return _context49.stop();
@@ -4628,7 +3918,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'mapIndexed',
         value: function mapIndexed(transform) {
           var _this51 = this;
-
           var thisArg =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
@@ -4644,7 +3933,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _step27$value;
                 var eachIndex;
                 var eachDatum;
-
                 return _regenerator['default'].wrap(
                   function _callee50$(_context50) {
                     while (1) {
@@ -4655,15 +3943,12 @@ var KoconutCollection = (function (_KoconutIterable) {
                             Array.from(_this51.data).entries(),
                           );
                           _context50.prev = 2;
-
                           _iterator27.s();
-
                         case 4:
                           if ((_step27 = _iterator27.n()).done) {
                             _context50.next = 13;
                             break;
                           }
-
                           (_step27$value = (0, _slicedToArray2['default'])(
                             _step27.value,
                             2,
@@ -4673,36 +3958,25 @@ var KoconutCollection = (function (_KoconutIterable) {
                           _context50.t0 = processedArray;
                           _context50.next = 9;
                           return transform(eachIndex, eachDatum);
-
                         case 9:
                           _context50.t1 = _context50.sent;
-
                           _context50.t0.push.call(_context50.t0, _context50.t1);
-
                         case 11:
                           _context50.next = 4;
                           break;
-
                         case 13:
                           _context50.next = 18;
                           break;
-
                         case 15:
                           _context50.prev = 15;
                           _context50.t2 = _context50['catch'](2);
-
                           _iterator27.e(_context50.t2);
-
                         case 18:
                           _context50.prev = 18;
-
                           _iterator27.f();
-
                           return _context50.finish(18);
-
                         case 21:
                           return _context50.abrupt('return', processedArray);
-
                         case 22:
                         case 'end':
                           return _context50.stop();
@@ -4723,7 +3997,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'mapIndexedTo',
         value: function mapIndexedTo(destination, transform, thisArg) {
           var _this52 = this;
-
           transform = transform.bind(thisArg);
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
@@ -4740,23 +4013,19 @@ var KoconutCollection = (function (_KoconutIterable) {
                           transform,
                           thisArg,
                         );
-
                         if (!(destination instanceof Array)) {
                           _context51.next = 6;
                           break;
                         }
-
                         _context51.next = 4;
                         return mappedCollection
                           .forEach(function (eachElement) {
                             destination.push(eachElement);
                           })
                           .process();
-
                       case 4:
                         _context51.next = 8;
                         break;
-
                       case 6:
                         _context51.next = 8;
                         return mappedCollection
@@ -4765,10 +4034,8 @@ var KoconutCollection = (function (_KoconutIterable) {
                             destination.add(eachElement);
                           })
                           .process();
-
                       case 8:
                         return _context51.abrupt('return', _this52.data);
-
                       case 9:
                       case 'end':
                         return _context51.stop();
@@ -4786,7 +4053,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'mapIndexedNotNull',
         value: function mapIndexedNotNull(transform) {
           var _this53 = this;
-
           var thisArg =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
@@ -4803,7 +4069,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var eachIndex;
                 var eachDatum;
                 var eachResultData;
-
                 return _regenerator['default'].wrap(
                   function _callee52$(_context52) {
                     while (1) {
@@ -4814,15 +4079,12 @@ var KoconutCollection = (function (_KoconutIterable) {
                             Array.from(_this53.data).entries(),
                           );
                           _context52.prev = 2;
-
                           _iterator28.s();
-
                         case 4:
                           if ((_step28 = _iterator28.n()).done) {
                             _context52.next = 12;
                             break;
                           }
-
                           (_step28$value = (0, _slicedToArray2['default'])(
                             _step28.value,
                             2,
@@ -4831,7 +4093,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                             (eachDatum = _step28$value[1]);
                           _context52.next = 8;
                           return transform(eachIndex, eachDatum);
-
                         case 8:
                           eachResultData = _context52.sent;
                           if (
@@ -4839,31 +4100,22 @@ var KoconutCollection = (function (_KoconutIterable) {
                             eachResultData != undefined
                           )
                             processedArray.push(eachResultData);
-
                         case 10:
                           _context52.next = 4;
                           break;
-
                         case 12:
                           _context52.next = 17;
                           break;
-
                         case 14:
                           _context52.prev = 14;
                           _context52.t0 = _context52['catch'](2);
-
                           _iterator28.e(_context52.t0);
-
                         case 17:
                           _context52.prev = 17;
-
                           _iterator28.f();
-
                           return _context52.finish(17);
-
                         case 20:
                           return _context52.abrupt('return', processedArray);
-
                         case 21:
                         case 'end':
                           return _context52.stop();
@@ -4884,7 +4136,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'mapIndexedNotNullTo',
         value: function mapIndexedNotNullTo(destination, transform, thisArg) {
           var _this54 = this;
-
           transform = transform.bind(thisArg);
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
@@ -4901,23 +4152,19 @@ var KoconutCollection = (function (_KoconutIterable) {
                           transform,
                           thisArg,
                         );
-
                         if (!(destination instanceof Array)) {
                           _context53.next = 6;
                           break;
                         }
-
                         _context53.next = 4;
                         return mappedCollection
                           .forEach(function (eachElement) {
                             destination.push(eachElement);
                           })
                           .process();
-
                       case 4:
                         _context53.next = 8;
                         break;
-
                       case 6:
                         _context53.next = 8;
                         return mappedCollection
@@ -4926,10 +4173,8 @@ var KoconutCollection = (function (_KoconutIterable) {
                             destination.add(eachElement);
                           })
                           .process();
-
                       case 8:
                         return _context53.abrupt('return', _this54.data);
-
                       case 9:
                       case 'end':
                         return _context53.stop();
@@ -4947,7 +4192,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'intersect',
         value: function intersect(other) {
           var _this55 = this;
-
           var koconutToReturn = new _module.KoconutSet();
           koconutToReturn.setPrevYieldable(this).setProcessor(
             (0, _asyncToGenerator2['default'])(
@@ -4957,7 +4201,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _iterator29;
                 var _step29;
                 var eachDatum;
-
                 return _regenerator['default'].wrap(
                   function _callee54$(_context54) {
                     while (1) {
@@ -4969,51 +4212,37 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _this55.data,
                           );
                           _context54.prev = 3;
-
                           _iterator29.s();
-
                         case 5:
                           if ((_step29 = _iterator29.n()).done) {
                             _context54.next = 13;
                             break;
                           }
-
                           eachDatum = _step29.value;
                           _context54.next = 9;
                           return otherArray.contains(eachDatum)['yield']();
-
                         case 9:
                           if (!_context54.sent) {
                             _context54.next = 11;
                             break;
                           }
-
                           processedSet.add(eachDatum);
-
                         case 11:
                           _context54.next = 5;
                           break;
-
                         case 13:
                           _context54.next = 18;
                           break;
-
                         case 15:
                           _context54.prev = 15;
                           _context54.t0 = _context54['catch'](3);
-
                           _iterator29.e(_context54.t0);
-
                         case 18:
                           _context54.prev = 18;
-
                           _iterator29.f();
-
                           return _context54.finish(18);
-
                         case 21:
                           return _context54.abrupt('return', processedSet);
-
                         case 22:
                         case 'end':
                           return _context54.stop();
@@ -5034,7 +4263,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'join',
         value: function join() {
           var _this56 = this;
-
           var separator =
             arguments.length > 0 && arguments[0] !== undefined
               ? arguments[0]
@@ -5074,7 +4302,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _iterator30;
                 var _step30;
                 var eachDatum;
-
                 return _regenerator['default'].wrap(
                   function _callee55$(_context55) {
                     while (1) {
@@ -5087,75 +4314,55 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _this56.data,
                           );
                           _context55.prev = 4;
-
                           _iterator30.s();
-
                         case 6:
                           if ((_step30 = _iterator30.n()).done) {
                             _context55.next = 24;
                             break;
                           }
-
                           eachDatum = _step30.value;
-
                           if (!(currentCount == limit)) {
                             _context55.next = 11;
                             break;
                           }
-
                           resultString += truncated;
                           return _context55.abrupt('break', 24);
-
                         case 11:
                           _context55.t0 = resultString;
-
                           if (!transform) {
                             _context55.next = 18;
                             break;
                           }
-
                           _context55.next = 15;
                           return transform(eachDatum);
-
                         case 15:
                           _context55.t1 = _context55.sent;
                           _context55.next = 19;
                           break;
-
                         case 18:
                           _context55.t1 = eachDatum;
-
                         case 19:
                           resultString = _context55.t0 += _context55.t1;
                           currentCount++;
                           if (currentCount != length && currentCount != limit)
                             resultString += separator;
-
                         case 22:
                           _context55.next = 6;
                           break;
-
                         case 24:
                           _context55.next = 29;
                           break;
-
                         case 26:
                           _context55.prev = 26;
                           _context55.t2 = _context55['catch'](4);
-
                           _iterator30.e(_context55.t2);
-
                         case 29:
                           _context55.prev = 29;
-
                           _iterator30.f();
-
                           return _context55.finish(29);
-
                         case 32:
                           resultString += postfix;
                           return _context55.abrupt('return', resultString);
-
                         case 34:
                         case 'end':
                           return _context55.stop();
@@ -5176,7 +4383,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'last',
         value: function last() {
           var _this57 = this;
-
           var predicate =
             arguments.length > 0 && arguments[0] !== undefined
               ? arguments[0]
@@ -5202,57 +4408,45 @@ var KoconutCollection = (function (_KoconutIterable) {
                           _context56.next = 2;
                           break;
                         }
-
                         throw new _module.KoconutNoSuchElementException(
                           'Source data is null or empty',
                         );
-
                       case 2:
                         dataArray = Array.from(_this57.data);
-
                         if (!predicate) {
                           _context56.next = 14;
                           break;
                         }
-
                         eachIndex = dataArray.length;
-
                       case 5:
                         if (!(eachIndex >= 0)) {
                           _context56.next = 13;
                           break;
                         }
-
                         _context56.next = 8;
                         return predicate(dataArray[eachIndex]);
-
                       case 8:
                         if (!_context56.sent) {
                           _context56.next = 10;
                           break;
                         }
-
                         return _context56.abrupt(
                           'return',
                           dataArray[eachIndex],
                         );
-
                       case 10:
                         eachIndex--;
                         _context56.next = 5;
                         break;
-
                       case 13:
                         throw new _module.KoconutNoSuchElementException(
                           'No such element is found',
                         );
-
                       case 14:
                         return _context56.abrupt(
                           'return',
                           dataArray[dataArray.length - 1],
                         );
-
                       case 15:
                       case 'end':
                         return _context56.stop();
@@ -5270,7 +4464,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'lastIndexOf',
         value: function lastIndexOf(element) {
           var _this58 = this;
-
           var koconutToReturn = new _module.KoconutPrimitive();
           koconutToReturn.setPrevYieldable(this).setProcessor(
             (0, _asyncToGenerator2['default'])(
@@ -5287,15 +4480,12 @@ var KoconutCollection = (function (_KoconutIterable) {
                       case 0:
                         dataArray = Array.from(_this58.data);
                         eachIndex = dataArray.length - 1;
-
                       case 2:
                         if (!(eachIndex >= 0)) {
                           _context57.next = 23;
                           break;
                         }
-
                         eachElement = dataArray[eachIndex];
-
                         if (
                           !_module.KoconutTypeChecker.checkIsEquatable(
                             eachElement,
@@ -5304,63 +4494,48 @@ var KoconutCollection = (function (_KoconutIterable) {
                           _context57.next = 18;
                           break;
                         }
-
                         equalityResult = eachElement.equalsTo(element);
                         _context57.t1 =
                           equalityResult instanceof _module.KoconutPrimitive;
-
                         if (!_context57.t1) {
                           _context57.next = 11;
                           break;
                         }
-
                         _context57.next = 10;
                         return equalityResult['yield']();
-
                       case 10:
                         _context57.t1 = _context57.sent;
-
                       case 11:
                         _context57.t0 = _context57.t1;
-
                         if (_context57.t0) {
                           _context57.next = 14;
                           break;
                         }
-
                         _context57.t0 =
                           !(
                             equalityResult instanceof _module.KoconutPrimitive
                           ) && equalityResult;
-
                       case 14:
                         if (!_context57.t0) {
                           _context57.next = 16;
                           break;
                         }
-
                         return _context57.abrupt('return', eachIndex);
-
                       case 16:
                         _context57.next = 20;
                         break;
-
                       case 18:
                         if (!(eachElement == element)) {
                           _context57.next = 20;
                           break;
                         }
-
                         return _context57.abrupt('return', eachIndex);
-
                       case 20:
                         eachIndex--;
                         _context57.next = 2;
                         break;
-
                       case 23:
                         return _context57.abrupt('return', -1);
-
                       case 24:
                       case 'end':
                         return _context57.stop();
@@ -5378,7 +4553,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'lastOrNull',
         value: function lastOrNull() {
           var _this59 = this;
-
           var predicate =
             arguments.length > 0 && arguments[0] !== undefined
               ? arguments[0]
@@ -5403,56 +4577,44 @@ var KoconutCollection = (function (_KoconutIterable) {
                       case 0:
                         dataArray = Array.from(_this59.data);
                         length = dataArray.length;
-
                         if (!(length == 0)) {
                           _context58.next = 4;
                           break;
                         }
-
                         return _context58.abrupt('return', null);
-
                       case 4:
                         if (!predicate) {
                           _context58.next = 17;
                           break;
                         }
-
                         eachIndex = length - 1;
-
                       case 6:
                         if (!(eachIndex >= 0)) {
                           _context58.next = 14;
                           break;
                         }
-
                         _context58.next = 9;
                         return predicate(dataArray[eachIndex]);
-
                       case 9:
                         if (!_context58.sent) {
                           _context58.next = 11;
                           break;
                         }
-
                         return _context58.abrupt(
                           'return',
                           dataArray[eachIndex],
                         );
-
                       case 11:
                         eachIndex--;
                         _context58.next = 6;
                         break;
-
                       case 14:
                         return _context58.abrupt('return', null);
-
                       case 17:
                         return _context58.abrupt(
                           'return',
                           dataArray[length - 1],
                         );
-
                       case 18:
                       case 'end':
                         return _context58.stop();
@@ -5470,7 +4632,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'minus',
         value: function minus(elements) {
           var _this60 = this;
-
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
             (0, _asyncToGenerator2['default'])(
@@ -5481,7 +4642,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _iterator31;
                 var _step31;
                 var eachDatum;
-
                 return _regenerator['default'].wrap(
                   function _callee59$(_context59) {
                     while (1) {
@@ -5498,64 +4658,48 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _this60.data,
                           );
                           _context59.prev = 5;
-
                           _iterator31.s();
-
                         case 7:
                           if ((_step31 = _iterator31.n()).done) {
                             _context59.next = 15;
                             break;
                           }
-
                           eachDatum = _step31.value;
                           _context59.next = 11;
                           return koconutDataToExceptArray
                             .contains(eachDatum)
                             ['yield']();
-
                         case 11:
                           if (_context59.sent) {
                             _context59.next = 13;
                             break;
                           }
-
                           processedArray.push(eachDatum);
-
                         case 13:
                           _context59.next = 7;
                           break;
-
                         case 15:
                           _context59.next = 20;
                           break;
-
                         case 17:
                           _context59.prev = 17;
                           _context59.t0 = _context59['catch'](5);
-
                           _iterator31.e(_context59.t0);
-
                         case 20:
                           _context59.prev = 20;
-
                           _iterator31.f();
-
                           return _context59.finish(20);
-
                         case 23:
                           if (!(_this60.data instanceof Array)) {
                             _context59.next = 27;
                             break;
                           }
-
                           return _context59.abrupt('return', processedArray);
-
                         case 27:
                           return _context59.abrupt(
                             'return',
                             new Set(processedArray),
                           );
-
                         case 28:
                         case 'end':
                           return _context59.stop();
@@ -5582,7 +4726,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'partition',
         value: function partition(predicate) {
           var _this61 = this;
-
           var thisArg =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
@@ -5597,7 +4740,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _iterator32;
                 var _step32;
                 var eachDatum;
-
                 return _regenerator['default'].wrap(
                   function _callee60$(_context60) {
                     while (1) {
@@ -5609,59 +4751,44 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _this61.data,
                           );
                           _context60.prev = 3;
-
                           _iterator32.s();
-
                         case 5:
                           if ((_step32 = _iterator32.n()).done) {
                             _context60.next = 16;
                             break;
                           }
-
                           eachDatum = _step32.value;
                           _context60.next = 9;
                           return predicate(eachDatum);
-
                         case 9:
                           if (!_context60.sent) {
                             _context60.next = 13;
                             break;
                           }
-
                           processedFirstArray.push(eachDatum);
                           _context60.next = 14;
                           break;
-
                         case 13:
                           processedSecondArray.push(eachDatum);
-
                         case 14:
                           _context60.next = 5;
                           break;
-
                         case 16:
                           _context60.next = 21;
                           break;
-
                         case 18:
                           _context60.prev = 18;
                           _context60.t0 = _context60['catch'](3);
-
                           _iterator32.e(_context60.t0);
-
                         case 21:
                           _context60.prev = 21;
-
                           _iterator32.f();
-
                           return _context60.finish(21);
-
                         case 24:
                           if (!(_this61.data instanceof Array)) {
                             _context60.next = 28;
                             break;
                           }
-
                           return _context60.abrupt(
                             'return',
                             new _module.Pair(
@@ -5669,7 +4796,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                               processedSecondArray,
                             ),
                           );
-
                         case 28:
                           return _context60.abrupt(
                             'return',
@@ -5678,7 +4804,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                               new Set(processedSecondArray),
                             ),
                           );
-
                         case 29:
                         case 'end':
                           return _context60.stop();
@@ -5699,7 +4824,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'plus',
         value: function plus(elements) {
           var _this62 = this;
-
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
             (0, _asyncToGenerator2['default'])(
@@ -5709,7 +4833,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _i;
                 var _elementsArray;
                 var eachDatum;
-
                 return _regenerator['default'].wrap(function _callee61$(
                   _context61,
                 ) {
@@ -5717,10 +4840,8 @@ var KoconutCollection = (function (_KoconutIterable) {
                     switch ((_context61.prev = _context61.next)) {
                       case 0:
                         processedArray = Array.from(_this62.data);
-
                         if (typeof elements[Symbol.iterator] === 'function') {
                           elementsArray = Array.from(elements);
-
                           for (
                             _i = 0, _elementsArray = elementsArray;
                             _i < _elementsArray.length;
@@ -5730,20 +4851,16 @@ var KoconutCollection = (function (_KoconutIterable) {
                             processedArray.push(eachDatum);
                           }
                         } else processedArray.push(elements);
-
                         if (!(_this62.data instanceof Array)) {
                           _context61.next = 6;
                           break;
                         }
-
                         return _context61.abrupt('return', processedArray);
-
                       case 6:
                         return _context61.abrupt(
                           'return',
                           new Set(processedArray),
                         );
-
                       case 7:
                       case 'end':
                         return _context61.stop();
@@ -5767,7 +4884,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'random',
         value: function random() {
           var _this63 = this;
-
           var koconutToReturn = new _module.KoconutPrimitive();
           koconutToReturn.setPrevYieldable(this).setProcessor(
             (0, _asyncToGenerator2['default'])(
@@ -5783,11 +4899,9 @@ var KoconutCollection = (function (_KoconutIterable) {
                           _context62.next = 2;
                           break;
                         }
-
                         throw new _module.KoconutNoSuchElementException(
                           'Source data is null or empty',
                         );
-
                       case 2:
                         dataArray = Array.from(_this63.data);
                         return _context62.abrupt(
@@ -5796,7 +4910,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                             Math.floor(Math.random() * dataArray.length)
                           ],
                         );
-
                       case 4:
                       case 'end':
                         return _context62.stop();
@@ -5814,7 +4927,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'randomOrNull',
         value: function randomOrNull() {
           var _this64 = this;
-
           var koconutToReturn = new _module.KoconutPrimitive();
           koconutToReturn.setPrevYieldable(this).setProcessor(
             (0, _asyncToGenerator2['default'])(
@@ -5830,9 +4942,7 @@ var KoconutCollection = (function (_KoconutIterable) {
                           _context63.next = 2;
                           break;
                         }
-
                         return _context63.abrupt('return', null);
-
                       case 2:
                         dataArray = Array.from(_this64.data);
                         return _context63.abrupt(
@@ -5841,7 +4951,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                             Math.floor(Math.random() * dataArray.length)
                           ],
                         );
-
                       case 4:
                       case 'end':
                         return _context63.stop();
@@ -5859,7 +4968,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'reduce',
         value: function reduce(operation) {
           var _this65 = this;
-
           var thisArg =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
@@ -5882,36 +4990,28 @@ var KoconutCollection = (function (_KoconutIterable) {
                           _context64.next = 2;
                           break;
                         }
-
                         throw new _module.KoconutNoSuchElementException(
                           'Source data is null or empty',
                         );
-
                       case 2:
                         dataArray = Array.from(_this65.data);
                         acc = dataArray[0];
                         eachIndex = 1;
-
                       case 5:
                         if (!(eachIndex < dataArray.length)) {
                           _context64.next = 12;
                           break;
                         }
-
                         _context64.next = 8;
                         return operation(acc, dataArray[eachIndex]);
-
                       case 8:
                         acc = _context64.sent;
-
                       case 9:
                         eachIndex++;
                         _context64.next = 5;
                         break;
-
                       case 12:
                         return _context64.abrupt('return', acc);
-
                       case 13:
                       case 'end':
                         return _context64.stop();
@@ -5929,7 +5029,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'reduceIndexed',
         value: function reduceIndexed(operation) {
           var _this66 = this;
-
           var thisArg =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
@@ -5952,36 +5051,28 @@ var KoconutCollection = (function (_KoconutIterable) {
                           _context65.next = 2;
                           break;
                         }
-
                         throw new _module.KoconutNoSuchElementException(
                           'Source data is null or empty',
                         );
-
                       case 2:
                         dataArray = Array.from(_this66.data);
                         acc = dataArray[0];
                         eachIndex = 1;
-
                       case 5:
                         if (!(eachIndex < dataArray.length)) {
                           _context65.next = 12;
                           break;
                         }
-
                         _context65.next = 8;
                         return operation(eachIndex, acc, dataArray[eachIndex]);
-
                       case 8:
                         acc = _context65.sent;
-
                       case 9:
                         eachIndex++;
                         _context65.next = 5;
                         break;
-
                       case 12:
                         return _context65.abrupt('return', acc);
-
                       case 13:
                       case 'end':
                         return _context65.stop();
@@ -5999,7 +5090,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'reduceIndexedOrNull',
         value: function reduceIndexedOrNull(operation) {
           var _this67 = this;
-
           var thisArg =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
@@ -6022,34 +5112,26 @@ var KoconutCollection = (function (_KoconutIterable) {
                           _context66.next = 2;
                           break;
                         }
-
                         return _context66.abrupt('return', null);
-
                       case 2:
                         dataArray = Array.from(_this67.data);
                         acc = dataArray[0];
                         eachIndex = 1;
-
                       case 5:
                         if (!(eachIndex < dataArray.length)) {
                           _context66.next = 12;
                           break;
                         }
-
                         _context66.next = 8;
                         return operation(eachIndex, acc, dataArray[eachIndex]);
-
                       case 8:
                         acc = _context66.sent;
-
                       case 9:
                         eachIndex++;
                         _context66.next = 5;
                         break;
-
                       case 12:
                         return _context66.abrupt('return', acc);
-
                       case 13:
                       case 'end':
                         return _context66.stop();
@@ -6067,7 +5149,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'reduceOrNull',
         value: function reduceOrNull(operation) {
           var _this68 = this;
-
           var thisArg =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
@@ -6090,34 +5171,26 @@ var KoconutCollection = (function (_KoconutIterable) {
                           _context67.next = 2;
                           break;
                         }
-
                         return _context67.abrupt('return', null);
-
                       case 2:
                         dataArray = Array.from(_this68.data);
                         acc = dataArray[0];
                         eachIndex = 1;
-
                       case 5:
                         if (!(eachIndex < dataArray.length)) {
                           _context67.next = 12;
                           break;
                         }
-
                         _context67.next = 8;
                         return operation(acc, dataArray[eachIndex]);
-
                       case 8:
                         acc = _context67.sent;
-
                       case 9:
                         eachIndex++;
                         _context67.next = 5;
                         break;
-
                       case 12:
                         return _context67.abrupt('return', acc);
-
                       case 13:
                       case 'end':
                         return _context67.stop();
@@ -6135,7 +5208,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'reversed',
         value: function reversed() {
           var _this69 = this;
-
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
             (0, _asyncToGenerator2['default'])(
@@ -6148,20 +5220,16 @@ var KoconutCollection = (function (_KoconutIterable) {
                     switch ((_context68.prev = _context68.next)) {
                       case 0:
                         processedArray = Array.from(_this69.data).reverse();
-
                         if (!(_this69.data instanceof Array)) {
                           _context68.next = 5;
                           break;
                         }
-
                         return _context68.abrupt('return', processedArray);
-
                       case 5:
                         return _context68.abrupt(
                           'return',
                           new Set(processedArray),
                         );
-
                       case 6:
                       case 'end':
                         return _context68.stop();
@@ -6179,7 +5247,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'runningFold',
         value: function runningFold(initial, operation) {
           var _this70 = this;
-
           var thisArg =
             arguments.length > 2 && arguments[2] !== undefined
               ? arguments[2]
@@ -6193,7 +5260,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _iterator33;
                 var _step33;
                 var eachDatum;
-
                 return _regenerator['default'].wrap(
                   function _callee69$(_context69) {
                     while (1) {
@@ -6205,47 +5271,34 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _this70.data,
                           );
                           _context69.prev = 3;
-
                           _iterator33.s();
-
                         case 5:
                           if ((_step33 = _iterator33.n()).done) {
                             _context69.next = 13;
                             break;
                           }
-
                           eachDatum = _step33.value;
                           _context69.next = 9;
                           return operation(initial, eachDatum);
-
                         case 9:
                           initial = _context69.sent;
                           processedArray.push(initial);
-
                         case 11:
                           _context69.next = 5;
                           break;
-
                         case 13:
                           _context69.next = 18;
                           break;
-
                         case 15:
                           _context69.prev = 15;
                           _context69.t0 = _context69['catch'](3);
-
                           _iterator33.e(_context69.t0);
-
                         case 18:
                           _context69.prev = 18;
-
                           _iterator33.f();
-
                           return _context69.finish(18);
-
                         case 21:
                           return _context69.abrupt('return', processedArray);
-
                         case 22:
                         case 'end':
                           return _context69.stop();
@@ -6266,7 +5319,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'runningFoldIndexed',
         value: function runningFoldIndexed(initial, operation) {
           var _this71 = this;
-
           var thisArg =
             arguments.length > 2 && arguments[2] !== undefined
               ? arguments[2]
@@ -6282,7 +5334,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _step34$value;
                 var eachIndex;
                 var eachDatum;
-
                 return _regenerator['default'].wrap(
                   function _callee70$(_context70) {
                     while (1) {
@@ -6294,15 +5345,12 @@ var KoconutCollection = (function (_KoconutIterable) {
                             Array.from(_this71.data).entries(),
                           );
                           _context70.prev = 3;
-
                           _iterator34.s();
-
                         case 5:
                           if ((_step34 = _iterator34.n()).done) {
                             _context70.next = 13;
                             break;
                           }
-
                           (_step34$value = (0, _slicedToArray2['default'])(
                             _step34.value,
                             2,
@@ -6311,35 +5359,25 @@ var KoconutCollection = (function (_KoconutIterable) {
                             (eachDatum = _step34$value[1]);
                           _context70.next = 9;
                           return operation(eachIndex, initial, eachDatum);
-
                         case 9:
                           initial = _context70.sent;
                           processedArray.push(initial);
-
                         case 11:
                           _context70.next = 5;
                           break;
-
                         case 13:
                           _context70.next = 18;
                           break;
-
                         case 15:
                           _context70.prev = 15;
                           _context70.t0 = _context70['catch'](3);
-
                           _iterator34.e(_context70.t0);
-
                         case 18:
                           _context70.prev = 18;
-
                           _iterator34.f();
-
                           return _context70.finish(18);
-
                         case 21:
                           return _context70.abrupt('return', processedArray);
-
                         case 22:
                         case 'end':
                           return _context70.stop();
@@ -6360,7 +5398,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'runningReduce',
         value: function runningReduce(operation) {
           var _this72 = this;
-
           var thisArg =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
@@ -6384,39 +5421,31 @@ var KoconutCollection = (function (_KoconutIterable) {
                           _context71.next = 2;
                           break;
                         }
-
                         throw new _module.KoconutNoSuchElementException(
                           'Source data is null or empty',
                         );
-
                       case 2:
                         processedArray = new Array();
                         dataArray = Array.from(_this72.data);
                         acc = dataArray[0];
                         processedArray.push(acc);
                         eachIndex = 1;
-
                       case 7:
                         if (!(eachIndex < dataArray.length)) {
                           _context71.next = 15;
                           break;
                         }
-
                         _context71.next = 10;
                         return operation(acc, dataArray[eachIndex]);
-
                       case 10:
                         acc = _context71.sent;
                         processedArray.push(acc);
-
                       case 12:
                         eachIndex++;
                         _context71.next = 7;
                         break;
-
                       case 15:
                         return _context71.abrupt('return', processedArray);
-
                       case 16:
                       case 'end':
                         return _context71.stop();
@@ -6434,7 +5463,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'runningReduceIndexed',
         value: function runningReduceIndexed(operation) {
           var _this73 = this;
-
           var thisArg =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
@@ -6458,39 +5486,31 @@ var KoconutCollection = (function (_KoconutIterable) {
                           _context72.next = 2;
                           break;
                         }
-
                         throw new _module.KoconutNoSuchElementException(
                           'Source data is null or empty',
                         );
-
                       case 2:
                         processedArray = new Array();
                         dataArray = Array.from(_this73.data);
                         acc = dataArray[0];
                         processedArray.push(acc);
                         eachIndex = 1;
-
                       case 7:
                         if (!(eachIndex < dataArray.length)) {
                           _context72.next = 15;
                           break;
                         }
-
                         _context72.next = 10;
                         return operation(eachIndex, acc, dataArray[eachIndex]);
-
                       case 10:
                         acc = _context72.sent;
                         processedArray.push(acc);
-
                       case 12:
                         eachIndex++;
                         _context72.next = 7;
                         break;
-
                       case 15:
                         return _context72.abrupt('return', processedArray);
-
                       case 16:
                       case 'end':
                         return _context72.stop();
@@ -6508,7 +5528,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'scan',
         value: function scan(initial, operation) {
           var _this74 = this;
-
           var thisArg =
             arguments.length > 2 && arguments[2] !== undefined
               ? arguments[2]
@@ -6522,7 +5541,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _iterator35;
                 var _step35;
                 var eachDatum;
-
                 return _regenerator['default'].wrap(
                   function _callee73$(_context73) {
                     while (1) {
@@ -6534,47 +5552,34 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _this74.data,
                           );
                           _context73.prev = 3;
-
                           _iterator35.s();
-
                         case 5:
                           if ((_step35 = _iterator35.n()).done) {
                             _context73.next = 13;
                             break;
                           }
-
                           eachDatum = _step35.value;
                           _context73.next = 9;
                           return operation(initial, eachDatum);
-
                         case 9:
                           initial = _context73.sent;
                           processedArray.push(initial);
-
                         case 11:
                           _context73.next = 5;
                           break;
-
                         case 13:
                           _context73.next = 18;
                           break;
-
                         case 15:
                           _context73.prev = 15;
                           _context73.t0 = _context73['catch'](3);
-
                           _iterator35.e(_context73.t0);
-
                         case 18:
                           _context73.prev = 18;
-
                           _iterator35.f();
-
                           return _context73.finish(18);
-
                         case 21:
                           return _context73.abrupt('return', processedArray);
-
                         case 22:
                         case 'end':
                           return _context73.stop();
@@ -6595,7 +5600,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'scanIndexed',
         value: function scanIndexed(initial, operation) {
           var _this75 = this;
-
           var thisArg =
             arguments.length > 2 && arguments[2] !== undefined
               ? arguments[2]
@@ -6611,7 +5615,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _step36$value;
                 var eachIndex;
                 var eachDatum;
-
                 return _regenerator['default'].wrap(
                   function _callee74$(_context74) {
                     while (1) {
@@ -6623,15 +5626,12 @@ var KoconutCollection = (function (_KoconutIterable) {
                             Array.from(_this75.data).entries(),
                           );
                           _context74.prev = 3;
-
                           _iterator36.s();
-
                         case 5:
                           if ((_step36 = _iterator36.n()).done) {
                             _context74.next = 13;
                             break;
                           }
-
                           (_step36$value = (0, _slicedToArray2['default'])(
                             _step36.value,
                             2,
@@ -6640,35 +5640,25 @@ var KoconutCollection = (function (_KoconutIterable) {
                             (eachDatum = _step36$value[1]);
                           _context74.next = 9;
                           return operation(eachIndex, initial, eachDatum);
-
                         case 9:
                           initial = _context74.sent;
                           processedArray.push(initial);
-
                         case 11:
                           _context74.next = 5;
                           break;
-
                         case 13:
                           _context74.next = 18;
                           break;
-
                         case 15:
                           _context74.prev = 15;
                           _context74.t0 = _context74['catch'](3);
-
                           _iterator36.e(_context74.t0);
-
                         case 18:
                           _context74.prev = 18;
-
                           _iterator36.f();
-
                           return _context74.finish(18);
-
                         case 21:
                           return _context74.abrupt('return', processedArray);
-
                         case 22:
                         case 'end':
                           return _context74.stop();
@@ -6689,7 +5679,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'shuffled',
         value: function shuffled() {
           var _this76 = this;
-
           var koconutToReturn = new KoconutCollection();
           koconutToReturn.setPrevYieldable(this).setProcessor(
             (0, _asyncToGenerator2['default'])(
@@ -6710,7 +5699,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                         ) {
                           return parseInt(eachIndex);
                         });
-
                         while (indexes.length > 0) {
                           processedArray.push(
                             dataArray[
@@ -6721,20 +5709,16 @@ var KoconutCollection = (function (_KoconutIterable) {
                             ],
                           );
                         }
-
                         if (!(_this76.data instanceof Array)) {
                           _context75.next = 8;
                           break;
                         }
-
                         return _context75.abrupt('return', processedArray);
-
                       case 8:
                         return _context75.abrupt(
                           'return',
                           new Set(processedArray),
                         );
-
                       case 9:
                       case 'end':
                         return _context75.stop();
@@ -6752,7 +5736,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'single',
         value: function single() {
           var _this77 = this;
-
           var predicate =
             arguments.length > 0 && arguments[0] !== undefined
               ? arguments[0]
@@ -6770,7 +5753,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _iterator37;
                 var _step37;
                 var eachDatum;
-
                 return _regenerator['default'].wrap(
                   function _callee76$(_context76) {
                     while (1) {
@@ -6780,99 +5762,76 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _context76.next = 2;
                             break;
                           }
-
                           throw new _module.KoconutNoSuchElementException(
                             'Source data is null or empty',
                           );
-
                         case 2:
                           if (!predicate) {
                             _context76.next = 34;
                             break;
                           }
-
                           dataToReturn = null;
                           _iterator37 = _createForOfIteratorHelper(
                             _this77.data,
                           );
                           _context76.prev = 5;
-
                           _iterator37.s();
-
                         case 7:
                           if ((_step37 = _iterator37.n()).done) {
                             _context76.next = 19;
                             break;
                           }
-
                           eachDatum = _step37.value;
                           _context76.next = 11;
                           return predicate(eachDatum);
-
                         case 11:
                           if (!_context76.sent) {
                             _context76.next = 17;
                             break;
                           }
-
                           if (!(dataToReturn == null)) {
                             _context76.next = 16;
                             break;
                           }
-
                           dataToReturn = eachDatum;
                           _context76.next = 17;
                           break;
-
                         case 16:
                           throw new _module.KoconutConflictException(
                             'There are more than 2 elements maching the given predicate',
                           );
-
                         case 17:
                           _context76.next = 7;
                           break;
-
                         case 19:
                           _context76.next = 24;
                           break;
-
                         case 21:
                           _context76.prev = 21;
                           _context76.t0 = _context76['catch'](5);
-
                           _iterator37.e(_context76.t0);
-
                         case 24:
                           _context76.prev = 24;
-
                           _iterator37.f();
-
                           return _context76.finish(24);
-
                         case 27:
                           if (!(dataToReturn == null)) {
                             _context76.next = 31;
                             break;
                           }
-
                           throw new _module.KoconutNoSuchElementException(
                             'No element exists matching the given predicate',
                           );
-
                         case 31:
                           return _context76.abrupt('return', dataToReturn);
-
                         case 32:
                           _context76.next = 35;
                           break;
-
                         case 34:
                           return _context76.abrupt(
                             'return',
                             Array.from(_this77.data)[0],
                           );
-
                         case 35:
                         case 'end':
                           return _context76.stop();
@@ -6893,7 +5852,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'singleOrNull',
         value: function singleOrNull() {
           var _this78 = this;
-
           var predicate =
             arguments.length > 0 && arguments[0] !== undefined
               ? arguments[0]
@@ -6911,7 +5869,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _iterator38;
                 var _step38;
                 var eachDatum;
-
                 return _regenerator['default'].wrap(
                   function _callee77$(_context77) {
                     while (1) {
@@ -6926,81 +5883,61 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _context77.next = 2;
                             break;
                           }
-
                           return _context77.abrupt('return', null);
-
                         case 2:
                           if (!predicate) {
                             _context77.next = 30;
                             break;
                           }
-
                           dataToReturn = null;
                           _iterator38 = _createForOfIteratorHelper(
                             _this78.data,
                           );
                           _context77.prev = 5;
-
                           _iterator38.s();
-
                         case 7:
                           if ((_step38 = _iterator38.n()).done) {
                             _context77.next = 19;
                             break;
                           }
-
                           eachDatum = _step38.value;
                           _context77.next = 11;
                           return predicate(eachDatum);
-
                         case 11:
                           if (!_context77.sent) {
                             _context77.next = 17;
                             break;
                           }
-
                           if (!(dataToReturn == null)) {
                             _context77.next = 16;
                             break;
                           }
-
                           dataToReturn = eachDatum;
                           _context77.next = 17;
                           break;
-
                         case 16:
                           return _context77.abrupt('return', null);
-
                         case 17:
                           _context77.next = 7;
                           break;
-
                         case 19:
                           _context77.next = 24;
                           break;
-
                         case 21:
                           _context77.prev = 21;
                           _context77.t0 = _context77['catch'](5);
-
                           _iterator38.e(_context77.t0);
-
                         case 24:
                           _context77.prev = 24;
-
                           _iterator38.f();
-
                           return _context77.finish(24);
-
                         case 27:
                           return _context77.abrupt('return', dataToReturn);
-
                         case 30:
                           return _context77.abrupt(
                             'return',
                             Array.from(_this78.data)[0],
                           );
-
                         case 31:
                         case 'end':
                           return _context77.stop();
@@ -7021,7 +5958,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'subtract',
         value: function subtract(other) {
           var _this79 = this;
-
           var koconutToReturn = new _module.KoconutSet();
           koconutToReturn.setPrevYieldable(this).setProcessor(
             (0, _asyncToGenerator2['default'])(
@@ -7031,7 +5967,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _iterator39;
                 var _step39;
                 var eachDatum;
-
                 return _regenerator['default'].wrap(
                   function _callee78$(_context78) {
                     while (1) {
@@ -7044,53 +5979,39 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _this79.data,
                           );
                           _context78.prev = 3;
-
                           _iterator39.s();
-
                         case 5:
                           if ((_step39 = _iterator39.n()).done) {
                             _context78.next = 13;
                             break;
                           }
-
                           eachDatum = _step39.value;
                           _context78.next = 9;
                           return koconutDataToExceptArray
                             .contains(eachDatum)
                             ['yield']();
-
                         case 9:
                           if (_context78.sent) {
                             _context78.next = 11;
                             break;
                           }
-
                           processedSet.add(eachDatum);
-
                         case 11:
                           _context78.next = 5;
                           break;
-
                         case 13:
                           _context78.next = 18;
                           break;
-
                         case 15:
                           _context78.prev = 15;
                           _context78.t0 = _context78['catch'](3);
-
                           _iterator39.e(_context78.t0);
-
                         case 18:
                           _context78.prev = 18;
-
                           _iterator39.f();
-
                           return _context78.finish(18);
-
                         case 21:
                           return _context78.abrupt('return', processedSet);
-
                         case 22:
                         case 'end':
                           return _context78.stop();
@@ -7111,7 +6032,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'sumBy',
         value: function sumBy(selector) {
           var _this80 = this;
-
           var thisArg =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
@@ -7125,7 +6045,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _iterator40;
                 var _step40;
                 var eachDatum;
-
                 return _regenerator['default'].wrap(
                   function _callee79$(_context79) {
                     while (1) {
@@ -7136,47 +6055,34 @@ var KoconutCollection = (function (_KoconutIterable) {
                             _this80.data,
                           );
                           _context79.prev = 2;
-
                           _iterator40.s();
-
                         case 4:
                           if ((_step40 = _iterator40.n()).done) {
                             _context79.next = 12;
                             break;
                           }
-
                           eachDatum = _step40.value;
                           _context79.t0 = sum;
                           _context79.next = 9;
                           return selector(eachDatum);
-
                         case 9:
                           sum = _context79.t0 += _context79.sent;
-
                         case 10:
                           _context79.next = 4;
                           break;
-
                         case 12:
                           _context79.next = 17;
                           break;
-
                         case 14:
                           _context79.prev = 14;
                           _context79.t1 = _context79['catch'](2);
-
                           _iterator40.e(_context79.t1);
-
                         case 17:
                           _context79.prev = 17;
-
                           _iterator40.f();
-
                           return _context79.finish(17);
-
                         case 20:
                           return _context79.abrupt('return', sum);
-
                         case 21:
                         case 'end':
                           return _context79.stop();
@@ -7197,7 +6103,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'union',
         value: function union(other) {
           var _this81 = this;
-
           var koconutToReturn = new _module.KoconutSet();
           koconutToReturn.setPrevYieldable(this).setProcessor(
             (0, _asyncToGenerator2['default'])(
@@ -7206,7 +6111,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _iterator41;
                 var _step41;
                 var eachDatum;
-
                 return _regenerator['default'].wrap(function _callee80$(
                   _context80,
                 ) {
@@ -7215,7 +6119,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                       case 0:
                         processedSet = new Set(_this81.data);
                         _iterator41 = _createForOfIteratorHelper(other);
-
                         try {
                           for (
                             _iterator41.s();
@@ -7230,15 +6133,12 @@ var KoconutCollection = (function (_KoconutIterable) {
                         } finally {
                           _iterator41.f();
                         }
-
                         _context80.next = 5;
                         return _module.KoconutSet.from(processedSet)
                           .distinct()
                           ['yield']();
-
                       case 5:
                         return _context80.abrupt('return', _context80.sent);
-
                       case 6:
                       case 'end':
                         return _context80.stop();
@@ -7256,7 +6156,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'windowed',
         value: function windowed(size) {
           var _this82 = this;
-
           var step =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
@@ -7288,7 +6187,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _iterator42;
                 var _step42;
                 var eachProcessedDatum;
-
                 return _regenerator['default'].wrap(
                   function _callee81$(_context81) {
                     while (1) {
@@ -7297,7 +6195,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                           processedArray = new Array();
                           currentIndex = 0;
                           dataArray = Array.from(_this82.data);
-
                           while (currentIndex < dataArray.length) {
                             eachChunkedData = dataArray.slice(
                               currentIndex,
@@ -7310,62 +6207,45 @@ var KoconutCollection = (function (_KoconutIterable) {
                             )
                               processedArray.push(eachChunkedData);
                           }
-
                           if (!transform) {
                             _context81.next = 27;
                             break;
                           }
-
                           transformedArray = new Array();
                           _iterator42 =
                             _createForOfIteratorHelper(processedArray);
                           _context81.prev = 7;
-
                           _iterator42.s();
-
                         case 9:
                           if ((_step42 = _iterator42.n()).done) {
                             _context81.next = 18;
                             break;
                           }
-
                           eachProcessedDatum = _step42.value;
                           _context81.t0 = transformedArray;
                           _context81.next = 14;
                           return transform(eachProcessedDatum);
-
                         case 14:
                           _context81.t1 = _context81.sent;
-
                           _context81.t0.push.call(_context81.t0, _context81.t1);
-
                         case 16:
                           _context81.next = 9;
                           break;
-
                         case 18:
                           _context81.next = 23;
                           break;
-
                         case 20:
                           _context81.prev = 20;
                           _context81.t2 = _context81['catch'](7);
-
                           _iterator42.e(_context81.t2);
-
                         case 23:
                           _context81.prev = 23;
-
                           _iterator42.f();
-
                           return _context81.finish(23);
-
                         case 26:
                           return _context81.abrupt('return', transformedArray);
-
                         case 27:
                           return _context81.abrupt('return', processedArray);
-
                         case 28:
                         case 'end':
                           return _context81.stop();
@@ -7386,7 +6266,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'withIndex',
         value: function withIndex() {
           var _this83 = this;
-
           var koconutToReturn = new _module.KoconutArray();
           koconutToReturn.setPrevYieldable(this).setProcessor(
             (0, _asyncToGenerator2['default'])(
@@ -7397,7 +6276,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _step43$value;
                 var index;
                 var element;
-
                 return _regenerator['default'].wrap(function _callee82$(
                   _context82,
                 ) {
@@ -7408,7 +6286,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                         _iterator43 = _createForOfIteratorHelper(
                           Array.from(_this83.data).entries(),
                         );
-
                         try {
                           for (
                             _iterator43.s();
@@ -7430,9 +6307,7 @@ var KoconutCollection = (function (_KoconutIterable) {
                         } finally {
                           _iterator43.f();
                         }
-
                         return _context82.abrupt('return', processedArray);
-
                       case 4:
                       case 'end':
                         return _context82.stop();
@@ -7450,7 +6325,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'zip',
         value: function zip(other) {
           var _this84 = this;
-
           var transform =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
@@ -7473,7 +6347,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _iterator44;
                 var _step44;
                 var eachProcessedData;
-
                 return _regenerator['default'].wrap(
                   function _callee83$(_context83) {
                     while (1) {
@@ -7486,7 +6359,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                             dataArray.length < otherArray.length
                               ? dataArray.length
                               : otherArray.length;
-
                           for (
                             eachIndex = 0;
                             eachIndex < minLength;
@@ -7499,25 +6371,20 @@ var KoconutCollection = (function (_KoconutIterable) {
                               ),
                             );
                           }
-
                           if (!transform) {
                             _context83.next = 28;
                             break;
                           }
-
                           transformedArray = new Array();
                           _iterator44 =
                             _createForOfIteratorHelper(processedArray);
                           _context83.prev = 8;
-
                           _iterator44.s();
-
                         case 10:
                           if ((_step44 = _iterator44.n()).done) {
                             _context83.next = 19;
                             break;
                           }
-
                           eachProcessedData = _step44.value;
                           _context83.t0 = transformedArray;
                           _context83.next = 15;
@@ -7525,39 +6392,27 @@ var KoconutCollection = (function (_KoconutIterable) {
                             eachProcessedData.first,
                             eachProcessedData.second,
                           );
-
                         case 15:
                           _context83.t1 = _context83.sent;
-
                           _context83.t0.push.call(_context83.t0, _context83.t1);
-
                         case 17:
                           _context83.next = 10;
                           break;
-
                         case 19:
                           _context83.next = 24;
                           break;
-
                         case 21:
                           _context83.prev = 21;
                           _context83.t2 = _context83['catch'](8);
-
                           _iterator44.e(_context83.t2);
-
                         case 24:
                           _context83.prev = 24;
-
                           _iterator44.f();
-
                           return _context83.finish(24);
-
                         case 27:
                           return _context83.abrupt('return', transformedArray);
-
                         case 28:
                           return _context83.abrupt('return', processedArray);
-
                         case 29:
                         case 'end':
                           return _context83.stop();
@@ -7578,7 +6433,6 @@ var KoconutCollection = (function (_KoconutIterable) {
         key: 'zipWithNext',
         value: function zipWithNext() {
           var _this85 = this;
-
           var transform =
             arguments.length > 0 && arguments[0] !== undefined
               ? arguments[0]
@@ -7599,7 +6453,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                 var _iterator45;
                 var _step45;
                 var eachProcessedDatum;
-
                 return _regenerator['default'].wrap(
                   function _callee84$(_context84) {
                     while (1) {
@@ -7607,7 +6460,6 @@ var KoconutCollection = (function (_KoconutIterable) {
                         case 0:
                           processedArray = new Array();
                           dataArray = Array.from(_this85.data);
-
                           if (dataArray.length >= 2) {
                             for (
                               eachIndex = 0;
@@ -7622,25 +6474,20 @@ var KoconutCollection = (function (_KoconutIterable) {
                               );
                             }
                           }
-
                           if (!transform) {
                             _context84.next = 26;
                             break;
                           }
-
                           transformedArray = new Array();
                           _iterator45 =
                             _createForOfIteratorHelper(processedArray);
                           _context84.prev = 6;
-
                           _iterator45.s();
-
                         case 8:
                           if ((_step45 = _iterator45.n()).done) {
                             _context84.next = 17;
                             break;
                           }
-
                           eachProcessedDatum = _step45.value;
                           _context84.t0 = transformedArray;
                           _context84.next = 13;
@@ -7648,39 +6495,27 @@ var KoconutCollection = (function (_KoconutIterable) {
                             eachProcessedDatum.first,
                             eachProcessedDatum.second,
                           );
-
                         case 13:
                           _context84.t1 = _context84.sent;
-
                           _context84.t0.push.call(_context84.t0, _context84.t1);
-
                         case 15:
                           _context84.next = 8;
                           break;
-
                         case 17:
                           _context84.next = 22;
                           break;
-
                         case 19:
                           _context84.prev = 19;
                           _context84.t2 = _context84['catch'](6);
-
                           _iterator45.e(_context84.t2);
-
                         case 22:
                           _context84.prev = 22;
-
                           _iterator45.f();
-
                           return _context84.finish(22);
-
                         case 25:
                           return _context84.abrupt('return', transformedArray);
-
                         case 26:
                           return _context84.abrupt('return', processedArray);
-
                         case 27:
                         case 'end':
                           return _context84.stop();
@@ -7712,5 +6547,4 @@ var KoconutCollection = (function (_KoconutIterable) {
   );
   return KoconutCollection;
 })(_module.KoconutIterable);
-
 exports.KoconutCollection = KoconutCollection;

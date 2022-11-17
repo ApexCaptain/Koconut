@@ -1,44 +1,33 @@
 'use strict';
 
 var _interopRequireDefault = require('@babel/runtime/helpers/interopRequireDefault');
-
 Object.defineProperty(exports, '__esModule', {
   value: true,
 });
 exports.KoconutArray = void 0;
-
 var _regenerator = _interopRequireDefault(
   require('@babel/runtime/regenerator'),
 );
-
 var _asyncToGenerator2 = _interopRequireDefault(
   require('@babel/runtime/helpers/asyncToGenerator'),
 );
-
 var _classCallCheck2 = _interopRequireDefault(
   require('@babel/runtime/helpers/classCallCheck'),
 );
-
 var _createClass2 = _interopRequireDefault(
   require('@babel/runtime/helpers/createClass'),
 );
-
 var _get2 = _interopRequireDefault(require('@babel/runtime/helpers/get'));
-
 var _inherits2 = _interopRequireDefault(
   require('@babel/runtime/helpers/inherits'),
 );
-
 var _possibleConstructorReturn2 = _interopRequireDefault(
   require('@babel/runtime/helpers/possibleConstructorReturn'),
 );
-
 var _getPrototypeOf2 = _interopRequireDefault(
   require('@babel/runtime/helpers/getPrototypeOf'),
 );
-
 var _module = require('../../../../module');
-
 function _createSuper(Derived) {
   var hasNativeReflectConstruct = _isNativeReflectConstruct();
   return function _createSuperInternal() {
@@ -53,7 +42,6 @@ function _createSuper(Derived) {
     return (0, _possibleConstructorReturn2['default'])(this, result);
   };
 }
-
 function _isNativeReflectConstruct() {
   if (typeof Reflect === 'undefined' || !Reflect.construct) return false;
   if (Reflect.construct.sham) return false;
@@ -67,17 +55,12 @@ function _isNativeReflectConstruct() {
     return false;
   }
 }
-
 ('use strict');
-
 var KoconutArray = (function (_KoconutCollection) {
   (0, _inherits2['default'])(KoconutArray, _KoconutCollection);
-
   var _super = _createSuper(KoconutArray);
-
   function KoconutArray() {
     var _this;
-
     var array =
       arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
     (0, _classCallCheck2['default'])(this, KoconutArray);
@@ -107,10 +90,8 @@ var KoconutArray = (function (_KoconutCollection) {
                           'retrieve',
                           this,
                         ).call(this);
-
                       case 2:
                         return _context.abrupt('return', this);
-
                       case 3:
                       case 'end':
                         return _context.stop();
@@ -122,11 +103,9 @@ var KoconutArray = (function (_KoconutCollection) {
               );
             }),
           );
-
           function retrieve() {
             return _retrieve.apply(this, arguments);
           }
-
           return retrieve;
         })(),
       },
@@ -781,7 +760,6 @@ var KoconutArray = (function (_KoconutCollection) {
           ) {
             data[_key] = arguments[_key];
           }
-
           return new KoconutArray(data);
         },
       },
@@ -809,40 +787,31 @@ var KoconutArray = (function (_KoconutCollection) {
                           _context2.next = 2;
                           break;
                         }
-
                         throw new _module.KoconutInvalidArgumentException(
                           'Count must be larger than 0. Given value : '.concat(
                             count,
                           ),
                         );
-
                       case 2:
                         processedArray = new Array();
                         eachIndex = 0;
-
                       case 4:
                         if (!(eachIndex < count)) {
                           _context2.next = 13;
                           break;
                         }
-
                         _context2.t0 = processedArray;
                         _context2.next = 8;
                         return generator(eachIndex);
-
                       case 8:
                         _context2.t1 = _context2.sent;
-
                         _context2.t0.push.call(_context2.t0, _context2.t1);
-
                       case 10:
                         eachIndex++;
                         _context2.next = 4;
                         break;
-
                       case 13:
                         return _context2.abrupt('return', processedArray);
-
                       case 14:
                       case 'end':
                         return _context2.stop();
@@ -860,5 +829,4 @@ var KoconutArray = (function (_KoconutCollection) {
   );
   return KoconutArray;
 })(_module.KoconutCollection);
-
 exports.KoconutArray = KoconutArray;

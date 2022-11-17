@@ -1,7 +1,6 @@
 'use strict';
 
 var _interopRequireDefault = require('@babel/runtime/helpers/interopRequireDefault');
-
 Object.defineProperty(exports, '__esModule', {
   value: true,
 });
@@ -9,30 +8,22 @@ exports.KoconutDeprecation =
   exports.FontStyle =
   exports.FontBackgroundColour =
     void 0;
-
 var _slicedToArray2 = _interopRequireDefault(
   require('@babel/runtime/helpers/slicedToArray'),
 );
-
 var _classCallCheck2 = _interopRequireDefault(
   require('@babel/runtime/helpers/classCallCheck'),
 );
-
 var _createClass2 = _interopRequireDefault(
   require('@babel/runtime/helpers/createClass'),
 );
-
 var _defineProperty2 = _interopRequireDefault(
   require('@babel/runtime/helpers/defineProperty'),
 );
-
 var _module = require('../../module');
-
 var _fs = require('fs');
-
 var FontStyle;
 exports.FontStyle = FontStyle;
-
 (function (FontStyle) {
   FontStyle['Reset'] = '\x1B[0m';
   FontStyle['Bright'] = '\x1B[1m';
@@ -42,9 +33,7 @@ exports.FontStyle = FontStyle;
   FontStyle['Reverse'] = '\x1B[7m';
   FontStyle['Hidden'] = '\x1B[8m';
 })(FontStyle || (exports.FontStyle = FontStyle = {}));
-
 var FontTextColour;
-
 (function (FontTextColour) {
   FontTextColour['Black'] = '\x1B[30m';
   FontTextColour['Red'] = '\x1B[31m';
@@ -55,10 +44,8 @@ var FontTextColour;
   FontTextColour['Cyan'] = '\x1B[36m';
   FontTextColour['White'] = '\x1B[37m';
 })(FontTextColour || (FontTextColour = {}));
-
 var FontBackgroundColour;
 exports.FontBackgroundColour = FontBackgroundColour;
-
 (function (FontBackgroundColour) {
   FontBackgroundColour['Black'] = '\x1B[40m';
   FontBackgroundColour['Red'] = '\x1B[41m';
@@ -72,7 +59,6 @@ exports.FontBackgroundColour = FontBackgroundColour;
   FontBackgroundColour ||
     (exports.FontBackgroundColour = FontBackgroundColour = {}),
 );
-
 var deprecationWarningGenerators = {
   english: function english(
     className,
@@ -228,12 +214,10 @@ var deprecationWarningLocale = {
   ko: deprecationWarningGenerators.korean,
   'ko-KR': deprecationWarningGenerators.korean,
 };
-
 var KoconutDeprecation = (function () {
   function KoconutDeprecation() {
     (0, _classCallCheck2['default'])(this, KoconutDeprecation);
   }
-
   (0, _createClass2['default'])(KoconutDeprecation, null, [
     {
       key: 'showDeprecationWarning',
@@ -246,16 +230,13 @@ var KoconutDeprecation = (function () {
           arguments.length > 1 && arguments[1] !== undefined
             ? arguments[1]
             : null;
-
         if (_module.KoconutOption.isDeprecationWarningEnabled) {
           var _Error$stack;
-
           var callStack =
             (_Error$stack = new Error().stack) === null ||
             _Error$stack === void 0
               ? void 0
               : _Error$stack.split('\n').slice(2, 8);
-
           var _trim$split$1$split = callStack
             .shift()
             .trim()
@@ -267,7 +248,6 @@ var KoconutDeprecation = (function () {
           );
           var className = _trim$split$1$split2[0];
           var methodName = _trim$split$1$split2[1];
-
           var warningString = deprecationWarningLocale[
             _module.KoconutOption.locale
           ](
@@ -278,7 +258,6 @@ var KoconutDeprecation = (function () {
               ? void 0
               : alternative.name,
           );
-
           if (_module.KoconutOption.doesDeprecationWarningShowCallStack)
             warningString += '\n'
               .concat(FontTextColour.Green)
@@ -290,7 +269,6 @@ var KoconutDeprecation = (function () {
               )
               .concat(FontStyle.Reset);
           console.warn(warningString);
-
           if (this.isRunningOnDevUnitTesting) {
             try {
               var stringToAdd = ''
@@ -308,7 +286,6 @@ var KoconutDeprecation = (function () {
                     'utf-8',
                   ).split('\n'),
                 );
-
               if (!this.devDeprecationListSet.has(stringToAdd)) {
                 this.devDeprecationListSet.add(stringToAdd);
                 (0, _fs.appendFileSync)(
@@ -326,7 +303,6 @@ var KoconutDeprecation = (function () {
   ]);
   return KoconutDeprecation;
 })();
-
 exports.KoconutDeprecation = KoconutDeprecation;
 (0, _defineProperty2['default'])(
   KoconutDeprecation,

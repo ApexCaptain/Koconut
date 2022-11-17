@@ -1,15 +1,10 @@
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
-
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
-
 var _chai = require("chai");
-
 var _module = require("../../dist/module");
-
 describe("".concat(_module.KoconutPrimitive.name, " -- Processor"), function () {
   it(_module.KoconutPrimitive.prototype["let"].name, (0, _asyncToGenerator2["default"])(_regenerator["default"].mark(function _callee() {
     var koconut, result;
@@ -23,11 +18,9 @@ describe("".concat(_module.KoconutPrimitive.name, " -- Processor"), function () 
             return koconut["let"](function (result) {
               return result + 2;
             });
-
           case 4:
             result = _context.sent;
             (0, _chai.expect)(result).to.be.eqls(7);
-
           case 6:
           case "end":
             return _context.stop();
@@ -48,7 +41,6 @@ describe("".concat(_module.KoconutPrimitive.name, " -- Processor"), function () 
             return koconut.onEachIndexed(function (index, eachElement) {
               (0, _chai.expect)(eachElement).to.be.equals(index + 1);
             }).process();
-
           case 5:
           case "end":
             return _context2.stop();
@@ -68,11 +60,9 @@ describe("".concat(_module.KoconutPrimitive.name, " -- Processor"), function () 
             return koconut.also(function (result) {
               result.push(6, 7, 8);
             });
-
           case 4:
             result = _context3.sent;
             (0, _chai.expect)(result).to.be.eqls([1, 2, 3, 4, 5, 6, 7, 8]);
-
           case 6:
           case "end":
             return _context3.stop();
@@ -90,11 +80,9 @@ describe("".concat(_module.KoconutPrimitive.name, " -- Processor"), function () 
             (0, _chai.expect)(koconut).to.be.instanceOf(_module.KoconutPrimitive);
             _context4.next = 4;
             return koconut.retrieve();
-
           case 4:
             result = _context4.sent;
             (0, _chai.expect)(result).to.be.eqls(koconut);
-
           case 6:
           case "end":
             return _context4.stop();
@@ -112,11 +100,9 @@ describe("".concat(_module.KoconutPrimitive.name, " -- Processor"), function () 
             (0, _chai.expect)(koconut).to.be.instanceOf(_module.KoconutPrimitive);
             _context5.next = 4;
             return koconut["yield"]();
-
           case 4:
             result = _context5.sent;
             (0, _chai.expect)(result).to.be.equals(5);
-
           case 6:
           case "end":
             return _context5.stop();

@@ -1,15 +1,10 @@
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
-
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
-
 var _chai = require("chai");
-
 var _module = require("../../dist/module");
-
 var _TestDataClasses = require("./TestDataClasses");
 
 _module.KoconutDeprecation.isRunningOnDevUnitTesting = true;
@@ -23,11 +18,9 @@ describe("".concat(_module.KoconutMap.name, " -- Creator"), function () {
             koconut = new _module.KoconutMap([[0, 'a'], new _module.Entry(1, 'b'), new _module.Pair(2, 'c')]);
             _context.next = 3;
             return koconut["yield"]();
-
           case 3:
             result = _context.sent;
             (0, _chai.expect)(result).eqls(new Map([[0, 'a'], [1, 'b'], [2, 'c']]));
-
           case 5:
           case "end":
             return _context.stop();
@@ -44,11 +37,9 @@ describe("".concat(_module.KoconutMap.name, " -- Creator"), function () {
             koconut = _module.KoconutMap.from();
             _context2.next = 3;
             return koconut["yield"]();
-
           case 3:
             result = _context2.sent;
             (0, _chai.expect)(result).eqls(new Map());
-
           case 5:
           case "end":
             return _context2.stop();
@@ -67,26 +58,23 @@ describe("".concat(_module.KoconutMap.name, " -- Creator"), function () {
             });
             _context3.next = 3;
             return koconutCase1["yield"]();
-
           case 3:
             resultCase1 = _context3.sent;
             (0, _chai.expect)(resultCase1).eqls(new Map([[0, 1], [1, 2], [2, 3], [3, 4], [4, 5]]));
+
             koconutCase2 = _module.KoconutMap.generate(-1, function (index) {
               return [index, index + 1];
             });
             _context3.prev = 6;
             _context3.next = 9;
             return koconutCase2.process();
-
           case 9:
             _context3.next = 14;
             break;
-
           case 11:
             _context3.prev = 11;
             _context3.t0 = _context3["catch"](6);
             (0, _chai.expect)(_context3.t0).to.be.instanceOf(_module.KoconutInvalidArgumentException);
-
           case 14:
           case "end":
             return _context3.stop();
@@ -105,17 +93,14 @@ describe("".concat(_module.KoconutMap.name, " -- Processor"), function () {
             koconut = _module.KoconutMap.of([0, 1], [1, 2]);
             _context4.next = 3;
             return koconut.retrieve();
-
           case 3:
             yieldable = _context4.sent;
             (0, _chai.expect)(yieldable).eqls(koconut);
             _context4.next = 7;
             return yieldable["yield"]();
-
           case 7:
             result = _context4.sent;
             (0, _chai.expect)(result).eqls(new Map([[0, 1], [1, 2]]));
-
           case 9:
           case "end":
             return _context4.stop();
@@ -136,22 +121,20 @@ describe("".concat(_module.KoconutMap.name, " -- Accessor"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutSet);
             _context5.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context5.sent;
             expectedResultEntryArrayCase1 = [new _module.Entry(0, 'a'), new _module.Entry(1, 'b'), new _module.Entry(2, 'c')];
             (0, _chai.expect)(resultCase1).eqls(new Set(expectedResultEntryArrayCase1));
+
             koconutCase2 = _module.KoconutMap.of([new _TestDataClasses.Dog('unknown', 0, 0), 1], [new _TestDataClasses.Dog('unknown', 2, 0), 2], [new _TestDataClasses.Dog('unknown', 0, 1), 3]);
             yieldableCase2 = koconutCase2.entries;
             (0, _chai.expect)(yieldableCase2).to.be.instanceOf(_module.KoconutSet);
             _context5.next = 13;
             return yieldableCase2["yield"]();
-
           case 13:
             resultCase2 = _context5.sent;
             expectedResultEntryArrayCase2 = [new _module.Entry(new _TestDataClasses.Dog('unknown', 0, 0), 1), new _module.Entry(new _TestDataClasses.Dog('unknown', 0, 1), 3)];
             (0, _chai.expect)(resultCase2).eqls(new Set(expectedResultEntryArrayCase2));
-
           case 16:
           case "end":
             return _context5.stop();
@@ -170,11 +153,9 @@ describe("".concat(_module.KoconutMap.name, " -- Accessor"), function () {
             (0, _chai.expect)(yieldable).to.be.instanceOf(_module.KoconutSet);
             _context6.next = 5;
             return yieldable["yield"]();
-
           case 5:
             result = _context6.sent;
             (0, _chai.expect)(result).eqls(new Set([0, 1, 2]));
-
           case 7:
           case "end":
             return _context6.stop();
@@ -193,11 +174,9 @@ describe("".concat(_module.KoconutMap.name, " -- Accessor"), function () {
             (0, _chai.expect)(yieldable).to.be.instanceOf(_module.KoconutPrimitive);
             _context7.next = 5;
             return yieldable["yield"]();
-
           case 5:
             result = _context7.sent;
             (0, _chai.expect)(result).equals(3);
-
           case 7:
           case "end":
             return _context7.stop();
@@ -216,11 +195,9 @@ describe("".concat(_module.KoconutMap.name, " -- Accessor"), function () {
             (0, _chai.expect)(yieldable).to.be.instanceOf(_module.KoconutArray);
             _context8.next = 5;
             return yieldable["yield"]();
-
           case 5:
             result = _context8.sent;
             (0, _chai.expect)(result).eqls(['a', 'b', 'c']);
-
           case 7:
           case "end":
             return _context8.stop();
@@ -243,21 +220,19 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutPrimitive);
             _context9.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context9.sent;
             (0, _chai.expect)(resultCase1).equals(5);
+
             yieldableCase2 = koconut.count(function (eachEntry) {
               return eachEntry.key % 2 == 0;
             });
             (0, _chai.expect)(yieldableCase2).to.be.instanceOf(_module.KoconutPrimitive);
             _context9.next = 11;
             return yieldableCase2["yield"]();
-
           case 11:
             resultCase2 = _context9.sent;
             (0, _chai.expect)(resultCase2).equals(2);
-
           case 13:
           case "end":
             return _context9.stop();
@@ -278,10 +253,10 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutEntry);
             _context10.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context10.sent;
             (0, _chai.expect)(resultCase1).eqls(new _module.Entry('Carol', 51));
+
             koconutCase2 = _module.KoconutMap.of(['Alice', 42], ['Bob', 28], ['Carol', 51]);
             yieldableCase2 = koconutCase2.filter(function (eachEntry) {
               return eachEntry.value > 100;
@@ -292,16 +267,13 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             _context10.prev = 10;
             _context10.next = 13;
             return yieldableCase2.process();
-
           case 13:
             _context10.next = 18;
             break;
-
           case 15:
             _context10.prev = 15;
             _context10.t0 = _context10["catch"](10);
             (0, _chai.expect)(_context10.t0).to.be.instanceOf(_module.KoconutNoSuchElementException);
-
           case 18:
             koconutCase3 = _module.KoconutArray.from([new _TestDataClasses.ProductInfo('A-1', 'Mac Book Pro -- May', 2000), new _TestDataClasses.ProductInfo('A-2', 'Mac Book Air -- September', 1200), new _TestDataClasses.ProductInfo('A-3', 'iPhone -- June', 1500)]).associateBy(function (eachElement) {
               return eachElement.id;
@@ -312,11 +284,9 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase3).to.be.instanceOf(_module.KoconutEntry);
             _context10.next = 23;
             return yieldableCase3["yield"]();
-
           case 23:
             resultCase3 = _context10.sent;
             (0, _chai.expect)(resultCase3).eqls(new _module.Entry('A-1', new _TestDataClasses.ProductInfo('A-1', 'Mac Book Pro -- May', 2000)));
-
           case 25:
           case "end":
             return _context10.stop();
@@ -337,10 +307,10 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutEntry);
             _context11.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context11.sent;
             (0, _chai.expect)(resultCase1).eqls(new _module.Entry('Carol', 51));
+
             koconutCase2 = _module.KoconutMap.of(['Alice', 42], ['Bob', 28], ['Carol', 51]);
             yieldableCase2 = koconutCase2.filter(function (eachEntry) {
               return eachEntry.value > 100;
@@ -350,10 +320,10 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase2).to.be.instanceOf(_module.KoconutEntry);
             _context11.next = 12;
             return yieldableCase2["yield"]();
-
           case 12:
             resultCase2 = _context11.sent;
             (0, _chai.expect)(resultCase2).equals(null);
+
             koconutCase3 = _module.KoconutArray.from([new _TestDataClasses.ProductInfo('A-1', 'Mac Book Pro -- May', 2000), new _TestDataClasses.ProductInfo('A-2', 'Mac Book Air -- September', 1200), new _TestDataClasses.ProductInfo('A-3', 'iPhone -- June', 1500)]).associateBy(function (eachElement) {
               return eachElement.id;
             });
@@ -363,11 +333,9 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase3).to.be.instanceOf(_module.KoconutEntry);
             _context11.next = 19;
             return yieldableCase3["yield"]();
-
           case 19:
             resultCase3 = _context11.sent;
             (0, _chai.expect)(resultCase3).eqls(new _module.Entry('A-1', new _TestDataClasses.ProductInfo('A-1', 'Mac Book Pro -- May', 2000)));
-
           case 21:
           case "end":
             return _context11.stop();
@@ -388,10 +356,10 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutPrimitive);
             _context12.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context12.sent;
             (0, _chai.expect)(resultCase1).eqls(51);
+
             koconutCase2 = _module.KoconutMap.of(['Alice', 42], ['Bob', 28], ['Carol', 51]);
             yieldableCase2 = koconutCase2.filter(function (eachEntry) {
               return eachEntry.value > 100;
@@ -402,16 +370,13 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             _context12.prev = 10;
             _context12.next = 13;
             return yieldableCase2.process();
-
           case 13:
             _context12.next = 18;
             break;
-
           case 15:
             _context12.prev = 15;
             _context12.t0 = _context12["catch"](10);
             (0, _chai.expect)(_context12.t0).to.be.instanceOf(_module.KoconutNoSuchElementException);
-
           case 18:
             koconutCase3 = _module.KoconutArray.from([new _TestDataClasses.ProductInfo('A-1', 'Mac Book Pro -- May', 2000), new _TestDataClasses.ProductInfo('A-2', 'Mac Book Air -- September', 1200), new _TestDataClasses.ProductInfo('A-3', 'iPhone -- June', 1500)]).associateBy(function (eachElement) {
               return eachElement.id;
@@ -422,11 +387,9 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase3).to.be.instanceOf(_module.KoconutPrimitive);
             _context12.next = 23;
             return yieldableCase3["yield"]();
-
           case 23:
             resultCase3 = _context12.sent;
             (0, _chai.expect)(resultCase3).eqls(new _TestDataClasses.ProductInfo('A-1', 'Mac Book Pro -- May', 2000));
-
           case 25:
           case "end":
             return _context12.stop();
@@ -447,10 +410,10 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutPrimitive);
             _context13.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context13.sent;
             (0, _chai.expect)(resultCase1).eqls(51);
+
             koconutCase2 = _module.KoconutMap.of(['Alice', 42], ['Bob', 28], ['Carol', 51]);
             yieldableCase2 = koconutCase2.filter(function (eachEntry) {
               return eachEntry.value > 100;
@@ -460,10 +423,10 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase2).to.be.instanceOf(_module.KoconutPrimitive);
             _context13.next = 12;
             return yieldableCase2["yield"]();
-
           case 12:
             resultCase2 = _context13.sent;
             (0, _chai.expect)(resultCase2).equals(null);
+
             koconutCase3 = _module.KoconutArray.from([new _TestDataClasses.ProductInfo('A-1', 'Mac Book Pro -- May', 2000), new _TestDataClasses.ProductInfo('A-2', 'Mac Book Air -- September', 1200), new _TestDataClasses.ProductInfo('A-3', 'iPhone -- June', 1500)]).associateBy(function (eachElement) {
               return eachElement.id;
             });
@@ -473,11 +436,9 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase3).to.be.instanceOf(_module.KoconutPrimitive);
             _context13.next = 19;
             return yieldableCase3["yield"]();
-
           case 19:
             resultCase3 = _context13.sent;
             (0, _chai.expect)(resultCase3).eqls(new _TestDataClasses.ProductInfo('A-1', 'Mac Book Pro -- May', 2000));
-
           case 21:
           case "end":
             return _context13.stop();
@@ -500,10 +461,10 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutPrimitive);
             _context14.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context14.sent;
             (0, _chai.expect)(resultCase1).equals(51);
+
             yieldableCase2 = koconut.filter(function (eachEntry) {
               return eachEntry.value > 100;
             }).maxOfWith(function (eachEntry) {
@@ -515,16 +476,13 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             _context14.prev = 9;
             _context14.next = 12;
             return yieldableCase2.process();
-
           case 12:
             _context14.next = 17;
             break;
-
           case 14:
             _context14.prev = 14;
             _context14.t0 = _context14["catch"](9);
             (0, _chai.expect)(_context14.t0).to.be.instanceOf(_module.KoconutNoSuchElementException);
-
           case 17:
           case "end":
             return _context14.stop();
@@ -547,10 +505,10 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutPrimitive);
             _context15.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context15.sent;
             (0, _chai.expect)(resultCase1).equals(51);
+
             yieldableCase2 = koconut.filter(function (eachEntry) {
               return eachEntry.value > 100;
             }).maxOfWithOrNull(function (eachEntry) {
@@ -561,11 +519,9 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase2).to.be.instanceOf(_module.KoconutPrimitive);
             _context15.next = 11;
             return yieldableCase2["yield"]();
-
           case 11:
             resultCase2 = _context15.sent;
             (0, _chai.expect)(resultCase2).equals(null);
-
           case 13:
           case "end":
             return _context15.stop();
@@ -586,10 +542,10 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutPrimitive);
             _context16.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context16.sent;
             (0, _chai.expect)(resultCase1).eqls(new _module.Entry('Carol', 51));
+
             yieldableCase2 = koconut.filter(function (eachEntry) {
               return eachEntry.value > 100;
             }).maxWith(function (front, rear) {
@@ -599,16 +555,13 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             _context16.prev = 9;
             _context16.next = 12;
             return yieldableCase2["yield"]();
-
           case 12:
             _context16.next = 17;
             break;
-
           case 14:
             _context16.prev = 14;
             _context16.t0 = _context16["catch"](9);
             (0, _chai.expect)(_context16.t0).to.be.instanceOf(_module.KoconutNoSuchElementException);
-
           case 17:
           case "end":
             return _context16.stop();
@@ -629,10 +582,10 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutPrimitive);
             _context17.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context17.sent;
             (0, _chai.expect)(resultCase1).eqls(new _module.Entry('Carol', 51));
+
             yieldableCase2 = koconut.filter(function (eachEntry) {
               return eachEntry.value > 100;
             }).maxWithOrNull(function (front, rear) {
@@ -641,11 +594,9 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase2).to.be.instanceOf(_module.KoconutPrimitive);
             _context17.next = 11;
             return yieldableCase2["yield"]();
-
           case 11:
             resultCase2 = _context17.sent;
             (0, _chai.expect)(resultCase2).equals(null);
-
           case 13:
           case "end":
             return _context17.stop();
@@ -666,10 +617,10 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutEntry);
             _context18.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context18.sent;
             (0, _chai.expect)(resultCase1).eqls(new _module.Entry('Bob', 28));
+
             koconutCase2 = _module.KoconutMap.of(['Alice', 42], ['Bob', 28], ['Carol', 51]);
             yieldableCase2 = koconutCase2.filter(function (eachEntry) {
               return eachEntry.value > 100;
@@ -680,16 +631,13 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             _context18.prev = 10;
             _context18.next = 13;
             return yieldableCase2["yield"]();
-
           case 13:
             _context18.next = 18;
             break;
-
           case 15:
             _context18.prev = 15;
             _context18.t0 = _context18["catch"](10);
             (0, _chai.expect)(_context18.t0).to.be.instanceOf(_module.KoconutNoSuchElementException);
-
           case 18:
             koconutCase3 = _module.KoconutArray.from([new _TestDataClasses.ProductInfo('A-1', 'Mac Book Pro -- May', 2000), new _TestDataClasses.ProductInfo('A-2', 'Mac Book Air -- September', 1200), new _TestDataClasses.ProductInfo('A-3', 'iPhone -- June', 1500)]).associateBy(function (eachElement) {
               return eachElement.id;
@@ -700,11 +648,9 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase3).to.be.instanceOf(_module.KoconutEntry);
             _context18.next = 23;
             return yieldableCase3["yield"]();
-
           case 23:
             resultCase3 = _context18.sent;
             (0, _chai.expect)(resultCase3).eqls(new _module.Entry('A-2', new _TestDataClasses.ProductInfo('A-2', 'Mac Book Air -- September', 1200)));
-
           case 25:
           case "end":
             return _context18.stop();
@@ -725,10 +671,10 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutEntry);
             _context19.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context19.sent;
             (0, _chai.expect)(resultCase1).eqls(new _module.Entry('Bob', 28));
+
             koconutCase2 = _module.KoconutMap.of(['Alice', 42], ['Bob', 28], ['Carol', 51]);
             yieldableCase2 = koconutCase2.filter(function (eachEntry) {
               return eachEntry.value > 100;
@@ -738,10 +684,10 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase2).to.be.instanceOf(_module.KoconutEntry);
             _context19.next = 12;
             return yieldableCase2["yield"]();
-
           case 12:
             resultCase2 = _context19.sent;
             (0, _chai.expect)(resultCase2).equals(null);
+
             koconutCase3 = _module.KoconutArray.from([new _TestDataClasses.ProductInfo('A-1', 'Mac Book Pro -- May', 2000), new _TestDataClasses.ProductInfo('A-2', 'Mac Book Air -- September', 1200), new _TestDataClasses.ProductInfo('A-3', 'iPhone -- June', 1500)]).associateBy(function (eachElement) {
               return eachElement.id;
             });
@@ -751,11 +697,9 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase3).to.be.instanceOf(_module.KoconutEntry);
             _context19.next = 19;
             return yieldableCase3["yield"]();
-
           case 19:
             resultCase3 = _context19.sent;
             (0, _chai.expect)(resultCase3).eqls(new _module.Entry('A-2', new _TestDataClasses.ProductInfo('A-2', 'Mac Book Air -- September', 1200)));
-
           case 21:
           case "end":
             return _context19.stop();
@@ -776,10 +720,10 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutPrimitive);
             _context20.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context20.sent;
             (0, _chai.expect)(resultCase1).eqls(28);
+
             koconutCase2 = _module.KoconutMap.of(['Alice', 42], ['Bob', 28], ['Carol', 51]);
             yieldableCase2 = koconutCase2.filter(function (eachEntry) {
               return eachEntry.value > 100;
@@ -790,16 +734,13 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             _context20.prev = 10;
             _context20.next = 13;
             return yieldableCase2.process();
-
           case 13:
             _context20.next = 18;
             break;
-
           case 15:
             _context20.prev = 15;
             _context20.t0 = _context20["catch"](10);
             (0, _chai.expect)(_context20.t0).to.be.instanceOf(_module.KoconutNoSuchElementException);
-
           case 18:
             koconutCase3 = _module.KoconutArray.from([new _TestDataClasses.ProductInfo('A-1', 'Mac Book Pro -- May', 2000), new _TestDataClasses.ProductInfo('A-2', 'Mac Book Air -- September', 1200), new _TestDataClasses.ProductInfo('A-3', 'iPhone -- June', 1500)]).associateBy(function (eachElement) {
               return eachElement.id;
@@ -810,11 +751,9 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase3).to.be.instanceOf(_module.KoconutPrimitive);
             _context20.next = 23;
             return yieldableCase3["yield"]();
-
           case 23:
             resultCase3 = _context20.sent;
             (0, _chai.expect)(resultCase3).eqls(new _TestDataClasses.ProductInfo('A-2', 'Mac Book Air -- September', 1200));
-
           case 25:
           case "end":
             return _context20.stop();
@@ -835,10 +774,10 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutPrimitive);
             _context21.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context21.sent;
             (0, _chai.expect)(resultCase1).eqls(28);
+
             koconutCase2 = _module.KoconutMap.of(['Alice', 42], ['Bob', 28], ['Carol', 51]);
             yieldableCase2 = koconutCase2.filter(function (eachEntry) {
               return eachEntry.value > 100;
@@ -848,10 +787,10 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase2).to.be.instanceOf(_module.KoconutPrimitive);
             _context21.next = 12;
             return yieldableCase2["yield"]();
-
           case 12:
             resultCase2 = _context21.sent;
             (0, _chai.expect)(resultCase2).equals(null);
+
             koconutCase3 = _module.KoconutArray.from([new _TestDataClasses.ProductInfo('A-1', 'Mac Book Pro -- May', 2000), new _TestDataClasses.ProductInfo('A-2', 'Mac Book Air -- September', 1200), new _TestDataClasses.ProductInfo('A-3', 'iPhone -- June', 1500)]).associateBy(function (eachElement) {
               return eachElement.id;
             });
@@ -861,11 +800,9 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase3).to.be.instanceOf(_module.KoconutPrimitive);
             _context21.next = 19;
             return yieldableCase3["yield"]();
-
           case 19:
             resultCase3 = _context21.sent;
             (0, _chai.expect)(resultCase3).eqls(new _TestDataClasses.ProductInfo('A-2', 'Mac Book Air -- September', 1200));
-
           case 21:
           case "end":
             return _context21.stop();
@@ -888,10 +825,10 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutPrimitive);
             _context22.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context22.sent;
             (0, _chai.expect)(resultCase1).equals(28);
+
             yieldableCase2 = koconut.filter(function (eachEntry) {
               return eachEntry.value > 100;
             }).minOfWith(function (eachEntry) {
@@ -903,16 +840,13 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             _context22.prev = 9;
             _context22.next = 12;
             return yieldableCase2.process();
-
           case 12:
             _context22.next = 17;
             break;
-
           case 14:
             _context22.prev = 14;
             _context22.t0 = _context22["catch"](9);
             (0, _chai.expect)(_context22.t0).to.be.instanceOf(_module.KoconutNoSuchElementException);
-
           case 17:
           case "end":
             return _context22.stop();
@@ -935,10 +869,10 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutPrimitive);
             _context23.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context23.sent;
             (0, _chai.expect)(resultCase1).equals(28);
+
             yieldableCase2 = koconut.filter(function (eachEntry) {
               return eachEntry.value > 100;
             }).minOfWithOrNull(function (eachEntry) {
@@ -949,11 +883,9 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase2).to.be.instanceOf(_module.KoconutPrimitive);
             _context23.next = 11;
             return yieldableCase2["yield"]();
-
           case 11:
             resultCase2 = _context23.sent;
             (0, _chai.expect)(resultCase2).equals(null);
-
           case 13:
           case "end":
             return _context23.stop();
@@ -974,10 +906,10 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutPrimitive);
             _context24.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context24.sent;
             (0, _chai.expect)(resultCase1).eqls(new _module.Entry('Bob', 28));
+
             yieldableCase2 = koconut.filter(function (eachEntry) {
               return eachEntry.value > 100;
             }).minWith(function (front, rear) {
@@ -987,16 +919,13 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             _context24.prev = 9;
             _context24.next = 12;
             return yieldableCase2["yield"]();
-
           case 12:
             _context24.next = 17;
             break;
-
           case 14:
             _context24.prev = 14;
             _context24.t0 = _context24["catch"](9);
             (0, _chai.expect)(_context24.t0).to.be.instanceOf(_module.KoconutNoSuchElementException);
-
           case 17:
           case "end":
             return _context24.stop();
@@ -1017,10 +946,10 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutPrimitive);
             _context25.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context25.sent;
             (0, _chai.expect)(resultCase1).eqls(new _module.Entry('Bob', 28));
+
             yieldableCase2 = koconut.filter(function (eachEntry) {
               return eachEntry.value > 100;
             }).minWithOrNull(function (front, rear) {
@@ -1029,11 +958,9 @@ describe("".concat(_module.KoconutMap.name, " -- Calculator"), function () {
             (0, _chai.expect)(yieldableCase2).to.be.instanceOf(_module.KoconutPrimitive);
             _context25.next = 11;
             return yieldableCase2["yield"]();
-
           case 11:
             resultCase2 = _context25.sent;
             (0, _chai.expect)(resultCase2).equals(null);
-
           case 13:
           case "end":
             return _context25.stop();
@@ -1056,11 +983,9 @@ describe("".concat(_module.KoconutMap.name, " -- Caster"), function () {
             (0, _chai.expect)(yieldable).to.be.instanceOf(_module.KoconutArray);
             _context26.next = 5;
             return yieldable["yield"]();
-
           case 5:
             result = _context26.sent;
             (0, _chai.expect)(result).eqls([new _module.Entry(1, 1), new _module.Entry(2, 2), new _module.Entry(3, 3)]);
-
           case 7:
           case "end":
             return _context26.stop();
@@ -1081,11 +1006,9 @@ describe("".concat(_module.KoconutMap.name, " -- Caster"), function () {
             (0, _chai.expect)(yieldable).to.be.instanceOf(_module.KoconutSet);
             _context27.next = 5;
             return yieldable["yield"]();
-
           case 5:
             result = _context27.sent;
             (0, _chai.expect)(result).eqls(new Set([new _module.Entry(1, 1), new _module.Entry(2, 2), new _module.Entry(3, 3)]));
-
           case 7:
           case "end":
             return _context27.stop();
@@ -1093,7 +1016,9 @@ describe("".concat(_module.KoconutMap.name, " -- Caster"), function () {
       }
     }, _callee27);
   })));
+
 });
+
 describe("".concat(_module.KoconutMap.name, " -- Inspector"), function () {
   it(_module.KoconutMap.prototype.all.name, (0, _asyncToGenerator2["default"])(_regenerator["default"].mark(function _callee28() {
     var koconut, yieldableCase1, resultCase1, yieldableCase2, resultCase2;
@@ -1110,21 +1035,19 @@ describe("".concat(_module.KoconutMap.name, " -- Inspector"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutBoolean);
             _context28.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context28.sent;
             (0, _chai.expect)(resultCase1).equals(true);
+
             yieldableCase2 = koconut.all(function (eachEntry) {
               return eachEntry.value < 8;
             });
             (0, _chai.expect)(yieldableCase2).to.be.instanceOf(_module.KoconutBoolean);
             _context28.next = 11;
             return yieldableCase2["yield"]();
-
           case 11:
             resultCase2 = _context28.sent;
             (0, _chai.expect)(resultCase2).equals(false);
-
           case 13:
           case "end":
             return _context28.stop();
@@ -1147,21 +1070,19 @@ describe("".concat(_module.KoconutMap.name, " -- Inspector"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutBoolean);
             _context29.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context29.sent;
             (0, _chai.expect)(resultCase1).equals(true);
+
             yieldableCase2 = koconut.any(function (eachEntry) {
               return eachEntry.value < 0;
             });
             (0, _chai.expect)(yieldableCase2).to.be.instanceOf(_module.KoconutBoolean);
             _context29.next = 11;
             return yieldableCase2["yield"]();
-
           case 11:
             resultCase2 = _context29.sent;
             (0, _chai.expect)(resultCase2).equals(false);
-
           case 13:
           case "end":
             return _context29.stop();
@@ -1182,21 +1103,19 @@ describe("".concat(_module.KoconutMap.name, " -- Inspector"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutBoolean);
             _context30.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context30.sent;
             (0, _chai.expect)(resultCase1).equals(false);
+
             yieldableCase2 = koconut.filter(function (eachEntry) {
               return eachEntry.key > 10;
             }).isEmpty();
             (0, _chai.expect)(yieldableCase2).to.be.instanceOf(_module.KoconutBoolean);
             _context30.next = 11;
             return yieldableCase2["yield"]();
-
           case 11:
             resultCase2 = _context30.sent;
             (0, _chai.expect)(resultCase2).equals(true);
-
           case 13:
           case "end":
             return _context30.stop();
@@ -1217,21 +1136,19 @@ describe("".concat(_module.KoconutMap.name, " -- Inspector"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutBoolean);
             _context31.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context31.sent;
             (0, _chai.expect)(resultCase1).equals(true);
+
             yieldableCase2 = koconut.filter(function (eachEntry) {
               return eachEntry.key > 10;
             }).isNotEmpty();
             (0, _chai.expect)(yieldableCase2).to.be.instanceOf(_module.KoconutBoolean);
             _context31.next = 11;
             return yieldableCase2["yield"]();
-
           case 11:
             resultCase2 = _context31.sent;
             (0, _chai.expect)(resultCase2).equals(false);
-
           case 13:
           case "end":
             return _context31.stop();
@@ -1252,21 +1169,19 @@ describe("".concat(_module.KoconutMap.name, " -- Inspector"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutBoolean);
             _context32.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context32.sent;
             (0, _chai.expect)(resultCase1).equals(false);
+
             yieldableCase2 = koconut.filter(function (eachEntry) {
               return eachEntry.key > 10;
             }).isNullOrEmpty();
             (0, _chai.expect)(yieldableCase2).to.be.instanceOf(_module.KoconutBoolean);
             _context32.next = 11;
             return yieldableCase2["yield"]();
-
           case 11:
             resultCase2 = _context32.sent;
             (0, _chai.expect)(resultCase2).equals(true);
-
           case 13:
           case "end":
             return _context32.stop();
@@ -1287,10 +1202,10 @@ describe("".concat(_module.KoconutMap.name, " -- Inspector"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutBoolean);
             _context33.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context33.sent;
             (0, _chai.expect)(resultCase1).equals(true);
+
             koconutCase2 = _module.KoconutArray.from([new _TestDataClasses.Person('Grace', 'Hopper'), new _TestDataClasses.Person('Jacob', 'Bernoulli'), new _TestDataClasses.Person('Johann', 'Bernoulli'), new _TestDataClasses.Person('Jinyoung', 'Luvya')]).associate(function (eachElement) {
               return [eachElement, eachElement.firstName + eachElement.lastName];
             });
@@ -1298,10 +1213,10 @@ describe("".concat(_module.KoconutMap.name, " -- Inspector"), function () {
             (0, _chai.expect)(yieldableCase2).to.be.instanceOf(_module.KoconutBoolean);
             _context33.next = 12;
             return yieldableCase2["yield"]();
-
           case 12:
             resultCase2 = _context33.sent;
             (0, _chai.expect)(resultCase2).equals(true);
+
             koconutCase3 = _module.KoconutArray.of(new _TestDataClasses.Dog('Brie', 3, 0), new _TestDataClasses.Dog('Mike', 5, 1), new _TestDataClasses.Dog('unknown', 3, 0)).associate(function (eachElement) {
               return [eachElement, eachElement.name];
             });
@@ -1309,11 +1224,9 @@ describe("".concat(_module.KoconutMap.name, " -- Inspector"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutBoolean);
             _context33.next = 19;
             return yieldableCase3["yield"]();
-
           case 19:
             resultCase3 = _context33.sent;
             (0, _chai.expect)(resultCase3).equal(false);
-
           case 21:
           case "end":
             return _context33.stop();
@@ -1334,10 +1247,10 @@ describe("".concat(_module.KoconutMap.name, " -- Inspector"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutBoolean);
             _context34.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context34.sent;
             (0, _chai.expect)(resultCase1).equals(true);
+
             koconutCase2 = _module.KoconutArray.from([new _TestDataClasses.Person('Grace', 'Hopper'), new _TestDataClasses.Person('Jacob', 'Bernoulli'), new _TestDataClasses.Person('Johann', 'Bernoulli'), new _TestDataClasses.Person('Jinyoung', 'Luvya')]).associate(function (eachElement) {
               return [eachElement, eachElement.firstName + eachElement.lastName];
             });
@@ -1345,11 +1258,9 @@ describe("".concat(_module.KoconutMap.name, " -- Inspector"), function () {
             (0, _chai.expect)(yieldableCase2).to.be.instanceOf(_module.KoconutBoolean);
             _context34.next = 12;
             return yieldableCase2["yield"]();
-
           case 12:
             resultCase2 = _context34.sent;
             (0, _chai.expect)(resultCase2).equals(true);
-
           case 14:
           case "end":
             return _context34.stop();
@@ -1370,10 +1281,10 @@ describe("".concat(_module.KoconutMap.name, " -- Inspector"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutBoolean);
             _context35.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context35.sent;
             (0, _chai.expect)(resultCase1).equals(true);
+
             koconutCase2 = _module.KoconutArray.from([new _TestDataClasses.Person('Grace', 'Hopper'), new _TestDataClasses.Person('Jacob', 'Bernoulli'), new _TestDataClasses.Person('Johann', 'Bernoulli'), new _TestDataClasses.Person('Jinyoung', 'Luvya')]).associate(function (eachElement) {
               return [eachElement.firstName + eachElement.lastName, eachElement];
             });
@@ -1381,10 +1292,10 @@ describe("".concat(_module.KoconutMap.name, " -- Inspector"), function () {
             (0, _chai.expect)(yieldableCase2).to.be.instanceOf(_module.KoconutBoolean);
             _context35.next = 12;
             return yieldableCase2["yield"]();
-
           case 12:
             resultCase2 = _context35.sent;
             (0, _chai.expect)(resultCase2).equals(true);
+
             koconutCase3 = _module.KoconutArray.of(new _TestDataClasses.Dog('Brie', 3, 0), new _TestDataClasses.Dog('Mike', 5, 1), new _TestDataClasses.Dog('unknown', 3, 0)).associate(function (eachElement) {
               return [eachElement.name, eachElement];
             });
@@ -1392,11 +1303,9 @@ describe("".concat(_module.KoconutMap.name, " -- Inspector"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutBoolean);
             _context35.next = 19;
             return yieldableCase3["yield"]();
-
           case 19:
             resultCase3 = _context35.sent;
             (0, _chai.expect)(resultCase3).equal(false);
-
           case 21:
           case "end":
             return _context35.stop();
@@ -1419,21 +1328,19 @@ describe("".concat(_module.KoconutMap.name, " -- Inspector"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutBoolean);
             _context36.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context36.sent;
             (0, _chai.expect)(resultCase1).equals(true);
+
             yieldableCase2 = koconut.none(function (eachEntry) {
               return eachEntry.key > 10;
             });
             (0, _chai.expect)(yieldableCase2).to.be.instanceOf(_module.KoconutBoolean);
             _context36.next = 11;
             return yieldableCase2["yield"]();
-
           case 11:
             resultCase2 = _context36.sent;
             (0, _chai.expect)(resultCase2).equals(true);
-
           case 13:
           case "end":
             return _context36.stop();
@@ -1458,7 +1365,6 @@ describe("".concat(_module.KoconutMap.name, " -- Iterator"), function () {
             (0, _chai.expect)(yieldable).to.be.instanceOf(_module.KoconutPrimitive);
             _context37.next = 5;
             return yieldable.process();
-
           case 5:
           case "end":
             return _context37.stop();
@@ -1481,7 +1387,6 @@ describe("".concat(_module.KoconutMap.name, " -- Iterator"), function () {
             (0, _chai.expect)(yieldable).to.be.instanceOf(_module.KoconutMap);
             _context38.next = 5;
             return yieldable.process();
-
           case 5:
           case "end":
             return _context38.stop();
@@ -1506,12 +1411,10 @@ describe("".concat(_module.KoconutMap.name, " -- Manipulator"), function () {
             (0, _chai.expect)(yieldable).to.be.instanceOf(_module.KoconutMap);
             _context39.next = 5;
             return yieldable["yield"]();
-
           case 5:
             result = _context39.sent;
             expectedResultMap = new Map([[2, 4], [4, 8]]);
             (0, _chai.expect)(result).eqls(expectedResultMap);
-
           case 8:
           case "end":
             return _context39.stop();
@@ -1534,12 +1437,10 @@ describe("".concat(_module.KoconutMap.name, " -- Manipulator"), function () {
             (0, _chai.expect)(yieldable).to.be.instanceOf(_module.KoconutMap);
             _context40.next = 5;
             return yieldable["yield"]();
-
           case 5:
             result = _context40.sent;
             expectedResultMap = new Map([[3, 6], [4, 8], [5, 10]]);
             (0, _chai.expect)(result).eqls(expectedResultMap);
-
           case 8:
           case "end":
             return _context40.stop();
@@ -1563,11 +1464,9 @@ describe("".concat(_module.KoconutMap.name, " -- Manipulator"), function () {
             (0, _chai.expect)(yieldable).to.be.instanceOf(_module.KoconutMap);
             _context41.next = 6;
             return yieldable.process();
-
           case 6:
             expectedResultMap = new Map([[2, 4], [4, 8]]);
             (0, _chai.expect)(destination).eqls(expectedResultMap);
-
           case 8:
           case "end":
             return _context41.stop();
@@ -1591,11 +1490,9 @@ describe("".concat(_module.KoconutMap.name, " -- Manipulator"), function () {
             (0, _chai.expect)(yieldable).to.be.instanceOf(_module.KoconutMap);
             _context42.next = 6;
             return yieldable.process();
-
           case 6:
             expectedResultMap = new Map([[3, 6], [4, 8], [5, 10]]);
             (0, _chai.expect)(destination).eqls(expectedResultMap);
-
           case 8:
           case "end":
             return _context42.stop();
@@ -1618,12 +1515,10 @@ describe("".concat(_module.KoconutMap.name, " -- Manipulator"), function () {
             (0, _chai.expect)(yieldable).to.be.instanceOf(_module.KoconutMap);
             _context43.next = 5;
             return yieldable["yield"]();
-
           case 5:
             result = _context43.sent;
             expectedResultMap = new Map([[3, 6]]);
             (0, _chai.expect)(result).eqls(expectedResultMap);
-
           case 8:
           case "end":
             return _context43.stop();
@@ -1646,12 +1541,10 @@ describe("".concat(_module.KoconutMap.name, " -- Manipulator"), function () {
             (0, _chai.expect)(yieldable).to.be.instanceOf(_module.KoconutMap);
             _context44.next = 5;
             return yieldable["yield"]();
-
           case 5:
             result = _context44.sent;
             expectedResultMap = new Map([[4, 8], [5, 10]]);
             (0, _chai.expect)(result).eqls(expectedResultMap);
-
           case 8:
           case "end":
             return _context44.stop();
@@ -1672,10 +1565,10 @@ describe("".concat(_module.KoconutMap.name, " -- Manipulator"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutMap);
             _context45.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context45.sent;
             (0, _chai.expect)(resultCase1).eqls(new Map([[2, 2], [3, 3]]));
+
             koconutCase2 = _module.KoconutArray.from([new _TestDataClasses.Person('Grace', 'Hopper'), new _TestDataClasses.Person('Jacob', 'Bernoulli'), new _TestDataClasses.Person('Johann', 'Bernoulli'), new _TestDataClasses.Person('Jinyoung', 'Luvya')]).associate(function (eachElement) {
               return [eachElement, eachElement.firstName + eachElement.lastName];
             });
@@ -1683,11 +1576,9 @@ describe("".concat(_module.KoconutMap.name, " -- Manipulator"), function () {
             (0, _chai.expect)(yieldableCase2).to.be.instanceOf(_module.KoconutMap);
             _context45.next = 12;
             return yieldableCase2["yield"]();
-
           case 12:
             resultCase2 = _context45.sent;
             (0, _chai.expect)(resultCase2).eqls(new Map([[new _TestDataClasses.Person('Grace', 'Hopper'), 'GraceHopper'], [new _TestDataClasses.Person('Jacob', 'Bernoulli'), 'JacobBernoulli']]));
-
           case 14:
           case "end":
             return _context45.stop();
@@ -1709,76 +1600,74 @@ describe("".concat(_module.KoconutMap.name, " -- Manipulator"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutMap);
             _context46.next = 6;
             return yieldableCase1["yield"]();
-
           case 6:
             resultCase1 = _context46.sent;
             (0, _chai.expect)(resultCase1).eqls(expectedResultMap);
+
             yieldableCase2 = koconut.plus(new _module.KoconutPair(4, 4));
             (0, _chai.expect)(yieldableCase2).to.be.instanceOf(_module.KoconutMap);
             _context46.next = 12;
             return yieldableCase2["yield"]();
-
           case 12:
             resultCase2 = _context46.sent;
             (0, _chai.expect)(resultCase2).eqls(expectedResultMap);
+
             yieldableCase3 = koconut.plus(new _module.Entry(4, 4));
             (0, _chai.expect)(yieldableCase3).to.be.instanceOf(_module.KoconutMap);
             _context46.next = 18;
             return yieldableCase3["yield"]();
-
           case 18:
             resultCase3 = _context46.sent;
             (0, _chai.expect)(resultCase3).eqls(expectedResultMap);
+
             yieldableCase4 = koconut.plus(new _module.KoconutEntry(4, 4));
             (0, _chai.expect)(yieldableCase4).to.be.instanceOf(_module.KoconutMap);
             _context46.next = 24;
             return yieldableCase4["yield"]();
-
           case 24:
             resultCase4 = _context46.sent;
             (0, _chai.expect)(resultCase4).eqls(expectedResultMap);
             expectedResultMap.set(5, 5);
+
             yieldableCase5 = koconut.plus(new _module.Pair(4, 4), new _module.Pair(5, 5));
             (0, _chai.expect)(yieldableCase5).to.be.instanceOf(_module.KoconutMap);
             _context46.next = 31;
             return yieldableCase5["yield"]();
-
           case 31:
             resultCase5 = _context46.sent;
             (0, _chai.expect)(resultCase5).eqls(expectedResultMap);
+
             yieldableCase6 = koconut.plus(new _module.KoconutPair(4, 4), new _module.KoconutPair(5, 5));
             (0, _chai.expect)(yieldableCase6).to.be.instanceOf(_module.KoconutMap);
             _context46.next = 37;
             return yieldableCase6["yield"]();
-
           case 37:
             resultCase6 = _context46.sent;
             (0, _chai.expect)(resultCase6).eqls(expectedResultMap);
+
             yieldableCase7 = koconut.plus(new _module.Entry(4, 4), new _module.Entry(5, 5));
             (0, _chai.expect)(yieldableCase7).to.be.instanceOf(_module.KoconutMap);
             _context46.next = 43;
             return yieldableCase7["yield"]();
-
           case 43:
             resultCase7 = _context46.sent;
             (0, _chai.expect)(resultCase7).eqls(expectedResultMap);
+
             yieldableCase8 = koconut.plus(new _module.KoconutEntry(4, 4), new _module.KoconutEntry(5, 5));
             (0, _chai.expect)(yieldableCase8).to.be.instanceOf(_module.KoconutMap);
             _context46.next = 49;
             return yieldableCase8["yield"]();
-
           case 49:
             resultCase8 = _context46.sent;
             (0, _chai.expect)(resultCase8).eqls(expectedResultMap);
+
             yieldableCase9 = koconut.plus([4, 4], [5, 5]);
             (0, _chai.expect)(yieldableCase9).to.be.instanceOf(_module.KoconutMap);
             _context46.next = 55;
             return yieldableCase9["yield"]();
-
           case 55:
             resultCase9 = _context46.sent;
             (0, _chai.expect)(resultCase9).eqls(expectedResultMap);
-
           case 57:
           case "end":
             return _context46.stop();
@@ -1801,10 +1690,10 @@ describe("".concat(_module.KoconutMap.name, " -- Selector"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutPrimitive);
             _context47.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context47.sent;
             (0, _chai.expect)(resultCase1).equals(4);
+
             koconutCase2 = _module.KoconutArray.of(1, 2, 3, 4, 5).associate(function (eachElement) {
               return [eachElement, eachElement * 2];
             });
@@ -1814,10 +1703,10 @@ describe("".concat(_module.KoconutMap.name, " -- Selector"), function () {
             (0, _chai.expect)(yieldableCase2).to.be.instanceOf(_module.KoconutPrimitive);
             _context47.next = 12;
             return yieldableCase2["yield"]();
-
           case 12:
             resultCase2 = _context47.sent;
             (0, _chai.expect)(resultCase2).equals(null);
+
             koconutCase3 = _module.KoconutArray.from([new _TestDataClasses.Person('Grace', 'Hopper'), new _TestDataClasses.Person('Jacob', 'Bernoulli'), new _TestDataClasses.Person('Johann', 'Bernoulli'), new _TestDataClasses.Person('Jinyoung', 'Luvya')]).associate(function (eachElement) {
               return [eachElement, eachElement.firstName + eachElement.lastName];
             });
@@ -1825,20 +1714,18 @@ describe("".concat(_module.KoconutMap.name, " -- Selector"), function () {
             (0, _chai.expect)(yieldableCase3).to.be.instanceOf(_module.KoconutPrimitive);
             _context47.next = 19;
             return yieldableCase3["yield"]();
-
           case 19:
             resultCase3 = _context47.sent;
             (0, _chai.expect)(resultCase3).equals('GraceHopper');
+
             koconutCase4 = _module.KoconutMap.of([new _TestDataClasses.Dog('unknown', 0, 0), 1], [new _TestDataClasses.Dog('unknown', 2, 0), 2], [new _TestDataClasses.Dog('unknown', 0, 1), 3]);
             yieldableCase4 = koconutCase4.get(new _TestDataClasses.Dog('Brie', 1, 1));
             (0, _chai.expect)(yieldableCase4).to.be.instanceOf(_module.KoconutPrimitive);
             _context47.next = 26;
             return yieldableCase4["yield"]();
-
           case 26:
             resultCase4 = _context47.sent;
             (0, _chai.expect)(resultCase4).to.be.eqls(3);
-
           case 28:
           case "end":
             return _context47.stop();
@@ -1859,10 +1746,10 @@ describe("".concat(_module.KoconutMap.name, " -- Selector"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutPrimitive);
             _context48.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context48.sent;
             (0, _chai.expect)(resultCase1).equals(4);
+
             koconutCase2 = _module.KoconutArray.of(1, 2, 3, 4, 5).associate(function (eachElement) {
               return [eachElement, eachElement * 2];
             });
@@ -1872,10 +1759,10 @@ describe("".concat(_module.KoconutMap.name, " -- Selector"), function () {
             (0, _chai.expect)(yieldableCase2).to.be.instanceOf(_module.KoconutPrimitive);
             _context48.next = 12;
             return yieldableCase2["yield"]();
-
           case 12:
             resultCase2 = _context48.sent;
             (0, _chai.expect)(resultCase2).equals(100);
+
             koconutCase3 = _module.KoconutArray.from([new _TestDataClasses.Person('Grace', 'Hopper'), new _TestDataClasses.Person('Jacob', 'Bernoulli'), new _TestDataClasses.Person('Johann', 'Bernoulli'), new _TestDataClasses.Person('Jinyoung', 'Luvya')]).associate(function (eachElement) {
               return [eachElement, eachElement.firstName + eachElement.lastName];
             });
@@ -1883,20 +1770,18 @@ describe("".concat(_module.KoconutMap.name, " -- Selector"), function () {
             (0, _chai.expect)(yieldableCase3).to.be.instanceOf(_module.KoconutPrimitive);
             _context48.next = 19;
             return yieldableCase3["yield"]();
-
           case 19:
             resultCase3 = _context48.sent;
             (0, _chai.expect)(resultCase3).equals('GraceHopper');
+
             koconutCase4 = _module.KoconutMap.of([new _TestDataClasses.Dog('unknown', 0, 0), 1], [new _TestDataClasses.Dog('unknown', 2, 0), 2], [new _TestDataClasses.Dog('unknown', 0, 1), 3]);
             yieldableCase4 = koconutCase4.getOrDefault(new _TestDataClasses.Dog('Brie', 1, 2), 10);
             (0, _chai.expect)(yieldableCase4).to.be.instanceOf(_module.KoconutPrimitive);
             _context48.next = 26;
             return yieldableCase4["yield"]();
-
           case 26:
             resultCase4 = _context48.sent;
             (0, _chai.expect)(resultCase4).to.be.eqls(10);
-
           case 28:
           case "end":
             return _context48.stop();
@@ -1919,10 +1804,10 @@ describe("".concat(_module.KoconutMap.name, " -- Selector"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutPrimitive);
             _context49.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context49.sent;
             (0, _chai.expect)(resultCase1).equals(4);
+
             koconutCase2 = _module.KoconutArray.of(1, 2, 3, 4, 5).associate(function (eachElement) {
               return [eachElement, eachElement * 2];
             });
@@ -1934,10 +1819,10 @@ describe("".concat(_module.KoconutMap.name, " -- Selector"), function () {
             (0, _chai.expect)(yieldableCase2).to.be.instanceOf(_module.KoconutPrimitive);
             _context49.next = 12;
             return yieldableCase2["yield"]();
-
           case 12:
             resultCase2 = _context49.sent;
             (0, _chai.expect)(resultCase2).equals(100);
+
             koconutCase3 = _module.KoconutArray.from([new _TestDataClasses.Person('Grace', 'Hopper'), new _TestDataClasses.Person('Jacob', 'Bernoulli'), new _TestDataClasses.Person('Johann', 'Bernoulli'), new _TestDataClasses.Person('Jinyoung', 'Luvya')]).associate(function (eachElement) {
               return [eachElement, eachElement.firstName + eachElement.lastName];
             });
@@ -1947,10 +1832,10 @@ describe("".concat(_module.KoconutMap.name, " -- Selector"), function () {
             (0, _chai.expect)(yieldableCase3).to.be.instanceOf(_module.KoconutPrimitive);
             _context49.next = 19;
             return yieldableCase3["yield"]();
-
           case 19:
             resultCase3 = _context49.sent;
             (0, _chai.expect)(resultCase3).equals('GraceHopper');
+
             koconutCase4 = _module.KoconutMap.of([new _TestDataClasses.Dog('unknown', 0, 0), 1], [new _TestDataClasses.Dog('unknown', 2, 0), 2], [new _TestDataClasses.Dog('unknown', 0, 1), 3]);
             yieldableCase4 = koconutCase4.getOrElse(new _TestDataClasses.Dog('Brie', 1, 2), function () {
               return 10;
@@ -1958,11 +1843,9 @@ describe("".concat(_module.KoconutMap.name, " -- Selector"), function () {
             (0, _chai.expect)(yieldableCase4).to.be.instanceOf(_module.KoconutPrimitive);
             _context49.next = 26;
             return yieldableCase4["yield"]();
-
           case 26:
             resultCase4 = _context49.sent;
             (0, _chai.expect)(resultCase4).to.be.eqls(10);
-
           case 28:
           case "end":
             return _context49.stop();
@@ -1983,10 +1866,10 @@ describe("".concat(_module.KoconutMap.name, " -- Selector"), function () {
             (0, _chai.expect)(yieldableCase1).to.be.instanceOf(_module.KoconutPrimitive);
             _context50.next = 5;
             return yieldableCase1["yield"]();
-
           case 5:
             resultCase1 = _context50.sent;
             (0, _chai.expect)(resultCase1).equals(4);
+
             koconutCase2 = _module.KoconutArray.of(1, 2, 3, 4, 5).associate(function (eachElement) {
               return [eachElement, eachElement * 2];
             });
@@ -1997,16 +1880,13 @@ describe("".concat(_module.KoconutMap.name, " -- Selector"), function () {
             _context50.prev = 10;
             _context50.next = 13;
             return yieldableCase2.process();
-
           case 13:
             _context50.next = 18;
             break;
-
           case 15:
             _context50.prev = 15;
             _context50.t0 = _context50["catch"](10);
             (0, _chai.expect)(_context50.t0).to.be.instanceOf(_module.KoconutNoSuchElementException);
-
           case 18:
             koconutCase3 = _module.KoconutArray.from([new _TestDataClasses.Person('Grace', 'Hopper'), new _TestDataClasses.Person('Jacob', 'Bernoulli'), new _TestDataClasses.Person('Johann', 'Bernoulli'), new _TestDataClasses.Person('Jinyoung', 'Luvya')]).associate(function (eachElement) {
               return [eachElement, eachElement.firstName + eachElement.lastName];
@@ -2015,20 +1895,18 @@ describe("".concat(_module.KoconutMap.name, " -- Selector"), function () {
             (0, _chai.expect)(yieldableCase3).to.be.instanceOf(_module.KoconutPrimitive);
             _context50.next = 23;
             return yieldableCase3["yield"]();
-
           case 23:
             resultCase3 = _context50.sent;
             (0, _chai.expect)(resultCase3).equals('GraceHopper');
+
             koconutCase4 = _module.KoconutMap.of([new _TestDataClasses.Dog('unknown', 0, 0), 1], [new _TestDataClasses.Dog('unknown', 2, 0), 2], [new _TestDataClasses.Dog('unknown', 0, 1), 3]);
             yieldableCase4 = koconutCase4.getValue(new _TestDataClasses.Dog('Brie', 1, 1));
             (0, _chai.expect)(yieldableCase4).to.be.instanceOf(_module.KoconutPrimitive);
             _context50.next = 30;
             return yieldableCase4["yield"]();
-
           case 30:
             resultCase4 = _context50.sent;
             (0, _chai.expect)(resultCase4).to.be.eqls(3);
-
           case 32:
           case "end":
             return _context50.stop();
@@ -2055,11 +1933,9 @@ describe("".concat(_module.KoconutMap.name, " -- Transformer"), function () {
             (0, _chai.expect)(yieldable).to.be.instanceOf(_module.KoconutArray);
             _context51.next = 5;
             return yieldable["yield"]();
-
           case 5:
             result = _context51.sent;
             (0, _chai.expect)(result).eqls([1, 2, 3, 4, 5, 6, 8, 10]);
-
           case 7:
           case "end":
             return _context51.stop();
@@ -2083,10 +1959,8 @@ describe("".concat(_module.KoconutMap.name, " -- Transformer"), function () {
             (0, _chai.expect)(yieldable).to.be.instanceOf(_module.KoconutMap);
             _context52.next = 6;
             return yieldable.process();
-
           case 6:
             (0, _chai.expect)(destination).eqls([1, 2, 2, 4, 3, 6, 4, 8, 5, 10]);
-
           case 7:
           case "end":
             return _context52.stop();
@@ -2109,11 +1983,9 @@ describe("".concat(_module.KoconutMap.name, " -- Transformer"), function () {
             (0, _chai.expect)(yieldable).to.be.instanceOf(_module.KoconutArray);
             _context53.next = 5;
             return yieldable["yield"]();
-
           case 5:
             result = _context53.sent;
             (0, _chai.expect)(result).eqls([3, 6, 9, 12, 15]);
-
           case 7:
           case "end":
             return _context53.stop();
@@ -2134,12 +2006,10 @@ describe("".concat(_module.KoconutMap.name, " -- Transformer"), function () {
             (0, _chai.expect)(yieldable).to.be.instanceOf(_module.KoconutMap);
             _context54.next = 5;
             return yieldable["yield"]();
-
           case 5:
             result = _context54.sent;
             expectedResultMap = new Map([[4, 2.7], [7, 5.8]]);
             (0, _chai.expect)(result).eqls(expectedResultMap);
-
           case 8:
           case "end":
             return _context54.stop();
@@ -2161,11 +2031,9 @@ describe("".concat(_module.KoconutMap.name, " -- Transformer"), function () {
             (0, _chai.expect)(yieldable).to.be.instanceOf(_module.KoconutMap);
             _context55.next = 6;
             return yieldable.process();
-
           case 6:
             expectedResultMap = new Map([[4, 2.7], [7, 5.8]]);
             (0, _chai.expect)(destination).eqls(expectedResultMap);
-
           case 8:
           case "end":
             return _context55.stop();
@@ -2188,11 +2056,9 @@ describe("".concat(_module.KoconutMap.name, " -- Transformer"), function () {
             (0, _chai.expect)(yieldable).to.be.instanceOf(_module.KoconutArray);
             _context56.next = 5;
             return yieldable["yield"]();
-
           case 5:
             result = _context56.sent;
             (0, _chai.expect)(result).eqls([12, 15]);
-
           case 7:
           case "end":
             return _context56.stop();
@@ -2216,10 +2082,8 @@ describe("".concat(_module.KoconutMap.name, " -- Transformer"), function () {
             (0, _chai.expect)(yieldable).to.be.instanceOf(_module.KoconutMap);
             _context57.next = 6;
             return yieldable.process();
-
           case 6:
             (0, _chai.expect)(destination).eqls([12, 15]);
-
           case 7:
           case "end":
             return _context57.stop();
@@ -2243,10 +2107,8 @@ describe("".concat(_module.KoconutMap.name, " -- Transformer"), function () {
             (0, _chai.expect)(yieldable).to.be.instanceOf(_module.KoconutMap);
             _context58.next = 6;
             return yieldable.process();
-
           case 6:
             (0, _chai.expect)(destination).eqls([3, 6, 9, 12, 15]);
-
           case 7:
           case "end":
             return _context58.stop();
@@ -2267,12 +2129,10 @@ describe("".concat(_module.KoconutMap.name, " -- Transformer"), function () {
             (0, _chai.expect)(yieldable).to.be.instanceOf(_module.KoconutMap);
             _context59.next = 5;
             return yieldable["yield"]();
-
           case 5:
             result = _context59.sent;
             expectedResultMap = new Map([['beverage', '2.7$'], ['meal', '12.4$']]);
             (0, _chai.expect)(result).eqls(expectedResultMap);
-
           case 8:
           case "end":
             return _context59.stop();
@@ -2294,11 +2154,9 @@ describe("".concat(_module.KoconutMap.name, " -- Transformer"), function () {
             (0, _chai.expect)(yieldable).to.be.instanceOf(_module.KoconutMap);
             _context60.next = 6;
             return yieldable.process();
-
           case 6:
             expectedResultMap = new Map([['beverage', '2.7$'], ['meal', '12.4$']]);
             (0, _chai.expect)(destination).eqls(expectedResultMap);
-
           case 8:
           case "end":
             return _context60.stop();

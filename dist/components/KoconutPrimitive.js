@@ -1,36 +1,27 @@
 'use strict';
 
 var _interopRequireDefault = require('@babel/runtime/helpers/interopRequireDefault');
-
 Object.defineProperty(exports, '__esModule', {
   value: true,
 });
 exports.KoconutPrimitive = void 0;
-
 var _regenerator = _interopRequireDefault(
   require('@babel/runtime/regenerator'),
 );
-
 var _asyncToGenerator2 = _interopRequireDefault(
   require('@babel/runtime/helpers/asyncToGenerator'),
 );
-
 var _classCallCheck2 = _interopRequireDefault(
   require('@babel/runtime/helpers/classCallCheck'),
 );
-
 var _createClass2 = _interopRequireDefault(
   require('@babel/runtime/helpers/createClass'),
 );
-
 var _defineProperty2 = _interopRequireDefault(
   require('@babel/runtime/helpers/defineProperty'),
 );
-
 var _module = require('../module');
-
 ('use strict');
-
 var KoconutPrimitive = (function () {
   function KoconutPrimitive() {
     var data =
@@ -42,7 +33,6 @@ var KoconutPrimitive = (function () {
     (0, _defineProperty2['default'])(this, 'isValidated', false);
     this.data = data;
   }
-
   (0, _createClass2['default'])(KoconutPrimitive, [
     {
       key: 'setPrevYieldable',
@@ -74,11 +64,9 @@ var KoconutPrimitive = (function () {
             }, _callee);
           }),
         );
-
         function validate(_x) {
           return _validate.apply(this, arguments);
         }
-
         return validate;
       })(),
     },
@@ -96,13 +84,10 @@ var KoconutPrimitive = (function () {
                         _context2.next = 7;
                         break;
                       }
-
                       _context2.next = 3;
                       return this.prevYieldable['yield']();
-
                     case 3:
                       this.data = _context2.sent;
-
                       if (
                         !(
                           !(this instanceof _module.KoconutSequence) &&
@@ -112,38 +97,29 @@ var KoconutPrimitive = (function () {
                         _context2.next = 7;
                         break;
                       }
-
                       _context2.next = 7;
                       return this.data.done();
-
                     case 7:
                       if (!(this.processor != null)) {
                         _context2.next = 11;
                         break;
                       }
-
                       _context2.next = 10;
                       return this.processor();
-
                     case 10:
                       this.data = _context2.sent;
-
                     case 11:
                       if (this.isValidated) {
                         _context2.next = 15;
                         break;
                       }
-
                       _context2.next = 14;
                       return this.validate(this.data);
-
                     case 14:
                       this.isValidated = true;
-
                     case 15:
                       delete this.prevYieldable;
                       delete this.processor;
-
                     case 17:
                     case 'end':
                       return _context2.stop();
@@ -155,11 +131,9 @@ var KoconutPrimitive = (function () {
             );
           }),
         );
-
         function process() {
           return _process.apply(this, arguments);
         }
-
         return process;
       })(),
     },
@@ -175,10 +149,8 @@ var KoconutPrimitive = (function () {
                     case 0:
                       _context3.next = 2;
                       return this.process();
-
                     case 2:
                       return _context3.abrupt('return', this);
-
                     case 3:
                     case 'end':
                       return _context3.stop();
@@ -190,11 +162,9 @@ var KoconutPrimitive = (function () {
             );
           }),
         );
-
         function retrieve() {
           return _retrieve.apply(this, arguments);
         }
-
         return retrieve;
       })(),
     },
@@ -210,10 +180,8 @@ var KoconutPrimitive = (function () {
                     case 0:
                       _context4.next = 2;
                       return this.process();
-
                     case 2:
                       return _context4.abrupt('return', this.data);
-
                     case 3:
                     case 'end':
                       return _context4.stop();
@@ -225,11 +193,9 @@ var KoconutPrimitive = (function () {
             );
           }),
         );
-
         function _yield() {
           return _yield2.apply(this, arguments);
         }
-
         return _yield;
       })(),
     },
@@ -246,15 +212,12 @@ var KoconutPrimitive = (function () {
                       _context5.t0 = block;
                       _context5.next = 3;
                       return this['yield']();
-
                     case 3:
                       _context5.t1 = _context5.sent;
                       _context5.next = 6;
                       return (0, _context5.t0)(_context5.t1);
-
                     case 6:
                       return _context5.abrupt('return', _context5.sent);
-
                     case 7:
                     case 'end':
                       return _context5.stop();
@@ -266,11 +229,9 @@ var KoconutPrimitive = (function () {
             );
           }),
         );
-
         function _let(_x2) {
           return _let2.apply(this, arguments);
         }
-
         return _let;
       })(),
     },
@@ -287,15 +248,12 @@ var KoconutPrimitive = (function () {
                       _context6.t0 = block;
                       _context6.next = 3;
                       return this['yield']();
-
                     case 3:
                       _context6.t1 = _context6.sent;
                       _context6.next = 6;
                       return (0, _context6.t0)(_context6.t1);
-
                     case 6:
                       return _context6.abrupt('return', this.data);
-
                     case 7:
                     case 'end':
                       return _context6.stop();
@@ -307,16 +265,13 @@ var KoconutPrimitive = (function () {
             );
           }),
         );
-
         function also(_x3) {
           return _also.apply(this, arguments);
         }
-
         return also;
       })(),
     },
   ]);
   return KoconutPrimitive;
 })();
-
 exports.KoconutPrimitive = KoconutPrimitive;

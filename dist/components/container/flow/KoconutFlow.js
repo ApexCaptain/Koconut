@@ -1,58 +1,43 @@
 'use strict';
 
 var _interopRequireDefault = require('@babel/runtime/helpers/interopRequireDefault');
-
 Object.defineProperty(exports, '__esModule', {
   value: true,
 });
 exports.KoconutFlow = exports.Flow = void 0;
-
 var _regenerator = _interopRequireDefault(
   require('@babel/runtime/regenerator'),
 );
-
 var _asyncToGenerator2 = _interopRequireDefault(
   require('@babel/runtime/helpers/asyncToGenerator'),
 );
-
 var _toConsumableArray2 = _interopRequireDefault(
   require('@babel/runtime/helpers/toConsumableArray'),
 );
-
 var _classCallCheck2 = _interopRequireDefault(
   require('@babel/runtime/helpers/classCallCheck'),
 );
-
 var _createClass2 = _interopRequireDefault(
   require('@babel/runtime/helpers/createClass'),
 );
-
 var _assertThisInitialized2 = _interopRequireDefault(
   require('@babel/runtime/helpers/assertThisInitialized'),
 );
-
 var _inherits2 = _interopRequireDefault(
   require('@babel/runtime/helpers/inherits'),
 );
-
 var _possibleConstructorReturn2 = _interopRequireDefault(
   require('@babel/runtime/helpers/possibleConstructorReturn'),
 );
-
 var _getPrototypeOf2 = _interopRequireDefault(
   require('@babel/runtime/helpers/getPrototypeOf'),
 );
-
 var _defineProperty2 = _interopRequireDefault(
   require('@babel/runtime/helpers/defineProperty'),
 );
-
 var _module = require('../../../module');
-
 var _events = require('events');
-
 var _Symbol$iterator;
-
 function _createForOfIteratorHelper(o, allowArrayLike) {
   var it =
     (typeof Symbol !== 'undefined' && o[Symbol.iterator]) || o['@@iterator'];
@@ -106,7 +91,6 @@ function _createForOfIteratorHelper(o, allowArrayLike) {
     },
   };
 }
-
 function _unsupportedIterableToArray(o, minLen) {
   if (!o) return;
   if (typeof o === 'string') return _arrayLikeToArray(o, minLen);
@@ -116,7 +100,6 @@ function _unsupportedIterableToArray(o, minLen) {
   if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
     return _arrayLikeToArray(o, minLen);
 }
-
 function _arrayLikeToArray(arr, len) {
   if (len == null || len > arr.length) len = arr.length;
   for (var i = 0, arr2 = new Array(len); i < len; i++) {
@@ -124,7 +107,6 @@ function _arrayLikeToArray(arr, len) {
   }
   return arr2;
 }
-
 function _createSuper(Derived) {
   var hasNativeReflectConstruct = _isNativeReflectConstruct();
   return function _createSuperInternal() {
@@ -139,7 +121,6 @@ function _createSuper(Derived) {
     return (0, _possibleConstructorReturn2['default'])(this, result);
   };
 }
-
 function _isNativeReflectConstruct() {
   if (typeof Reflect === 'undefined' || !Reflect.construct) return false;
   if (Reflect.construct.sham) return false;
@@ -153,17 +134,12 @@ function _isNativeReflectConstruct() {
     return false;
   }
 }
-
 _Symbol$iterator = Symbol.iterator;
-
 var Flow = (function (_EventEmitter) {
   (0, _inherits2['default'])(Flow, _EventEmitter);
-
   var _super = _createSuper(Flow);
-
   function Flow() {
     var _this;
-
     var srcSequence =
       arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
     (0, _classCallCheck2['default'])(this, Flow);
@@ -183,11 +159,9 @@ var Flow = (function (_EventEmitter) {
       'mInnerDataMap',
       new Map(),
     );
-
     if (srcSequence != null) {
       var _iterator = _createForOfIteratorHelper(srcSequence);
       var _step;
-
       try {
         for (_iterator.s(); !(_step = _iterator.n()).done; ) {
           var eachDatum = _step.value;
@@ -204,10 +178,8 @@ var Flow = (function (_EventEmitter) {
         _iterator.f();
       }
     }
-
     return _this;
   }
-
   (0, _createClass2['default'])(
     Flow,
     [
@@ -262,14 +234,12 @@ var Flow = (function (_EventEmitter) {
         key: 'onNewDatumInserted',
         value: function onNewDatumInserted(onNewDatumInsertedListener) {
           var _this2 = this;
-
           var targetFlow =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
               : null;
           var count = 0;
           this.mChainedFlow = targetFlow;
-
           var mediatedListener = (function () {
             var _ref = (0, _asyncToGenerator2['default'])(
               _regenerator['default'].mark(function _callee(id, datum) {
@@ -281,11 +251,9 @@ var Flow = (function (_EventEmitter) {
                       case 0:
                         _context.next = 2;
                         return onNewDatumInsertedListener(id, datum);
-
                       case 2:
                         if (_this2.mPentDataSize - 1 == count++) {
                           _this2.emit(Flow.dataScanningCompletedEvent);
-
                           if (targetFlow != null) {
                             targetFlow.mPentDataSize =
                               targetFlow.mInnerDataMap.size;
@@ -293,7 +261,6 @@ var Flow = (function (_EventEmitter) {
                               targetFlow.emit(Flow.dataScanningCompletedEvent);
                           }
                         }
-
                       case 3:
                       case 'end':
                         return _context.stop();
@@ -303,12 +270,10 @@ var Flow = (function (_EventEmitter) {
                 _callee);
               }),
             );
-
             return function mediatedListener(_x, _x2) {
               return _ref.apply(this, arguments);
             };
           })();
-
           this.on(Flow.newDatumInsertedEvent, mediatedListener);
           this.once(Flow.dataScanningCompletedEvent, function () {
             return _this2.removeListener(
@@ -336,7 +301,6 @@ var Flow = (function (_EventEmitter) {
           ) {
             srcSequence[_key] = arguments[_key];
           }
-
           return new Flow(srcSequence);
         },
       },
@@ -362,7 +326,6 @@ var Flow = (function (_EventEmitter) {
           ) {
             srcSequence[_key2] = arguments[_key2];
           }
-
           return new Flow(
             srcSequence.map(function (eachDatum, eachIndex) {
               return new _module.Entry(eachIndex, eachDatum);
@@ -390,7 +353,6 @@ var Flow = (function (_EventEmitter) {
   );
   return Flow;
 })(_events.EventEmitter);
-
 exports.Flow = Flow;
 (0, _defineProperty2['default'])(
   Flow,
@@ -402,15 +364,11 @@ exports.Flow = Flow;
   'dataScanningCompletedEvent',
   'dataScanningCompleted',
 );
-
 var KoconutFlow = (function (_KoconutIterable) {
   (0, _inherits2['default'])(KoconutFlow, _KoconutIterable);
-
   var _super2 = _createSuper(KoconutFlow);
-
   function KoconutFlow() {
     var _this3;
-
     var srcSequence =
       arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
     (0, _classCallCheck2['default'])(this, KoconutFlow);
@@ -423,7 +381,6 @@ var KoconutFlow = (function (_KoconutIterable) {
     _this3.data = new Flow(srcSequence);
     return _this3;
   }
-
   (0, _createClass2['default'])(
     KoconutFlow,
     [
@@ -440,7 +397,6 @@ var KoconutFlow = (function (_KoconutIterable) {
                         if (data != null) {
                           this.combinedDataWrapper = data;
                         }
-
                       case 1:
                       case 'end':
                         return _context2.stop();
@@ -452,11 +408,9 @@ var KoconutFlow = (function (_KoconutIterable) {
               );
             }),
           );
-
           function validate(_x3) {
             return _validate.apply(this, arguments);
           }
-
           return validate;
         })(),
       },
@@ -464,7 +418,6 @@ var KoconutFlow = (function (_KoconutIterable) {
         key: 'mapFlow',
         value: function mapFlow(transform) {
           var _this4 = this;
-
           var thisArg =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
@@ -483,7 +436,6 @@ var KoconutFlow = (function (_KoconutIterable) {
                     switch ((_context4.prev = _context4.next)) {
                       case 0:
                         processedFlow = new Flow();
-
                         if (_this4.data != null) {
                           _this4.data['onNewDatumInserted'](
                             (function () {
@@ -503,7 +455,6 @@ var KoconutFlow = (function (_KoconutIterable) {
                                             _context3.t1 = id;
                                             _context3.next = 4;
                                             return transform(datum);
-
                                           case 4:
                                             _context3.t2 = _context3.sent;
                                             return _context3.abrupt(
@@ -514,7 +465,6 @@ var KoconutFlow = (function (_KoconutIterable) {
                                                 _context3.t2,
                                               ),
                                             );
-
                                           case 6:
                                           case 'end':
                                             return _context3.stop();
@@ -525,7 +475,6 @@ var KoconutFlow = (function (_KoconutIterable) {
                                   );
                                 }),
                               );
-
                               return function (_x4, _x5) {
                                 return _ref3.apply(this, arguments);
                               };
@@ -536,9 +485,7 @@ var KoconutFlow = (function (_KoconutIterable) {
                           processedFlow.emit(
                             Flow['dataScanningCompletedEvent'],
                           );
-
                         return _context4.abrupt('return', processedFlow);
-
                       case 3:
                       case 'end':
                         return _context4.stop();
@@ -558,7 +505,6 @@ var KoconutFlow = (function (_KoconutIterable) {
           var _yield2 = (0, _asyncToGenerator2['default'])(
             _regenerator['default'].mark(function _callee6() {
               var _this5 = this;
-
               return _regenerator['default'].wrap(function _callee6$(
                 _context6,
               ) {
@@ -582,7 +528,6 @@ var KoconutFlow = (function (_KoconutIterable) {
                                         case 0:
                                           _context5.next = 2;
                                           return _this5.process();
-
                                         case 2:
                                           if (_this5.mIsChained)
                                             resolve(_this5.data);
@@ -601,7 +546,6 @@ var KoconutFlow = (function (_KoconutIterable) {
                                                 },
                                               );
                                           }
-
                                         case 3:
                                         case 'end':
                                           return _context5.stop();
@@ -612,14 +556,12 @@ var KoconutFlow = (function (_KoconutIterable) {
                                 );
                               }),
                             );
-
                             return function (_x6) {
                               return _ref4.apply(this, arguments);
                             };
                           })(),
                         ),
                       );
-
                     case 1:
                     case 'end':
                       return _context6.stop();
@@ -629,11 +571,9 @@ var KoconutFlow = (function (_KoconutIterable) {
               _callee6);
             }),
           );
-
           function _yield() {
             return _yield2.apply(this, arguments);
           }
-
           return _yield;
         })(),
       },
@@ -661,7 +601,6 @@ var KoconutFlow = (function (_KoconutIterable) {
           ) {
             srcSequence[_key3] = arguments[_key3];
           }
-
           return new KoconutFlow(srcSequence);
         },
       },
@@ -685,5 +624,4 @@ var KoconutFlow = (function (_KoconutIterable) {
   );
   return KoconutFlow;
 })(_module.KoconutIterable);
-
 exports.KoconutFlow = KoconutFlow;
