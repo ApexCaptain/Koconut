@@ -1,3 +1,3 @@
 export interface KoconutYieldable<DataType> {
-  yield(): Promise<DataType | null>;
+    yield(): Promise<DataType | null>;
 }
